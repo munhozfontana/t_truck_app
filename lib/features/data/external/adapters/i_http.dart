@@ -23,6 +23,7 @@ class HttpResponse {
   int? statusCode;
   String? body;
   Map? header;
+
   HttpResponse({
     this.statusCode,
     this.body,

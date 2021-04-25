@@ -12,28 +12,10 @@ class AppFailure extends Failure {
   List<Object?> get props => [detail];
 }
 
-class ValueNotFoundFailure extends Failure {
+class RequestFailure extends Failure {
   final String? detail;
 
-  ValueNotFoundFailure({this.detail});
-
-  @override
-  List<Object?> get props => [detail];
-}
-
-class ValueNotPersistedFailure extends Failure {
-  final String? detail;
-
-  ValueNotPersistedFailure({this.detail});
-
-  @override
-  List<Object?> get props => [detail];
-}
-
-class NotImplementedFailure extends Failure {
-  final String? detail;
-
-  NotImplementedFailure({this.detail});
+  RequestFailure({this.detail});
 
   @override
   List<Object?> get props => [detail];

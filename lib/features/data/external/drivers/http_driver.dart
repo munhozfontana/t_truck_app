@@ -14,7 +14,7 @@ class HttpDriver implements IHttp {
     try {
       return mackObj(await client!.delete(Uri.parse(url!), headers: headers));
     } catch (e) {
-      throw DriverException(error: ApiMensages.ADAPTER_ERROR);
+      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 
@@ -24,7 +24,7 @@ class HttpDriver implements IHttp {
     try {
       return mackObj(await client!.get(Uri.parse(url!), headers: headers));
     } catch (e) {
-      throw DriverException(error: ApiMensages.ADAPTER_ERROR);
+      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 
@@ -36,7 +36,7 @@ class HttpDriver implements IHttp {
         await client!.post(Uri.parse(url!), headers: headers, body: body),
       );
     } catch (e) {
-      throw DriverException(error: ApiMensages.ADAPTER_ERROR);
+      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 
@@ -50,7 +50,7 @@ class HttpDriver implements IHttp {
       return mackObj(
           await client!.put(Uri.parse(url!), headers: headers, body: body));
     } catch (e) {
-      throw DriverException(error: ApiMensages.ADAPTER_ERROR);
+      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 

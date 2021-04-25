@@ -6,7 +6,27 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(),
+      body: Container(
+        child: Column(
+          children: [
+            TextField(
+              // controller: ,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Login',
+              ),
+            ),
+            TextField(
+              // controller: ,
+              obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

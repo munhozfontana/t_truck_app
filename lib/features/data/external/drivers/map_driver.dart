@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_maps_adapter.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_map.dart';
 
 class MapDriver implements IMap {
   final controller = MapController(

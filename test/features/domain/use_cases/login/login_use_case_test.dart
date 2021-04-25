@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -27,7 +25,7 @@ void main() {
 
   test('should do login with no erros', () async {
     when(mockILoginRepository.login(params.credential!))
-        .thenAnswer((realInvocation) async => Right(Void));
+        .thenAnswer((realInvocation) async => Right(true));
     var res = await loginUseCase(params);
     expect(res, isA<Right>());
   });

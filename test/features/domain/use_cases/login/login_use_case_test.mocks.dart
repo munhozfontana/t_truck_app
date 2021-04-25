@@ -25,10 +25,10 @@ class MockILoginRepository extends _i1.Mock implements _i3.ILoginRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, void>> login(
+  _i4.Future<_i2.Either<_i5.Failure, bool>> login(
           _i6.Credential? credentials) =>
       (super.noSuchMethod(Invocation.method(#login, [credentials]),
-              returnValue: Future<_i2.Either<_i5.Failure, void>>.value(
-                  _FakeEither<_i5.Failure, void>()))
-          as _i4.Future<_i2.Either<_i5.Failure, void>>);
+              returnValue: Future<_i2.Either<_i5.Failure, bool>>.value(
+                  _FakeEither<_i5.Failure, bool>()))
+          as _i4.Future<_i2.Either<_i5.Failure, bool>>);
 }
