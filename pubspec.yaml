@@ -39,6 +39,8 @@ dependencies:
   build_runner: ^2.0.1
   pedantic: ^1.11.0
   dartz: ^0.10.0-nullsafety.1
+  get_it: ^6.1.1
+  rx_notifier: ^1.1.0
 
 dev_dependencies:
   flutter_test:
