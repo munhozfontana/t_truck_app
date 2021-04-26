@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rx_notifier/rx_notifier.dart';
+import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 import 'package:t_truck_app/features/presentation/controllers/login_controller.dart';
 import 'package:t_truck_app/injection_container.dart';
 
@@ -29,16 +30,18 @@ class LoginPage extends StatelessWidget {
                           controller.loginField.value = value;
                         },
                         decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Enter your username'),
+                          border: UnderlineInputBorder(),
+                          labelText: 'Enter your username',
+                        ),
                       ),
                       TextFormField(
                         onChanged: (value) {
                           controller.passwordField.value = value;
                         },
                         decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Enter your username'),
+                          border: UnderlineInputBorder(),
+                          labelText: 'Enter your username',
+                        ),
                       ),
                     ],
                   ),

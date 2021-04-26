@@ -2,18 +2,9 @@ import 'dart:async';
 
 import 'package:rx_notifier/rx_notifier.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
+import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 
-enum Loading { START, STOP }
-
-class BaseState {
-  final loadingState = RxNotifier<Loading>(Loading.STOP);
-
-  void changeLoading(Loading loading) {
-    loadingState.value = loading;
-  }
-}
-
-class LoginController extends BaseState {
+class LoginController extends BaseController {
   final loginField = RxNotifier<String>('');
   final passwordField = RxNotifier<String>('');
 
