@@ -1,6 +1,6 @@
-import 'dart:async';
-
 import 'package:rx_notifier/rx_notifier.dart';
+import 'package:t_truck_app/core/params/params.dart';
+import 'package:t_truck_app/features/domain/entites/credential.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 
@@ -14,13 +14,19 @@ class LoginController extends BaseController {
     required this.loginUseCase,
   });
 
-  void auth() {
+  void auth() async {
     changeLoading(Loading.START);
-    Timer(Duration(seconds: 5), () {
-      changeLoading(Loading.STOP);
-    });
-    // loginUseCase(Params(
-    //   credential: Credential(login: loginField.value, pass: loginField.value),
-    // ));
+    var res = await loginUseCase(Params(
+      credential:
+          Credential(login: loginField.value, password: loginField.value),
+    ));
+    res
+        .map(
+          (r) => changeLoading(Loading.STOP),
+        )
+        .fold(
+          (l) => null,
+          (r) => null,
+        );
   }
 }

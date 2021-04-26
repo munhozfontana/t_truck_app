@@ -5,8 +5,8 @@ import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_login.dart';
+import 'package:t_truck_app/features/data/models/credential_model.dart';
 import 'package:t_truck_app/features/data/repository/login_repository.dart';
-import 'package:t_truck_app/features/domain/entites/credential.dart';
 
 import 'login_repository_test.mocks.dart';
 
@@ -14,10 +14,10 @@ import 'login_repository_test.mocks.dart';
 void main() {
   late LoginRepository loginRepository;
   late ILogin mockILogin;
-  late Credential credentials;
+  late CredentialModel credentials;
 
   setUp(() {
-    credentials = Credential(login: 'AnyLogin', pass: 'AnyPass');
+    credentials = CredentialModel(login: 'AnyLogin', password: 'AnyPass');
     mockILogin = MockILogin();
     loginRepository = LoginRepository(iLoginApi: mockILogin);
   });

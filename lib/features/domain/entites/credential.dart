@@ -1,9 +1,9 @@
 class Credential {
-  String login;
-  String pass;
+  final String login;
+  final String password;
 
   Credential({
     required this.login,
-    required this.pass,
+    required this.password,
   });
 }

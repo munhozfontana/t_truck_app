@@ -14,7 +14,7 @@ void main() {
   late Credential credential;
 
   setUp(() {
-    credential = Credential(login: 'anyLogin', pass: 'anyPass');
+    credential = Credential(login: 'anyLogin', password: 'anyPass');
     mockIHttp = MockIHttp();
     loginApi = LoginApi(iHttp: mockIHttp);
   });
@@ -22,8 +22,8 @@ void main() {
   test(
     'Should do login with no erros',
     () async {
-      when(mockIHttp.postHttp(any, body: anyNamed('body')))
-          .thenAnswer((_) async => HttpResponse(body: '{ "auth": true }'));
+      when(mockIHttp.postHttp(any, body: anyNamed('body'))).thenAnswer(
+          (_) async => HttpResponse(body: '{ "auth": true }', statusCode: 200));
       var res = await loginApi.login(credential);
       expect(res, true);
     },

@@ -11,10 +11,9 @@ class LoginApi implements ILogin {
 
   @override
   Future<bool> login(Credential credential) async {
-    // var res = await iHttp.postHttp(
-    //     'https://6085bc0fd14a870017578395.mockapi.io/login',
-    //     body: credential);
-    // return json.decode(res.body!)['auth'];
-    return true;
+    var res = await iHttp.postHttp(
+        'https://6085bc0fd14a870017578395.mockapi.io/login',
+        body: credential);
+    return res.statusCode == 200;
   }
 }

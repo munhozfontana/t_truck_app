@@ -1,18 +1,21 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:t_truck_app/core/error/driver_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_http.dart';
 
-class HttpDriver implements IHttp {
-  final http.Client? client;
+class DioDriver implements IHttp {
+  final Dio dio;
 
-  HttpDriver({required this.client});
+  DioDriver({
+    required this.dio,
+  });
 
   @override
   Future<HttpResponse> deleteHttp(String? url,
       {Map<String, String>? headers}) async {
     try {
-      return mackObj(await client!.delete(Uri.parse(url!), headers: headers));
+      return mackObj(
+          await dio.delete(url!, options: Options(headers: headers)));
     } catch (e) {
       throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
@@ -22,46 +25,37 @@ class HttpDriver implements IHttp {
   Future<HttpResponse> getHttp(String? url,
       {Map<String, String>? headers}) async {
     try {
-      return mackObj(await client!.get(Uri.parse(url!), headers: headers));
+      return mackObj(await dio.get(url!, options: Options(headers: headers)));
     } catch (e) {
       throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 
   @override
-  Future<HttpResponse> postHttp(
-    String? url, {
-    Map<String, String>? headers = const {'Content-Type': 'application/json'},
-    body,
-  }) async {
+  Future<HttpResponse> postHttp(String? url,
+      {Map<String, String>? headers, body}) async {
     try {
-      return mackObj(
-        await client!.post(Uri.parse(url!), headers: headers, body: body),
-      );
+      return mackObj(await dio.post(url!, options: Options(headers: headers)));
     } catch (e) {
       throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 
   @override
-  Future<HttpResponse> putHttp(
-    String? url, {
-    Map<String, String>? headers,
-    dynamic body,
-  }) async {
+  Future<HttpResponse> putHttp(String? url,
+      {Map<String, String>? headers, body}) async {
     try {
-      return mackObj(
-          await client!.put(Uri.parse(url!), headers: headers, body: body));
+      return mackObj(await dio.put(url!, options: Options(headers: headers)));
     } catch (e) {
       throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
     }
   }
 
-  HttpResponse mackObj(http.Response response) {
+  HttpResponse mackObj(Response response) {
     return HttpResponse(
       statusCode: response.statusCode,
-      body: response.body,
-      header: response.headers,
+      body: response.data.toString(),
+      header: response.requestOptions.headers,
     );
   }
 }
