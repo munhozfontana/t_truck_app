@@ -1,9 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 import 'package:t_truck_app/features/data/external/adapters/i_http.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_login.dart';
 import 'package:t_truck_app/features/data/external/apis/login_api.dart';
-import 'package:t_truck_app/features/data/external/drivers/http_driver.dart';
+import 'package:t_truck_app/features/data/external/drivers/dio_driver.dart';
 import 'package:t_truck_app/features/data/repository/login_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
@@ -17,24 +17,29 @@ void init() {
       loginUseCase: sl(),
     ),
   );
-  sl.registerLazySingleton(
+  sl.registerFactory(
     () => LoginUseCase(
       iLoginRepository: sl(),
     ),
   );
-  sl.registerLazySingleton<ILoginRepository>(
+  sl.registerFactory<ILoginRepository>(
     () => LoginRepository(
       iLoginApi: sl(),
     ),
   );
-  sl.registerLazySingleton<ILogin>(
+  sl.registerFactory<ILogin>(
     () => LoginApi(
       iHttp: sl(),
     ),
   );
-  sl.registerLazySingleton<IHttp>(
-    () => HttpDriver(
-      client: http.Client(),
+  sl.registerFactory<IHttp>(
+    () => DioDriver(
+      dio: Dio(),
     ),
   );
+  // sl.registerLazySingleton<IHttp>(
+  //   () => HttpDriver(
+  //     client: http.Client(),
+  //   ),
+  // );
 }
