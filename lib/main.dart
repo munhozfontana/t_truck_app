@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:t_truck_app/features/presentation/pages/login_page.dart';
 
 import 'injection_container.dart' as di;
 
 void main() async {
-  await DotEnv.load(fileName: '.env');
+  await dont_env.load(fileName: '.env');
   di.init();
   runApp(MyApp());
 }
