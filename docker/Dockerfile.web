@@ -8,7 +8,6 @@ WORKDIR  /usr/local/app
 
 COPY . .
 # Stage 1 - config
-RUN ./help_testes.sh t_truck_app
 RUN flutter pub get
 
 # Stage 2 - build web

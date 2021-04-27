@@ -9,7 +9,7 @@ WORKDIR  /usr/local/app
 
 COPY . .
 
-# RUN ./help_testes.sh run_bus
+RUN ./help_testes.sh t_truck_app
 RUN flutter pub get
 RUN flutter analyze --no-pub --no-current-package lib
 RUN flutter test --coverage
