@@ -33,11 +33,11 @@ class LoginController extends GetxController {
 
     res.fold(
         (l) => {
-              print(l.props.first),
+              changeLoading(Loading.STOP),
               Get.snackbar(
                 'Titulo',
                 l.props.first.toString(),
-                colorText: Colors.red,
+                colorText: Colors.blueAccent,
                 snackPosition: SnackPosition.BOTTOM,
               ),
             },
