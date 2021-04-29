@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/credential.dart';
@@ -23,12 +24,25 @@ class LoginController extends GetxController {
   void auth() async {
     print('Tete');
     changeLoading(Loading.START);
-    await loginUseCase(
+    var res = await loginUseCase(
       Params(
         credential:
             Credential(login: loginField.text, password: passwordField.text),
       ),
     );
+
+    res.fold(
+        (l) => {
+              print(l.props.first),
+              Get.snackbar(
+                'Titulo',
+                l.props.first.toString(),
+                colorText: Colors.red,
+                snackPosition: SnackPosition.BOTTOM,
+              ),
+            },
+        (r) => r);
+
     Timer(Duration(seconds: 2),
         () => {changeLoading(Loading.STOP), print('Tete 2')});
   }
