@@ -37,4 +37,28 @@ void main() {
     var res = await loginUseCase(params);
     expect(res, isA<Left>());
   });
+  test('should return ValidationFailure when login is empty', () async {
+    var paramsNoLogin = Params(
+      credential: Credential(login: '', password: 'anyPass'),
+    );
+
+    when(mockILoginRepository.login(paramsNoLogin.credential!))
+        .thenAnswer((realInvocation) async => Left(AppFailure()));
+
+    var res = await loginUseCase(paramsNoLogin);
+    expect(res.fold((l) => l, (r) => null), isA<ValidationFailure>());
+  });
+  test('should return ValidationFailure when password is empty', () async {
+    var paramsNoPass = Params(
+      credential: Credential(login: 'anyLogin', password: ''),
+    );
+
+    when(mockILoginRepository.login(paramsNoPass.credential!))
+        .thenAnswer((realInvocation) async => Left(AppFailure()));
+
+    var res = await loginUseCase(
+      paramsNoPass,
+    );
+    expect(res.fold((l) => l, (r) => null), isA<ValidationFailure>());
+  });
 }
