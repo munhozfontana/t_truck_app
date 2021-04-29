@@ -20,3 +20,12 @@ class RequestFailure extends Failure {
   @override
   List<Object?> get props => [detail];
 }
+
+class ValidationFailure extends Failure {
+  final String? detail;
+
+  ValidationFailure({this.detail});
+
+  @override
+  List<Object?> get props => [detail];
+}
