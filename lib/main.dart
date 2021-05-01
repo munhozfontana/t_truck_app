@@ -14,7 +14,7 @@ void main() async {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: LoginUi(),
+    home: LoginPage(),
     initialBinding: MainBinding(),
   ));
 }
