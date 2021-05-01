@@ -16,6 +16,7 @@ void main() {
   late ILoginRepository mockILoginRepository;
   var params =
       Params(credential: Credential(login: 'anyLogin', password: 'anyPass'));
+
   setUp(() {
     mockILoginRepository = MockILoginRepository();
     loginUseCase = LoginUseCase(
