@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
+import 'package:t_truck_app/features/presentation/styles/style_app.dart';
 
 class LoginContent extends StatelessWidget {
   const LoginContent({
@@ -58,13 +59,7 @@ class LoginContent extends StatelessWidget {
         ),
         Text(
           'Lembrar acesso',
-          style: const TextStyle(
-            color: Color(0xff6c6c6c),
-            fontWeight: FontWeight.w400,
-            fontFamily: 'Poppins',
-            fontStyle: FontStyle.normal,
-            fontSize: 18.0,
-          ),
+          style: StyleApp.h3,
           textAlign: TextAlign.left,
         ),
       ],
@@ -74,38 +69,14 @@ class LoginContent extends StatelessWidget {
   Text labelMotorista() {
     return Text(
       'Entrar com código do motorista',
-      style: TextStyle(
-        color: Color(0xff6c6c6c),
-        fontWeight: FontWeight.w500,
-        fontFamily: 'Poppins',
-        fontStyle: FontStyle.normal,
-        fontSize: 20,
-      ),
+      style: StyleApp.h2,
       textAlign: TextAlign.left,
     );
   }
 
   TextFormField input() {
     return TextFormField(
-      decoration: InputDecoration(
-        prefixIcon: Opacity(
-          opacity: 0.4000000059604645,
-          child: Container(
-            child: Icon(
-              Icons.lock_outline,
-              color: Color.fromRGBO(8, 14, 49, 1),
-            ),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blueGrey),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-      ),
+      decoration: StyleApp.inputDecorationLogin,
     );
   }
 

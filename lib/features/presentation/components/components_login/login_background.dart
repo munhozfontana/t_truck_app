@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:t_truck_app/features/presentation/styles/style_app.dart';
 
 class LoginBackground extends StatelessWidget {
   const LoginBackground({
@@ -56,15 +57,7 @@ class LoginBackground extends StatelessWidget {
               height: 90,
               child: Text(
                 'Bem vindo ao GSA Acompanhamento Logístico',
-                style: const TextStyle(
-                  letterSpacing: 1.1,
-                  color: Color(0xff4f5262),
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontStyle: FontStyle.normal,
-                  fontSize: 22.0,
-                  height: 1.3,
-                ),
+                style: StyleApp.h1,
                 textAlign: TextAlign.left,
               ),
             ),
