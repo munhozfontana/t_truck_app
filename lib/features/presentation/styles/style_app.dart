@@ -31,6 +31,24 @@ class StyleApp {
         fontSize: 18.0,
       );
 
+  static TextStyle get h4 => const TextStyle(
+        letterSpacing: .7,
+        color: Color(0xff6c6c6c),
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+        fontSize: 16.0,
+      );
+
+  static TextStyle get h4_w500 => const TextStyle(
+        letterSpacing: .7,
+        color: Color(0xff6c6c6c),
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+        fontSize: 16.0,
+      );
+
   static InputDecoration get inputDecorationLogin => InputDecoration(
         prefixIcon: Opacity(
           opacity: 0.4000000059604645,

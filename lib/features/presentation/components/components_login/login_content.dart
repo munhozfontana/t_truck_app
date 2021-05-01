@@ -89,23 +89,10 @@ class LoginContent extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  style: const TextStyle(
-                    letterSpacing: .7,
-                    color: Color(0xff6c6c6c),
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Poppins',
-                    fontStyle: FontStyle.normal,
-                    fontSize: 16.0,
-                  ),
+                  style: StyleApp.h4,
                   text: 'Precisa de ajuda? Entre em contato \ncom o telefone '),
               TextSpan(
-                style: const TextStyle(
-                  color: Color(0xff6c6c6c),
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontStyle: FontStyle.normal,
-                  fontSize: 16.0,
-                ),
+                style: StyleApp.h4_w500,
                 text: ' (00) 0 0000-0000',
               )
             ],
@@ -153,14 +140,11 @@ class LoginContent extends StatelessWidget {
     return Container(
       height: 21,
       width: constraints.maxWidth,
-      child: Text('Esqueci meu código',
-          style: const TextStyle(
-              color: Color(0xff6c6c6c),
-              fontWeight: FontWeight.w400,
-              fontFamily: 'Poppins',
-              fontStyle: FontStyle.normal,
-              fontSize: 16.0),
-          textAlign: TextAlign.center),
+      child: Text(
+        'Esqueci meu código',
+        style: StyleApp.h4,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
