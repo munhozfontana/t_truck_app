@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 const primary = Color(0xff4f5262);
 const secondary = Color(0xff6c6c6c);
 
-class StyleApp {
+class StyleTypograph {
   static TextStyle get h1 => const TextStyle(
         letterSpacing: 1.1,
         color: primary,
@@ -47,29 +47,5 @@ class StyleApp {
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
         fontSize: 16.0,
-      );
-
-  static InputDecoration get inputDecorationLogin => InputDecoration(
-        prefixIcon: Opacity(
-          opacity: 0.4000000059604645,
-          child: Container(
-            child: const Icon(
-              Icons.lock_outline,
-              color: Color.fromRGBO(8, 14, 49, 1),
-            ),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blueGrey),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
       );
 }

@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
-import 'package:t_truck_app/features/presentation/styles/style_app.dart';
+import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
+import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
 class LoginContent extends StatelessWidget {
   const LoginContent({
@@ -59,7 +60,7 @@ class LoginContent extends StatelessWidget {
         ),
         Text(
           'Lembrar acesso',
-          style: StyleApp.h3,
+          style: StyleTypograph.h3,
           textAlign: TextAlign.left,
         ),
       ],
@@ -69,14 +70,14 @@ class LoginContent extends StatelessWidget {
   Text labelMotorista() {
     return Text(
       'Entrar com código do motorista',
-      style: StyleApp.h2,
+      style: StyleTypograph.h2,
       textAlign: TextAlign.left,
     );
   }
 
   TextFormField input() {
     return TextFormField(
-      decoration: StyleApp.inputDecorationLogin,
+      decoration: StyleInputs.inputDecorationLogin,
     );
   }
 
@@ -89,10 +90,10 @@ class LoginContent extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  style: StyleApp.h4,
+                  style: StyleTypograph.h4,
                   text: 'Precisa de ajuda? Entre em contato \ncom o telefone '),
               TextSpan(
-                style: StyleApp.h4_w500,
+                style: StyleTypograph.h4_w500,
                 text: ' (00) 0 0000-0000',
               )
             ],
@@ -142,7 +143,7 @@ class LoginContent extends StatelessWidget {
       width: constraints.maxWidth,
       child: Text(
         'Esqueci meu código',
-        style: StyleApp.h4,
+        style: StyleTypograph.h4,
         textAlign: TextAlign.center,
       ),
     );
