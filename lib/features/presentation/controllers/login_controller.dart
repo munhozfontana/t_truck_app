@@ -15,7 +15,7 @@ class LoginController extends RxController {
 
   final form = GlobalKey<FormState>().obs;
   var loginField = TextEditingController().obs;
-  var passwordField = TextEditingController()..obs;
+  var passwordField = TextEditingController().obs;
 
   void changeLoading(Loading loading) {
     loadingState.value = loading;

@@ -31,7 +31,15 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 78),
                           labelMotorista(),
                           Spacer(flex: 39),
-                          input(),
+                          TextFormField(
+                            decoration: StyleInputs.inputDecorationLogin,
+                            validator: (value) {
+                              if (GetUtils.isNull(value) || value!.isEmpty) {
+                                return 'Obrigatório';
+                              }
+                              return null;
+                            },
+                          ),
                           Spacer(flex: 39),
                           lenbrarAcesso(),
                           Spacer(flex: 78),
@@ -83,18 +91,6 @@ class LoginPage extends GetWidget<LoginController> {
       'Entrar com código do motorista',
       style: StyleTypograph.h2,
       textAlign: TextAlign.left,
-    );
-  }
-
-  TextFormField input() {
-    return TextFormField(
-      decoration: StyleInputs.inputDecorationLogin,
-      validator: (value) {
-        if (GetUtils.isNull(value) || value!.isEmpty) {
-          return 'errorrrr';
-        }
-        return null;
-      },
     );
   }
 

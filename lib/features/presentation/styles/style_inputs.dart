@@ -12,15 +12,23 @@ class StyleInputs {
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blueGrey),
+          borderSide: const BorderSide(color: Colors.blue),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(12.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Colors.lightBlue),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.black),
           borderRadius: BorderRadius.circular(12.0),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.orange),
           borderRadius: BorderRadius.circular(12.0),
         ),
       );
