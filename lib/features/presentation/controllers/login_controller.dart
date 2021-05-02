@@ -12,9 +12,10 @@ class LoginController extends RxController {
   LoginController({required this.loginUseCase});
 
   final loadingState = Loading.STOP.obs;
-  final GlobalKey<FormState> keyForm = GlobalKey<FormState>();
-  var loginField = TextEditingController();
-  var passwordField = TextEditingController();
+
+  final form = GlobalKey<FormState>().obs;
+  var loginField = TextEditingController().obs;
+  var passwordField = TextEditingController()..obs;
 
   void changeLoading(Loading loading) {
     loadingState.value = loading;
@@ -22,13 +23,12 @@ class LoginController extends RxController {
 
   void auth() async {
     changeLoading(Loading.START);
-    keyForm.currentState!.validate();
-
+    form.value.currentState!.validate();
     var res = await loginUseCase(
       Params(
         credential: Credential(
-          login: loginField.text,
-          password: passwordField.text,
+          login: loginField.value.text,
+          password: passwordField.value.text,
         ),
       ),
     );
