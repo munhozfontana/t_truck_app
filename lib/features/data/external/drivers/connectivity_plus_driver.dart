@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_connectivity.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_connectivity_external.dart';
 
 class ConnectivityPlusDirver implements IConnectivity {
   Connectivity connectivity;

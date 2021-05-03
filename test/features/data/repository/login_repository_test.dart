@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_login.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_login_external.dart';
 import 'package:t_truck_app/features/data/models/credential_model.dart';
 import 'package:t_truck_app/features/data/repository/login_repository.dart';
 

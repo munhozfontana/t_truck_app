@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:t_truck_app/core/error/driver_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_http.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
 
 class DioDriver implements IHttp {
   final Dio dio;
@@ -17,7 +19,7 @@ class DioDriver implements IHttp {
       return mackObj(
           await dio.delete(url!, options: Options(headers: headers)));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
@@ -27,7 +29,7 @@ class DioDriver implements IHttp {
     try {
       return mackObj(await dio.get(url!, options: Options(headers: headers)));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
@@ -37,7 +39,7 @@ class DioDriver implements IHttp {
     try {
       return mackObj(await dio.post(url!, options: Options(headers: headers)));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
@@ -47,14 +49,14 @@ class DioDriver implements IHttp {
     try {
       return mackObj(await dio.put(url!, options: Options(headers: headers)));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
   HttpResponse mackObj(Response response) {
     return HttpResponse(
       statusCode: response.statusCode,
-      body: response.data.toString(),
+      body: jsonEncode(response.data),
       header: response.requestOptions.headers,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:t_truck_app/core/error/driver_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_http.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
 
 class HttpDriver implements IHttp {
   final http.Client? client;
@@ -14,7 +14,7 @@ class HttpDriver implements IHttp {
     try {
       return mackObj(await client!.delete(Uri.parse(url!), headers: headers));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
@@ -24,7 +24,7 @@ class HttpDriver implements IHttp {
     try {
       return mackObj(await client!.get(Uri.parse(url!), headers: headers));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
@@ -39,7 +39,7 @@ class HttpDriver implements IHttp {
         await client!.post(Uri.parse(url!), headers: headers, body: body),
       );
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
@@ -53,7 +53,7 @@ class HttpDriver implements IHttp {
       return mackObj(
           await client!.put(Uri.parse(url!), headers: headers, body: body));
     } catch (e) {
-      throw DriverException(error: ApiMensages.EXTERNAL_ERROR);
+      throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 

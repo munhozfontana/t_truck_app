@@ -7,7 +7,7 @@ import 'package:t_truck_app/features/presentation/controllers/login_controller.d
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
 import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
-class LoginPage extends GetWidget<LoginController> {
+class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +32,7 @@ class LoginPage extends GetWidget<LoginController> {
                           labelMotorista(),
                           Spacer(flex: 39),
                           TextFormField(
+                            controller: controller.loginField.value,
                             decoration: StyleInputs.inputDecorationLogin,
                             validator: (value) {
                               if (GetUtils.isNull(value) || value!.isEmpty) {
@@ -43,7 +44,6 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 39),
                           lenbrarAcesso(),
                           Spacer(flex: 78),
-                          Text(controller.loginField.value.text),
                           btnEntrar(constraints),
                           Spacer(flex: 39),
                           esqueciMeuCodigo(constraints),

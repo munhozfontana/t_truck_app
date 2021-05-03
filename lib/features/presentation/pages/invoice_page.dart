@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:t_truck_app/features/presentation/controllers/invoice_controller.dart';
 
-class OrderList extends StatelessWidget {
+class InvoicePage extends GetWidget<InvoiceController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,9 +12,7 @@ class OrderList extends StatelessWidget {
           child: Text('Page 2'),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: Get.back,
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: Get.back),
     );
   }
 }

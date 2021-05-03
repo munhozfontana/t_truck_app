@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -21,7 +23,8 @@ void main() {
   setUp(() {
     dio = MockDio();
     dioDriver = DioDriver(dio: dio);
-    anyBody = {'any_param': 'anyValue'}.toString();
+    anyBody =
+        '{ "id": "41", "nomeMercado": "nomeMercado 41", "quantidade": 10 }';
     anyStatusCode = 200;
     anyUrl = 'ANY_URL';
     anyHeader = <String, String>{'ANY_KEY': 'ANY_VALUE'};
@@ -59,22 +62,22 @@ void main() {
     test('get', () async {
       mockGet();
       var res = await dioDriver.getHttp(anyUrl, headers: anyHeader);
-      expect(res.body, anyBody);
+      expect(res.body, jsonEncode(anyBody));
     });
     test('put', () async {
       mockPut();
       var res = await dioDriver.putHttp(anyUrl, headers: anyHeader);
-      expect(res.body, anyBody);
+      expect(res.body, jsonEncode(anyBody));
     });
     test('post', () async {
       mockPost();
       var res = await dioDriver.postHttp(anyUrl, headers: anyHeader);
-      expect(res.body, anyBody);
+      expect(res.body, jsonEncode(anyBody));
     });
     test('delete', () async {
       mockDelete();
       var res = await dioDriver.deleteHttp(anyUrl, headers: anyHeader);
-      expect(res.body, anyBody);
+      expect(res.body, jsonEncode(anyBody));
     });
   });
 

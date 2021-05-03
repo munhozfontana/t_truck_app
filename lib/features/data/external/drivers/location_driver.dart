@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart' as geo_driver;
 import 'package:t_truck_app/core/error/driver_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_location.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_location_external.dart';
 
 class LocationDriver implements ILocation {
   GeolocatorAdapterHelper geolocatorAdapterHelper;

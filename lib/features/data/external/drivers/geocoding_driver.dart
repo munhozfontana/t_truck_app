@@ -1,6 +1,6 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_geocoding.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_geocoding_external.dart';
 
 class GeocodingDriver implements IGeocoding {
   final GeocodingAdapterHelper geocodingAdapterHelper;

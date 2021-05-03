@@ -5,7 +5,7 @@ import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/credential.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/order_list.dart';
+import 'package:t_truck_app/features/presentation/pages/invoice_page.dart';
 
 class LoginController extends RxController {
   final LoginUseCase loginUseCase;
@@ -28,7 +28,7 @@ class LoginController extends RxController {
       Params(
         credential: Credential(
           login: loginField.value.text,
-          password: passwordField.value.text,
+          password: 'gambira',
         ),
       ),
     );
@@ -42,6 +42,6 @@ class LoginController extends RxController {
                 snackPosition: SnackPosition.BOTTOM,
               ),
             },
-        (r) async => await Get.to(OrderList()));
+        (r) async => await Get.to(() => InvoicePage()));
   }
 }

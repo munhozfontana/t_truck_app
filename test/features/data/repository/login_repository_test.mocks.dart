@@ -5,7 +5,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:t_truck_app/features/data/external/adapters/i_login.dart'
+import 'package:t_truck_app/features/data/external/adapters/i_login_external.dart'
     as _i2;
 import 'package:t_truck_app/features/domain/entites/credential.dart' as _i4;
 

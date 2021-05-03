@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_map.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_map_external.dart';
 
 class Map implements IMap {
   Set<Polygon> list = <Polygon>{};
