@@ -42,36 +42,97 @@ class AppBackground extends StatelessWidget {
         vertical: constraints.maxHeight * .038,
         horizontal: constraints.maxHeight * .044,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            child: SvgPicture.asset(
-              'images/logo.svg',
-              semanticsLabel: 'Background Logo',
+      child: Visibility(
+        visible: initialScreen,
+        replacement: isNotInitial(),
+        child: isInitial(),
+      ),
+    );
+  }
+
+  Widget isNotInitial() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          child: SvgPicture.asset(
+            'images/logo.svg',
+            semanticsLabel: 'Background Logo',
+          ),
+        ),
+        // Rectangle 15
+        Container(
+          width: 107.27838134765625,
+          height: 34.2634391784668,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            border: Border.all(color: const Color(0xff080e31), width: 1),
+            color: const Color(0xfff9f9fa),
+          ),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Row(
+                children: [
+                  Container(
+                    width: constraints.maxWidth * .5,
+                    child: // Ajuda
+                        Text(
+                      'Ajuda',
+                      style: const TextStyle(
+                          color: Color(0xff090f31),
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins',
+                          fontStyle: FontStyle.normal,
+                          fontSize: 16.0),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  Container(
+                    width: constraints.maxWidth * .5,
+                    child: SvgPicture.asset(
+                      'images/icons/help.svg',
+                      semanticsLabel: 'Background Logo',
+                      color: Color(0xff080e31),
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column isInitial() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          child: SvgPicture.asset(
+            'images/logo.svg',
+            semanticsLabel: 'Background Logo',
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 24,
+            bottom: 24,
+          ),
+          child: Container(
+            width: 250,
+            height: 90,
+            child: Text(
+              'Bem vindo ao GSA Acompanhamento Logístico',
+              style: StyleTypograph.h1,
+              textAlign: TextAlign.left,
             ),
           ),
-          Visibility(
-            visible: initialScreen,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 24,
-                bottom: 24,
-              ),
-              child: Container(
-                width: 250,
-                height: 90,
-                child: Text(
-                  'Bem vindo ao GSA Acompanhamento Logístico',
-                  style: StyleTypograph.h1,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ),
-          ),
-          Visibility(
-            visible: initialScreen,
-            child: Opacity(
+        ),
+        Column(
+          children: [
+            Opacity(
               opacity: .5,
               child: SvgPicture.asset(
                 'images/icons/arrows_down.svg',
@@ -79,9 +140,9 @@ class AppBackground extends StatelessWidget {
                 color: Color(0xff080e31),
               ),
             ),
-          )
-        ],
-      ),
+          ],
+        )
+      ],
     );
   }
 

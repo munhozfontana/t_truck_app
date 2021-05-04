@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 const primary = Color(0xff4f5262);
 const secondary = Color(0xff6c6c6c);
+const tertiary = Color(0xff090f31);
 
 class StyleTypograph {
   static TextStyle get h1 => const TextStyle(
@@ -33,7 +34,7 @@ class StyleTypograph {
 
   static TextStyle get h4 => const TextStyle(
         letterSpacing: .7,
-        color: Color(0xff6c6c6c),
+        color: secondary,
         fontWeight: FontWeight.w400,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
@@ -42,10 +43,18 @@ class StyleTypograph {
 
   static TextStyle get h4_w500 => const TextStyle(
         letterSpacing: .7,
-        color: Color(0xff6c6c6c),
+        color: secondary,
         fontWeight: FontWeight.w500,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
         fontSize: 16.0,
       );
+
+  static TextStyle get h4_w500_tertiary => TextStyle(
+      letterSpacing: .7,
+      color: tertiary,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Poppins',
+      fontStyle: FontStyle.normal,
+      fontSize: 16.0);
 }
