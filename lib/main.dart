@@ -14,17 +14,15 @@ void main() async {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    // initialBinding: MainBiding(),
+    initialBinding: MainBiding(),
     getPages: [
       GetPage(
         name: '/',
         page: () => LoginPage(),
-        bindings: [InvoiceBiding(), LoginBiding()],
       ),
       GetPage(
         name: '/invoice',
         page: () => InvoicePage(),
-        bindings: [LoginBiding()],
       ),
     ],
   ));

@@ -7,13 +7,14 @@ import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart'
 import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/invoice_page.dart';
 
-class LoginController extends RxController {
+class LoginController extends GetxController {
   final LoginUseCase loginUseCase;
   LoginController({required this.loginUseCase});
 
   final loadingState = Loading.STOP.obs;
 
-  final form = GlobalKey<FormState>().obs;
+  // Rx<GlobalKey<FormState>> form = GlobalKey<FormState>().obs;
+
   var loginField = TextEditingController().obs;
   var passwordField = TextEditingController().obs;
 
@@ -23,7 +24,7 @@ class LoginController extends RxController {
 
   void auth() async {
     changeLoading(Loading.START);
-    form.value.currentState!.validate();
+    // form.value.currentState!.validate();
     var res = await loginUseCase(
       Params(
         credential: Credential(

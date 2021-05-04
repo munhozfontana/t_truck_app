@@ -35,6 +35,6 @@ class InvoiceController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("aaaa()");
+    print("onInit()");
   }
 }

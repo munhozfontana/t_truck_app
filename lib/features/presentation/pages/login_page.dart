@@ -7,7 +7,10 @@ import 'package:t_truck_app/features/presentation/controllers/login_controller.d
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
 import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
-class LoginPage extends GetView<LoginController> {
+class LoginPage extends StatelessWidget {
+  final LoginController controller =
+      Get.put(LoginController(loginUseCase: Get.find()));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,7 @@ class LoginPage extends GetView<LoginController> {
                   return alinhaFormParaBaixo(
                     constraints: constraints,
                     conteudoDorFormulario: Form(
-                      key: controller.form.value,
+                      // key: controller.form.value,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

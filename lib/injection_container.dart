@@ -12,46 +12,26 @@ import 'package:t_truck_app/features/domain/repositories/i_invoice_repository.da
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/invoice/invoice_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
-import 'package:t_truck_app/features/presentation/controllers/invoice_controller.dart';
-import 'package:t_truck_app/features/presentation/controllers/login_controller.dart';
 
 class MainBiding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<IHttp>(() => DioDriver(dio: Dio()));
-    dependenciesLogin();
-    dependenciesInvoice();
+    Get.put<IHttp>(DioDriver(dio: Dio()));
+    loginBiding();
+    invoiceBiding();
   }
-}
 
-class LoginBiding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<IHttp>(() => DioDriver(dio: Dio()));
-    dependenciesInvoice();
+  void invoiceBiding() {
+    Get.put<IInvoiceExternal>(InvoiceExternalApi(iHttp: Get.find()));
+    Get.put<IInvoiceRepository>(
+        InvoiceRepository(iInvoiceExternal: Get.find()));
+    Get.put<InvoiceListUseCase>(
+        InvoiceListUseCase(iInvoiceListRepository: Get.find()));
   }
-}
 
-class InvoiceBiding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<IHttp>(() => DioDriver(dio: Dio()));
-    dependenciesLogin();
+  void loginBiding() {
+    Get.put<ILogin>(LoginApi(iHttp: Get.find()));
+    Get.put<ILoginRepository>(LoginRepository(iLoginApi: Get.find()));
+    Get.put<LoginUseCase>(LoginUseCase(iLoginRepository: Get.find()));
   }
-}
-
-void dependenciesInvoice() {
-  Get.lazyPut<IInvoiceExternal>(() => InvoiceExternalApi(iHttp: Get.find()));
-  Get.lazyPut<IInvoiceRepository>(
-      () => InvoiceRepository(iInvoiceExternal: Get.find()));
-  Get.lazyPut<InvoiceListUseCase>(
-      () => InvoiceListUseCase(iInvoiceListRepository: Get.find()));
-  Get.lazyPut<InvoiceController>(() => InvoiceController(invoiceListUseCase: Get.find()));
-}
-
-void dependenciesLogin() {
-  Get.lazyPut<ILogin>(() => LoginApi(iHttp: Get.find()));
-  Get.lazyPut<ILoginRepository>(() => LoginRepository(iLoginApi: Get.find()));
-  Get.lazyPut<LoginUseCase>(() => LoginUseCase(iLoginRepository: Get.find()));
-  Get.lazyPut<LoginController>(() => LoginController(loginUseCase: Get.find()));
 }
