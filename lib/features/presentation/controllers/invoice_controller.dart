@@ -6,6 +6,7 @@ import 'package:t_truck_app/features/presentation/controllers/base_controller.da
 
 class InvoiceController extends GetxController {
   final InvoiceListUseCase invoiceListUseCase;
+  RxList list = [].obs;
 
   InvoiceController({required this.invoiceListUseCase});
 
@@ -29,7 +30,7 @@ class InvoiceController extends GetxController {
                 snackPosition: SnackPosition.BOTTOM,
               ),
             },
-        (r) async => print(r.length));
+        (r) async => list.value = r);
   }
 
   @override

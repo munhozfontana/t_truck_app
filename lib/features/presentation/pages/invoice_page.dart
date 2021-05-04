@@ -40,11 +40,11 @@ class InvoicePage extends StatelessWidget {
                         ),
                         Opacity(
                           opacity: 0.5,
-                          child: Text(
-                            '48 clientes encontrados',
-                            style: StyleTypograph.h4_w500_tertiary,
-                            textAlign: TextAlign.left,
-                          ),
+                          child: Obx(() => Text(
+                                '${controller.list.length} clientes encontrados',
+                                style: StyleTypograph.h4_w500_tertiary,
+                                textAlign: TextAlign.left,
+                              )),
                         ),
                         Spacer(
                           flex: 035,
