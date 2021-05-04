@@ -13,7 +13,7 @@ class LoginController extends GetxController {
 
   final loadingState = Loading.STOP.obs;
 
-  // Rx<GlobalKey<FormState>> form = GlobalKey<FormState>().obs;
+  Rx<GlobalKey<FormState>> form = GlobalKey<FormState>().obs;
 
   var loginField = TextEditingController().obs;
   var passwordField = TextEditingController().obs;
@@ -24,7 +24,7 @@ class LoginController extends GetxController {
 
   void auth() async {
     changeLoading(Loading.START);
-    // form.value.currentState!.validate();
+    form.value.currentState!.validate();
     var res = await loginUseCase(
       Params(
         credential: Credential(

@@ -4,13 +4,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
-class LoginBackground extends StatelessWidget {
-  const LoginBackground({
+class AppBackground extends StatelessWidget {
+  final bool initialScreen;
+
+  const AppBackground({
     Key? key,
+    this.initialScreen = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(initialScreen);
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
@@ -47,27 +51,33 @@ class LoginBackground extends StatelessWidget {
               semanticsLabel: 'Background Logo',
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 24,
-              bottom: 24,
-            ),
-            child: Container(
-              width: 250,
-              height: 90,
-              child: Text(
-                'Bem vindo ao GSA Acompanhamento Logístico',
-                style: StyleTypograph.h1,
-                textAlign: TextAlign.left,
+          Visibility(
+            visible: initialScreen,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 24,
+                bottom: 24,
+              ),
+              child: Container(
+                width: 250,
+                height: 90,
+                child: Text(
+                  'Bem vindo ao GSA Acompanhamento Logístico',
+                  style: StyleTypograph.h1,
+                  textAlign: TextAlign.left,
+                ),
               ),
             ),
           ),
-          Opacity(
-            opacity: .5,
-            child: SvgPicture.asset(
-              'images/icons/arrows_down.svg',
-              semanticsLabel: 'Background Logo',
-              color: Color(0xff080e31),
+          Visibility(
+            visible: initialScreen,
+            child: Opacity(
+              opacity: .5,
+              child: SvgPicture.asset(
+                'images/icons/arrows_down.svg',
+                semanticsLabel: 'Background Logo',
+                color: Color(0xff080e31),
+              ),
             ),
           )
         ],

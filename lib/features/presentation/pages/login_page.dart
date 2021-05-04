@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/components/components_login/login_background.dart';
+import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
 import 'package:t_truck_app/features/presentation/controllers/login_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
       body: Container(
         child: Stack(
           children: [
-            LoginBackground(),
+            AppBackground(),
             Align(
               alignment: Alignment.bottomCenter,
               child: LayoutBuilder(
@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
                   return alinhaFormParaBaixo(
                     constraints: constraints,
                     conteudoDorFormulario: Form(
-                      // key: controller.form.value,
+                      key: controller.form.value,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
