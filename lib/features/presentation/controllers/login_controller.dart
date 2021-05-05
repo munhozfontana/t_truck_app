@@ -29,19 +29,17 @@ class LoginController extends GetxController {
       Params(
         credential: Credential(
           login: loginField.value.text,
-          password: 'gambira',
+          password: passwordField.value.text,
         ),
       ),
     );
     changeLoading(Loading.STOP);
     res.fold(
         (l) => {
-              Get.snackbar(
-                'Titulo',
-                l.props.first.toString(),
-                colorText: Colors.blueAccent,
-                snackPosition: SnackPosition.BOTTOM,
-              ),
+              Get.snackbar('Titulo', l.props.first.toString(),
+                  colorText: Colors.white,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.redAccent),
             },
         (r) async => await Get.to(() => InvoicePage()));
   }

@@ -32,10 +32,19 @@ class LoginPage extends StatelessWidget {
                         children: [
                           // FORMULARIO DE LOGIN
                           Spacer(flex: 78),
-                          labelMotorista(),
-                          Spacer(flex: 39),
                           TextFormField(
                             controller: controller.loginField.value,
+                            decoration: StyleInputs.inputDecorationLogin,
+                            validator: (value) {
+                              if (GetUtils.isNull(value) || value!.isEmpty) {
+                                return 'Obrigatório';
+                              }
+                              return null;
+                            },
+                          ),
+                          Spacer(flex: 39),
+                          TextFormField(
+                            controller: controller.passwordField.value,
                             decoration: StyleInputs.inputDecorationLogin,
                             validator: (value) {
                               if (GetUtils.isNull(value) || value!.isEmpty) {

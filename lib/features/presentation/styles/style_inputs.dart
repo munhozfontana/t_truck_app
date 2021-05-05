@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class StyleInputs {
   static InputDecoration get inputDecorationLogin => InputDecoration(
+        hintText: "Código motorista",
         prefixIcon: Opacity(
           opacity: 0.4000000059604645,
           child: Container(
