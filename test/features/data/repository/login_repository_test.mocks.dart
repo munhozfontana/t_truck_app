@@ -7,7 +7,8 @@ import 'dart:async' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:t_truck_app/features/data/external/adapters/i_login_external.dart'
     as _i2;
-import 'package:t_truck_app/features/domain/entites/credential.dart' as _i4;
+import 'package:t_truck_app/features/domain/entites/credential_entity.dart'
+    as _i4;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
@@ -21,7 +22,7 @@ class MockILogin extends _i1.Mock implements _i2.ILogin {
   }
 
   @override
-  _i3.Future<bool> login(_i4.Credential? credential) =>
+  _i3.Future<bool> login(_i4.CredentialEntity? credential) =>
       (super.noSuchMethod(Invocation.method(#login, [credential]),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
 }

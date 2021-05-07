@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/domain/entites/invoice.dart';
+import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 
-class InvoiceModel extends Invoice {
-  InvoiceModel({
+class OrderModel extends OrderEntity {
+  OrderModel({
     required String nomeMercado,
     required int quantidade,
   }) : super(
@@ -18,8 +18,8 @@ class InvoiceModel extends Invoice {
     };
   }
 
-  factory InvoiceModel.fromMap(Map<String, dynamic> map) {
-    return InvoiceModel(
+  factory OrderModel.fromMap(Map<String, dynamic> map) {
+    return OrderModel(
       nomeMercado: map['nomeMercado'],
       quantidade: map['quantidade'],
     );
@@ -27,7 +27,7 @@ class InvoiceModel extends Invoice {
 
   String toJson() => json.encode(toMap());
 
-  factory InvoiceModel.fromJson(String source) => InvoiceModel.fromMap(
+  factory OrderModel.fromJson(String source) => OrderModel.fromMap(
         json.decode(source),
       );
 }

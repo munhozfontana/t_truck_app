@@ -9,7 +9,7 @@ class AppBackground extends StatelessWidget {
 
   const AppBackground({
     Key? key,
-    this.initialScreen = true,
+    this.initialScreen = false,
   }) : super(key: key);
 
   @override

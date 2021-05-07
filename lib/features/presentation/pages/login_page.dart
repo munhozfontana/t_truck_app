@@ -17,7 +17,9 @@ class LoginPage extends StatelessWidget {
       body: Container(
         child: Stack(
           children: [
-            AppBackground(),
+            AppBackground(
+              initialScreen: true,
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: LayoutBuilder(
@@ -32,9 +34,19 @@ class LoginPage extends StatelessWidget {
                         children: [
                           // FORMULARIO DE LOGIN
                           Spacer(flex: 78),
+                          // Text(
+                          //   'Entrar com código do motorista',
+                          //   style: StyleTypograph.h2,
+                          //   textAlign: TextAlign.left,
+                          // ),
                           TextFormField(
                             controller: controller.loginField.value,
-                            decoration: StyleInputs.inputDecorationLogin,
+                            decoration: StyleInputs.inputDecorationLogin(
+                              icon: const Icon(
+                                Icons.account_circle_outlined,
+                                color: Color.fromRGBO(8, 14, 49, 1),
+                              ),
+                            ),
                             validator: (value) {
                               if (GetUtils.isNull(value) || value!.isEmpty) {
                                 return 'Obrigatório';
@@ -45,7 +57,12 @@ class LoginPage extends StatelessWidget {
                           Spacer(flex: 39),
                           TextFormField(
                             controller: controller.passwordField.value,
-                            decoration: StyleInputs.inputDecorationLogin,
+                            decoration: StyleInputs.inputDecorationLogin(
+                              icon: const Icon(
+                                Icons.lock_outline,
+                                color: Color.fromRGBO(8, 14, 49, 1),
+                              ),
+                            ),
                             validator: (value) {
                               if (GetUtils.isNull(value) || value!.isEmpty) {
                                 return 'Obrigatório';

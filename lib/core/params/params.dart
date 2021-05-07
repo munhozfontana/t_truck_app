@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:t_truck_app/features/domain/entites/credential.dart';
+import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 
 class Params extends Equatable {
-  final Credential? credential;
+  final CredentialEntity? credential;
 
   Params({
     this.credential,

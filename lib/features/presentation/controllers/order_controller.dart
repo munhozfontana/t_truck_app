@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/features/domain/use_cases/invoice/invoice_list_use_case.dart';
+import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
 import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 
-class InvoiceController extends GetxController {
-  final InvoiceListUseCase invoiceListUseCase;
+class OrderController extends GetxController {
+  final OrderListUseCase orderListUseCase;
   RxList list = [].obs;
 
-  InvoiceController({required this.invoiceListUseCase});
+  OrderController({required this.orderListUseCase});
 
   final loadingState = Loading.STOP.obs;
   void changeLoading(Loading loading) {
@@ -19,7 +19,7 @@ class InvoiceController extends GetxController {
   void onReady() async {
     super.onReady();
     changeLoading(Loading.START);
-    var res = await invoiceListUseCase(Params());
+    var res = await orderListUseCase(Params());
     changeLoading(Loading.STOP);
     res.fold(
         (l) => {
@@ -36,6 +36,6 @@ class InvoiceController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("onInit()");
+    print('onInit()');
   }
 }

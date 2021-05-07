@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class StyleInputs {
-  static InputDecoration get inputDecorationLogin => InputDecoration(
-        hintText: "Código motorista",
+  static InputDecoration inputDecorationLogin({
+    Icon? icon,
+    String? placeholder,
+    String? label,
+  }) =>
+      InputDecoration(
+        hintText: placeholder,
+        labelText: label,
         prefixIcon: Opacity(
           opacity: 0.4000000059604645,
-          child: Container(
-            child: const Icon(
-              Icons.lock_outline,
-              color: Color.fromRGBO(8, 14, 49, 1),
-            ),
-          ),
+          child: icon,
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.blue),

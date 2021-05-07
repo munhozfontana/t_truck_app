@@ -7,7 +7,8 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:t_truck_app/core/error/failures.dart' as _i5;
-import 'package:t_truck_app/features/domain/entites/credential.dart' as _i6;
+import 'package:t_truck_app/features/domain/entites/credential_entity.dart'
+    as _i6;
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart'
     as _i3;
 
@@ -26,7 +27,7 @@ class MockILoginRepository extends _i1.Mock implements _i3.ILoginRepository {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, bool>> login(
-          _i6.Credential? credentials) =>
+          _i6.CredentialEntity? credentials) =>
       (super.noSuchMethod(Invocation.method(#login, [credentials]),
               returnValue: Future<_i2.Either<_i5.Failure, bool>>.value(
                   _FakeEither<_i5.Failure, bool>()))

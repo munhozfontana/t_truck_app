@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/features/domain/entites/credential.dart';
+import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 
@@ -14,8 +14,8 @@ import 'login_use_case_test.mocks.dart';
 void main() {
   late LoginUseCase loginUseCase;
   late ILoginRepository mockILoginRepository;
-  var params =
-      Params(credential: Credential(login: 'anyLogin', password: 'anyPass'));
+  var params = Params(
+      credential: CredentialEntity(login: 'anyLogin', password: 'anyPass'));
 
   setUp(() {
     mockILoginRepository = MockILoginRepository();
@@ -40,7 +40,7 @@ void main() {
   });
   test('should return ValidationFailure when login is empty', () async {
     var paramsNoLogin = Params(
-      credential: Credential(login: '', password: 'anyPass'),
+      credential: CredentialEntity(login: '', password: 'anyPass'),
     );
 
     when(mockILoginRepository.login(paramsNoLogin.credential!))
@@ -51,7 +51,7 @@ void main() {
   });
   test('should return ValidationFailure when password is empty', () async {
     var paramsNoPass = Params(
-      credential: Credential(login: 'anyLogin', password: ''),
+      credential: CredentialEntity(login: 'anyLogin', password: ''),
     );
 
     when(mockILoginRepository.login(paramsNoPass.credential!))

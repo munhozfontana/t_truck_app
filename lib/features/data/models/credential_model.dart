@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/domain/entites/credential.dart';
+import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 
-class CredentialModel extends Credential {
+class CredentialModel extends CredentialEntity {
   CredentialModel({
     login,
     password,

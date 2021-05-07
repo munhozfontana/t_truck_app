@@ -1,8 +1,8 @@
-class Credential {
+class CredentialEntity {
   final String login;
   final String password;
 
-  Credential({
+  CredentialEntity({
     required this.login,
     required this.password,
   });

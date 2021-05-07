@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/controllers/invoice_controller.dart';
+import 'package:t_truck_app/features/presentation/components/layout_form.dart';
+import 'package:t_truck_app/features/presentation/controllers/order_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
 import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
-class InvoicePage extends StatelessWidget {
-  final InvoiceController controller =
-      Get.put(InvoiceController(invoiceListUseCase: Get.find()));
+class OrderPage extends StatelessWidget {
+  final OrderController controller =
+      Get.put(OrderController(orderListUseCase: Get.find()));
 
   @override
   Widget build(BuildContext context) {
@@ -18,52 +19,48 @@ class InvoicePage extends StatelessWidget {
           AppBackground(
             initialScreen: false,
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: alinhaFormParaBaixo(
-              context,
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return Form(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Spacer(
-                          flex: 041,
+          LayoutForm(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Form(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Spacer(
+                        flex: 041,
+                      ),
+                      TextFormField(
+                        decoration: StyleInputs.inputDecorationLogin(),
+                      ),
+                      Spacer(
+                        flex: 035,
+                      ),
+                      Opacity(
+                        opacity: 0.5,
+                        child: Obx(() => Text(
+                              '${controller.list.length} clientes encontrados',
+                              style: StyleTypograph.h4_w500_tertiary,
+                              textAlign: TextAlign.left,
+                            )),
+                      ),
+                      Spacer(
+                        flex: 035,
+                      ),
+                      Flexible(
+                        flex: 751,
+                        child: ListView.separated(
+                          separatorBuilder: (_, __) => SizedBox(height: 16),
+                          itemCount: 6,
+                          itemBuilder: (context, index) {
+                            return OrderItem();
+                          },
                         ),
-                        TextFormField(
-                          decoration: StyleInputs.inputDecorationLogin,
-                        ),
-                        Spacer(
-                          flex: 035,
-                        ),
-                        Opacity(
-                          opacity: 0.5,
-                          child: Obx(() => Text(
-                                '${controller.list.length} clientes encontrados',
-                                style: StyleTypograph.h4_w500_tertiary,
-                                textAlign: TextAlign.left,
-                              )),
-                        ),
-                        Spacer(
-                          flex: 035,
-                        ),
-                        Flexible(
-                          flex: 751,
-                          child: ListView.separated(
-                            separatorBuilder: (_, __) => SizedBox(height: 16),
-                            itemCount: 6,
-                            itemBuilder: (context, index) {
-                              return InvoiceItem();
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
           )
         ],
@@ -71,42 +68,10 @@ class InvoicePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(onPressed: Get.back),
     );
   }
-
-  Widget alinhaFormParaBaixo(context, {required Widget? child}) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * .868,
-      decoration: BoxDecoration(
-        color: Color(0xffFFFFFF),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(8, 14, 49, 0.12),
-            spreadRadius: 5,
-            blurRadius: 32,
-            offset: Offset(0, -5),
-          ),
-        ],
-      ),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: constraints.maxWidth * .064,
-            ),
-            child: child,
-          );
-        },
-      ),
-    );
-  }
 }
 
-class InvoiceItem extends StatelessWidget {
-  const InvoiceItem({
+class OrderItem extends StatelessWidget {
+  const OrderItem({
     Key? key,
   }) : super(key: key);
 

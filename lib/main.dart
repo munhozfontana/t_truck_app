@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/pages/invoice_page.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/login_page.dart';
+import 'package:t_truck_app/features/presentation/pages/order_page.dart';
 import 'package:t_truck_app/injection_container.dart';
 
 void main() async {
@@ -15,15 +16,20 @@ void main() async {
       primarySwatch: Colors.blue,
     ),
     initialBinding: MainBiding(),
+    initialRoute: '/',
     getPages: [
       GetPage(
         name: '/',
         page: () => LoginPage(),
       ),
       GetPage(
-        name: '/invoice',
-        page: () => InvoicePage(),
+        name: '/Order',
+        page: () => OrderPage(),
       ),
+      GetPage(
+        name: '/delivery',
+        page: () => DeliveryPage(),
+      )
     ],
   ));
 }

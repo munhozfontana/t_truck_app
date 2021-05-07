@@ -4,28 +4,28 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/features/domain/entites/invoice.dart';
-import 'package:t_truck_app/features/domain/repositories/i_invoice_repository.dart';
-import 'package:t_truck_app/features/domain/use_cases/invoice/invoice_list_use_case.dart';
+import 'package:t_truck_app/features/domain/entites/order_entity.dart';
+import 'package:t_truck_app/features/domain/repositories/i_order_repository.dart';
+import 'package:t_truck_app/features/domain/use_cases/Order/Order_list_use_case.dart';
 
-import 'invoice_list_use_case_test.mocks.dart';
+import 'order_list_use_case_test.mocks.dart';
 
-@GenerateMocks([IInvoiceRepository])
+@GenerateMocks([IOrderRepository])
 void main() {
-  late InvoiceListUseCase orderListUseCase;
-  late IInvoiceRepository mockIOrderListRepository;
+  late OrderListUseCase orderListUseCase;
+  late IOrderRepository mockIOrderListRepository;
 
   setUp(() {
-    mockIOrderListRepository = MockIInvoiceRepository();
-    orderListUseCase = InvoiceListUseCase(
-      iInvoiceListRepository: mockIOrderListRepository,
+    mockIOrderListRepository = MockIOrderRepository();
+    orderListUseCase = OrderListUseCase(
+      iOrderListRepository: mockIOrderListRepository,
     );
   });
 
   test('Should return list orders', () async {
     when(mockIOrderListRepository.list()).thenAnswer(
       (_) async => Right(
-        [Invoice(nomeMercado: 'any', quantidade: 3)],
+        [OrderEntity(nomeMercado: 'any', quantidade: 3)],
       ),
     );
     var res = await orderListUseCase(Params());

@@ -1,8 +1,8 @@
-class Invoice {
+class OrderEntity {
   final String nomeMercado;
   final int quantidade;
 
-  Invoice({
+  OrderEntity({
     required this.nomeMercado,
     required this.quantidade,
   });

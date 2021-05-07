@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
 import 'package:t_truck_app/features/data/external/apis/login_api.dart';
-import 'package:t_truck_app/features/domain/entites/credential.dart';
+import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 
 import 'login_api_test.mocks.dart';
 
@@ -12,12 +12,12 @@ import 'login_api_test.mocks.dart';
 void main() {
   late LoginApi loginApi;
   late IHttp mockIHttp;
-  late Credential credential;
+  late CredentialEntity credential;
 
   setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     await dont_env.load(fileName: '.env');
-    credential = Credential(login: 'anyLogin', password: 'anyPass');
+    credential = CredentialEntity(login: 'anyLogin', password: 'anyPass');
     mockIHttp = MockIHttp();
     loginApi = LoginApi(iHttp: mockIHttp);
   });
@@ -25,7 +25,7 @@ void main() {
   test(
     'Should do login with no erros',
     () async {
-      when(mockIHttp.postHttp(any, body: anyNamed('body'))).thenAnswer(
+      when(mockIHttp.getHttp(any)).thenAnswer(
           (_) async => HttpResponse(body: '{ "auth": true }', statusCode: 200));
       var res = await loginApi.login(credential);
       expect(res, true);
