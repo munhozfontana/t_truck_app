@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
-import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class LoginPage extends StatelessWidget {
@@ -14,6 +13,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         child: Stack(
           children: [
@@ -35,10 +35,10 @@ class LoginPage extends StatelessWidget {
                           Spacer(flex: 78),
                           TextFormField(
                             controller: controller.loginField.value,
-                            decoration: StyleInputs.inputDecorationLogin(
-                              icon: const Icon(
-                                Icons.account_circle_outlined,
-                                color: Color.fromRGBO(8, 14, 49, 1),
+                            decoration: InputDecoration(
+                              prefixIcon: Opacity(
+                                opacity: 0.4000000059604645,
+                                child: Icon(Icons.person_outline_outlined),
                               ),
                             ),
                             validator: (value) {
@@ -51,10 +51,10 @@ class LoginPage extends StatelessWidget {
                           Spacer(flex: 39),
                           TextFormField(
                             controller: controller.passwordField.value,
-                            decoration: StyleInputs.inputDecorationLogin(
-                              icon: const Icon(
-                                Icons.lock_outline,
-                                color: Color.fromRGBO(8, 14, 49, 1),
+                            decoration: InputDecoration(
+                              prefixIcon: Opacity(
+                                opacity: 0.4000000059604645,
+                                child: Icon(Icons.lock_outline),
                               ),
                             ),
                             validator: (value) {
