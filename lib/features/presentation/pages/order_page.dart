@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
 import 'package:t_truck_app/features/presentation/controllers/order_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
-import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
 class OrderPage extends StatelessWidget {
   final OrderController controller =
@@ -31,6 +31,7 @@ class OrderPage extends StatelessWidget {
                         flex: 041,
                       ),
                       TextFormField(
+                        onChanged: controller.filterChanged,
                         decoration: StyleInputs.inputDecorationLogin(),
                       ),
                       Spacer(
@@ -39,8 +40,8 @@ class OrderPage extends StatelessWidget {
                       Opacity(
                         opacity: 0.5,
                         child: Obx(() => Text(
-                              '${controller.list.length} clientes encontrados',
-                              style: StyleTypograph.h4_w500_tertiary,
+                              '${controller.filtredList.length} clientes encontrados',
+                              style: Get.textTheme.headline6,
                               textAlign: TextAlign.left,
                             )),
                       ),
@@ -49,13 +50,15 @@ class OrderPage extends StatelessWidget {
                       ),
                       Flexible(
                         flex: 751,
-                        child: ListView.separated(
-                          separatorBuilder: (_, __) => SizedBox(height: 16),
-                          itemCount: 6,
-                          itemBuilder: (context, index) {
-                            return OrderItem();
-                          },
-                        ),
+                        child: Obx(() => ListView.separated(
+                              separatorBuilder: (_, __) => SizedBox(height: 16),
+                              itemCount: controller.filtredList.length,
+                              itemBuilder: (context, index) {
+                                return OrderItem(
+                                  orderEntity: controller.filtredList[index],
+                                );
+                              },
+                            )),
                       )
                     ],
                   ),
@@ -71,8 +74,11 @@ class OrderPage extends StatelessWidget {
 }
 
 class OrderItem extends StatelessWidget {
+  final OrderEntity orderEntity;
+
   const OrderItem({
     Key? key,
+    required this.orderEntity,
   }) : super(key: key);
 
   @override
@@ -82,7 +88,7 @@ class OrderItem extends StatelessWidget {
         return Stack(
           children: [
             background(constraints),
-            content(constraints),
+            content(constraints, orderEntity),
           ],
         );
       },
@@ -106,14 +112,14 @@ class OrderItem extends StatelessWidget {
     );
   }
 
-  Padding content(BoxConstraints constraints) {
+  Padding content(BoxConstraints constraints, OrderEntity orderEntity) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Mercado Dona de Casa',
+            orderEntity.codCliCliente,
             style: const TextStyle(
               color: Color(0xff090f31),
               fontWeight: FontWeight.w500,
@@ -150,7 +156,7 @@ class OrderItem extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          '2',
+                          orderEntity.numNota.toString(),
                           style: const TextStyle(
                               color: Color(0xff000000),
                               fontWeight: FontWeight.w500,

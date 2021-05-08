@@ -238,6 +238,7 @@ class DeliveryPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Icon(Icons.arrow_left),
                           Text('Voltar para listar cliente',
                               style: const TextStyle(
                                   color: Color(0xff6c6c6c),

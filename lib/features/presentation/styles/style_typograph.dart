@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const primary = Color(0xff4f5262);
-const secondary = Color(0xff6c6c6c);
-const tertiary = Color(0xff090f31);
-
 class StyleTypograph {
   static TextStyle get h1 => const TextStyle(
         letterSpacing: 1.1,
-        color: primary,
+        // color: primary,
         fontWeight: FontWeight.w500,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
@@ -17,7 +13,7 @@ class StyleTypograph {
       );
 
   static TextStyle get h2 => const TextStyle(
-        color: secondary,
+        // color: secondary,
         fontWeight: FontWeight.w500,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
@@ -25,7 +21,7 @@ class StyleTypograph {
       );
 
   static TextStyle get h3 => const TextStyle(
-        color: secondary,
+        // color: secondary,
         fontWeight: FontWeight.w400,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
@@ -34,7 +30,7 @@ class StyleTypograph {
 
   static TextStyle get h4 => const TextStyle(
         letterSpacing: .7,
-        color: secondary,
+        // color: secondary,
         fontWeight: FontWeight.w400,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
@@ -43,7 +39,7 @@ class StyleTypograph {
 
   static TextStyle get h4_w500 => const TextStyle(
         letterSpacing: .7,
-        color: secondary,
+        // color: secondary,
         fontWeight: FontWeight.w500,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
@@ -52,7 +48,7 @@ class StyleTypograph {
 
   static TextStyle get h4_w500_tertiary => TextStyle(
       letterSpacing: .7,
-      color: tertiary,
+      // color: tertiary,
       fontWeight: FontWeight.w500,
       fontFamily: 'Poppins',
       fontStyle: FontStyle.normal,

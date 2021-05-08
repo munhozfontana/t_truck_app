@@ -4,14 +4,15 @@ import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart
 import 'package:t_truck_app/features/data/external/adapters/i_login_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
 import 'package:t_truck_app/features/data/external/apis/login_api.dart';
-import 'package:t_truck_app/features/data/external/apis/order_external_api.dart';
 import 'package:t_truck_app/features/data/external/drivers/dio_driver.dart';
 import 'package:t_truck_app/features/data/repository/login_repository.dart';
-import 'package:t_truck_app/features/data/repository/order_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
-import 'package:t_truck_app/features/domain/repositories/i_order_repository.dart';
-import 'package:t_truck_app/features/domain/use_cases/Order/Order_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
+import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
+
+import 'features/data/external/apis/order_external_api.dart';
+import 'features/data/repository/order_repository.dart';
+import 'features/domain/repositories/i_order_repository.dart';
 
 class MainBiding extends Bindings {
   @override

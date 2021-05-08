@@ -13,7 +13,7 @@ class LoginApi implements ILogin {
   @override
   Future<bool> login(CredentialEntity credential) async {
     var res =
-        await iHttp.getHttp('${env['URL_BASE']}/codMot/${credential.login}');
+        await iHttp.postHttp('${env['URL_BASE']}/login', body: credential);
     return res.statusCode! >= 200;
   }
 }

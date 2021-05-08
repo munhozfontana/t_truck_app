@@ -6,21 +6,16 @@ import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/order_page.dart';
+import 'package:t_truck_app/features/presentation/styles/app_snackbar.dart';
 
-class LoginController extends GetxController {
+class LoginController extends GetxController with BaseController {
   final LoginUseCase loginUseCase;
   LoginController({required this.loginUseCase});
-
-  final loadingState = Loading.STOP.obs;
 
   Rx<GlobalKey<FormState>> form = GlobalKey<FormState>().obs;
 
   var loginField = TextEditingController().obs;
   var passwordField = TextEditingController().obs;
-
-  void changeLoading(Loading loading) {
-    loadingState.value = loading;
-  }
 
   void auth() async {
     changeLoading(Loading.START);
@@ -35,12 +30,9 @@ class LoginController extends GetxController {
     );
     changeLoading(Loading.STOP);
     res.fold(
-        (l) => {
-              Get.snackbar('Titulo', l.props.first.toString(),
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.redAccent),
-            },
+        (l) => AppDialog.error(
+              menssagem: l.props.first.toString(),
+            ),
         (r) async => await Get.to(() => OrderPage()));
   }
 }

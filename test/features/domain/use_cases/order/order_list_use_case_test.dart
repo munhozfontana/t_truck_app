@@ -25,7 +25,14 @@ void main() {
   test('Should return list orders', () async {
     when(mockIOrderListRepository.list()).thenAnswer(
       (_) async => Right(
-        [OrderEntity(nomeMercado: 'any', quantidade: 3)],
+        [
+          OrderEntity(
+              codCli: 1,
+              codCliCliente: '2',
+              dtCanhato: '1',
+              numNota: 2,
+              numTransVenda: '2')
+        ],
       ),
     );
     var res = await orderListUseCase(Params());

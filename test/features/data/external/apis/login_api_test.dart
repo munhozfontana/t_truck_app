@@ -25,7 +25,7 @@ void main() {
   test(
     'Should do login with no erros',
     () async {
-      when(mockIHttp.getHttp(any)).thenAnswer(
+      when(mockIHttp.postHttp(any, body: anyNamed('body'))).thenAnswer(
           (_) async => HttpResponse(body: '{ "auth": true }', statusCode: 200));
       var res = await loginApi.login(credential);
       expect(res, true);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
+import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 import 'package:t_truck_app/features/presentation/controllers/login_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
-import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginController controller =
@@ -32,13 +32,7 @@ class LoginPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // FORMULARIO DE LOGIN
                           Spacer(flex: 78),
-                          // Text(
-                          //   'Entrar com código do motorista',
-                          //   style: StyleTypograph.h2,
-                          //   textAlign: TextAlign.left,
-                          // ),
                           TextFormField(
                             controller: controller.loginField.value,
                             decoration: StyleInputs.inputDecorationLogin(
@@ -91,6 +85,14 @@ class LoginPage extends StatelessWidget {
                 },
               ),
             ),
+            Obx(
+              () => Visibility(
+                visible: controller.loadingState.value == Loading.START,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -108,7 +110,7 @@ class LoginPage extends StatelessWidget {
         ),
         Text(
           'Lembrar acesso',
-          style: StyleTypograph.h3,
+          style: Get.textTheme.headline3,
           textAlign: TextAlign.left,
         ),
       ],
@@ -118,7 +120,7 @@ class LoginPage extends StatelessWidget {
   Text labelMotorista() {
     return Text(
       'Entrar com código do motorista',
-      style: StyleTypograph.h2,
+      style: Get.textTheme.headline2,
       textAlign: TextAlign.left,
     );
   }
@@ -132,10 +134,10 @@ class LoginPage extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  style: StyleTypograph.h4,
+                  style: Get.textTheme.headline4,
                   text: 'Precisa de ajuda? Entre em contato \ncom o telefone '),
               TextSpan(
-                style: StyleTypograph.h4_w500,
+                style: Get.textTheme.headline5,
                 text: ' (00) 0 0000-0000',
               )
             ],
@@ -154,7 +156,7 @@ class LoginPage extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-            const Color(0xff080e31),
+            Get.theme.buttonColor,
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -185,7 +187,7 @@ class LoginPage extends StatelessWidget {
       width: constraints.maxWidth,
       child: Text(
         'Esqueci meu código',
-        style: StyleTypograph.h4,
+        style: Get.textTheme.headline4,
         textAlign: TextAlign.center,
       ),
     );

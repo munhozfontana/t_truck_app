@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
+import 'package:get/get.dart';
 
 class AppBackground extends StatelessWidget {
   final bool initialScreen;
@@ -125,7 +125,7 @@ class AppBackground extends StatelessWidget {
             height: 90,
             child: Text(
               'Bem vindo ao GSA Acompanhamento Logístico',
-              style: StyleTypograph.h1,
+              style: Get.textTheme.headline1,
               textAlign: TextAlign.left,
             ),
           ),
