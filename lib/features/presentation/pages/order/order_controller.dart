@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
-import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/app_snackbar.dart';
+import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class OrderController extends GetxController with BaseController {
   final OrderListUseCase orderListUseCase;

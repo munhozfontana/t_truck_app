@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
-import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/order_page.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/styles/app_snackbar.dart';
+import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class LoginController extends GetxController with BaseController {
   final LoginUseCase loginUseCase;

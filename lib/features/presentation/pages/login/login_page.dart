@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
-import 'package:t_truck_app/features/presentation/controllers/base_controller.dart';
-import 'package:t_truck_app/features/presentation/controllers/login_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
+import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginController controller =

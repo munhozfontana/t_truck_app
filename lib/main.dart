@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery_page.dart';
-import 'package:t_truck_app/features/presentation/pages/login_page.dart';
-import 'package:t_truck_app/features/presentation/pages/order_page.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
+import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/styles/style_typograph.dart';
 import 'package:t_truck_app/injection_container.dart';
 

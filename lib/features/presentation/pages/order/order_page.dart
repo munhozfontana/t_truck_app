@@ -4,7 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
-import 'package:t_truck_app/features/presentation/controllers/order_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/style_inputs.dart';
 
 class OrderPage extends StatelessWidget {
