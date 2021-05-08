@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
 
 class DeliveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print(Get.arguments as OrderEntity);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -235,19 +239,22 @@ class DeliveryPage extends StatelessWidget {
                         ],
                       ),
                       Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Voltar para listar cliente',
-                              style: const TextStyle(
-                                  color: Color(0xff6c6c6c),
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Poppins',
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14.0),
-                              textAlign: TextAlign.left)
-                        ],
+                      GestureDetector(
+                        onTap: Get.back,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.arrow_left),
+                            Text('Voltar para listar cliente',
+                                style: const TextStyle(
+                                    color: Color(0xff6c6c6c),
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Poppins',
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 14.0),
+                                textAlign: TextAlign.left)
+                          ],
+                        ),
                       )
                     ],
                   ),

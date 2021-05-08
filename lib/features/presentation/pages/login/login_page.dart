@@ -6,9 +6,8 @@ import 'package:t_truck_app/features/presentation/components/custom_checkbox.dar
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
-class LoginPage extends StatelessWidget {
-  final LoginController controller =
-      Get.put(LoginController(loginUseCase: Get.find()));
+class LoginPage extends GetWidget<LoginController> {
+  final GlobalKey<FormState> form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class LoginPage extends StatelessWidget {
                   return alinhaFormParaBaixo(
                     constraints: constraints,
                     conteudoDorFormulario: Form(
-                      key: controller.form.value,
+                      key: form,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,5 +3,5 @@ import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 
 abstract class ILoginRepository {
-  Future<Either<Failure, bool>> login(CredentialEntity credentials);
+  Future<Either<Failure, String>> login(CredentialEntity credentials);
 }

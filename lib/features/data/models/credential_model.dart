@@ -27,6 +27,16 @@ class CredentialModel extends CredentialEntity {
 
   String toJson() => json.encode(toMap());
 
+  CredentialEntity copyWith({
+    String? login,
+    String? password,
+  }) {
+    return CredentialEntity(
+      login: login ?? this.login,
+      password: password ?? this.password,
+    );
+  }
+
   factory CredentialModel.fromJson(String source) =>
       CredentialModel.fromMap(json.decode(source));
 }

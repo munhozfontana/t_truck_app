@@ -6,15 +6,15 @@ import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/core/use_case.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 
-class LoginUseCase implements UseCase<Type, Params> {
-  ILoginRepository iLoginRepository;
+class LoginUseCase implements UseCaseAsync<Type, Params> {
+  final ILoginRepository iLoginRepository;
 
   LoginUseCase({
     required this.iLoginRepository,
   });
 
   @override
-  Future<Either<Failure, void>> call(Params params) async {
+  Future<Either<Failure, String>> call(Params params) async {
     if (params.credential == null) {
       return Left(ValidationFailure(detail: 'Credencias são abrigatórias'));
     }

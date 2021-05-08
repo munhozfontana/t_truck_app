@@ -37,7 +37,8 @@ class DioDriver implements IHttp {
   Future<HttpResponse> postHttp(String? url,
       {Map<String, String>? headers, body}) async {
     try {
-      return mackObj(await dio.post(url!, options: Options(headers: headers)));
+      return mackObj(
+          await dio.post(url!, data: body, options: Options(headers: headers)));
     } catch (e) {
       throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }

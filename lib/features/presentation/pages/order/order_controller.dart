@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
-import 'package:t_truck_app/features/presentation/styles/app_snackbar.dart';
+import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class OrderController extends GetxController with BaseController {
@@ -33,11 +33,14 @@ class OrderController extends GetxController with BaseController {
   }
 
   void filterChanged(String value) {
-    filtredList.value = list
-        .where(
-            (element) => element.codCliCliente.isCaseInsensitiveContains(value))
+    filtredList.value = filterList(list, value);
+  }
+
+  List<OrderEntity> filterList(List<OrderEntity> list, String itemFilter) {
+    return list
+        .where((element) =>
+            element.codCliCliente.isCaseInsensitiveContains(itemFilter))
         .toList();
-    filterInput.value = value;
   }
 
   @override

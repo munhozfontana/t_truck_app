@@ -4,12 +4,10 @@ import 'package:get/route_manager.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 
-class OrderPage extends StatelessWidget {
-  final OrderController controller =
-      Get.put(OrderController(orderListUseCase: Get.find()));
-
+class OrderPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +30,6 @@ class OrderPage extends StatelessWidget {
                       ),
                       TextFormField(
                         onChanged: controller.filterChanged,
-                        // decoration: StyleInputs.inputDecorationLogin(),
                       ),
                       Spacer(
                         flex: 035,
@@ -83,15 +80,20 @@ class OrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Stack(
-          children: [
-            background(constraints),
-            content(constraints, orderEntity),
-          ],
-        );
+    return InkWell(
+      onTap: () {
+        Get.to(DeliveryPage(), arguments: orderEntity);
       },
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Stack(
+            children: [
+              background(constraints),
+              content(constraints, orderEntity),
+            ],
+          );
+        },
+      ),
     );
   }
 

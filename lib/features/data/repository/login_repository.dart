@@ -14,7 +14,7 @@ class LoginRepository implements ILoginRepository {
   });
 
   @override
-  Future<Either<Failure, bool>> login(CredentialEntity credentials) async {
+  Future<Either<Failure, String>> login(CredentialEntity credentials) async {
     try {
       return Right(await iLoginApi.login(credentials));
     } on ApiException catch (e) {

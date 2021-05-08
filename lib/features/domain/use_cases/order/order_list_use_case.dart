@@ -7,7 +7,7 @@ import 'package:t_truck_app/core/use_case.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/domain/repositories/i_order_repository.dart';
 
-class OrderListUseCase implements UseCase<Type, Params> {
+class OrderListUseCase implements UseCaseAsync<Type, Params> {
   IOrderRepository iOrderListRepository;
 
   OrderListUseCase({

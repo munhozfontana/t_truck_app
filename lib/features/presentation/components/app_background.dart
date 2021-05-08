@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class AppBackground extends StatelessWidget {
   final bool initialScreen;
@@ -55,10 +57,22 @@ class AppBackground extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          child: SvgPicture.asset(
-            'images/logo.svg',
-            semanticsLabel: 'Background Logo',
+        Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          child: Container(
+            height: 50,
+            child: GestureDetector(
+              onTap: () {
+                Get.off(LoginPage(), binding: MainBiding());
+              },
+              child: Container(
+                child: SvgPicture.asset(
+                  'images/logo.svg',
+                  semanticsLabel: 'Background Logo',
+                ),
+              ),
+            ),
           ),
         ),
         // Rectangle 15
