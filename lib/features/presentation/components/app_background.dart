@@ -64,7 +64,7 @@ class AppBackground extends StatelessWidget {
             height: 50,
             child: GestureDetector(
               onTap: () {
-                Get.off(LoginPage(), binding: MainBiding());
+                Get.off(() => LoginPage(), binding: MainBiding());
               },
               child: Container(
                 child: SvgPicture.asset(

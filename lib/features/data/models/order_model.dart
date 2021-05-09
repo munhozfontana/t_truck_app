@@ -1,44 +1,33 @@
-import 'dart:convert';
-
+import 'package:t_truck_app/features/data/models/identificacao_model.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 
 class OrderModel extends OrderEntity {
-  OrderModel({
-    required String numTransVenda,
-    required String dtCanhato,
-    required int numNota,
-    required String codCliCliente,
-    required int codCli,
-  }) : super(
-          numTransVenda: numTransVenda,
-          dtCanhato: dtCanhato,
-          numNota: numNota,
-          codCliCliente: codCliCliente,
-          codCli: codCli,
-        );
+  OrderModel(
+      {required String? dtCanhato,
+      required String cliente,
+      required int codCli,
+      required List<IdentificacaoModel> identificacao})
+      : super(
+            dtCanhato: dtCanhato,
+            cliente: cliente,
+            codCli: codCli,
+            identificacoes: identificacao);
 
-  Map<String, dynamic> toMap() {
-    return {
-      'numTransVenda': numTransVenda,
-      'dtCanhato': dtCanhato,
-      'numNota': numNota,
-      'codCliCliente': codCliCliente,
-      'codCli': codCli,
-    };
+  static List<OrderModel> orderByIdentificacao(List list) {
+    return list.map((order) {
+      var identificacao = list
+          .where(
+            (element) => element['CODCLI'] == order['CODCLI'],
+          )
+          .map((e) => IdentificacaoModel(
+              numTransVenda: e['NUMTRANSVENDA'], numNota: e['NUMTRANSVENDA']))
+          .toList();
+
+      return OrderModel(
+          dtCanhato: order['DTCANHOTO'],
+          cliente: order['CLIENTE'],
+          codCli: order['CODCLI'],
+          identificacao: identificacao);
+    }).toList();
   }
-
-  factory OrderModel.fromMap(Map<String, dynamic> map) {
-    return OrderModel(
-      numTransVenda: map['numTransVenda'],
-      dtCanhato: map['dtCanhato'],
-      numNota: map['numNota'],
-      codCliCliente: map['codCliCliente'],
-      codCli: map['codCli'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory OrderModel.fromJson(String source) =>
-      OrderModel.fromMap(json.decode(source));
 }

@@ -6,61 +6,66 @@ import 'package:t_truck_app/features/presentation/components/app_background.dart
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
+import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
-class OrderPage extends GetView<OrderController> {
+class OrderPage extends GetWidget<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          AppBackground(
-            initialScreen: false,
-          ),
+          AppBackground(),
           LayoutForm(
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                return Form(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Spacer(
-                        flex: 041,
-                      ),
-                      TextFormField(
-                        onChanged: controller.filterChanged,
-                      ),
-                      Spacer(
-                        flex: 035,
-                      ),
-                      Opacity(
-                        opacity: 0.5,
-                        child: Obx(() => Text(
-                              '${controller.filtredList.length} clientes encontrados',
-                              style: Get.textTheme.headline6,
-                              textAlign: TextAlign.left,
-                            )),
-                      ),
-                      Spacer(
-                        flex: 035,
-                      ),
-                      Flexible(
-                        flex: 751,
-                        child: Obx(() => ListView.separated(
-                              separatorBuilder: (_, __) => SizedBox(height: 16),
-                              itemCount: controller.filtredList.length,
-                              itemBuilder: (context, index) {
-                                return OrderItem(
-                                  orderEntity: controller.filtredList[index],
-                                );
-                              },
-                            )),
-                      )
-                    ],
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Spacer(
+                      flex: 041,
+                    ),
+                    TextFormField(
+                      onChanged: controller.filterChanged,
+                    ),
+                    Spacer(
+                      flex: 035,
+                    ),
+                    Opacity(
+                      opacity: 0.5,
+                      child: Obx(() => Text(
+                            '${controller.filtredList.length} clientes encontrados',
+                            style: Get.textTheme.headline6,
+                            textAlign: TextAlign.left,
+                          )),
+                    ),
+                    Spacer(
+                      flex: 035,
+                    ),
+                    Flexible(
+                      flex: 751,
+                      child: Obx(() => ListView.separated(
+                            separatorBuilder: (_, __) => SizedBox(height: 16),
+                            itemCount: controller.filtredList.length,
+                            itemBuilder: (context, index) {
+                              return OrderItem(
+                                orderEntity: controller.filtredList[index],
+                              );
+                            },
+                          )),
+                    )
+                  ],
                 );
               },
+            ),
+          ),
+          Obx(
+            () => Visibility(
+              visible: controller.loadingState.value == Loading.START,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           )
         ],
@@ -121,7 +126,7 @@ class OrderItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            orderEntity.codCliCliente,
+            orderEntity.cliente,
             style: const TextStyle(
               color: Color(0xff090f31),
               fontWeight: FontWeight.w500,
@@ -158,7 +163,7 @@ class OrderItem extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          orderEntity.numNota.toString(),
+                          orderEntity.identificacoes.length.toString(),
                           style: const TextStyle(
                               color: Color(0xff000000),
                               fontWeight: FontWeight.w500,

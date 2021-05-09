@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/styles/global_style.dart';
@@ -29,7 +30,7 @@ void main() async {
       ),
     ),
     initialBinding: MainBiding(),
-    initialRoute: '/',
+    initialRoute: '/devolution',
     getPages: [
       GetPage(
         name: '/',
@@ -42,6 +43,10 @@ void main() async {
       GetPage(
         name: '/delivery',
         page: () => DeliveryPage(),
+      ),
+      GetPage(
+        name: '/devolution',
+        page: () => DevolutionPage(),
       )
     ],
   ));

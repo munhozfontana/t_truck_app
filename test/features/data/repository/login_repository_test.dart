@@ -23,7 +23,7 @@ void main() {
   });
 
   test('Should return right when no erros', () async {
-    when(mockILogin.login(credentials)).thenAnswer((_) async => true);
+    when(mockILogin.login(credentials)).thenAnswer((_) async => 'd21d1d4fsdf');
     var res = await loginRepository.login(credentials);
     expect(res, isA<Right>());
   });

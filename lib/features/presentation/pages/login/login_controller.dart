@@ -5,13 +5,15 @@ import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/token/token_use_case.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class LoginController extends GetxController with BaseController {
   final LoginUseCase loginUseCase;
   final TokenUseCase tokenUseCase;
-  RxString? matricula;
+  RxString matricula = ''.obs;
 
   LoginController({
     required this.loginUseCase,
@@ -42,13 +44,10 @@ class LoginController extends GetxController with BaseController {
                   (l) => AppDialog.error(
                         menssagem: l.props.first.toString(),
                       ),
-                  (r) => print(r['login'])),
+                  (r) => {
+                        matricula.value = r['login'].toString(),
+                        Get.to(() => OrderPage(), binding: OrderBiding())
+                      }),
             });
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-    print('CLOSE()');
   }
 }

@@ -22,7 +22,7 @@ class MockILogin extends _i1.Mock implements _i2.ILogin {
   }
 
   @override
-  _i3.Future<bool> login(_i4.CredentialEntity? credential) =>
+  _i3.Future<String> login(_i4.CredentialEntity? credential) =>
       (super.noSuchMethod(Invocation.method(#login, [credential]),
-          returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
+          returnValue: Future<String>.value('')) as _i3.Future<String>);
 }

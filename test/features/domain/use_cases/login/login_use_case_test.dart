@@ -26,7 +26,7 @@ void main() {
 
   test('should do login with no erros', () async {
     when(mockILoginRepository.login(params.credential!))
-        .thenAnswer((realInvocation) async => Right(true));
+        .thenAnswer((realInvocation) async => Right('123d12d12d'));
     var res = await loginUseCase(params);
     expect(res, isA<Right>());
   });

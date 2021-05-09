@@ -28,10 +28,9 @@ void main() {
         [
           OrderEntity(
               codCli: 1,
-              codCliCliente: '2',
               dtCanhato: '1',
-              numNota: 2,
-              numTransVenda: '2')
+              cliente: 'anyCLiente',
+              identificacoes: [])
         ],
       ),
     );

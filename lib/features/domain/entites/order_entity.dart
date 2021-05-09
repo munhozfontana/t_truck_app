@@ -1,14 +1,23 @@
 class OrderEntity {
-  final String numTransVenda;
-  final String dtCanhato;
-  final int numNota;
-  final String codCliCliente;
+  final String? dtCanhato;
+  final String cliente;
   final int codCli;
+  final List<Identificacao> identificacoes;
 
-  OrderEntity(
-      {required this.numTransVenda,
-      required this.dtCanhato,
-      required this.numNota,
-      required this.codCliCliente,
-      required this.codCli});
+  OrderEntity({
+    this.dtCanhato,
+    required this.cliente,
+    required this.codCli,
+    required this.identificacoes,
+  });
+}
+
+class Identificacao {
+  final int numTransVenda;
+  final int numNota;
+
+  Identificacao({
+    required this.numTransVenda,
+    required this.numNota,
+  });
 }

@@ -37,6 +37,7 @@ dependencies:
   get: ^4.1.4
   get_it: ^6.1.1
   google_maps_flutter: ^2.0.3
+  json_serializable: ^4.1.1
   jwt_decoder: ^2.0.1
   map: ^0.3.0
   mockito: ^5.0.5

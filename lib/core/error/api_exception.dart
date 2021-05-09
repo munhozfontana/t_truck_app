@@ -1,27 +1,19 @@
-import 'dart:developer';
-
 class ApiException implements Exception {
   final String? error;
 
-  ApiException({this.error}) {
-    log('log me', name: 'my.app.category', error: 'aaaa', level: 1);
-  }
+  ApiException({this.error});
 }
 
 class ApiAdaptertException implements ApiException {
   @override
   final String? error;
 
-  ApiAdaptertException({this.error}) {
-    log('log me', name: 'my.app.category', error: 'aaaa', level: 1);
-  }
+  ApiAdaptertException({this.error});
 }
 
 class ApiNotExists implements ApiException {
   @override
   final String? error;
 
-  ApiNotExists({this.error}) {
-    log('log me', name: 'my.app.category', error: 'aaaa', level: 1);
-  }
+  ApiNotExists({this.error});
 }

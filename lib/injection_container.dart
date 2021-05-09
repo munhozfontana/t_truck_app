@@ -27,12 +27,30 @@ class MainBiding extends Bindings {
   @override
   void dependencies() {
     Get.put<IHttp>(DioDriver(dio: Dio()));
-    loginBiding();
-    OrderBiding();
-    TokenBiding();
+    TokenBiding().dependencies();
+    // OrderBiding().dependencies();
+    LoginBiding().dependencies();
   }
+}
 
-  void OrderBiding() {
+class TokenBiding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<IJwt>(
+      () => JwtDecoderDriver(),
+    );
+    Get.lazyPut<ITokenRepository>(() => TokenRepository(
+          jwtDriver: Get.find(),
+        ));
+    Get.lazyPut<TokenUseCase>(() => TokenUseCase(
+          tokenRepository: Get.find(),
+        ));
+  }
+}
+
+class OrderBiding extends Bindings {
+  @override
+  void dependencies() {
     Get.lazyPut<IOrderExternal>(() => OrderExternalApi(
           iHttp: Get.find(),
         ));
@@ -46,20 +64,11 @@ class MainBiding extends Bindings {
       return OrderController(orderListUseCase: Get.find());
     });
   }
+}
 
-  void TokenBiding() {
-    Get.lazyPut<IJwt>(
-      () => JwtDecoderDriver(),
-    );
-    Get.lazyPut<ITokenRepository>(() => TokenRepository(
-          jwtDriver: Get.find(),
-        ));
-    Get.lazyPut<TokenUseCase>(() => TokenUseCase(
-          tokenRepository: Get.find(),
-        ));
-  }
-
-  void loginBiding() {
+class LoginBiding extends Bindings {
+  @override
+  void dependencies() {
     Get.lazyPut<ILogin>(() => LoginApi(
           iHttp: Get.find(),
         ));

@@ -38,8 +38,8 @@ class OrderController extends GetxController with BaseController {
 
   List<OrderEntity> filterList(List<OrderEntity> list, String itemFilter) {
     return list
-        .where((element) =>
-            element.codCliCliente.isCaseInsensitiveContains(itemFilter))
+        .where(
+            (element) => element.cliente.isCaseInsensitiveContains(itemFilter))
         .toList();
   }
 

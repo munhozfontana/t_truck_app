@@ -7,7 +7,7 @@ import 'package:t_truck_app/features/presentation/components/layout_form.dart';
 class DeliveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(Get.arguments as OrderEntity);
+    OrderEntity item = Get.arguments;
 
     return Scaffold(
       body: Stack(
@@ -49,7 +49,7 @@ class DeliveryPage extends StatelessWidget {
                                 Icon(Icons.person_outline_outlined),
                                 Opacity(
                                   opacity: 0.5600000023841858,
-                                  child: Text('039281323',
+                                  child: Text(item.codCli.toString(),
                                       style: const TextStyle(
                                           color: Color(0xff000000),
                                           fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class DeliveryPage extends StatelessWidget {
                                           fontSize: 14.0),
                                       textAlign: TextAlign.left),
                                 ),
-                                Text('Mercado Dona de Casa',
+                                Text(item.cliente,
                                     style: const TextStyle(
                                         color: Color(0xff000000),
                                         fontWeight: FontWeight.w800,
@@ -101,7 +101,7 @@ class DeliveryPage extends StatelessWidget {
                                             fontStyle: FontStyle.normal,
                                             fontSize: 18.0),
                                         textAlign: TextAlign.left),
-                                    Text('01',
+                                    Text(item.identificacoes.length.toString(),
                                         style: const TextStyle(
                                             color: Color(0xff090e32),
                                             fontWeight: FontWeight.w600,
@@ -244,7 +244,7 @@ class DeliveryPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.arrow_left),
+                            Icon(Icons.keyboard_arrow_left_rounded),
                             Text('Voltar para listar cliente',
                                 style: const TextStyle(
                                     color: Color(0xff6c6c6c),
