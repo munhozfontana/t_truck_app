@@ -42,10 +42,4 @@ class OrderController extends GetxController with BaseController {
             (element) => element.cliente.isCaseInsensitiveContains(itemFilter))
         .toList();
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    print('onInit()');
-  }
 }

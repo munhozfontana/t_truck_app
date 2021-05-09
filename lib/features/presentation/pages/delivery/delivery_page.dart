@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 
-class DeliveryPage extends StatelessWidget {
+class DeliveryPage extends GetWidget<DeliveryController> {
   @override
   Widget build(BuildContext context) {
-    OrderEntity item = Get.arguments;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -49,7 +47,10 @@ class DeliveryPage extends StatelessWidget {
                                 Icon(Icons.person_outline_outlined),
                                 Opacity(
                                   opacity: 0.5600000023841858,
-                                  child: Text(item.codCli.toString(),
+                                  child: Text(
+                                      controller.orderEntity.value!.codCli
+                                          .toString(),
+                                      // child: Text('1',
                                       style: const TextStyle(
                                           color: Color(0xff000000),
                                           fontWeight: FontWeight.w600,
@@ -58,7 +59,7 @@ class DeliveryPage extends StatelessWidget {
                                           fontSize: 14.0),
                                       textAlign: TextAlign.left),
                                 ),
-                                Text(item.cliente,
+                                Text(controller.orderEntity.value!.cliente,
                                     style: const TextStyle(
                                         color: Color(0xff000000),
                                         fontWeight: FontWeight.w800,
@@ -101,14 +102,17 @@ class DeliveryPage extends StatelessWidget {
                                             fontStyle: FontStyle.normal,
                                             fontSize: 18.0),
                                         textAlign: TextAlign.left),
-                                    Text(item.identificacoes.length.toString(),
+                                    Obx(() => Text(
+                                        controller.orderEntity.value!
+                                            .identificacoes.length
+                                            .toString(),
                                         style: const TextStyle(
                                             color: Color(0xff090e32),
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Poppins',
                                             fontStyle: FontStyle.normal,
                                             fontSize: 32.0),
-                                        textAlign: TextAlign.left)
+                                        textAlign: TextAlign.left))
                                   ],
                                 ),
                               )
@@ -141,14 +145,16 @@ class DeliveryPage extends StatelessWidget {
                                             fontStyle: FontStyle.normal,
                                             fontSize: 18.0),
                                         textAlign: TextAlign.left),
-                                    Text('01',
+                                    Obx(() => Text(
+                                        controller.productEntityList.length
+                                            .toString(),
                                         style: const TextStyle(
                                             color: Color(0xff090e32),
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Poppins',
                                             fontStyle: FontStyle.normal,
                                             fontSize: 32.0),
-                                        textAlign: TextAlign.left)
+                                        textAlign: TextAlign.left))
                                   ],
                                 ),
                               )

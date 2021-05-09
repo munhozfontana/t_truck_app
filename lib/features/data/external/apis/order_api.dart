@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
@@ -10,10 +8,10 @@ import 'package:t_truck_app/features/data/models/order_model.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 
-class OrderExternalApi implements IOrderExternal {
+class OrderApi implements IOrderExternal {
   final IHttp iHttp;
 
-  OrderExternalApi({
+  OrderApi({
     required this.iHttp,
   });
 
@@ -23,8 +21,7 @@ class OrderExternalApi implements IOrderExternal {
       var loginControler = Get.find<LoginController>();
       var res = await iHttp.getHttp(
           '${env['URL_BASE']}/order/${loginControler.matricula.value}');
-      List list = jsonDecode(res.body!);
-      var orderByIdentificacao = OrderModel.orderByIdentificacao(list);
+      var orderByIdentificacao = OrderModel.orderByIdentificacao(res.body!);
       return orderByIdentificacao;
     } catch (e) {
       throw ApiException(error: ApiMensages.Order_LIST_ERROR);

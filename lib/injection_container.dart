@@ -5,20 +5,26 @@ import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart
 import 'package:t_truck_app/features/data/external/adapters/i_jwt_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_login_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_product_external.dart';
 import 'package:t_truck_app/features/data/external/apis/login_api.dart';
+import 'package:t_truck_app/features/data/external/apis/product_api.dart';
 import 'package:t_truck_app/features/data/external/drivers/dio_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/jwt_decoder_driver.dart';
 import 'package:t_truck_app/features/data/repository/login_repository.dart';
+import 'package:t_truck_app/features/data/repository/product_repository.dart';
 import 'package:t_truck_app/features/data/repository/token_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
+import 'package:t_truck_app/features/domain/repositories/i_product_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_token_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
+import 'package:t_truck_app/features/domain/use_cases/product/product_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/token/token_use_case.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 
-import 'features/data/external/apis/order_external_api.dart';
+import 'features/data/external/apis/order_api.dart';
 import 'features/data/repository/order_repository.dart';
 import 'features/domain/repositories/i_order_repository.dart';
 
@@ -28,7 +34,6 @@ class MainBiding extends Bindings {
   void dependencies() {
     Get.put<IHttp>(DioDriver(dio: Dio()));
     TokenBiding().dependencies();
-    // OrderBiding().dependencies();
     LoginBiding().dependencies();
   }
 }
@@ -51,7 +56,7 @@ class TokenBiding extends Bindings {
 class OrderBiding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<IOrderExternal>(() => OrderExternalApi(
+    Get.lazyPut<IOrderExternal>(() => OrderApi(
           iHttp: Get.find(),
         ));
     Get.lazyPut<IOrderRepository>(() => OrderRepository(
@@ -81,6 +86,23 @@ class LoginBiding extends Bindings {
     Get.lazyPut(() {
       return LoginController(
           loginUseCase: Get.find(), tokenUseCase: Get.find());
+    });
+  }
+}
+
+class DeliveryBiding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<IProductExternal>(() => ProductApi(iHttp: Get.find()));
+
+    Get.lazyPut<IProductRepository>(
+        () => ProductRepository(iProductExternal: Get.find()));
+
+    Get.lazyPut<ProductListUseCase>(
+        () => ProductListUseCase(iProductRepository: Get.find()));
+
+    Get.lazyPut(() {
+      return DeliveryController(productListUseCase: Get.find());
     });
   }
 }

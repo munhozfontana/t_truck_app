@@ -34,6 +34,8 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 78),
                           TextFormField(
                             controller: controller.loginField.value,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
                               prefixIcon: Opacity(
                                 opacity: 0.4000000059604645,
@@ -50,6 +52,8 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 39),
                           TextFormField(
                             controller: controller.passwordField.value,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
                               prefixIcon: Opacity(
                                 opacity: 0.4000000059604645,
@@ -163,7 +167,10 @@ class LoginPage extends GetWidget<LoginController> {
             ),
           ),
         ),
-        onPressed: controller.auth,
+        onPressed: () => {
+          form.currentState!.validate(),
+          controller.auth(),
+        },
         child: Text(
           'Entrar',
           style: const TextStyle(

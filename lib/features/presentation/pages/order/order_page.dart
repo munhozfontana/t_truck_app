@@ -7,6 +7,7 @@ import 'package:t_truck_app/features/presentation/components/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class OrderPage extends GetWidget<OrderController> {
   @override
@@ -87,7 +88,11 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(DeliveryPage(), arguments: orderEntity);
+        Get.to(
+          () => DeliveryPage(),
+          arguments: orderEntity,
+          binding: DeliveryBiding(),
+        );
       },
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
