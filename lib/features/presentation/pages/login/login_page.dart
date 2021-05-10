@@ -109,7 +109,10 @@ class LoginPage extends GetWidget<LoginController> {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
-          child: CustomCheckbox(),
+          child: CustomCheckbox(
+            isSelected: false,
+            onTap: () {},
+          ),
         ),
         Text(
           'Lembrar acesso',

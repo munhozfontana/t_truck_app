@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
+import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
 import 'package:t_truck_app/features/presentation/components/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 
@@ -162,87 +163,24 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                           )
                         ],
                       ),
-                      Stack(
-                        children: [
-                          Container(
-                            width: constraints.maxWidth,
-                            height: 56,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
-                              color: const Color(0xff2fe080),
-                            ),
-                          ),
-                          Container(
-                            height: 56,
-                            child: Center(
-                              child: Text('Entrega total',
-                                  style: const TextStyle(
-                                      color: Color(0xffffffff),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 18.0),
-                                  textAlign: TextAlign.left),
-                            ),
-                          ),
-                        ],
+                      BtnDevolution(
+                        onTap: () {},
+                        label: 'Entrega total',
+                        typeDevolution: TypeDevolution.GREEN,
                       ),
-                      Stack(children: [
-                        Opacity(
-                          opacity: 0.10000000149011612,
-                          child: Container(
-                            width: constraints.maxWidth,
-                            height: 56,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
-                              color: const Color(0xffefa92e),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 56,
-                          child: Center(
-                            child: Text('Devolução parcial',
-                                style: const TextStyle(
-                                    color: Color(0xffefa92e),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Poppins',
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 18.0),
-                                textAlign: TextAlign.center),
-                          ),
-                        )
-                      ]),
-                      Stack(
-                        children: [
-                          Opacity(
-                            opacity: 0.10000000149011612,
-                            child: Container(
-                              width: constraints.maxWidth,
-                              height: 56,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
-                                color: const Color(0xfffd5858),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 56,
-                            child: Center(
-                              child: Text('Devolução total',
-                                  style: const TextStyle(
-                                      color: Color(0xfffd5858),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 18.0),
-                                  textAlign: TextAlign.center),
-                            ),
-                          )
-                        ],
+                      BtnDevolution(
+                        onTap: () {
+                          controller.toDevolution(TypeDevolution.YELLOW);
+                        },
+                        label: 'Devolução parcial',
+                        typeDevolution: TypeDevolution.YELLOW,
+                      ),
+                      BtnDevolution(
+                        onTap: () {
+                          controller.toDevolution(TypeDevolution.RED);
+                        },
+                        label: 'Devolução total',
+                        typeDevolution: TypeDevolution.RED,
                       ),
                       Divider(),
                       GestureDetector(

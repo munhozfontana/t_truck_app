@@ -4,6 +4,7 @@
    <application
         tools:replace="android:label"
         android:label="t_truck_app"
+        android:usesCleartextTraffic="true" 
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -71,7 +71,6 @@ class OrderPage extends GetWidget<OrderController> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: Get.back),
     );
   }
 }

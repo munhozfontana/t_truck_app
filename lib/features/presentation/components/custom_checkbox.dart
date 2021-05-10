@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
 
-class CustomCheckbox extends StatefulWidget {
-  final bool? isChecked;
+class CustomCheckbox extends StatelessWidget {
   final double? size;
   final double? iconSize;
   final Color? selectedColor;
   final Color? selectedIconColor;
+  final bool isSelected;
+  final Function onTap;
 
-  CustomCheckbox(
-      {this.isChecked,
-      this.size,
-      this.iconSize,
-      this.selectedColor,
-      this.selectedIconColor});
-
-  @override
-  _CustomCheckboxState createState() => _CustomCheckboxState();
-}
-
-class _CustomCheckboxState extends State<CustomCheckbox> {
-  bool _isSelected = false;
-
-  @override
-  void initState() {
-    _isSelected = widget.isChecked ?? false;
-    super.initState();
-  }
+  CustomCheckbox({
+    this.size,
+    this.iconSize,
+    this.selectedColor,
+    this.selectedIconColor,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isSelected = !_isSelected;
-        });
-      },
+      onTap: () => onTap(),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 500),
         curve: Curves.fastLinearToSlowEaseIn,
@@ -47,13 +33,13 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
               color: Colors.grey,
               width: 1.0,
             )),
-        width: widget.size ?? 24,
-        height: widget.size ?? 24,
-        child: _isSelected
+        width: size ?? 24,
+        height: size ?? 24,
+        child: isSelected
             ? Icon(
                 Icons.check,
-                color: widget.selectedIconColor ?? Colors.grey,
-                size: widget.iconSize ?? 20,
+                color: selectedIconColor ?? Colors.grey,
+                size: iconSize ?? 20,
               )
             : null,
       ),

@@ -6,15 +6,18 @@ class ProductModel extends ProductEntity {
   ProductModel({
     required int codProd,
     required String descricao,
+    required bool isCheck,
   }) : super(
           codProd: codProd,
           descricao: descricao,
+          isCheck: isCheck,
         );
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       codProd: map['CODPROD'],
       descricao: map['DESCRICAO'],
+      isCheck: false,
     );
   }
 
