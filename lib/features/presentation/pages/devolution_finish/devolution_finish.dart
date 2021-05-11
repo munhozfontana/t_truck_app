@@ -4,6 +4,7 @@ import 'package:t_truck_app/features/presentation/components/app_background.dart
 import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 
 class DevolutionFinish extends StatelessWidget {
   @override
@@ -38,7 +39,9 @@ class DevolutionFinish extends StatelessWidget {
                 Spacer(flex: 16),
                 BtnPrimary(
                   label: 'Voltar para o início',
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.off(() => OrderPage());
+                  },
                 ),
                 Spacer(flex: 46),
                 Divider(),
