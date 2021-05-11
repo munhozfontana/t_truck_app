@@ -33,7 +33,7 @@ void main() async {
       ),
     ),
     initialBinding: MainBiding(),
-    initialRoute: '/devolution/reason',
+    initialRoute: '/',
     getPages: [
       GetPage(
         name: '/',
