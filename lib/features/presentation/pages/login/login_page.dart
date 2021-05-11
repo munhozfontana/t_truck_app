@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
+import 'package:t_truck_app/features/presentation/components/help_component.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
@@ -131,26 +132,8 @@ class LoginPage extends GetWidget<LoginController> {
     );
   }
 
-  Center ajuda(BoxConstraints constraints) {
-    return Center(
-      child: Container(
-        width: constraints.maxWidth,
-        child: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                  style: Get.textTheme.headline4,
-                  text: 'Precisa de ajuda? Entre em contato \ncom o telefone '),
-              TextSpan(
-                style: Get.textTheme.headline5,
-                text: ' (00) 0 0000-0000',
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+  Widget ajuda(BoxConstraints constraints) {
+    return HelpComponent();
   }
 
   ConstrainedBox btnEntrar(BoxConstraints constraints) {

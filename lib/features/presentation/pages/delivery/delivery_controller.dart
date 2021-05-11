@@ -17,7 +17,6 @@ class DeliveryController extends GetxController with BaseController {
 
   Rx<OrderEntity?> orderEntity = Rx(Get.arguments);
   RxList<ProductEntity?> productEntityList = <ProductEntity>[].obs;
-  RxBool isParcialDevolution = true.obs;
 
   @override
   void onInit() async {
@@ -61,8 +60,6 @@ class DeliveryController extends GetxController with BaseController {
 
   void changeStatus(ProductEntity? isCheck, int index) {
     productEntityList.elementAt(index)!.isCheck = !isCheck!.isCheck!;
-    isParcialDevolution.value =
-        productEntityList.where((e) => e!.isCheck == false).isNotEmpty;
     productEntityList.refresh();
   }
 }

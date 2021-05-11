@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
-import 'package:t_truck_app/features/presentation/components/layout_form.dart';
+import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 
 class DeliveryPage extends GetWidget<DeliveryController> {

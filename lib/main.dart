@@ -4,8 +4,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution_finish/devolution_finish.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
+import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
 import 'package:t_truck_app/features/presentation/styles/global_style.dart';
 import 'package:t_truck_app/injection_container.dart';
 
@@ -30,7 +33,7 @@ void main() async {
       ),
     ),
     initialBinding: MainBiding(),
-    initialRoute: '/',
+    initialRoute: '/devolution/reason',
     getPages: [
       GetPage(
         name: '/',
@@ -47,7 +50,19 @@ void main() async {
       GetPage(
         name: '/devolution',
         page: () => DevolutionPage(),
-      )
+      ),
+      GetPage(
+        name: '/devolution/reason',
+        page: () => DevolutionReasonPage(),
+      ),
+      GetPage(
+        name: '/devolution/finish',
+        page: () => DevolutionFinish(),
+      ),
+      GetPage(
+        name: '/payment',
+        page: () => PaymentPage(),
+      ),
     ],
   ));
 }

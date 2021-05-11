@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
-import 'package:t_truck_app/features/presentation/components/layout_form.dart';
+import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 
 class DevolutionPage extends StatelessWidget {
@@ -101,7 +101,9 @@ class DevolutionPage extends StatelessWidget {
                     ),
                     GetX<DeliveryController>(
                       builder: (_) {
-                        if (_.isParcialDevolution.value) {
+                        if (_.productEntityList
+                            .where((e) => e!.isCheck == false)
+                            .isNotEmpty) {
                           return BtnDevolution(
                             onTap: () {},
                             label: 'Devolução parcial',
