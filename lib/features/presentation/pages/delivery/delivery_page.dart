@@ -4,6 +4,9 @@ import 'package:t_truck_app/features/presentation/components/app_background.dart
 import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
+import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class DeliveryPage extends GetWidget<DeliveryController> {
   @override
@@ -165,7 +168,9 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                         ],
                       ),
                       BtnDevolution(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => PaymentPage());
+                        },
                         label: 'Entrega total',
                         typeDevolution: TypeDevolution.GREEN,
                       ),
@@ -185,7 +190,8 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                       ),
                       Divider(),
                       GestureDetector(
-                        onTap: Get.back,
+                        onTap: () =>
+                            Get.off(() => OrderPage(), binding: OrderBiding()),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

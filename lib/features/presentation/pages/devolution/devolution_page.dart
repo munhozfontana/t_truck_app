@@ -6,6 +6,8 @@ import 'package:t_truck_app/features/presentation/components/btn_devolution.dart
 import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
 
 class DevolutionPage extends StatelessWidget {
   @override
@@ -105,13 +107,17 @@ class DevolutionPage extends StatelessWidget {
                             .where((e) => e!.isCheck == false)
                             .isNotEmpty) {
                           return BtnDevolution(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(() => DevolutionReasonPage());
+                            },
                             label: 'Devolução parcial',
                             typeDevolution: TypeDevolution.YELLOW,
                           );
                         } else {
                           return BtnDevolution(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(() => DevolutionReasonPage());
+                            },
                             label: 'Devolução total',
                             typeDevolution: TypeDevolution.RED,
                           );
@@ -122,12 +128,12 @@ class DevolutionPage extends StatelessWidget {
                       flex: 035,
                     ),
                     GestureDetector(
-                      onTap: Get.back,
+                      onTap: () => Get.off(() => DeliveryPage()),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.keyboard_arrow_left_rounded),
-                          Text('Voltar para listar cliente',
+                          Text('Voltar',
                               style: const TextStyle(
                                   color: Color(0xff6c6c6c),
                                   fontWeight: FontWeight.w600,

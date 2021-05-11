@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
+import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 
 class PaymentPage extends StatelessWidget {
   @override
@@ -36,8 +38,7 @@ class PaymentPage extends StatelessWidget {
               Divider(),
               Spacer(flex: 21),
               BtnVoltar(
-                label: 'Voltar',
-              ),
+                  label: 'Voltar', onTap: () => Get.to(() => DeliveryPage())),
               Spacer(flex: 38)
             ],
           )
