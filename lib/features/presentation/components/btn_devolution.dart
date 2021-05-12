@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum TypeDevolution { GREEN, YELLOW, RED }
+enum TypeDevolution { GREEN, YELLOW, RED, NONE }
 
 class BtnDevolution extends StatelessWidget {
   final TypeDevolution typeDevolution;

@@ -6,9 +6,11 @@ class IdentificacaoModel extends Identificacao {
   IdentificacaoModel({
     required int numTransVenda,
     required int numNota,
+    double? valor,
   }) : super(
           numTransVenda: numTransVenda,
           numNota: numNota,
+          valor: valor,
         );
 
   static String toMapTransVenda(List<Identificacao> list) {

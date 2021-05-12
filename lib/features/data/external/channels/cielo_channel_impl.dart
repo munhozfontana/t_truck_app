@@ -1,6 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_payment_external.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
+import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 
 enum Payment {
   DEBITO_AVISTA,
@@ -42,32 +43,55 @@ extension PaymentCode on Payment {
   }
 }
 
-class CieloChannelImpl {
-  Future<PayResponse> getCielo() async {
-    try {
-      var cieloCredentials = CieloCredentials()
-        ..clientID = env['CLIENT_ID_CIELO']
-        ..accessToken = env['ACCESS_TOKEN_CIELO'];
+class CieloChannelImpl implements IPaymentExternal {
+  @override
+  Future<PaymentResponse> pay(List<OrderEntity> listOrderEntity) async {
+    var arg = convertToCielo(listOrderEntity);
 
-      var arg = PayParam()
-        ..reference = 'MINHA REFERENCIA FLUTTER'
-        ..cieloCredentials = cieloCredentials
-        ..valorTotal = 500000
-        ..paymentCode = Payment.CREDITO_PARCELADO_ADM.code
-        ..installments = 5
-        ..items = [
-          {
-            'sku': '2891820317391823',
-            'name': 'coca',
-            'unitPrice': 550,
-            'quantity': 1,
-            'unitOfMeasure': 'UNIT',
-          }
-        ];
-
-      return await CieloRun().pay(arg);
-    } catch (e) {
-      throw DriverException(error: e.toString());
-    }
+    var result = await CieloRun().pay(arg);
+    return PaymentResponse(
+      payments: result.payments,
+      status: result.status,
+    );
   }
+
+  PayParam convertToCielo(List<OrderEntity> listOrderEntity) {
+    var cieloCredentials = CieloCredentials()
+      ..clientID = env['CLIENT_ID_CIELO']
+      ..accessToken = env['ACCESS_TOKEN_CIELO'];
+
+    var valorTotal = listOrderEntity
+        .map((e) => e.identificacoes
+            .map((e) => e.valor)
+            .where((e) => e != null)
+            .map((e) => currencyDefaultCielo(e!))
+            .reduce((itemValue, item) => itemValue + item))
+        .reduce((montanteValue, montante) => montanteValue + montante);
+
+    var items = <Map>[];
+
+    listOrderEntity.forEach((e) {
+      var itemsConverted = e.identificacoes.map((item) {
+        return {
+          'sku': item.numNota,
+          'name': e.cliente,
+          'unitPrice': currencyDefaultCielo(item.valor ?? 0),
+          'quantity': 1,
+          'unitOfMeasure': item.numTransVenda.toString(),
+        };
+      });
+
+      items.addAll(itemsConverted);
+    });
+
+    var arg = PayParam()
+      ..reference = 'GSO'
+      ..cieloCredentials = cieloCredentials
+      ..valorTotal = valorTotal
+      ..paymentCode = Payment.CREDITO_PARCELADO_ADM.code
+      ..items = items;
+    return arg;
+  }
+
+  int currencyDefaultCielo(double e) => (e * 100).toInt();
 }

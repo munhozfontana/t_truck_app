@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
-import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
+import 'package:t_truck_app/features/presentation/components/help_component.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 
@@ -22,7 +22,7 @@ class DevolutionFinish extends StatelessWidget {
                   height: 147.3734588623047,
                   child: ColorFiltered(
                     colorFilter:
-                        ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstOut),
+                        ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstIn),
                     child: Image.asset(
                       'images/box_anim.gif',
                       height: 125.0,
@@ -43,13 +43,11 @@ class DevolutionFinish extends StatelessWidget {
                     Get.off(() => OrderPage());
                   },
                 ),
-                Spacer(flex: 46),
+                Spacer(flex: 14),
                 Divider(),
-                Spacer(flex: 21),
-                BtnVoltar(
-                  label: 'Voltar',
-                ),
-                Spacer(flex: 38)
+                Spacer(flex: 14),
+                HelpComponent(),
+                Spacer(flex: 14),
               ],
             ),
           ),

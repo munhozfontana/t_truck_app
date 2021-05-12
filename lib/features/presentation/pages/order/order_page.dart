@@ -29,6 +29,10 @@ class OrderPage extends GetWidget<OrderController> {
                     ),
                     TextFormField(
                       onChanged: controller.filterChanged,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.search_rounded),
+                          hintText: 'Pequisar cliente...',
+                          hintStyle: Get.theme.textTheme.headline3),
                     ),
                     Spacer(
                       flex: 035,

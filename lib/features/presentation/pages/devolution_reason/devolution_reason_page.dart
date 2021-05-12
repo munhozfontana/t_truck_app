@@ -5,12 +5,13 @@ import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart
 import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
 import 'package:t_truck_app/features/presentation/components/dropdown_default.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
-import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_controller.dart';
 
-class DevolutionReasonPage extends StatelessWidget {
+class DevolutionReasonPage extends GetView<DevolutionReasonController> {
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => DevolutionReasonController());
+
     return Scaffold(
       body: Stack(
         children: [
@@ -32,12 +33,12 @@ class DevolutionReasonPage extends StatelessWidget {
             BtnDevolution(
                 typeDevolution: TypeDevolution.GREEN,
                 label: 'Finalizar entrega',
-                onTap: () => Get.to(() => PaymentPage())),
+                onTap: controller.finishReson),
             Spacer(flex: 172),
             Divider(),
             Spacer(flex: 45),
             BtnVoltar(
-              onTap: () => Get.off(() => DevolutionPage()),
+              onTap: controller.back,
               label: 'Voltar',
             ),
             Spacer(flex: 59)

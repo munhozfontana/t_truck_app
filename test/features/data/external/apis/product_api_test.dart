@@ -27,8 +27,9 @@ void main() {
       when(mockIHttp.postHttp(any, body: anyNamed('body'))).thenAnswer(
           (_) async =>
               HttpResponse(body: fixture('product.json'), statusCode: 200));
-      var res = await productExternalApi
-          .list([Identificacao(numTransVenda: 32370156, numNota: 32370158)]);
+      var res = await productExternalApi.list([
+        Identificacao(numTransVenda: 32370156, numNota: 32370158, valor: 300)
+      ]);
       expect(res.length, 19);
     },
   );

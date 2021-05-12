@@ -126,6 +126,7 @@ class DevolutionPage extends StatelessWidget {
               if (_.productEntityList
                   .where((e) => e!.isCheck == false)
                   .isNotEmpty) {
+                _.updadeStatus(TypeDevolution.YELLOW);
                 return BtnDevolution(
                   onTap: () {
                     Get.to(() => DevolutionReasonPage());
@@ -134,6 +135,7 @@ class DevolutionPage extends StatelessWidget {
                   typeDevolution: TypeDevolution.YELLOW,
                 );
               } else {
+                _.updadeStatus(TypeDevolution.RED);
                 return BtnDevolution(
                   onTap: () {
                     Get.to(() => DevolutionReasonPage());

@@ -17,6 +17,7 @@ class DeliveryController extends GetxController with BaseController {
 
   Rx<OrderEntity?> orderEntity = Rx(Get.arguments);
   RxList<ProductEntity?> productEntityList = <ProductEntity>[].obs;
+  TypeDevolution devolutionState = TypeDevolution.NONE;
 
   @override
   void onInit() async {
@@ -55,7 +56,12 @@ class DeliveryController extends GetxController with BaseController {
               codProd: e!.codProd, descricao: e.descricao, isCheck: true))
           .toList();
     }
+    updadeStatus(typeDevolution);
     Get.to(() => DevolutionPage());
+  }
+
+  void updadeStatus(TypeDevolution typeDevolution) {
+    devolutionState = typeDevolution;
   }
 
   void changeStatus(ProductEntity? isCheck, int index) {

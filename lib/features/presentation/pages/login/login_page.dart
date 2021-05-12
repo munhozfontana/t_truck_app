@@ -80,7 +80,7 @@ class LoginPage extends GetWidget<LoginController> {
                             color: Color.fromRGBO(8, 14, 49, 1),
                           ),
                           Spacer(flex: 48),
-                          ajuda(constraints),
+                          HelpComponent(),
                           Spacer(flex: 66),
                         ],
                       ),
@@ -130,10 +130,6 @@ class LoginPage extends GetWidget<LoginController> {
       style: Get.textTheme.headline2,
       textAlign: TextAlign.left,
     );
-  }
-
-  Widget ajuda(BoxConstraints constraints) {
-    return HelpComponent();
   }
 
   ConstrainedBox btnEntrar(BoxConstraints constraints) {

@@ -23,7 +23,9 @@ class OrderModel extends OrderEntity {
             (element) => element['CODCLI'] == order['CODCLI'],
           )
           .map((e) => IdentificacaoModel(
-              numTransVenda: e['NUMTRANSVENDA'], numNota: e['NUMTRANSVENDA']))
+              numTransVenda: e['NUMTRANSVENDA'],
+              numNota: e['NUMTRANSVENDA'],
+              valor: e['VLTABELA']))
           .toList();
 
       return OrderModel(

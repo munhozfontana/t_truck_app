@@ -56,7 +56,7 @@ class GlobalStyle {
 
   static InputDecorationTheme inputDecoration() => InputDecorationTheme(
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Color(0xff090f31)),
           borderRadius: BorderRadius.circular(12.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
@@ -64,7 +64,7 @@ class GlobalStyle {
           borderRadius: BorderRadius.circular(12.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.lightBlue),
+          borderSide: BorderSide(color: Color(0xff4f5262).withOpacity(.5)),
           borderRadius: BorderRadius.circular(12.0),
         ),
         disabledBorder: OutlineInputBorder(

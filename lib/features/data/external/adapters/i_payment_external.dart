@@ -1,9 +1,14 @@
-abstract class IGeocoding {
-  Future<GeocodingResponse> coordToAndress(double? lng, double? lon);
+import 'package:t_truck_app/features/domain/entites/order_entity.dart';
+
+abstract class IPaymentExternal {
+  Future<PaymentResponse> pay(List<OrderEntity> listOrderEntity);
 }
 
-class GeocodingResponse {
-  String? district;
-  String? country;
-  String? code;
+class PaymentResponse {
+  int? status;
+  List<Object?>? payments;
+  PaymentResponse({
+    this.status,
+    this.payments,
+  });
 }
