@@ -62,7 +62,7 @@ class PaymentPage extends StatelessWidget {
         ..reference = 'MINHA REFERENCIA FLUTTER'
         ..cieloCredentials = cieloCredentials
         ..valorTotal = 500000
-        ..paymentCode = Payment.CREDITO_PARCELADO_ADM.code
+        ..paymentCode = Payment.CREDITO_AVISTA.code
         ..installments = 5
         // ..email = "teste@gmail.com"
         ..items = [

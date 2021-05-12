@@ -55,7 +55,6 @@ class CieloChannelImpl {
         ..valorTotal = 500000
         ..paymentCode = Payment.CREDITO_PARCELADO_ADM.code
         ..installments = 5
-        // ..email = "teste@gmail.com"
         ..items = [
           {
             'sku': '2891820317391823',

@@ -13,6 +13,7 @@ class DevolutionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           AppBackground(),
@@ -67,12 +68,16 @@ class DevolutionPage extends StatelessWidget {
                     ),
                     GetX<DeliveryController>(
                       builder: (_) {
-                        return Flexible(
-                          flex: 450,
+                        return Container(
+                          height: constraints.maxHeight * .75,
                           child: ListView.separated(
                             separatorBuilder: (_, __) => SizedBox(height: 14),
-                            itemCount: _.productEntityList.length,
+                            itemCount: _.productEntityList.length + 1,
                             itemBuilder: (context, index) {
+                              if (index == _.productEntityList.length) {
+                                return renderLastItem();
+                              }
+
                               return Container(
                                 child: Row(
                                   children: [
@@ -97,60 +102,70 @@ class DevolutionPage extends StatelessWidget {
                         );
                       },
                     ),
-                    Divider(),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    GetX<DeliveryController>(
-                      builder: (_) {
-                        if (_.productEntityList
-                            .where((e) => e!.isCheck == false)
-                            .isNotEmpty) {
-                          return BtnDevolution(
-                            onTap: () {
-                              Get.to(() => DevolutionReasonPage());
-                            },
-                            label: 'Devolução parcial',
-                            typeDevolution: TypeDevolution.YELLOW,
-                          );
-                        } else {
-                          return BtnDevolution(
-                            onTap: () {
-                              Get.to(() => DevolutionReasonPage());
-                            },
-                            label: 'Devolução total',
-                            typeDevolution: TypeDevolution.RED,
-                          );
-                        }
-                      },
-                    ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    GestureDetector(
-                      onTap: () => Get.off(() => DeliveryPage()),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.keyboard_arrow_left_rounded),
-                          Text('Voltar',
-                              style: const TextStyle(
-                                  color: Color(0xff6c6c6c),
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Poppins',
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14.0),
-                              textAlign: TextAlign.left)
-                        ],
-                      ),
-                    ),
-                    Spacer(
-                      flex: 035,
-                    ),
                   ],
                 );
               },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container renderLastItem() {
+    return Container(
+      height: 200,
+      child: Column(
+        children: [
+          Divider(),
+          Spacer(
+            flex: 035,
+          ),
+          GetX<DeliveryController>(
+            builder: (_) {
+              if (_.productEntityList
+                  .where((e) => e!.isCheck == false)
+                  .isNotEmpty) {
+                return BtnDevolution(
+                  onTap: () {
+                    Get.to(() => DevolutionReasonPage());
+                  },
+                  label: 'Devolução parcial',
+                  typeDevolution: TypeDevolution.YELLOW,
+                );
+              } else {
+                return BtnDevolution(
+                  onTap: () {
+                    Get.to(() => DevolutionReasonPage());
+                  },
+                  label: 'Devolução total',
+                  typeDevolution: TypeDevolution.RED,
+                );
+              }
+            },
+          ),
+          Spacer(
+            flex: 035,
+          ),
+          GestureDetector(
+            onTap: () => Get.off(() => DeliveryPage()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.keyboard_arrow_left_rounded),
+                Text('Voltar',
+                    style: const TextStyle(
+                        color: Color(0xff6c6c6c),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.0),
+                    textAlign: TextAlign.left)
+              ],
+            ),
+          ),
+          Spacer(
+            flex: 035,
           ),
         ],
       ),
