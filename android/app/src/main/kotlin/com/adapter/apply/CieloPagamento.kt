@@ -35,8 +35,8 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 val order = orderManager.createDraftOrder(arg.reference)
                 addItemsOrder(arg, order)
                 orderManager.placeOrder(order!!)
-                var paymentCode = PaymentCode.values().find { it.code == arg.paymentCode }
-                orderManager.checkoutOrder(order.id,arg.valorTotal , paymentCode!!.code.toString(),  PaymentCode.CREDITO_AVISTA.code.toString(), arg.installments.toInt(), makePayment(orderManager, result))
+                orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
+                orderManager.unbind();
 
             }
 
