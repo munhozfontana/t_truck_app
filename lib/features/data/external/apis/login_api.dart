@@ -15,10 +15,13 @@ class LoginApi implements ILogin {
 
   @override
   Future<String> login(CredentialEntity credential) async {
-    var res = await iHttp.postHttp('${env['URL_BASE']}/login',
-        body: CredentialModel(
-                login: credential.login, password: credential.password)
-            .toJson());
+    var res = await iHttp.postHttp(
+      '${env['URL_BASE']}/login',
+      body: CredentialModel(
+        login: credential.login,
+        password: credential.password,
+      ).toJson(),
+    );
     return jsonDecode(res.body!)['token'];
   }
 }

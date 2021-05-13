@@ -50,8 +50,20 @@ class CieloChannelImpl implements IPaymentExternal {
 
     var result = await CieloRun().pay(arg);
     return PaymentResponse(
-      payments: result.payments,
+      id: result.id,
+      price: result.price,
+      paidAmount: result.paidAmount,
+      pendingAmount: result.pendingAmount,
+      reference: result.reference,
+      number: result.number,
+      notes: result.notes,
       status: result.status,
+      items: result.items,
+      payments: result.payments,
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+      releaseDate: result.releaseDate,
+      type: result.type,
     );
   }
 
@@ -94,4 +106,10 @@ class CieloChannelImpl implements IPaymentExternal {
   }
 
   int currencyDefaultCielo(double e) => (e * 100).toInt();
+
+  @override
+  Future<PaymentResponse> payCielo(List<OrderEntity> listOrderEntity) {
+    // TODO: implement payCielo
+    throw UnimplementedError();
+  }
 }

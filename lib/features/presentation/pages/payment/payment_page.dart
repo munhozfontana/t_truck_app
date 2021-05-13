@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_channel_impl.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
-import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
+import 'package:t_truck_app/features/presentation/pages/payment/payment_controller.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends GetWidget<PaymentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +28,7 @@ class PaymentPage extends StatelessWidget {
               Spacer(flex: 33),
               BtnPrimary(
                 label: 'Cartão de crédito',
-                onPressed: callPay,
+                onPressed: controller.pay,
               ),
               Spacer(flex: 16),
               BtnPrimary(
@@ -50,36 +46,5 @@ class PaymentPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void callPay() async {
-    try {
-      var cieloCredentials = CieloCredentials()
-        ..clientID = env['CLIENT_ID_CIELO']
-        ..accessToken = env['ACCESS_TOKEN_CIELO'];
-
-      var arg = PayParam()
-        ..reference = 'MINHA REFERENCIA FLUTTER'
-        ..cieloCredentials = cieloCredentials
-        ..valorTotal = 500000
-        ..paymentCode = Payment.CREDITO_AVISTA.code
-        ..installments = 5
-        // ..email = "teste@gmail.com"
-        ..items = [
-          {
-            'sku': '2891820317391823',
-            'name': 'coca',
-            'unitPrice': 550,
-            'quantity': 1,
-            'unitOfMeasure': 'UNIT',
-          }
-        ];
-
-      var res = await CieloRun().pay(arg);
-      await Get.off(() => OrderPage());
-      print(res);
-    } catch (e) {
-      throw DriverException(error: e.toString());
-    }
   }
 }

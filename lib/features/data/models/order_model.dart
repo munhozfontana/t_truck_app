@@ -25,7 +25,7 @@ class OrderModel extends OrderEntity {
           .map((e) => IdentificacaoModel(
               numTransVenda: e['NUMTRANSVENDA'],
               numNota: e['NUMTRANSVENDA'],
-              valor: e['VLTABELA']))
+              valor: e['VLTOTAL']))
           .toList();
 
       return OrderModel(
