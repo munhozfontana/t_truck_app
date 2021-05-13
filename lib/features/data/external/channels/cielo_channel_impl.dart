@@ -97,7 +97,7 @@ class CieloChannelImpl implements IPaymentExternal {
     });
 
     var arg = PayParam()
-      ..reference = 'GSO'
+      ..reference = 'GSA'
       ..cieloCredentials = cieloCredentials
       ..valorTotal = valorTotal
       ..paymentCode = Payment.CREDITO_PARCELADO_ADM.code
