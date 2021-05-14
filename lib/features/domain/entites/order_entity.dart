@@ -2,7 +2,7 @@ class OrderEntity {
   final String? dtCanhato;
   final String cliente;
   final int codCli;
-  final List<Identificacao> identificacoes;
+  final List<TransacaoVenda> identificacoes;
 
   OrderEntity({
     this.dtCanhato,
@@ -12,12 +12,12 @@ class OrderEntity {
   });
 }
 
-class Identificacao {
+class TransacaoVenda {
   final int numTransVenda;
   final int numNota;
-  final double? valor;
+  final num? valor;
 
-  Identificacao({
+  TransacaoVenda({
     required this.numTransVenda,
     required this.numNota,
     this.valor,

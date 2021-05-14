@@ -169,7 +169,11 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                       ),
                       BtnDevolution(
                         onTap: () {
-                          Get.to(() => PaymentPage());
+                          Get.to(
+                            () => PaymentPage(),
+                            binding: OrderPayBiding(),
+                            arguments: controller.orderEntity.value,
+                          );
                         },
                         label: 'Entrega total',
                         typeDevolution: TypeDevolution.GREEN,

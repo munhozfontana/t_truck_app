@@ -16,7 +16,7 @@ class ProductRepository implements IProductRepository {
 
   @override
   Future<Either<Failure, List<ProductEntity>>> list(
-      List<Identificacao> listIdentificacao) async {
+      List<TransacaoVenda> listIdentificacao) async {
     try {
       return Right(await iProductExternal.list(listIdentificacao));
     } on ApiException catch (e) {

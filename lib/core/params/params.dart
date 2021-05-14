@@ -5,12 +5,14 @@ import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 class Params extends Equatable {
   final CredentialEntity? credential;
   final String? token;
-  final List<Identificacao>? listIdentificacao;
+  final List<TransacaoVenda>? listIdentificacao;
+  final OrderEntity? orderEntity;
 
   Params({
     this.credential,
     this.token,
     this.listIdentificacao,
+    this.orderEntity,
   });
 
   @override
@@ -18,5 +20,6 @@ class Params extends Equatable {
         credential!,
         token!,
         listIdentificacao!,
+        orderEntity!,
       ];
 }

@@ -1,22 +1,19 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_channel_impl.dart';
+import 'package:t_truck_app/features/data/models/order_model.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 
 void main() {
-  late CieloChannelImpl cieloChannelImpl;
-
   setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     await dont_env.load(fileName: '.env');
-    cieloChannelImpl = CieloChannelImpl();
   });
 
   test('verify value correct to cielo', () {
-    var identificacoes = <Identificacao>[
-      Identificacao(numTransVenda: 1, numNota: 2, valor: 6321.15),
-      Identificacao(numTransVenda: 2, numNota: 3, valor: 512.52),
-      Identificacao(numTransVenda: 2, numNota: 3, valor: 51.57),
+    var identificacoes = <TransacaoVenda>[
+      TransacaoVenda(numTransVenda: 1, numNota: 2, valor: 6321.15),
+      TransacaoVenda(numTransVenda: 2, numNota: 3, valor: 512.52),
+      TransacaoVenda(numTransVenda: 2, numNota: 3, valor: 51.57),
     ];
 
     var listOrderEntity = <OrderEntity>[
@@ -27,7 +24,7 @@ void main() {
           identificacoes: identificacoes)
     ];
 
-    var res = cieloChannelImpl.convertToCielo(listOrderEntity);
+    var res = OrderModel.orderToCielo(listOrderEntity);
 
     expect(res.valorTotal, 688524);
     expect((res.items as List<Map>)[0]['unitPrice'], 632115);

@@ -11,6 +11,6 @@ void main() {
   });
 
   test('test', () async {
-    var result = await paymentApi.pay([]);
+    // TODO: Do tests
   });
 }

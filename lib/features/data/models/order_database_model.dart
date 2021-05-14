@@ -1,45 +1,5 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/domain/entites/order_entity.dart';
-
-abstract class IPaymentExternal {
-  Future<PaymentResponse> pay(List<OrderEntity> listOrderEntity);
-}
-
-class PaymentResponse {
-  String? id;
-  int? price;
-  int? paidAmount;
-  int? pendingAmount;
-  String? reference;
-  String? number;
-  String? notes;
-  int? status;
-  List<Object?>? items;
-  List<Object?>? payments;
-  int? createdAt;
-  int? updatedAt;
-  int? releaseDate;
-  int? type;
-
-  PaymentResponse({
-    this.id,
-    this.price,
-    this.paidAmount,
-    this.pendingAmount,
-    this.reference,
-    this.number,
-    this.notes,
-    this.status,
-    this.items,
-    this.payments,
-    this.createdAt,
-    this.updatedAt,
-    this.releaseDate,
-    this.type,
-  });
-}
-
 class OrderDatabaseEntity {
   int? numtransvenda;
   String? prest;

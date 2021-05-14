@@ -5,5 +5,5 @@ import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 
 abstract class IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> list(
-      List<Identificacao> listIdentificacao);
+      List<TransacaoVenda> listIdentificacao);
 }
