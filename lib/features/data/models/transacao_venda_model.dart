@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/domain/entites/order_entity.dart';
+import 'package:t_truck_app/features/domain/entites/transacao_venda_entity.dart';
 
-class TransacaoVendaModel extends TransacaoVenda {
+class TransacaoVendaModel extends TransacaoVendaEntity {
   TransacaoVendaModel({
     required int numTransVenda,
     required int numNota,
@@ -14,7 +14,7 @@ class TransacaoVendaModel extends TransacaoVenda {
           valor: valor,
         );
 
-  static String toMapTransVenda(List<TransacaoVenda> list) {
+  static String toMapTransVenda(List<TransacaoVendaEntity> list) {
     return json
         .encode({'NUMTRANSVENDA': list.map((e) => e.numTransVenda).toList()});
   }
