@@ -77,26 +77,7 @@ class DevolutionPage extends StatelessWidget {
                               if (index == _.productEntityList.length) {
                                 return renderLastItem();
                               }
-
-                              return Container(
-                                child: Row(
-                                  children: [
-                                    CustomCheckbox(
-                                      isSelected:
-                                          _.productEntityList[index]!.isCheck!,
-                                      onTap: () {
-                                        _.changeStatus(
-                                            _.productEntityList[index], index);
-                                      },
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(_
-                                          .productEntityList[index]!.descricao),
-                                    )
-                                  ],
-                                ),
-                              );
+                              return comumItem(_, index);
                             },
                           ),
                         );
@@ -109,6 +90,49 @@ class DevolutionPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  LayoutBuilder comumItem(DeliveryController _, int index) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Container(
+          height: 36,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: CustomCheckbox(
+                  isSelected: _.productEntityList[index]!.isCheck!,
+                  onTap: () {
+                    _.changeStatus(_.productEntityList[index], index);
+                  },
+                ),
+              ),
+              Flexible(
+                flex: 4,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(_.productEntityList[index]!.descricao),
+                  ),
+                ),
+              ),
+              Flexible(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
