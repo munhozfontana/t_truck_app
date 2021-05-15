@@ -10,8 +10,6 @@ import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolu
 class DevolutionReasonPage extends GetView<DevolutionReasonController> {
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => DevolutionReasonController());
-
     return Scaffold(
       body: Stack(
         children: [

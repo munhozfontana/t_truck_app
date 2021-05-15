@@ -1,3 +1,3 @@
-abstract class IConnectivity {
+mixin IConnectivity {
   Future<bool> isConnected();
 }
