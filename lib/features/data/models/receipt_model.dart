@@ -90,4 +90,61 @@ class ReceiptModel extends TransacaoVendaModel {
         )
         .toList();
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'numtransvenda': numTransVenda,
+      // DODO: faltando na api
+      'numnota': numNota,
+      'valor': valor,
+      'prest': prest,
+      'codcob': codCob,
+      'codcoborig': codCoborig,
+      'presttef': prestTef,
+      'nsutef': nsuTef,
+      'codautorizacaotef': codAutorizacaoTef,
+      'codadmcartao': codAdmCartao,
+      'tipooperacaotef': tipoOperacaoTef,
+      'valorjuros': valorJuros,
+      'idtransacao': idTransacao,
+      'conector': conector,
+      // DODO: faltando na api
+      'jsoncielo': jsonCielo,
+      'codbandeira': codBandeira,
+      // DODO: faltando na api
+      'data_desd': dataDesd,
+      // DODO: faltando na api
+      'exportado': exportado,
+      'data_pagamento': dataPagamento,
+    };
+  }
+
+  factory ReceiptModel.fromMap(Map<String, dynamic> map) {
+    return ReceiptModel(
+      numTransVenda: map['numtransvenda'],
+      numNota: map['numnota'],
+      valor: map['valor'],
+      prest: map['prest'],
+      codCob: map['codcob'],
+      codCoborig: map['codcoborig'],
+      prestTef: map['presttef'],
+      nsuTef: map['nsutef'],
+      codAutorizacaoTef: map['codautorizacaotef'],
+      codAdmCartao: map['codadmcartao'],
+      tipoOperacaoTef: map['tipooperacaotef'],
+      valorJuros: map['valorjuros'],
+      idTransacao: map['idtransacao'],
+      conector: map['conector'],
+      jsonCielo: map['jsoncielo'],
+      codBandeira: map['codbandeira'],
+      dataDesd: map['data_desd'],
+      exportado: map['exportado'],
+      dataPagamento: map['data_pagamento'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ReceiptModel.fromJson(String source) =>
+      ReceiptModel.fromMap(json.decode(source));
 }

@@ -5,8 +5,8 @@ import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart
 import 'package:t_truck_app/features/data/external/adapters/i_product_external.dart';
 import 'package:t_truck_app/features/data/models/product_model.dart';
 import 'package:t_truck_app/features/data/models/transacao_venda_model.dart';
-import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
+import 'package:t_truck_app/features/domain/entites/transacao_venda_entity.dart';
 
 class ProductApi implements IProductExternal {
   final IHttp iHttp;
@@ -16,7 +16,7 @@ class ProductApi implements IProductExternal {
   });
 
   @override
-  Future<List<ProductEntity>> list(List<TransacaoVenda> list) async {
+  Future<List<ProductEntity>> list(List<TransacaoVendaEntity> list) async {
     try {
       var res = await iHttp.postHttp('${env['URL_BASE']}/product',
           body: TransacaoVendaModel.toMapTransVenda(list));

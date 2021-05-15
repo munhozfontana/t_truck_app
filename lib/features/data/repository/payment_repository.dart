@@ -26,16 +26,17 @@ class PaymentRepository extends OrderRepository
 
   @override
   Future<Either<Failure, void>> pay(OrderEntity orderEntity) async {
-    var resFromCielo = await cieloDriver.payCielo(
-      OrderModel.orderToCielo(orderEntity),
-    );
+    var orderToCielo = OrderModel.orderToCielo(orderEntity);
 
-    var listReceiptModel = ReceiptModel.cieloAndOrderToReceiptModel(
+    var resFromCielo = await cieloDriver.payCielo(orderToCielo);
+
+    var listReceipt = ReceiptModel.cieloAndOrderToReceiptModel(
       resFromCielo,
       orderEntity,
     );
 
-    await iReceiptExternal.save(listReceiptModel);
+    await iReceiptExternal.save(listReceipt);
+
     return Right(null);
   }
 }
