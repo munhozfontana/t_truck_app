@@ -24,7 +24,7 @@ class DevolutionFinish extends StatelessWidget {
                     colorFilter:
                         ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstIn),
                     child: Image.asset(
-                      'images/box_anim.gif',
+                      'images/box.gif',
                       height: 125.0,
                       width: 125.0,
                     ),

@@ -8,6 +8,7 @@ import 'package:t_truck_app/features/presentation/components/layout/layout_form.
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class DevolutionPage extends StatelessWidget {
   @override
@@ -153,7 +154,8 @@ class DevolutionPage extends StatelessWidget {
                 _.updadeStatus(TypeDevolution.YELLOW);
                 return BtnDevolution(
                   onTap: () {
-                    Get.to(() => DevolutionReasonPage());
+                    Get.to(() => DevolutionReasonPage(),
+                        binding: DevolutionReasonBiding());
                   },
                   label: 'Devolução parcial',
                   typeDevolution: TypeDevolution.YELLOW,
@@ -162,7 +164,8 @@ class DevolutionPage extends StatelessWidget {
                 _.updadeStatus(TypeDevolution.RED);
                 return BtnDevolution(
                   onTap: () {
-                    Get.to(() => DevolutionReasonPage());
+                    Get.to(() => DevolutionReasonPage(),
+                        binding: DevolutionReasonBiding());
                   },
                   label: 'Devolução total',
                   typeDevolution: TypeDevolution.RED,

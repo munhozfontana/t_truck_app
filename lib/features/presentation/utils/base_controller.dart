@@ -8,4 +8,6 @@ mixin BaseController on GetxController {
   void changeLoading(Loading loading) {
     loadingState.value = loading;
   }
+
+  bool get isLoading => loadingState.value == Loading.START;
 }
