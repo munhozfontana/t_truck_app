@@ -25,7 +25,6 @@ class DevolutionReasonController extends GetxController with BaseController {
     (await devolutionListUseCase(Params())).fold(
       (l) => AppDialog.error(menssagem: 'error'),
       (r) => {
-        AppDialog.show(menssagem: 'ok'),
         reasonDevolution.value = r
             .map(
               (element) => DropdownModel(
