@@ -6,18 +6,15 @@ class DevolutionModel extends DevolutionEntity {
   DevolutionModel({
     required int codProduto,
     required String descricao,
-    required int qt,
   }) : super(
           codProduto: codProduto,
           descricao: descricao,
-          qt: qt,
         );
 
   factory DevolutionModel.fromMap(Map<String, dynamic> map) {
     return DevolutionModel(
-      codProduto: map['CODPROD'],
-      descricao: map['DESCRICAO'],
-      qt: map['QT'],
+      codProduto: map['CODDEVOL'],
+      descricao: map['MOTIVO'],
     );
   }
 

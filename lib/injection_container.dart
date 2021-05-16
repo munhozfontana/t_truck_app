@@ -158,7 +158,7 @@ class DevolutionReasonBiding extends Bindings {
     Get.lazyPut<DevolutionListUseCase>(
         () => DevolutionListUseCase(iDevolutionListRepository: Get.find()));
 
-    Get.put(
+    Get.lazyPut(
         () => DevolutionReasonController(devolutionListUseCase: Get.find()));
   }
 }

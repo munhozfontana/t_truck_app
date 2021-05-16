@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
-
-class ClienteDropdownButton extends StatefulWidget {
-  final Function(DropdownModel)? onChange;
-  final List<DropdownModel> items;
-
-  const ClienteDropdownButton({Key? key, this.onChange, required this.items})
-      : super(key: key);
-
-  @override
-  _ClienteDropdownButtonState createState() => _ClienteDropdownButtonState();
-}
+import 'package:get/get.dart';
 
 class DropdownModel {
   num id;
@@ -21,15 +11,27 @@ class DropdownModel {
   });
 }
 
-class _ClienteDropdownButtonState extends State<ClienteDropdownButton> {
-  DropdownModel? clienteSelecionado;
+class ClienteDropdownButton extends StatelessWidget {
+  final bool isLoading;
+  final Function(DropdownModel)? onChange;
+  final RxList<DropdownModel> items;
+
+  const ClienteDropdownButton({
+    Key? key,
+    required this.onChange,
+    required this.items,
+    this.isLoading = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return DropdownButtonFormField<num>(
-      value: (clienteSelecionado == null)
-          ? widget.items[0].id
-          : clienteSelecionado!.id,
       hint: Text(
         'Selecione',
       ),
@@ -37,13 +39,9 @@ class _ClienteDropdownButtonState extends State<ClienteDropdownButton> {
         Icons.keyboard_arrow_down_outlined,
       ),
       onChanged: (num? idSelecionado) {
-        setState(() {
-          clienteSelecionado =
-              widget.items.firstWhere((cliente) => cliente.id == idSelecionado);
-        });
-        widget.onChange!(clienteSelecionado!);
+        onChange!(items.firstWhere((cliente) => cliente.id == idSelecionado));
       },
-      items: widget.items.map<DropdownMenuItem<num>>((DropdownModel cliente) {
+      items: items.map<DropdownMenuItem<num>>((DropdownModel cliente) {
         return DropdownMenuItem<num>(
           value: cliente.id,
           child: Text(cliente.label),

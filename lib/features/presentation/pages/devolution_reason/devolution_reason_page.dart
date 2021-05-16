@@ -17,16 +17,24 @@ class DevolutionReasonPage extends GetView<DevolutionReasonController> {
           DefaultForm(child: [
             Spacer(flex: 34),
             Container(
-                width: 184.5446014404297,
-                height: 146.3734588623047,
-                child: Icon(Icons.add_box)),
-            Spacer(flex: 22),
-            ClienteDropdownButton(
-              onChange: print,
-              items: [
-                DropdownModel(id: 1, label: 'teste'),
-              ],
+              width: 175.5446014404297,
+              height: 147.3734588623047,
+              child: ColorFiltered(
+                colorFilter:
+                    ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstIn),
+                child: Image.asset(
+                  'images/box.gif',
+                  height: 125.0,
+                  width: 125.0,
+                ),
+              ),
             ),
+            Spacer(flex: 22),
+            Obx(() => ClienteDropdownButton(
+                  onChange: print,
+                  items: controller.reasonDevolution,
+                  isLoading: controller.isLoading,
+                )),
             Spacer(flex: 39),
             BtnDevolution(
                 typeDevolution: TypeDevolution.GREEN,
