@@ -94,7 +94,7 @@ class ReceiptModel extends TransacaoVendaModel {
   Map<String, dynamic> toMap() {
     return {
       'numtransvenda': numTransVenda,
-      // DODO: faltando na api
+      // TODO: faltando na api
       'numnota': numNota,
       'valor': valor,
       'prest': prest,
@@ -108,12 +108,10 @@ class ReceiptModel extends TransacaoVendaModel {
       'valorjuros': valorJuros,
       'idtransacao': idTransacao,
       'conector': conector,
-      // DODO: faltando na api
-      'jsoncielo': jsonCielo,
+      // TODO: faltando na api
+      'json_cielo': jsonCielo,
       'codbandeira': codBandeira,
-      // DODO: faltando na api
-      'data_desd': dataDesd,
-      // DODO: faltando na api
+      // TODO: faltando na api
       'exportado': exportado,
       'data_pagamento': dataPagamento,
     };
