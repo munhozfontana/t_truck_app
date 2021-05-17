@@ -18,7 +18,6 @@ class DeliveryController extends GetxController with BaseController {
 
   Rx<OrderEntity?> orderEntity = Rx(Get.arguments);
   RxList<ProductEntity?> productEntityList = <ProductEntity>[].obs;
-  TypeDevolution devolutionState = TypeDevolution.NONE;
 
   @override
   void onInit() async {
@@ -63,7 +62,10 @@ class DeliveryController extends GetxController with BaseController {
               qt: e.qt))
           .toList();
     }
-    devolutionState = typeDevolution;
-    Get.to(() => DevolutionPage(), binding: DevolutionBiding());
+    Get.to(
+      () => DevolutionPage(),
+      binding: DevolutionBiding(),
+      arguments: [productEntityList, typeDevolution],
+    );
   }
 }

@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
+import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class DevolutionController extends GetxController with BaseController {
   RxList<ProductEntity?> listProducts = <ProductEntity>[].obs;
   List<ProductEntity?> orginalList = <ProductEntity>[];
+  Rx<TypeDevolution> typeDevolution = TypeDevolution.NONE.obs;
 
   RxString fieldFilterValue = ''.obs;
 
@@ -29,8 +30,20 @@ class DevolutionController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    orginalList = Get.find<DeliveryController>().productEntityList;
+    orginalList = Get.arguments[0];
+    typeDevolution.value = Get.arguments[1];
     listProducts.value = orginalList;
+
+    if (typeDevolution.value == TypeDevolution.YELLOW) {
+      listProducts.value = listProducts.map((element) {
+        return ProductEntity(
+            codProd: element!.codProd,
+            descricao: element.descricao,
+            isCheck: element.isCheck,
+            qt: 0);
+      }).toList();
+    }
+
     listProducts.refresh();
     super.onInit();
   }

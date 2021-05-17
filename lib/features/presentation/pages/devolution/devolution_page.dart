@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
+import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
 import 'package:t_truck_app/injection_container.dart';
 
 class DevolutionPage extends GetWidget<DevolutionController> {
@@ -70,11 +72,11 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                         builder: (_) {
                           return ListView.separated(
                             separatorBuilder: (a, b) => SizedBox(height: 14),
-                            itemCount: _.listProducts.length,
+                            itemCount: _.listProducts.length + 1,
                             itemBuilder: (context, index) {
-                              // if (index == controller.listFiltred.length) {
-                              //   return renderLastItem();
-                              // }
+                              if (index == controller.listProducts.length) {
+                                return renderLastItem();
+                              }
                               return comumItem(_.listProducts[index]);
                             },
                           );
@@ -141,37 +143,35 @@ class DevolutionPage extends GetWidget<DevolutionController> {
           Spacer(
             flex: 035,
           ),
-          // GetX<DevolutionController>(
-          //   builder: (_) {
-          //     if (controller.list
-          //         .where((e) => e!.isCheck == false)
-          //         .isNotEmpty) {
-          //       return BtnDevolution(
-          //         onTap: () {
-          //           Get.to(() => DevolutionReasonPage(),
-          //               binding: DevolutionReasonBiding());
-          //         },
-          //         label: 'Devolução parcial',
-          //         typeDevolution: TypeDevolution.YELLOW,
-          //       );
-          //     } else {
-          //       return BtnDevolution(
-          //         onTap: () {
-          //           Get.to(() => DevolutionReasonPage(),
-          //               binding: DevolutionReasonBiding());
-          //         },
-          //         label: 'Devolução total',
-          //         typeDevolution: TypeDevolution.RED,
-          //       );
-          //     }
-          //   },
-          // ),
+          GetX<DevolutionController>(
+            builder: (_) {
+              if (controller.typeDevolution.value == TypeDevolution.YELLOW) {
+                return BtnDevolution(
+                  onTap: () {
+                    Get.to(() => DevolutionReasonPage(),
+                        binding: DevolutionReasonBiding());
+                  },
+                  label: 'Devolução parcial',
+                  typeDevolution: TypeDevolution.YELLOW,
+                );
+              } else {
+                return BtnDevolution(
+                  onTap: () {
+                    Get.to(() => DevolutionReasonPage(),
+                        binding: DevolutionReasonBiding());
+                  },
+                  label: 'Devolução total',
+                  typeDevolution: TypeDevolution.RED,
+                );
+              }
+            },
+          ),
           Spacer(
             flex: 035,
           ),
           GestureDetector(
             onTap: () =>
-                Get.offAll(() => DeliveryPage(), binding: DeliveryBiding()),
+                Get.off(() => DeliveryPage(), binding: DeliveryBiding()),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
