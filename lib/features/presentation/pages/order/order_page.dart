@@ -50,14 +50,17 @@ class OrderPage extends GetWidget<OrderController> {
                     ),
                     Flexible(
                       flex: 751,
-                      child: Obx(() => ListView.separated(
-                            separatorBuilder: (_, __) => SizedBox(height: 16),
-                            itemCount: controller.filtredList.length,
-                            itemBuilder: (context, index) {
-                              return OrderItem(
-                                orderEntity: controller.filtredList[index],
-                              );
-                            },
+                      child: Obx(() => RefreshIndicator(
+                            onRefresh: controller.takeOrders,
+                            child: ListView.separated(
+                              separatorBuilder: (_, __) => SizedBox(height: 16),
+                              itemCount: controller.filtredList.length,
+                              itemBuilder: (context, index) {
+                                return OrderItem(
+                                  orderEntity: controller.filtredList[index],
+                                );
+                              },
+                            ),
                           )),
                     )
                   ],

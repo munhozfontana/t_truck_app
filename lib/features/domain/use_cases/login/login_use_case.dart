@@ -4,13 +4,16 @@ import 'package:dartz/dartz.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/core/use_case.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_local_store_external.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 
 class LoginUseCase implements UseCaseAsync<Type, Params> {
   final ILoginRepository iLoginRepository;
+  final ILocalStoreExternal iLocalStoreExternal;
 
   LoginUseCase({
     required this.iLoginRepository,
+    required this.iLocalStoreExternal,
   });
 
   @override
@@ -27,6 +30,10 @@ class LoginUseCase implements UseCaseAsync<Type, Params> {
       return Left(ValidationFailure(detail: 'Senha não pode ser vazio'));
     }
 
-    return iLoginRepository.login(params.credential!);
+    var res = iLoginRepository.login(params.credential!);
+
+    var token = (await res).fold((l) => null, (r) => r);
+    await iLocalStoreExternal.save('token', token);
+    return res;
   }
 }

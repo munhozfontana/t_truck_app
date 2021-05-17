@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
-import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
 import 'package:t_truck_app/injection_container.dart';
 
-class DevolutionPage extends StatelessWidget {
+class DevolutionPage extends GetWidget<DevolutionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,7 @@ class DevolutionPage extends StatelessWidget {
                       flex: 041,
                     ),
                     TextFormField(
-                      onChanged: print,
+                      onChanged: controller.filterChanged,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search_rounded,
@@ -51,13 +49,12 @@ class DevolutionPage extends StatelessWidget {
                     Spacer(
                       flex: 035,
                     ),
-                    GetX<DeliveryController>(
-                      initState: (_) {},
+                    GetX<DevolutionController>(
                       builder: (_) {
                         return Opacity(
                           opacity: 0.5,
                           child: Text(
-                            '${_.productEntityList.length} clientes encontrados',
+                            '${_.listProducts.length} Produtos encontrados',
                             style: Get.textTheme.headline6,
                             textAlign: TextAlign.left,
                           ),
@@ -67,23 +64,23 @@ class DevolutionPage extends StatelessWidget {
                     Spacer(
                       flex: 035,
                     ),
-                    GetX<DeliveryController>(
-                      builder: (_) {
-                        return Container(
-                          height: constraints.maxHeight * .75,
-                          child: ListView.separated(
-                            separatorBuilder: (_, __) => SizedBox(height: 14),
-                            itemCount: _.productEntityList.length + 1,
+                    Container(
+                      height: constraints.maxHeight * .75,
+                      child: GetX<DevolutionController>(
+                        builder: (_) {
+                          return ListView.separated(
+                            separatorBuilder: (a, b) => SizedBox(height: 14),
+                            itemCount: _.listProducts.length,
                             itemBuilder: (context, index) {
-                              if (index == _.productEntityList.length) {
-                                return renderLastItem();
-                              }
-                              return comumItem(_, index);
+                              // if (index == controller.listFiltred.length) {
+                              //   return renderLastItem();
+                              // }
+                              return comumItem(_.listProducts[index]);
                             },
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
+                    )
                   ],
                 );
               },
@@ -94,7 +91,7 @@ class DevolutionPage extends StatelessWidget {
     );
   }
 
-  LayoutBuilder comumItem(DeliveryController _, int index) {
+  LayoutBuilder comumItem(ProductEntity? productEntity) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Container(
@@ -104,25 +101,23 @@ class DevolutionPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: CustomCheckbox(
-                  isSelected: _.productEntityList[index]!.isCheck!,
-                  onTap: () {
-                    _.changeStatus(_.productEntityList[index], index);
-                  },
-                ),
-              ),
-              Flexible(
-                flex: 4,
+                flex: 7,
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Text(_.productEntityList[index]!.descricao),
+                    child: Text(productEntity!.descricao),
                   ),
                 ),
               ),
+              Spacer(),
               Flexible(
-                child: TextField(
+                flex: 2,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: TextEditingController(
+                    text: productEntity.qt.toString(),
+                  ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)),
@@ -146,38 +141,37 @@ class DevolutionPage extends StatelessWidget {
           Spacer(
             flex: 035,
           ),
-          GetX<DeliveryController>(
-            builder: (_) {
-              if (_.productEntityList
-                  .where((e) => e!.isCheck == false)
-                  .isNotEmpty) {
-                _.updadeStatus(TypeDevolution.YELLOW);
-                return BtnDevolution(
-                  onTap: () {
-                    Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding());
-                  },
-                  label: 'Devolução parcial',
-                  typeDevolution: TypeDevolution.YELLOW,
-                );
-              } else {
-                _.updadeStatus(TypeDevolution.RED);
-                return BtnDevolution(
-                  onTap: () {
-                    Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding());
-                  },
-                  label: 'Devolução total',
-                  typeDevolution: TypeDevolution.RED,
-                );
-              }
-            },
-          ),
+          // GetX<DevolutionController>(
+          //   builder: (_) {
+          //     if (controller.list
+          //         .where((e) => e!.isCheck == false)
+          //         .isNotEmpty) {
+          //       return BtnDevolution(
+          //         onTap: () {
+          //           Get.to(() => DevolutionReasonPage(),
+          //               binding: DevolutionReasonBiding());
+          //         },
+          //         label: 'Devolução parcial',
+          //         typeDevolution: TypeDevolution.YELLOW,
+          //       );
+          //     } else {
+          //       return BtnDevolution(
+          //         onTap: () {
+          //           Get.to(() => DevolutionReasonPage(),
+          //               binding: DevolutionReasonBiding());
+          //         },
+          //         label: 'Devolução total',
+          //         typeDevolution: TypeDevolution.RED,
+          //       );
+          //     }
+          //   },
+          // ),
           Spacer(
             flex: 035,
           ),
           GestureDetector(
-            onTap: () => Get.off(() => DeliveryPage()),
+            onTap: () =>
+                Get.offAll(() => DeliveryPage(), binding: DeliveryBiding()),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

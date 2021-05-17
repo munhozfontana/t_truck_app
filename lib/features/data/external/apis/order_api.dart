@@ -1,12 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
 import 'package:t_truck_app/features/data/models/order_model.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
-import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 
 class OrderApi implements IOrderExternal {
   final IHttp iHttp;
@@ -16,11 +14,9 @@ class OrderApi implements IOrderExternal {
   });
 
   @override
-  Future<List<OrderEntity>> list() async {
+  Future<List<OrderEntity>> list(String codMotorista) async {
     try {
-      var loginControler = Get.find<LoginController>();
-      var res = await iHttp.getHttp(
-          '${env['URL_BASE']}/order/${loginControler.matricula.value}');
+      var res = await iHttp.getHttp('${env['URL_BASE']}/order/$codMotorista');
       var orderByIdentificacao = OrderModel.orderByIdentificacao(res.body!);
       return orderByIdentificacao;
     } catch (e) {

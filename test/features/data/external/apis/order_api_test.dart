@@ -25,7 +25,7 @@ void main() {
     () async {
       when(mockIHttp.getHttp(any)).thenAnswer((_) async =>
           HttpResponse(body: fixture('order.json'), statusCode: 200));
-      var res = await orderExternalApi.list();
+      var res = await orderExternalApi.list('1');
       expect(res.length, 7);
     },
   );

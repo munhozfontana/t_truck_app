@@ -18,15 +18,20 @@ class OrderController extends GetxController with BaseController {
   void onReady() async {
     super.onReady();
     changeLoading(Loading.START);
+    await takeOrders();
+  }
+
+  Future takeOrders() async {
     var res = await orderListUseCase(Params());
-    changeLoading(Loading.STOP);
     res.fold(
         (l) => {
+              changeLoading(Loading.STOP),
               AppDialog.error(
                 menssagem: l.props.first.toString(),
               ),
             },
         (r) async => {
+              changeLoading(Loading.STOP),
               list.value = r,
               filtredList.value = r,
             });

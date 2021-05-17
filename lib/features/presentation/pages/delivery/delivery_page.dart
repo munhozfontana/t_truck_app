@@ -194,8 +194,8 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                       ),
                       Divider(),
                       GestureDetector(
-                        onTap: () =>
-                            Get.off(() => OrderPage(), binding: OrderBiding()),
+                        onTap: () => Get.offAll(() => OrderPage(),
+                            binding: OrderBiding()),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

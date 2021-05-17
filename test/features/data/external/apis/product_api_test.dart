@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
 import 'package:t_truck_app/features/data/external/apis/product_api.dart';
-import 'package:t_truck_app/features/domain/entites/order_entity.dart';
+import 'package:t_truck_app/features/domain/entites/transacao_venda_entity.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 import 'login_api_test.mocks.dart';
@@ -28,7 +28,11 @@ void main() {
           (_) async =>
               HttpResponse(body: fixture('product.json'), statusCode: 200));
       var res = await productExternalApi.list([
-        TransacaoVenda(numTransVenda: 32370156, numNota: 32370158, valor: 300)
+        TransacaoVendaEntity(
+          numTransVenda: 32370156,
+          numNota: 32370158,
+          valor: 300,
+        )
       ]);
       expect(res.length, 19);
     },
