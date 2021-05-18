@@ -38,6 +38,15 @@ class DevolutionController extends GetxController with BaseController {
             qt: element.qt,
             qtToSend: 0);
       }).toList();
+    } else {
+      listProducts.value = listProducts.map((element) {
+        return ProductEntity(
+            codProd: element!.codProd,
+            descricao: element.descricao,
+            isCheck: element.isCheck,
+            qt: element.qt,
+            qtToSend: element.qt);
+      }).toList();
     }
 
     listProducts.refresh();
