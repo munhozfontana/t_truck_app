@@ -5,6 +5,7 @@ import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dar
 import 'package:t_truck_app/features/presentation/components/help_component.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class DevolutionFinish extends StatelessWidget {
   @override
@@ -24,7 +25,7 @@ class DevolutionFinish extends StatelessWidget {
                     colorFilter:
                         ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstIn),
                     child: Image.asset(
-                      'images/box.gif',
+                      'images/box_open.gif',
                       height: 125.0,
                       width: 125.0,
                     ),
@@ -40,7 +41,7 @@ class DevolutionFinish extends StatelessWidget {
                 BtnPrimary(
                   label: 'Voltar para o início',
                   onPressed: () {
-                    Get.off(() => OrderPage());
+                    Get.offAll(() => OrderPage(), binding: OrderBiding());
                   },
                 ),
                 Spacer(flex: 14),

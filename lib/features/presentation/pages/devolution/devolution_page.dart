@@ -143,7 +143,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                   }
                 },
                 decoration: InputDecoration(
-                  // counterText: '',
+                  counterText: '',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(0)),
                   ),
@@ -171,7 +171,11 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                 return BtnDevolution(
                   onTap: () {
                     Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding());
+                        binding: DevolutionReasonBiding(),
+                        arguments: [
+                          TypeDevolution.YELLOW,
+                          controller.listProducts
+                        ]);
                   },
                   label: 'Devolução parcial',
                   typeDevolution: TypeDevolution.YELLOW,
@@ -180,7 +184,10 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                 return BtnDevolution(
                   onTap: () {
                     Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding());
+                        binding: DevolutionReasonBiding(),
+                        arguments: [
+                          TypeDevolution.RED,
+                        ]);
                   },
                   label: 'Devolução total',
                   typeDevolution: TypeDevolution.RED,

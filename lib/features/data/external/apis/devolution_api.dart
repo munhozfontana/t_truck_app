@@ -16,7 +16,7 @@ class DevolutionApi implements IDevolutionExternal {
   Future<List<DevolutionEntity>> list() async {
     try {
       var res = await iHttp.getHttp(
-        '${env['URL_BASE']}/devolution',
+        '${env['URL_BASE']}/reasons',
       );
       return DevolutionModel.toListDevolution(res.body!);
     } catch (e) {
