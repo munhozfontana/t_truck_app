@@ -81,7 +81,6 @@ class ReceiptModel extends TransacaoVendaModel {
             idTransacao: firstPayment['paymentFields']['paymentTransactionId'],
             conector: 'CIELO',
             jsonCielo: jsonEncode(paymentFields),
-            // TODO: retorna String da cielo
             codBandeira: 1,
             dataDesd: '',
             exportado: 'N',
@@ -97,28 +96,22 @@ class ReceiptModel extends TransacaoVendaModel {
   Map<String, dynamic> toMap() {
     return {
       'numtransvenda': numTransVenda,
-      // DODO: faltando na api
       'numnota': numNota,
-      'valor': valor,
       'prest': prest,
       'codcob': codCob,
       'codcoborig': codCoborig,
+      'data_pagamento': dataPagamento,
+      'valor': valor,
       'presttef': prestTef,
       'nsutef': nsuTef,
       'codautorizacaotef': codAutorizacaoTef,
       'codadmcartao': codAdmCartao,
+      'json_cielo': jsonCielo,
       'tipooperacaotef': tipoOperacaoTef,
       'valorjuros': valorJuros,
       'idtransacao': idTransacao,
       'conector': conector,
-      // DODO: faltando na api
-      'jsoncielo': jsonCielo,
       'codbandeira': codBandeira,
-      // DODO: faltando na api
-      'data_desd': dataDesd,
-      // DODO: faltando na api
-      'exportado': exportado,
-      'data_pagamento': dataPagamento,
     };
   }
 
