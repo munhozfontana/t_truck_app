@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
+import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
+import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
+import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/injection_container.dart';
 
 class DevolutionPage extends GetWidget<DevolutionController> {
@@ -166,30 +166,30 @@ class DevolutionPage extends GetWidget<DevolutionController> {
           ),
           GetX<DevolutionController>(
             builder: (_) {
-              if (controller.typeDevolution.value == TypeDevolution.YELLOW) {
-                return BtnDevolution(
+              if (controller.typeDevolution.value == TypeOccurrence.YELLOW) {
+                return BtnOccurrence(
                   onTap: () {
-                    Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding(),
+                    Get.to(() => OccurrenceReasonPage(),
+                        binding: OccurrenceReasonBiding(),
                         arguments: [
-                          TypeDevolution.YELLOW,
+                          TypeOccurrence.YELLOW,
                           controller.listProducts
                         ]);
                   },
                   label: 'Devolução parcial',
-                  typeDevolution: TypeDevolution.YELLOW,
+                  typeOccurrence: TypeOccurrence.YELLOW,
                 );
               } else {
-                return BtnDevolution(
+                return BtnOccurrence(
                   onTap: () {
-                    Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding(),
+                    Get.to(() => OccurrenceReasonPage(),
+                        binding: OccurrenceReasonBiding(),
                         arguments: [
-                          TypeDevolution.RED,
+                          TypeOccurrence.RED,
                         ]);
                   },
                   label: 'Devolução total',
-                  typeDevolution: TypeDevolution.RED,
+                  typeOccurrence: TypeOccurrence.RED,
                 );
               }
             },
@@ -199,7 +199,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
           ),
           GestureDetector(
             onTap: () =>
-                Get.off(() => DeliveryPage(), binding: DeliveryBiding()),
+                Get.off(() => ProductPage(), binding: DeliveryBiding()),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

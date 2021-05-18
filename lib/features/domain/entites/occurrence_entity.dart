@@ -1,8 +1,8 @@
-class DevolutionEntity {
+class OccurrenceEntity {
   final int codProduto;
   final String descricao;
 
-  DevolutionEntity({
+  OccurrenceEntity({
     required this.codProduto,
     required this.descricao,
   });

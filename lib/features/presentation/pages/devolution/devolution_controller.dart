@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
-import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
+import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 
 class DevolutionController extends GetxController with BaseController {
   RxList<ProductEntity?> listProducts = <ProductEntity>[].obs;
   List<ProductEntity?> orginalList = <ProductEntity>[];
-  Rx<TypeDevolution> typeDevolution = TypeDevolution.NONE.obs;
+  Rx<TypeOccurrence> typeDevolution = TypeOccurrence.NONE.obs;
 
   RxString fieldFilterValue = ''.obs;
 
@@ -29,12 +29,11 @@ class DevolutionController extends GetxController with BaseController {
     orginalList = Get.arguments[0];
     typeDevolution.value = Get.arguments[1];
     listProducts.value = orginalList;
-    if (typeDevolution.value == TypeDevolution.YELLOW) {
+    if (typeDevolution.value == TypeOccurrence.YELLOW) {
       listProducts.value = listProducts.map((element) {
         return ProductEntity(
             codProd: element!.codProd,
             descricao: element.descricao,
-            isCheck: element.isCheck,
             qt: element.qt,
             qtToSend: 0);
       }).toList();
@@ -43,7 +42,6 @@ class DevolutionController extends GetxController with BaseController {
         return ProductEntity(
             codProd: element!.codProd,
             descricao: element.descricao,
-            isCheck: element.isCheck,
             qt: element.qt,
             qtToSend: element.qt);
       }).toList();
@@ -69,7 +67,6 @@ class DevolutionController extends GetxController with BaseController {
           descricao: productEntity.descricao,
           qt: productEntity.qt,
           qtToSend: int.tryParse(value) ?? 0,
-          isCheck: false,
         );
         listProducts.refresh();
       }
@@ -77,9 +74,9 @@ class DevolutionController extends GetxController with BaseController {
       if (listProducts
           .where((element) => element!.qtToSend < element.qt)
           .isEmpty) {
-        typeDevolution.value = TypeDevolution.RED;
+        typeDevolution.value = TypeOccurrence.RED;
       } else {
-        typeDevolution.value = TypeDevolution.YELLOW;
+        typeDevolution.value = TypeOccurrence.YELLOW;
       }
     }
   }

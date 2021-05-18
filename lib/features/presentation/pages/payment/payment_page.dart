@@ -5,8 +5,8 @@ import 'package:t_truck_app/features/presentation/components/app_background.dart
 import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 
 class PaymentPage extends GetWidget<PaymentController> {
   @override
@@ -39,7 +39,7 @@ class PaymentPage extends GetWidget<PaymentController> {
               Divider(),
               Spacer(flex: 21),
               BtnVoltar(
-                  label: 'Voltar', onTap: () => Get.to(() => DeliveryPage())),
+                  label: 'Voltar', onTap: () => Get.to(() => ProductPage())),
               Spacer(flex: 38)
             ],
           )

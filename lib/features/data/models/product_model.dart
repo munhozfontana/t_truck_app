@@ -6,12 +6,10 @@ class ProductModel extends ProductEntity {
   ProductModel({
     required int codProd,
     required String descricao,
-    required bool isCheck,
     required int qt,
   }) : super(
           codProd: codProd,
           descricao: descricao,
-          isCheck: isCheck,
           qt: qt,
           qtToSend: qt,
         );
@@ -20,7 +18,6 @@ class ProductModel extends ProductEntity {
     return ProductModel(
       codProd: map['CODPROD'],
       descricao: map['DESCRICAO'],
-      isCheck: false,
       qt: (map['QT'] as num).toInt(),
     );
   }

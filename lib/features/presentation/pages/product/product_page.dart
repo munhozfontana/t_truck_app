@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
+import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
+import 'package:t_truck_app/features/presentation/pages/product/product_controller.dart';
 import 'package:t_truck_app/injection_container.dart';
 
-class DeliveryPage extends GetWidget<DeliveryController> {
+class ProductPage extends GetWidget<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,7 +167,7 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                           )
                         ],
                       ),
-                      BtnDevolution(
+                      BtnOccurrence(
                         onTap: () {
                           Get.to(
                             () => PaymentPage(),
@@ -176,21 +176,21 @@ class DeliveryPage extends GetWidget<DeliveryController> {
                           );
                         },
                         label: 'Entrega total',
-                        typeDevolution: TypeDevolution.GREEN,
+                        typeOccurrence: TypeOccurrence.GREEN,
                       ),
-                      BtnDevolution(
+                      BtnOccurrence(
                         onTap: () {
-                          controller.toDevolution(TypeDevolution.YELLOW);
+                          controller.toDevolution(TypeOccurrence.YELLOW);
                         },
                         label: 'Devolução parcial',
-                        typeDevolution: TypeDevolution.YELLOW,
+                        typeOccurrence: TypeOccurrence.YELLOW,
                       ),
-                      BtnDevolution(
+                      BtnOccurrence(
                         onTap: () {
-                          controller.toDevolution(TypeDevolution.RED);
+                          controller.toDevolution(TypeOccurrence.RED);
                         },
                         label: 'Devolução total',
-                        typeDevolution: TypeDevolution.RED,
+                        typeOccurrence: TypeOccurrence.RED,
                       ),
                       Divider(),
                       GestureDetector(

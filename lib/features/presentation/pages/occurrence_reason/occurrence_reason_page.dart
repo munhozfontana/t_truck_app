@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
-import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
+import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/components/dropdown_default.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_controller.dart';
 
-class DevolutionReasonPage extends GetView<DevolutionReasonController> {
+class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +36,8 @@ class DevolutionReasonPage extends GetView<DevolutionReasonController> {
                   isLoading: controller.isLoading,
                 )),
             Spacer(flex: 39),
-            BtnDevolution(
-                typeDevolution: TypeDevolution.GREEN,
+            BtnOccurrence(
+                typeOccurrence: TypeOccurrence.GREEN,
                 label: 'Finalizar entrega',
                 onTap: controller.finishReson),
             Spacer(flex: 172),

@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
-enum TypeDevolution { GREEN, YELLOW, RED, NONE }
+enum TypeOccurrence { GREEN, YELLOW, RED, NONE }
 
-class BtnDevolution extends StatelessWidget {
-  final TypeDevolution typeDevolution;
+class BtnOccurrence extends StatelessWidget {
+  final TypeOccurrence typeOccurrence;
   final String label;
   final Function onTap;
 
-  const BtnDevolution({
+  const BtnOccurrence({
     Key? key,
-    required this.typeDevolution,
+    required this.typeOccurrence,
     required this.label,
     required this.onTap,
   }) : super(key: key);
 
   Color colorButton() {
-    if (typeDevolution == TypeDevolution.GREEN) {
+    if (typeOccurrence == TypeOccurrence.GREEN) {
       return Color(0xff2fe080);
     }
-    if (typeDevolution == TypeDevolution.YELLOW) {
+    if (typeOccurrence == TypeOccurrence.YELLOW) {
       return Color(0xffefa92e).withOpacity(0.10000000149011612);
     }
-    if (typeDevolution == TypeDevolution.RED) {
+    if (typeOccurrence == TypeOccurrence.RED) {
       return Color(0xfffd5858).withOpacity(0.10000000149011612);
     }
 
@@ -29,13 +29,13 @@ class BtnDevolution extends StatelessWidget {
   }
 
   Color colorTextButton() {
-    if (typeDevolution == TypeDevolution.GREEN) {
+    if (typeOccurrence == TypeOccurrence.GREEN) {
       return Color(0xffffffff);
     }
-    if (typeDevolution == TypeDevolution.YELLOW) {
+    if (typeOccurrence == TypeOccurrence.YELLOW) {
       return Color(0xffefa92e);
     }
-    if (typeDevolution == TypeDevolution.RED) {
+    if (typeOccurrence == TypeOccurrence.RED) {
       return Color(0xfffd5858);
     }
 
