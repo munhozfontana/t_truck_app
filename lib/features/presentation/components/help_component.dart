@@ -23,7 +23,7 @@ class HelpComponent extends StatelessWidget {
                           'Precisa de ajuda? Entre em contato \ncom o telefone '),
                   TextSpan(
                     style: Get.textTheme.headline5,
-                    text: ' (00) 0 0000-0000',
+                    text: ' (61) 3771-4747',
                   )
                 ],
               ),
