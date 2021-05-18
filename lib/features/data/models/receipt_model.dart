@@ -66,20 +66,23 @@ class ReceiptModel extends TransacaoVendaModel {
             numTransVenda: e.numTransVenda,
             // TODO: prest faltando
             prest: '',
-            codCob: firstPayment['secondaryProductName'],
-            codCoborig: firstPayment['secondaryProductName'],
+            codCob: firstPayment['paymentFields']['primaryProductCode'],
+            codCoborig: firstPayment['paymentFields']['primaryProductName'],
             valor: payment.paidAmount,
-            prestTef: firstPayment['numberOfQuotas'],
+            prestTef:
+                int.parse(firstPayment['paymentFields']['numberOfQuotas']),
             nsuTef: '8765f43c-b571-11eb-8529-0242ac130003' ??
                 firstPayment['cieloCode'],
             codAutorizacaoTef: firstPayment['authCode'],
             codAdmCartao: '00125',
-            tipoOperacaoTef: firstPayment['v40Code'],
-            valorJuros: firstPayment['interestAmount'],
-            idTransacao: firstPayment['paymentTransactionId'],
+            tipoOperacaoTef: firstPayment['paymentFields']['v40Code'],
+            valorJuros:
+                int.parse(firstPayment['paymentFields']['interestAmount']),
+            idTransacao: firstPayment['paymentFields']['paymentTransactionId'],
             conector: 'CIELO',
             jsonCielo: jsonEncode(paymentFields),
-            codBandeira: firstPayment['brand'],
+            // TODO: retorna String da cielo
+            codBandeira: 1,
             dataDesd: '',
             exportado: 'N',
             dataPagamento: DateFormat('dd/MM/yyyy HH:mm:ss')
