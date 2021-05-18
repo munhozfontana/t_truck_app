@@ -42,12 +42,14 @@ class MockILocalStoreExternal extends _i1.Mock
   }
 
   @override
-  Object? take(String? key) =>
-      (super.noSuchMethod(Invocation.method(#take, [key])) as Object?);
+  _i3.Future<Object?>? take(String? key) =>
+      (super.noSuchMethod(Invocation.method(#take, [key]))
+          as _i3.Future<Object?>?);
   @override
-  void save(String? key, dynamic value) =>
-      super.noSuchMethod(Invocation.method(#save, [key, value]),
-          returnValueForMissingStub: null);
+  _i3.Future<void> save(String? key, dynamic value) =>
+      (super.noSuchMethod(Invocation.method(#save, [key, value]),
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i3.Future<void>);
 }
 
 /// A class which mocks [IJwt].
