@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
-import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
 import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
 import 'package:t_truck_app/injection_container.dart';
 
-class DevolutionPage extends StatelessWidget {
+class DevolutionPage extends GetWidget<DevolutionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,7 @@ class DevolutionPage extends StatelessWidget {
           AppBackground(),
           LayoutForm(
             child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
+              builder: (BuildContext _, BoxConstraints constraints) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +30,7 @@ class DevolutionPage extends StatelessWidget {
                       flex: 041,
                     ),
                     TextFormField(
-                      onChanged: print,
+                      onChanged: controller.filterChanged,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search_rounded,
@@ -51,13 +52,12 @@ class DevolutionPage extends StatelessWidget {
                     Spacer(
                       flex: 035,
                     ),
-                    GetX<DeliveryController>(
-                      initState: (_) {},
+                    GetX<DevolutionController>(
                       builder: (_) {
                         return Opacity(
                           opacity: 0.5,
                           child: Text(
-                            '${_.productEntityList.length} clientes encontrados',
+                            '${_.fieldFilter(_.listProducts, _.fieldFilterValue.value).length} Produtos encontrados',
                             style: Get.textTheme.headline6,
                             textAlign: TextAlign.left,
                           ),
@@ -67,23 +67,32 @@ class DevolutionPage extends StatelessWidget {
                     Spacer(
                       flex: 035,
                     ),
-                    GetX<DeliveryController>(
-                      builder: (_) {
-                        return Container(
-                          height: constraints.maxHeight * .75,
-                          child: ListView.separated(
-                            separatorBuilder: (_, __) => SizedBox(height: 14),
-                            itemCount: _.productEntityList.length + 1,
+                    Container(
+                      height: constraints.maxHeight * .75,
+                      child: GetX<DevolutionController>(
+                        builder: (_) {
+                          return ListView.separated(
+                            separatorBuilder: (a, b) => SizedBox(height: 14),
+                            itemCount: _
+                                    .fieldFilter(_.listProducts,
+                                        _.fieldFilterValue.value)
+                                    .length +
+                                1,
                             itemBuilder: (context, index) {
-                              if (index == _.productEntityList.length) {
+                              if (index ==
+                                  _
+                                      .fieldFilter(_.listProducts,
+                                          _.fieldFilterValue.value)
+                                      .length) {
                                 return renderLastItem();
                               }
-                              return comumItem(_, index);
+                              return comumItem(_.fieldFilter(_.listProducts,
+                                  _.fieldFilterValue.value)[index]);
                             },
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
+                    )
                   ],
                 );
               },
@@ -94,44 +103,54 @@ class DevolutionPage extends StatelessWidget {
     );
   }
 
-  LayoutBuilder comumItem(DeliveryController _, int index) {
+  LayoutBuilder comumItem(ProductEntity? productEntity) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        return Container(
-          height: 36,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: CustomCheckbox(
-                  isSelected: _.productEntityList[index]!.isCheck!,
-                  onTap: () {
-                    _.changeStatus(_.productEntityList[index], index);
-                  },
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              flex: 7,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(productEntity!.descricao),
                 ),
               ),
-              Flexible(
-                flex: 4,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(_.productEntityList[index]!.descricao),
+            ),
+            Spacer(),
+            Flexible(
+              flex: 2,
+              child: TextFormField(
+                onChanged: (value) {
+                  controller.updadeListFromValue(value, productEntity);
+                },
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.always,
+                initialValue:
+                    controller.typeDevolution.value == TypeDevolution.YELLOW
+                        ? ''
+                        : productEntity.qtToSend.toString(),
+                maxLength: productEntity.qt.toString().length,
+                validator: (value) {
+                  if (value!.isNotEmpty &&
+                      int.parse(value) >
+                          controller.getByCod(productEntity).qt) {
+                    return 'Máximo ${controller.getByCod(productEntity).qt}';
+                  }
+                },
+                decoration: InputDecoration(
+                  counterText: '',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
                   ),
                 ),
               ),
-              Flexible(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(0)),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
@@ -146,26 +165,29 @@ class DevolutionPage extends StatelessWidget {
           Spacer(
             flex: 035,
           ),
-          GetX<DeliveryController>(
+          GetX<DevolutionController>(
             builder: (_) {
-              if (_.productEntityList
-                  .where((e) => e!.isCheck == false)
-                  .isNotEmpty) {
-                _.updadeStatus(TypeDevolution.YELLOW);
+              if (controller.typeDevolution.value == TypeDevolution.YELLOW) {
                 return BtnDevolution(
                   onTap: () {
                     Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding());
+                        binding: DevolutionReasonBiding(),
+                        arguments: [
+                          TypeDevolution.YELLOW,
+                          controller.listProducts
+                        ]);
                   },
                   label: 'Devolução parcial',
                   typeDevolution: TypeDevolution.YELLOW,
                 );
               } else {
-                _.updadeStatus(TypeDevolution.RED);
                 return BtnDevolution(
                   onTap: () {
                     Get.to(() => DevolutionReasonPage(),
-                        binding: DevolutionReasonBiding());
+                        binding: DevolutionReasonBiding(),
+                        arguments: [
+                          TypeDevolution.RED,
+                        ]);
                   },
                   label: 'Devolução total',
                   typeDevolution: TypeDevolution.RED,
@@ -177,7 +199,8 @@ class DevolutionPage extends StatelessWidget {
             flex: 035,
           ),
           GestureDetector(
-            onTap: () => Get.off(() => DeliveryPage()),
+            onTap: () =>
+                Get.off(() => DeliveryPage(), binding: DeliveryBiding()),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

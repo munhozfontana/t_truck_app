@@ -7,10 +7,13 @@ class ProductModel extends ProductEntity {
     required int codProd,
     required String descricao,
     required bool isCheck,
+    required int qt,
   }) : super(
           codProd: codProd,
           descricao: descricao,
           isCheck: isCheck,
+          qt: qt,
+          qtToSend: qt,
         );
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -18,6 +21,7 @@ class ProductModel extends ProductEntity {
       codProd: map['CODPROD'],
       descricao: map['DESCRICAO'],
       isCheck: false,
+      qt: (map['QT'] as num).toInt(),
     );
   }
 

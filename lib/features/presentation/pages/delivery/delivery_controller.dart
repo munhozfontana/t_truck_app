@@ -7,6 +7,7 @@ import 'package:t_truck_app/features/presentation/components/btn_devolution.dart
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
 import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class DeliveryController extends GetxController with BaseController {
   final ProductListUseCase productListUseCase;
@@ -17,7 +18,6 @@ class DeliveryController extends GetxController with BaseController {
 
   Rx<OrderEntity?> orderEntity = Rx(Get.arguments);
   RxList<ProductEntity?> productEntityList = <ProductEntity>[].obs;
-  TypeDevolution devolutionState = TypeDevolution.NONE;
 
   @override
   void onInit() async {
@@ -47,25 +47,27 @@ class DeliveryController extends GetxController with BaseController {
     if (typeDevolution == TypeDevolution.YELLOW) {
       productEntityList.value = productEntityList
           .map((e) => ProductEntity(
-              codProd: e!.codProd, descricao: e.descricao, isCheck: false))
+              codProd: e!.codProd,
+              descricao: e.descricao,
+              isCheck: false,
+              qt: e.qt,
+              qtToSend: 0))
           .toList();
     }
     if (typeDevolution == TypeDevolution.RED) {
       productEntityList.value = productEntityList
           .map((e) => ProductEntity(
-              codProd: e!.codProd, descricao: e.descricao, isCheck: true))
+              codProd: e!.codProd,
+              descricao: e.descricao,
+              isCheck: true,
+              qt: e.qt,
+              qtToSend: e.qt))
           .toList();
     }
-    updadeStatus(typeDevolution);
-    Get.to(() => DevolutionPage());
-  }
-
-  void updadeStatus(TypeDevolution typeDevolution) {
-    devolutionState = typeDevolution;
-  }
-
-  void changeStatus(ProductEntity? isCheck, int index) {
-    productEntityList.elementAt(index)!.isCheck = !isCheck!.isCheck!;
-    productEntityList.refresh();
+    Get.to(
+      () => DevolutionPage(),
+      binding: DevolutionBiding(),
+      arguments: [productEntityList, typeDevolution],
+    );
   }
 }

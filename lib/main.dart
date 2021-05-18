@@ -38,6 +38,9 @@ void main() async {
       GetPage(
         name: '/',
         page: () => LoginPage(),
+        bindings: [
+          LoginBiding(),
+        ],
       ),
       GetPage(
         name: '/order',
