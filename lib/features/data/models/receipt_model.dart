@@ -66,20 +66,22 @@ class ReceiptModel extends TransacaoVendaModel {
             numTransVenda: e.numTransVenda,
             // TODO: prest faltando
             prest: '',
-            codCob: firstPayment['secondaryProductName'],
-            codCoborig: firstPayment['secondaryProductName'],
+            codCob: firstPayment['paymentFields']['primaryProductCode'],
+            codCoborig: firstPayment['paymentFields']['primaryProductName'],
             valor: payment.paidAmount,
-            prestTef: firstPayment['numberOfQuotas'],
+            prestTef:
+                int.parse(firstPayment['paymentFields']['numberOfQuotas']),
             nsuTef: '8765f43c-b571-11eb-8529-0242ac130003' ??
                 firstPayment['cieloCode'],
             codAutorizacaoTef: firstPayment['authCode'],
             codAdmCartao: '00125',
-            tipoOperacaoTef: firstPayment['v40Code'],
-            valorJuros: firstPayment['interestAmount'],
-            idTransacao: firstPayment['paymentTransactionId'],
+            tipoOperacaoTef: firstPayment['paymentFields']['v40Code'],
+            valorJuros:
+                int.parse(firstPayment['paymentFields']['interestAmount']),
+            idTransacao: firstPayment['paymentFields']['paymentTransactionId'],
             conector: 'CIELO',
             jsonCielo: jsonEncode(paymentFields),
-            codBandeira: firstPayment['brand'],
+            codBandeira: 1,
             dataDesd: '',
             exportado: 'N',
             dataPagamento: DateFormat('dd/MM/yyyy HH:mm:ss')
@@ -94,26 +96,22 @@ class ReceiptModel extends TransacaoVendaModel {
   Map<String, dynamic> toMap() {
     return {
       'numtransvenda': numTransVenda,
-      // TODO: faltando na api
       'numnota': numNota,
-      'valor': valor,
       'prest': prest,
       'codcob': codCob,
       'codcoborig': codCoborig,
+      'data_pagamento': dataPagamento,
+      'valor': valor,
       'presttef': prestTef,
       'nsutef': nsuTef,
       'codautorizacaotef': codAutorizacaoTef,
       'codadmcartao': codAdmCartao,
+      'json_cielo': jsonCielo,
       'tipooperacaotef': tipoOperacaoTef,
       'valorjuros': valorJuros,
       'idtransacao': idTransacao,
       'conector': conector,
-      // TODO: faltando na api
-      'json_cielo': jsonCielo,
       'codbandeira': codBandeira,
-      // TODO: faltando na api
-      'exportado': exportado,
-      'data_pagamento': dataPagamento,
     };
   }
 

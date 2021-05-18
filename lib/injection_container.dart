@@ -91,9 +91,7 @@ class OrderBiding extends Bindings {
 class OrderPayBiding extends Bindings {
   @override
   void dependencies() {
-    TokenBiding().dependencies();
-
-    Get.lazyPut<IReceiptExternal>(() => ReceiptApi());
+    Get.lazyPut<IReceiptExternal>(() => ReceiptApi(iHttp: Get.find()));
 
     Get.lazyPut<IOrderExternal>(() => OrderApi(
           iHttp: Get.find(),
