@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
@@ -20,7 +21,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
           AppBackground(),
           LayoutForm(
             child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
+              builder: (BuildContext _, BoxConstraints constraints) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +57,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                         return Opacity(
                           opacity: 0.5,
                           child: Text(
-                            '${_.listProducts.length} Produtos encontrados',
+                            '${_.fieldFilter(_.listProducts, _.fieldFilterValue.value).length} Produtos encontrados',
                             style: Get.textTheme.headline6,
                             textAlign: TextAlign.left,
                           ),
@@ -72,12 +73,21 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                         builder: (_) {
                           return ListView.separated(
                             separatorBuilder: (a, b) => SizedBox(height: 14),
-                            itemCount: _.listProducts.length + 1,
+                            itemCount: _
+                                    .fieldFilter(_.listProducts,
+                                        _.fieldFilterValue.value)
+                                    .length +
+                                1,
                             itemBuilder: (context, index) {
-                              if (index == controller.listProducts.length) {
+                              if (index ==
+                                  _
+                                      .fieldFilter(_.listProducts,
+                                          _.fieldFilterValue.value)
+                                      .length) {
                                 return renderLastItem();
                               }
-                              return comumItem(_.listProducts[index]);
+                              return comumItem(_.fieldFilter(_.listProducts,
+                                  _.fieldFilterValue.value)[index]);
                             },
                           );
                         },
@@ -96,39 +106,51 @@ class DevolutionPage extends GetWidget<DevolutionController> {
   LayoutBuilder comumItem(ProductEntity? productEntity) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        return Container(
-          height: 36,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                flex: 7,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(productEntity!.descricao),
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              flex: 7,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(productEntity!.descricao),
+                ),
+              ),
+            ),
+            Spacer(),
+            Flexible(
+              flex: 2,
+              child: TextFormField(
+                onChanged: (value) {
+                  controller.updadeListFromValue(value, productEntity);
+                },
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.always,
+                initialValue:
+                    controller.typeDevolution.value == TypeDevolution.YELLOW
+                        ? ''
+                        : productEntity.qtToSend.toString(),
+                maxLength: productEntity.qt.toString().length,
+                validator: (value) {
+                  if (value!.isNotEmpty &&
+                      int.parse(value) >
+                          controller.getByCod(productEntity).qt) {
+                    return 'Máximo ${controller.getByCod(productEntity).qt}';
+                  }
+                },
+                decoration: InputDecoration(
+                  // counterText: '',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
                   ),
                 ),
               ),
-              Spacer(),
-              Flexible(
-                flex: 2,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: TextEditingController(
-                    text: productEntity.qt.toString(),
-                  ),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(0)),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

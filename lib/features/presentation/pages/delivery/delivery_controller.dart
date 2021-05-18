@@ -50,7 +50,8 @@ class DeliveryController extends GetxController with BaseController {
               codProd: e!.codProd,
               descricao: e.descricao,
               isCheck: false,
-              qt: e.qt))
+              qt: e.qt,
+              qtToSend: 0))
           .toList();
     }
     if (typeDevolution == TypeDevolution.RED) {
@@ -59,7 +60,8 @@ class DeliveryController extends GetxController with BaseController {
               codProd: e!.codProd,
               descricao: e.descricao,
               isCheck: true,
-              qt: e.qt))
+              qt: e.qt,
+              qtToSend: e.qt))
           .toList();
     }
     Get.to(

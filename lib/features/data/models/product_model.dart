@@ -13,6 +13,7 @@ class ProductModel extends ProductEntity {
           descricao: descricao,
           isCheck: isCheck,
           qt: qt,
+          qtToSend: qt,
         );
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
