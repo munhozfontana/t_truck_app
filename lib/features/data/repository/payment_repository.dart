@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
+import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_jwt_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_local_store_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
@@ -48,11 +50,11 @@ class PaymentRepository extends OrderRepository
         orderEntity,
       );
 
-      await iReceiptExternal.save(listReceipt);
-
-      return Right(null);
+      return Right(await iReceiptExternal.save(listReceipt));
+    } on ApiException catch (e) {
+      return Left(AppFailure(detail: e.error));
     } catch (e) {
-      return Right(AppFailure());
+      return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
     }
   }
 }
