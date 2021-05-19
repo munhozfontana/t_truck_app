@@ -12,7 +12,7 @@ class DevolutionController extends GetxController with BaseController {
 
   void filterChanged(String value) {
     fieldFilterValue.value = value;
-    fieldFilterValue.refresh();
+    update();
   }
 
   List<ProductEntity?> fieldFilter(
