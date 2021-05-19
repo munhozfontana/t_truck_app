@@ -111,7 +111,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              flex: 7,
+              flex: 10,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: SingleChildScrollView(
@@ -120,7 +120,9 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                 ),
               ),
             ),
-            Spacer(),
+            Spacer(
+              flex: 1,
+            ),
             Flexible(
               flex: 2,
               child: TextFormField(
@@ -142,9 +144,12 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                   }
                 },
                 decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 15),
                   counterText: '',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(0),
+                    ),
                   ),
                 ),
               ),
