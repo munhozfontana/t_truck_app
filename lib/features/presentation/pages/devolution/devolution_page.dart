@@ -132,15 +132,16 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.always,
-                initialValue: productEntity.qtToSend == 0
-                    ? ''
-                    : productEntity.qtToSend.toString(),
+                initialValue: productEntity.qtToSend.toString(),
                 maxLength: productEntity.qt.toString().length,
                 validator: (value) {
-                  if (value!.isNotEmpty &&
+                  if (value!.isEmpty) {
+                    return 'Min 0';
+                  }
+                  if (value.isNotEmpty &&
                       int.parse(value) >
                           controller.getByCod(productEntity).qt) {
-                    return '${controller.getByCod(productEntity).qt}';
+                    return 'Max ${controller.getByCod(productEntity).qt}';
                   }
                 },
                 decoration: InputDecoration(
