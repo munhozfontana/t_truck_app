@@ -63,7 +63,10 @@ class OccurrenceReasonController extends GetxController with BaseController {
       (await doDevolution(devolution, product)).fold(
         (l) => null,
         (r) {
-          Get.to(() => DevolutionFinish(),
+          Get.to(
+              () => DevolutionFinish(
+                    isDevolutionTotal: true,
+                  ),
               arguments: product.orderEntity.value);
         },
       );

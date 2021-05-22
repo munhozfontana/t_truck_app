@@ -5,6 +5,7 @@ import 'package:t_truck_app/features/presentation/components/app_background.dart
 import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
 import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
+import 'package:t_truck_app/features/presentation/pages/camera/camera_proof/camera_proof_page.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_controller.dart';
 
@@ -35,7 +36,9 @@ class PaymentPage extends GetWidget<PaymentController> {
               Spacer(flex: 8),
               BtnPrimary(
                 label: 'Boleto bancário',
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => CameraProofPage());
+                },
               ),
               Spacer(flex: 14),
               Divider(),
