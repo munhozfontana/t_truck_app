@@ -5,9 +5,7 @@ import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
-import 'package:t_truck_app/injection_container.dart';
 
 class OrderPage extends GetWidget<OrderController> {
   @override
@@ -53,8 +51,8 @@ class OrderPage extends GetWidget<OrderController> {
                         itemCount: controller.filtredList.length,
                         itemBuilder: (context, index) {
                           return OrderItem(
-                            orderEntity: controller.filtredList[index],
-                          );
+                              orderEntity: controller.filtredList[index],
+                              controller: controller);
                         },
                       ),
                     )),
@@ -77,21 +75,19 @@ class OrderPage extends GetWidget<OrderController> {
 
 class OrderItem extends StatelessWidget {
   final OrderEntity orderEntity;
+  final OrderController controller;
 
   const OrderItem({
     Key? key,
     required this.orderEntity,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(
-          () => ProductPage(),
-          arguments: orderEntity,
-          binding: DeliveryBiding(),
-        );
+        controller.navigateToProduct(orderEntity);
       },
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

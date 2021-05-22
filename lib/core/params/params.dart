@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/entites/image_entity.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
+import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/domain/entites/transacao_venda_entity.dart';
+import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 
 class Params extends Equatable {
   final CredentialEntity? credential;
@@ -10,6 +12,10 @@ class Params extends Equatable {
   final List<TransacaoVendaEntity>? listIdentificacao;
   final OrderEntity? orderEntity;
   final ImageEntity? imageEntity;
+  final List<ProductEntity>? listProductEntity;
+  final String? codmot;
+  final String? motivoDevolucao;
+  final TypeOccurrence? typeOccurrence;
 
   Params({
     this.credential,
@@ -17,6 +23,10 @@ class Params extends Equatable {
     this.listIdentificacao,
     this.orderEntity,
     this.imageEntity,
+    this.listProductEntity,
+    this.codmot,
+    this.motivoDevolucao,
+    this.typeOccurrence,
   });
 
   @override
@@ -26,5 +36,9 @@ class Params extends Equatable {
         listIdentificacao!,
         orderEntity!,
         imageEntity!,
+        listProductEntity!,
+        codmot!,
+        motivoDevolucao!,
+        typeOccurrence!,
       ];
 }

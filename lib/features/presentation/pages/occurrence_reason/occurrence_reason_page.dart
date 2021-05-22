@@ -5,6 +5,7 @@ import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/components/dropdown_default.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_controller.dart';
 
 class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
@@ -33,7 +34,7 @@ class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
             ),
             Spacer(flex: 32),
             Obx(() => ClienteDropdownButton(
-                  onChange: print,
+                  onChange: controller.changeDropdown,
                   items: controller.reasonDevolution,
                   isLoading: controller.isLoading,
                 )),
@@ -46,7 +47,7 @@ class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
             Divider(),
             Spacer(flex: 14),
             BtnVoltar(
-              onTap: controller.back,
+              onTap: () => Get.off(() => DevolutionPage()),
               label: 'Voltar',
             ),
             Spacer(flex: 14)

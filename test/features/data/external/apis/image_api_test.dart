@@ -20,7 +20,7 @@ void main() {
     mockIHttp = MockIHttp();
     imageApi = ImageApi(iHttp: mockIHttp);
     imageEntity = ImageEntity(
-      numcanhoto: "123123",
+      numcanhoto: '123123',
       canhoto: '123123',
       estabelecimento: '123123',
       data: DateTime.now(),

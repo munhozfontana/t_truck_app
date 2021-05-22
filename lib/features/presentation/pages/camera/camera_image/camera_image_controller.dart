@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/image_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/image/image_save_use_case.dart';
@@ -17,24 +16,16 @@ class CameraImageController extends GetxController {
 
     orderEntity.identificacoes;
 
-    var dataSaida = DateFormat('yy/MM/d')
-        .format(DateTime.parse(orderEntity.dtSaida))
-        .toString()
-        .replaceAll('/', '');
-
-    var numcanhotoConcatenado = dataSaida +
-        orderEntity.codCli.toString() +
-        orderEntity.numCar.toString();
-
-    imageSaveUseCase(Params(
-      imageEntity: ImageEntity(
-          canhoto: image,
-          codCli: orderEntity.codCli,
-          data: DateTime.now(),
-          estabelecimento: '',
-          numcanhoto: numcanhotoConcatenado),
-    ));
+    imageSaveUseCase(
+      Params(
+        orderEntity: orderEntity,
+        imageEntity: ImageEntity(
+            canhoto: image,
+            codCli: orderEntity.codCli,
+            data: DateTime.now(),
+            estabelecimento: '',
+            numcanhoto: ''),
+      ),
+    );
   }
 }
-// ${orderEntity.dtSaida}${orderEntity.codCli.toString()}${orderEntity.numCar.toString()}'
-//  DateFormat('dd/MM/yyyy HH:mm:ss').format(DateTime.parse(orderEntity.dtSaida)).toString()

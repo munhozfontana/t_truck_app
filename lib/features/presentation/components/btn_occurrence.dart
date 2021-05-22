@@ -5,7 +5,7 @@ enum TypeOccurrence { GREEN, YELLOW, RED, NONE }
 class BtnOccurrence extends StatelessWidget {
   final TypeOccurrence typeOccurrence;
   final String label;
-  final Function onTap;
+  final void Function()? onTap;
 
   const BtnOccurrence({
     Key? key,
@@ -44,37 +44,41 @@ class BtnOccurrence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onTap();
-      },
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Stack(children: [
-            Container(
-              width: constraints.maxWidth,
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                color: colorButton(),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return ConstrainedBox(
+          constraints: BoxConstraints.tightFor(
+            width: constraints.maxWidth,
+            height: 56,
+          ),
+          child: ElevatedButton(
+            onPressed: onTap,
+            style: ButtonStyle(
+              elevation: MaterialStateProperty.all(0),
+              backgroundColor: MaterialStateProperty.all(
+                colorButton(),
+              ),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
               ),
             ),
-            Container(
-              height: 56,
-              child: Center(
-                child: Text(label,
-                    style: TextStyle(
-                        color: colorTextButton(),
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18.0),
-                    textAlign: TextAlign.center),
+            child: Text(
+              label,
+              style: TextStyle(
+                letterSpacing: 1,
+                color: colorTextButton(),
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Poppins',
+                fontStyle: FontStyle.normal,
+                fontSize: 23.0,
               ),
-            )
-          ]);
-        },
-      ),
+              textAlign: TextAlign.left,
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/product/product_list_use_case.dart';
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 import 'package:t_truck_app/injection_container.dart';
@@ -18,7 +19,7 @@ class ProductController extends GetxController with BaseController {
     required this.productListUseCase,
   });
 
-  Rx<OrderEntity?> orderEntity = Rx(Get.arguments);
+  Rx<OrderEntity?> orderEntity = Get.find<OrderController>().orderEntity;
   RxList<ProductEntity?> productEntityList = <ProductEntity>[].obs;
   RxString qtdProdutos = ''.obs;
   RxString qtdNotas = ''.obs;
@@ -57,19 +58,23 @@ class ProductController extends GetxController with BaseController {
     if (typeDevolution == TypeOccurrence.YELLOW) {
       productEntityList.value = productEntityList
           .map((e) => ProductEntity(
-              codProd: e!.codProd,
-              descricao: e.descricao,
-              qt: e.qt,
-              qtToSend: 0))
+                codProd: e!.codProd,
+                descricao: e.descricao,
+                qt: e.qt,
+                qtToSend: 0,
+                transacaoVendaEntity: e.transacaoVendaEntity,
+              ))
           .toList();
     }
     if (typeDevolution == TypeOccurrence.RED) {
       productEntityList.value = productEntityList
           .map((e) => ProductEntity(
-              codProd: e!.codProd,
-              descricao: e.descricao,
-              qt: e.qt,
-              qtToSend: e.qt))
+                codProd: e!.codProd,
+                descricao: e.descricao,
+                qt: e.qt,
+                qtToSend: e.qt,
+                transacaoVendaEntity: e.transacaoVendaEntity,
+              ))
           .toList();
     }
     Get.to(

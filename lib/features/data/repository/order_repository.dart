@@ -10,20 +10,17 @@ import 'package:t_truck_app/features/domain/repositories/i_order_repository.dart
 
 class OrderRepository implements IOrderRepository {
   IOrderExternal iOrderExternal;
-  ILocalStoreExternal iLocalStoreExternal;
-  IJwt iJwt;
+  ILoggedUser iLoggedUser;
 
   OrderRepository({
     required this.iOrderExternal,
-    required this.iLocalStoreExternal,
-    required this.iJwt,
+    required this.iLoggedUser,
   });
 
   @override
   Future<Either<Failure, List<OrderEntity>>> list() async {
     try {
-      var token = await iLocalStoreExternal.take('token');
-      var codigoMotorista = iJwt.jwtDecode(token as String)['login'];
+      var codigoMotorista = await iLoggedUser.login;
       return Right(await iOrderExternal.list(codigoMotorista));
     } on ApiException catch (e) {
       return Left(RequestFailure(detail: e.error));
@@ -31,4 +28,31 @@ class OrderRepository implements IOrderRepository {
       return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
     }
   }
+}
+
+class LoggedUser implements ILoggedUser {
+  final IJwt iJwt;
+  final ILocalStoreExternal iLocalStoreExternal;
+
+  LoggedUser({
+    required this.iJwt,
+    required this.iLocalStoreExternal,
+  });
+
+  @override
+  Future<String> get login async {
+    var token = await iLocalStoreExternal.take('token');
+    return iJwt.jwtDecode(token as String)['login'];
+  }
+
+  @override
+  Future<bool> get loginExpired async {
+    var token = await iLocalStoreExternal.take('token');
+    return iJwt.isExpired(token as String);
+  }
+}
+
+mixin ILoggedUser {
+  Future<String> get login;
+  Future<bool> get loginExpired;
 }

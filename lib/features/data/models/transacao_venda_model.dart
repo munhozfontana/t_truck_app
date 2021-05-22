@@ -7,11 +7,12 @@ class TransacaoVendaModel extends TransacaoVendaEntity {
     required int numTransVenda,
     required int numNota,
     required num? valor,
-    required String? prest,
+    required String prest,
   }) : super(
           numTransVenda: numTransVenda,
           numNota: numNota,
           valor: valor,
+          prest: prest,
         );
 
   static String toMapTransVenda(List<TransacaoVendaEntity> list) {

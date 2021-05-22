@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
+import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 class DevolutionController extends GetxController with BaseController {
-  RxList<ProductEntity?> listProducts = <ProductEntity>[].obs;
-  List<ProductEntity?> orginalList = <ProductEntity>[];
+  RxList<ProductEntity> listProducts = <ProductEntity>[].obs;
+  List<ProductEntity> orginalList = <ProductEntity>[];
   Rx<TypeOccurrence> typeDevolution = TypeOccurrence.NONE.obs;
 
   RxString fieldFilterValue = ''.obs;
@@ -32,18 +34,22 @@ class DevolutionController extends GetxController with BaseController {
     if (typeDevolution.value == TypeOccurrence.YELLOW) {
       listProducts.value = listProducts.map((element) {
         return ProductEntity(
-            codProd: element!.codProd,
-            descricao: element.descricao,
-            qt: element.qt,
-            qtToSend: 0);
+          codProd: element.codProd,
+          descricao: element.descricao,
+          qt: element.qt,
+          qtToSend: 0,
+          transacaoVendaEntity: element.transacaoVendaEntity,
+        );
       }).toList();
     } else {
       listProducts.value = listProducts.map((element) {
         return ProductEntity(
-            codProd: element!.codProd,
-            descricao: element.descricao,
-            qt: element.qt,
-            qtToSend: element.qt);
+          codProd: element.codProd,
+          descricao: element.descricao,
+          qt: element.qt,
+          qtToSend: element.qt,
+          transacaoVendaEntity: element.transacaoVendaEntity,
+        );
       }).toList();
     }
 
@@ -53,31 +59,48 @@ class DevolutionController extends GetxController with BaseController {
 
   ProductEntity getByCod(ProductEntity productEntity) {
     return orginalList
-        .firstWhere((element) => element!.codProd == productEntity.codProd)!;
+        .firstWhere((element) => element.codProd == productEntity.codProd);
   }
 
   void updadeListFromValue(String value, ProductEntity productEntity) {
-    if (!GetUtils.isNullOrBlank(value)!) {
+    if (!GetUtils.isNull(value)) {
       var existing =
-          listProducts.indexWhere((p) => p!.codProd == productEntity.codProd);
+          listProducts.indexWhere((p) => p.codProd == productEntity.codProd);
 
       if (!existing.isNegative) {
         listProducts[existing] = ProductEntity(
-          codProd: productEntity.codProd,
-          descricao: productEntity.descricao,
-          qt: productEntity.qt,
-          qtToSend: int.tryParse(value) ?? 0,
-        );
+            codProd: productEntity.codProd,
+            descricao: productEntity.descricao,
+            qt: productEntity.qt,
+            qtToSend: GetUtils.isBlank(value)! ? 0 : int.tryParse(value)!,
+            transacaoVendaEntity: productEntity.transacaoVendaEntity);
         listProducts.refresh();
       }
 
       if (listProducts
-          .where((element) => element!.qtToSend < element.qt)
+          .where((element) => element.qtToSend < element.qt)
           .isEmpty) {
         typeDevolution.value = TypeOccurrence.RED;
       } else {
         typeDevolution.value = TypeOccurrence.YELLOW;
       }
+    }
+  }
+
+  void nextPage() {
+    if (typeDevolution.value == TypeOccurrence.YELLOW) {
+      Get.to(() => OccurrenceReasonPage(),
+          binding: OccurrenceReasonBiding(),
+          arguments: [
+            TypeOccurrence.YELLOW,
+            listProducts,
+          ]);
+    } else {
+      Get.to(() => OccurrenceReasonPage(),
+          binding: OccurrenceReasonBiding(),
+          arguments: [
+            TypeOccurrence.RED,
+          ]);
     }
   }
 }

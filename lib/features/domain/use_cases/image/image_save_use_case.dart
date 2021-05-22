@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/params/params.dart';
@@ -21,6 +22,24 @@ class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
       return Left(ValidationFailure(detail: 'Image não pode estar vazia'));
     }
 
-    return Right(await iImageListRepository.save(params.imageEntity!));
+    if (GetUtils.isNull(params.orderEntity)) {
+      return Left(ValidationFailure(detail: 'Order não pode estar vazia'));
+    }
+
+    var dataSaida = DateFormat('yy/MM/d')
+        .format(DateTime.parse(params.orderEntity!.dtSaida))
+        .toString()
+        .replaceAll('/', '');
+
+    var numcanhotoConcatenado = dataSaida +
+        params.orderEntity!.codCli.toString() +
+        params.orderEntity!.numCar.toString();
+
+    var imageEntity = params.imageEntity!.copyWith(
+      numcanhoto: numcanhotoConcatenado,
+      //TODO : Ver se vai user estabelecimento
+    );
+
+    return Right(await iImageListRepository.save(imageEntity));
   }
 }

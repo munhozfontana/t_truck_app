@@ -53,15 +53,15 @@ void main() async {
         page: () => ProductPage(),
       ),
       GetPage(
-        name: '/devolution',
+        name: '/product/devolution',
         page: () => DevolutionPage(),
       ),
       GetPage(
-        name: '/devolution/reason',
+        name: '/product/devolution/reason',
         page: () => OccurrenceReasonPage(),
       ),
       GetPage(
-        name: '/devolution/finish',
+        name: '/product/devolution/finish',
         page: () => DevolutionFinish(),
       ),
       GetPage(

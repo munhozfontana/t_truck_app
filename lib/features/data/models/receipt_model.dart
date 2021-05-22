@@ -12,7 +12,8 @@ class ReceiptModel extends TransacaoVendaModel {
   int numNota;
   @override
   final int? valor;
-  final String? prest;
+  @override
+  final String prest;
   final String? codCob;
   final String? codCoborig;
   final int? prestTef;
@@ -33,7 +34,7 @@ class ReceiptModel extends TransacaoVendaModel {
     required this.numTransVenda,
     required this.numNota,
     this.valor,
-    this.prest,
+    required this.prest,
     this.codCob,
     this.codCoborig,
     this.prestTef,
@@ -64,8 +65,7 @@ class ReceiptModel extends TransacaoVendaModel {
         .map(
           (e) => ReceiptModel(
             numTransVenda: e.numTransVenda,
-            // TODO: prest faltando
-            prest: '1',
+            prest: e.prest,
             codCob: firstPayment['paymentFields']['primaryProductCode'],
             codCoborig: firstPayment['paymentFields']['primaryProductName'],
             valor: payment.paidAmount,
@@ -97,7 +97,7 @@ class ReceiptModel extends TransacaoVendaModel {
     return {
       'numtransvenda': numTransVenda,
       'numnota': numNota,
-      'prest': prest!.isEmpty ? 1 : prest,
+      'prest': prest.isEmpty,
       'codcob': codCob,
       'codcoborig': codCoborig,
       'data_pagamento': dataPagamento,

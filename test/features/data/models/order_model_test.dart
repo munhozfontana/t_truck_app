@@ -6,9 +6,24 @@ import 'package:t_truck_app/features/domain/entites/transacao_venda_entity.dart'
 void main() {
   test('shoud', () {
     var listIdenticacoes = <TransacaoVendaEntity>[
-      TransacaoVendaEntity(numTransVenda: 1, numNota: 1, valor: 5000),
-      TransacaoVendaEntity(numTransVenda: 1, numNota: 1, valor: 154123.561),
-      TransacaoVendaEntity(numTransVenda: 1, numNota: 1, valor: 12.662),
+      TransacaoVendaEntity(
+        numTransVenda: 1,
+        numNota: 1,
+        valor: 5000,
+        prest: '2',
+      ),
+      TransacaoVendaEntity(
+        numTransVenda: 1,
+        numNota: 1,
+        valor: 154123.561,
+        prest: '2',
+      ),
+      TransacaoVendaEntity(
+        numTransVenda: 1,
+        numNota: 1,
+        valor: 12.662,
+        prest: '2',
+      ),
     ];
 
     var orderEntity = OrderEntity(

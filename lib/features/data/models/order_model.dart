@@ -32,7 +32,7 @@ class OrderModel extends OrderEntity {
               numTransVenda: e['NUMTRANSVENDA'],
               numNota: e['NUMTRANSVENDA'],
               valor: e['VLTOTAL'],
-              prest: ''))
+              prest: e['PREST']))
           .toList();
 
       return OrderModel(

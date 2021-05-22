@@ -2,8 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_jwt_external.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_local_store_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_receipt_external.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
@@ -21,21 +19,16 @@ class PaymentRepository extends OrderRepository
   final IReceiptExternal iReceiptExternal;
 
   @override
-  final ILocalStoreExternal iLocalStoreExternal;
-
-  @override
-  final IJwt iJwt;
+  ILoggedUser iLoggedUser;
 
   PaymentRepository({
     required this.cieloDriver,
     required this.iReceiptExternal,
     required this.iOrderExternal,
-    required this.iLocalStoreExternal,
-    required this.iJwt,
+    required this.iLoggedUser,
   }) : super(
           iOrderExternal: iOrderExternal,
-          iLocalStoreExternal: iLocalStoreExternal,
-          iJwt: iJwt,
+          iLoggedUser: iLoggedUser,
         );
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
+import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
@@ -128,23 +129,12 @@ class ProductPage extends GetWidget<ProductController> {
                         typeOccurrence: TypeOccurrence.RED,
                       ),
                       Divider(),
-                      GestureDetector(
-                        onTap: () => Get.offAll(() => OrderPage(),
-                            binding: OrderBiding()),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.keyboard_arrow_left_rounded),
-                            Text('Voltar para listar cliente',
-                                style: const TextStyle(
-                                    color: Color(0xff6c6c6c),
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Poppins',
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.0),
-                                textAlign: TextAlign.left)
-                          ],
+                      BtnVoltar(
+                        onTap: () => Get.offAll(
+                          () => OrderPage(),
+                          binding: OrderBiding(),
                         ),
+                        label: 'Voltar para listar cliente',
                       )
                     ],
                   ),

@@ -32,6 +32,7 @@ void main() {
           numTransVenda: 32370156,
           numNota: 32370158,
           valor: 300,
+          prest: '1',
         )
       ]);
       expect(res.length, 19);

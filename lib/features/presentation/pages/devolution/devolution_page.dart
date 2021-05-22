@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
+import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
 import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/injection_container.dart';
 
@@ -167,53 +167,27 @@ class DevolutionPage extends GetWidget<DevolutionController> {
           ),
           GetX<DevolutionController>(
             builder: (_) {
-              if (controller.typeDevolution.value == TypeOccurrence.YELLOW) {
-                return BtnOccurrence(
-                  onTap: () {
-                    Get.to(() => OccurrenceReasonPage(),
-                        binding: OccurrenceReasonBiding(),
-                        arguments: [
-                          TypeOccurrence.YELLOW,
-                          controller.listProducts
-                        ]);
-                  },
-                  label: 'Devolução parcial',
-                  typeOccurrence: TypeOccurrence.YELLOW,
-                );
-              } else {
-                return BtnOccurrence(
-                  onTap: () {
-                    Get.to(() => OccurrenceReasonPage(),
-                        binding: OccurrenceReasonBiding(),
-                        arguments: [
-                          TypeOccurrence.RED,
-                        ]);
-                  },
-                  label: 'Devolução total',
-                  typeOccurrence: TypeOccurrence.RED,
-                );
-              }
+              return BtnOccurrence(
+                onTap: controller.listProducts
+                        .where((item) => item.qtToSend > 0)
+                        .isNotEmpty
+                    ? controller.nextPage
+                    : null,
+                label: controller.typeDevolution.value == TypeOccurrence.YELLOW
+                    ? 'Devolução parcial'
+                    : 'Devolução total',
+                typeOccurrence: controller.typeDevolution.value,
+              );
             },
           ),
           Spacer(
             flex: 035,
           ),
-          GestureDetector(
-            onTap: () =>
-                Get.off(() => ProductPage(), binding: DeliveryBiding()),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.keyboard_arrow_left_rounded),
-                Text('Voltar',
-                    style: const TextStyle(
-                        color: Color(0xff6c6c6c),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14.0),
-                    textAlign: TextAlign.left)
-              ],
+          BtnVoltar(
+            label: 'Voltar',
+            onTap: () => Get.offAll(
+              ProductPage(),
+              binding: DeliveryBiding(),
             ),
           ),
           Spacer(
