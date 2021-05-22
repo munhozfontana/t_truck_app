@@ -32,7 +32,7 @@ void main() {
             cliente: 'anyCLiente',
             identificacoes: [],
             dtSaida: '',
-            numCar: '',
+            numCar: 1,
           )
         ],
       ),

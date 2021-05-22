@@ -16,7 +16,7 @@ void main() {
         codCli: 1,
         identificacoes: listIdenticacoes,
         dtSaida: '',
-        numCar: '');
+        numCar: 1);
     var result = PaymentUtils.valorTotalFromOrder(orderEntity);
 
     expect(result, 15913622);
