@@ -4,6 +4,8 @@ class OrderEntity {
   final String? dtCanhato;
   final String cliente;
   final int codCli;
+  final int numCar;
+  final String dtSaida;
   final List<TransacaoVendaEntity> identificacoes;
 
   OrderEntity({
@@ -11,5 +13,7 @@ class OrderEntity {
     required this.cliente,
     required this.codCli,
     required this.identificacoes,
+    required this.numCar,
+    required this.dtSaida,
   });
 }

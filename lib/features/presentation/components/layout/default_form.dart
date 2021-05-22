@@ -1,11 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+enum LayoutSize { SMALL, MEDIUM, BIG, BIG_NO_PADDING_BUTTOM }
+
+extension LayoutSizeUtils on LayoutSize {
+  double get hight {
+    switch (this) {
+      case LayoutSize.SMALL:
+        return .66;
+      case LayoutSize.MEDIUM:
+        return .75;
+      case LayoutSize.BIG:
+        return .868;
+      case LayoutSize.BIG_NO_PADDING_BUTTOM:
+        return .868;
+      default:
+        return .85;
+    }
+  }
+}
 
 class DefaultForm extends StatelessWidget {
-  final List<Widget> child;
+  final List<Widget>? children;
+  final Widget Function(BuildContext context, BoxConstraints constraints)?
+      builder;
+  final LayoutSize layoutSize;
+
+  final EdgeInsetsGeometry? padding;
 
   const DefaultForm({
     Key? key,
-    required this.child,
+    this.children,
+    this.layoutSize = LayoutSize.BIG,
+    this.padding,
+    this.builder,
   }) : super(key: key);
 
   @override
@@ -13,10 +41,21 @@ class DefaultForm extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+        builder: (BuildContext context, BoxConstraints cons) {
+          var defaultValue = cons.maxWidth * .064;
           return Container(
-            width: constraints.maxWidth,
-            height: constraints.maxHeight * .66,
+            padding: GetUtils.isNull(padding)
+                ? EdgeInsets.only(
+                    left: defaultValue,
+                    right: defaultValue,
+                    top: defaultValue,
+                    bottom: LayoutSize.BIG_NO_PADDING_BUTTOM == layoutSize
+                        ? 0
+                        : defaultValue,
+                  )
+                : padding,
+            width: cons.maxWidth,
+            height: cons.maxHeight * layoutSize.hight,
             decoration: BoxDecoration(
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
@@ -32,12 +71,11 @@ class DefaultForm extends StatelessWidget {
                 ),
               ],
             ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: constraints.maxWidth * .064,
-              ),
-              child: Column(children: child),
-            ),
+            child: GetUtils.isNull(builder)
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: children!)
+                : builder!(context, cons),
           );
         },
       ),

@@ -11,8 +11,12 @@ void main() {
       TransacaoVendaEntity(numTransVenda: 1, numNota: 1, valor: 12.662),
     ];
 
-    var orderEntity =
-        OrderEntity(cliente: '', codCli: 1, identificacoes: listIdenticacoes);
+    var orderEntity = OrderEntity(
+        cliente: '',
+        codCli: 1,
+        identificacoes: listIdenticacoes,
+        dtSaida: '',
+        numCar: '');
     var result = PaymentUtils.valorTotalFromOrder(orderEntity);
 
     expect(result, 15913622);

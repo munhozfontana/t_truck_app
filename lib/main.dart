@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/presentation/pages/camera/camera_image/camera_image_page.dart';
+import 'package:t_truck_app/features/presentation/pages/camera/camera_proof/camera_proof_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_finish/devolution_finish.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
@@ -47,7 +49,7 @@ void main() async {
         page: () => OrderPage(),
       ),
       GetPage(
-        name: '/delivery',
+        name: '/product',
         page: () => ProductPage(),
       ),
       GetPage(
@@ -66,6 +68,14 @@ void main() async {
         name: '/payment',
         page: () => PaymentPage(),
       ),
+      GetPage(
+        name: 'camera/proof',
+        page: () => CameraProofPage(),
+      ),
+      GetPage(
+        name: 'camera/image',
+        page: () => CameraImagePage(),
+      )
     ],
   ));
 }

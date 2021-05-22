@@ -65,14 +65,14 @@ class ReceiptModel extends TransacaoVendaModel {
           (e) => ReceiptModel(
             numTransVenda: e.numTransVenda,
             // TODO: prest faltando
-            prest: '',
+            prest: '1',
             codCob: firstPayment['paymentFields']['primaryProductCode'],
             codCoborig: firstPayment['paymentFields']['primaryProductName'],
             valor: payment.paidAmount,
             prestTef:
                 int.parse(firstPayment['paymentFields']['numberOfQuotas']),
-            nsuTef: '8765f43c-b571-11eb-8529-0242ac130003' ??
-                firstPayment['cieloCode'],
+            nsuTef: '11111',
+            // nsuTef: firstPayment['cieloCode'] ,
             codAutorizacaoTef: firstPayment['authCode'],
             codAdmCartao: '00125',
             tipoOperacaoTef: firstPayment['paymentFields']['v40Code'],

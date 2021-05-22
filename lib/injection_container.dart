@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_image_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_jwt_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_local_store_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_login_external.dart';
@@ -8,6 +9,7 @@ import 'package:t_truck_app/features/data/external/adapters/i_occurrence_externa
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_product_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_receipt_external.dart';
+import 'package:t_truck_app/features/data/external/apis/image_api.dart';
 import 'package:t_truck_app/features/data/external/apis/login_api.dart';
 import 'package:t_truck_app/features/data/external/apis/occurrence_api.dart';
 import 'package:t_truck_app/features/data/external/apis/product_api.dart';
@@ -16,21 +18,25 @@ import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/dio_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/jwt_decoder_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/shared_preferences_driver.dart';
+import 'package:t_truck_app/features/data/repository/image_repository.dart';
 import 'package:t_truck_app/features/data/repository/login_repository.dart';
 import 'package:t_truck_app/features/data/repository/occurrence_repository.dart';
 import 'package:t_truck_app/features/data/repository/payment_repository.dart';
 import 'package:t_truck_app/features/data/repository/product_repository.dart';
 import 'package:t_truck_app/features/data/repository/token_repository.dart';
+import 'package:t_truck_app/features/domain/repositories/i_image_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_occurrence_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_product_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_token_repository.dart';
+import 'package:t_truck_app/features/domain/use_cases/image/image_save_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/occurrence/occurrence_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_pay_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/product/product_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/token/token_use_case.dart';
+import 'package:t_truck_app/features/presentation/pages/camera/camera_image/camera_image_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_controller.dart';
@@ -168,6 +174,35 @@ class OccurrenceReasonBiding extends Bindings {
 
     Get.lazyPut(
         () => OccurrenceReasonController(occurrenceListUseCase: Get.find()));
+  }
+}
+
+class CameraImageBiding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<IImageExternal>(
+      () => ImageApi(
+        iHttp: Get.find(),
+      ),
+    );
+
+    Get.lazyPut<IImageRepository>(
+      () => ImageRepository(
+        iImageExternal: Get.find(),
+      ),
+    );
+
+    Get.lazyPut<ImageSaveUseCase>(
+      () => ImageSaveUseCase(
+        iImageListRepository: Get.find(),
+      ),
+    );
+
+    Get.lazyPut(
+      () => CameraImageController(
+        imageSaveUseCase: Get.find(),
+      ),
+    );
   }
 }
 

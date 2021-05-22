@@ -16,31 +16,33 @@ class PaymentPage extends GetWidget<PaymentController> {
         children: [
           AppBackground(),
           DefaultForm(
-            child: [
+            children: [
               Spacer(flex: 28),
-              Container(
-                  width: 175.5446014404297,
-                  height: 147.3734588623047,
-                  child: SvgPicture.asset(
-                    'images/payment.svg',
-                    semanticsLabel: 'Background Logo',
-                  )),
+              Center(
+                child: Container(
+                    width: 175.5446014404297,
+                    height: 147.3734588623047,
+                    child: SvgPicture.asset(
+                      'images/payment.svg',
+                      semanticsLabel: 'Background Logo',
+                    )),
+              ),
               Spacer(flex: 33),
               BtnPrimary(
                 label: 'Cartão de crédito',
                 onPressed: controller.pay,
               ),
-              Spacer(flex: 16),
+              Spacer(flex: 8),
               BtnPrimary(
                 label: 'Boleto bancário',
                 onPressed: () {},
               ),
-              Spacer(flex: 46),
+              Spacer(flex: 14),
               Divider(),
-              Spacer(flex: 21),
+              Spacer(flex: 14),
               BtnVoltar(
                   label: 'Voltar', onTap: () => Get.to(() => ProductPage())),
-              Spacer(flex: 38)
+              Spacer(flex: 14)
             ],
           )
         ],

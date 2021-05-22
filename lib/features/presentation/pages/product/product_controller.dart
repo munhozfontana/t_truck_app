@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
@@ -18,6 +20,8 @@ class ProductController extends GetxController with BaseController {
 
   Rx<OrderEntity?> orderEntity = Rx(Get.arguments);
   RxList<ProductEntity?> productEntityList = <ProductEntity>[].obs;
+  RxString qtdProdutos = ''.obs;
+  RxString qtdNotas = ''.obs;
 
   @override
   void onInit() async {
@@ -33,6 +37,13 @@ class ProductController extends GetxController with BaseController {
       ),
       (r) => {
         productEntityList.value = r,
+        qtdProdutos.value = productEntityList.length.toString(),
+        qtdNotas.value = orderEntity.value!.identificacoes.length.toString(),
+        qtdProdutos.refresh(),
+        qtdNotas.refresh(),
+        Timer(Duration(seconds: 1), () {
+          changeLoading(Loading.STOP);
+        })
       },
     );
   }
@@ -40,7 +51,6 @@ class ProductController extends GetxController with BaseController {
   @override
   void onReady() {
     super.onReady();
-    changeLoading(Loading.STOP);
   }
 
   void toDevolution(TypeOccurrence typeDevolution) {

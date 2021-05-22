@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
-import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
+import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_controller.dart';
+import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
 import 'package:t_truck_app/injection_container.dart';
 
 class ProductPage extends GetWidget<ProductController> {
@@ -15,13 +16,13 @@ class ProductPage extends GetWidget<ProductController> {
       body: Stack(
         children: [
           AppBackground(),
-          LayoutForm(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    top: constraints.maxHeight * .041,
-                    bottom: constraints.maxHeight * .068,
+          DefaultForm(
+            builder: (context, constraints) {
+              return Obx(
+                () => Visibility(
+                  visible: controller.loadingState.value != Loading.START,
+                  replacement: Center(
+                    child: CircularProgressIndicator(),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,95 +78,29 @@ class ProductPage extends GetWidget<ProductController> {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Stack(
-                            children: [
-                              Opacity(
-                                opacity: 0.10000000149011612,
-                                child: Container(
-                                  width: constraints.maxWidth * .47,
-                                  height: constraints.maxWidth * .421,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                    color: const Color(0xffc4c4c4),
-                                  ),
-                                ),
+                      Container(
+                        width: constraints.maxWidth,
+                        height: constraints.maxHeight * .20,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 10,
+                              child: ItemTest(
+                                label: 'Qtd. de \nnotas fiscais',
+                                subLabel: controller.qtdNotas.value,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Qtd. de \nnotas fiscais',
-                                        style: const TextStyle(
-                                            color: Color(0xff090e32),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: 'Poppins',
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 18.0),
-                                        textAlign: TextAlign.left),
-                                    Obx(() => Text(
-                                        controller.orderEntity.value!
-                                            .identificacoes.length
-                                            .toString(),
-                                        style: const TextStyle(
-                                            color: Color(0xff090e32),
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'Poppins',
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 32.0),
-                                        textAlign: TextAlign.left))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Stack(
-                            children: [
-                              Opacity(
-                                opacity: 0.10000000149011612,
-                                child: Container(
-                                  width: constraints.maxWidth * .47,
-                                  height: constraints.maxWidth * .421,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                    color: const Color(0xffc4c4c4),
-                                  ),
-                                ),
+                            ),
+                            Spacer(),
+                            Expanded(
+                              flex: 10,
+                              child: ItemTest(
+                                label: 'Qtd. de \nnotas fiscais',
+                                subLabel: controller.qtdProdutos.value,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Qtd. de \nProdutos',
-                                        style: const TextStyle(
-                                            color: Color(0xff090e32),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: 'Poppins',
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 18.0),
-                                        textAlign: TextAlign.left),
-                                    Obx(() => Text(
-                                        controller.productEntityList.length
-                                            .toString(),
-                                        style: const TextStyle(
-                                            color: Color(0xff090e32),
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'Poppins',
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 32.0),
-                                        textAlign: TextAlign.left))
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
                       BtnOccurrence(
                         onTap: () {
@@ -213,12 +148,69 @@ class ProductPage extends GetWidget<ProductController> {
                       )
                     ],
                   ),
-                );
-              },
-            ),
-          )
+                ),
+              );
+            },
+          ),
         ],
       ),
+    );
+  }
+}
+
+class ItemTest extends StatelessWidget {
+  final String label;
+  final String subLabel;
+
+  const ItemTest({
+    Key? key,
+    required this.label,
+    required this.subLabel,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, __) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          height: __.maxHeight,
+          width: __.maxWidth,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            color: const Color(0xffc4c4c4).withOpacity(0.10000000149011612),
+          ),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                        color: Color(0xff090e32),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Poppins',
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.0),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    subLabel,
+                    style: const TextStyle(
+                        color: Color(0xff090e32),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        fontStyle: FontStyle.normal,
+                        fontSize: 32.0),
+                    textAlign: TextAlign.left,
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

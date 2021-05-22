@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 class BtnPrimary extends StatelessWidget {
   final String label;
   final void Function() onPressed;
+  final bool outline;
 
   const BtnPrimary({
     Key? key,
     required this.label,
     required this.onPressed,
+    this.outline = false,
   }) : super(key: key);
 
   @override
@@ -24,19 +26,23 @@ class BtnPrimary extends StatelessWidget {
             onPressed: onPressed,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                Get.theme.buttonColor,
+                outline ? Colors.white : Get.theme.buttonColor,
               ),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
+                  side: BorderSide(
+                      color: outline
+                          ? Get.theme.primaryColor
+                          : Colors.transparent),
                 ),
               ),
             ),
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 letterSpacing: 1,
-                color: Color(0xffffffff),
+                color: outline ? Get.theme.primaryColor : Color(0xffffffff),
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Poppins',
                 fontStyle: FontStyle.normal,

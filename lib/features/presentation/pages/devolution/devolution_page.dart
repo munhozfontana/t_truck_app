@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
 import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
-import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
+import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
@@ -19,84 +19,79 @@ class DevolutionPage extends GetWidget<DevolutionController> {
       body: Stack(
         children: [
           AppBackground(),
-          LayoutForm(
-            child: LayoutBuilder(
-              builder: (BuildContext _, BoxConstraints constraints) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Spacer(
-                      flex: 041,
-                    ),
-                    TextFormField(
-                      onChanged: controller.filterChanged,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search_rounded,
-                          color: Color(0xff090e32).withOpacity(0.4),
-                        ),
-                        suffixIcon: Icon(
-                          Icons.photo_camera_outlined,
-                          color: Color(0xff090e32).withOpacity(0.4),
-                        ),
-                        hintStyle: TextStyle(
-                            color: Color(0xff000000).withOpacity(0.4),
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Poppins',
-                            fontStyle: FontStyle.italic,
-                            fontSize: 16.0),
-                        hintText: 'Pesquisar produto...',
+          DefaultForm(
+            layoutSize: LayoutSize.BIG_NO_PADDING_BUTTOM,
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    onChanged: controller.filterChanged,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search_rounded,
+                        color: Color(0xff090e32).withOpacity(0.4),
                       ),
+                      suffixIcon: Icon(
+                        Icons.photo_camera_outlined,
+                        color: Color(0xff090e32).withOpacity(0.4),
+                      ),
+                      hintStyle: TextStyle(
+                          color: Color(0xff000000).withOpacity(0.4),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Poppins',
+                          fontStyle: FontStyle.italic,
+                          fontSize: 16.0),
+                      hintText: 'Pesquisar produto...',
                     ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    GetX<DevolutionController>(
+                  ),
+                  Spacer(
+                    flex: 035,
+                  ),
+                  GetX<DevolutionController>(
+                    builder: (_) {
+                      return Opacity(
+                        opacity: 0.5,
+                        child: Text(
+                          '${_.fieldFilter(_.listProducts, _.fieldFilterValue.value).length} Produtos encontrados',
+                          style: Get.textTheme.headline6,
+                          textAlign: TextAlign.left,
+                        ),
+                      );
+                    },
+                  ),
+                  Spacer(
+                    flex: 035,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * .65,
+                    child: GetX<DevolutionController>(
                       builder: (_) {
-                        return Opacity(
-                          opacity: 0.5,
-                          child: Text(
-                            '${_.fieldFilter(_.listProducts, _.fieldFilterValue.value).length} Produtos encontrados',
-                            style: Get.textTheme.headline6,
-                            textAlign: TextAlign.left,
-                          ),
+                        return ListView.separated(
+                          separatorBuilder: (a, b) => SizedBox(height: 14),
+                          itemCount: _
+                                  .fieldFilter(
+                                      _.listProducts, _.fieldFilterValue.value)
+                                  .length +
+                              1,
+                          itemBuilder: (context, index) {
+                            if (index ==
+                                _
+                                    .fieldFilter(_.listProducts,
+                                        _.fieldFilterValue.value)
+                                    .length) {
+                              return renderLastItem();
+                            }
+                            return comumItem(_.fieldFilter(_.listProducts,
+                                _.fieldFilterValue.value)[index]);
+                          },
                         );
                       },
                     ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    Container(
-                      height: constraints.maxHeight * .75,
-                      child: GetX<DevolutionController>(
-                        builder: (_) {
-                          return ListView.separated(
-                            separatorBuilder: (a, b) => SizedBox(height: 14),
-                            itemCount: _
-                                    .fieldFilter(_.listProducts,
-                                        _.fieldFilterValue.value)
-                                    .length +
-                                1,
-                            itemBuilder: (context, index) {
-                              if (index ==
-                                  _
-                                      .fieldFilter(_.listProducts,
-                                          _.fieldFilterValue.value)
-                                      .length) {
-                                return renderLastItem();
-                              }
-                              return comumItem(_.fieldFilter(_.listProducts,
-                                  _.fieldFilterValue.value)[index]);
-                            },
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
+                  )
+                ],
+              );
+            },
           ),
         ],
       ),

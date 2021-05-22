@@ -10,11 +10,15 @@ class OrderModel extends OrderEntity {
       {required String? dtCanhato,
       required String cliente,
       required int codCli,
+      required int numCar,
+      required String dtSaida,
       required List<TransacaoVendaModel> identificacao})
       : super(
             dtCanhato: dtCanhato,
             cliente: cliente,
             codCli: codCli,
+            numCar: numCar,
+            dtSaida: dtSaida,
             identificacoes: identificacao);
 
   static List<OrderModel> orderByIdentificacao(String value) {
@@ -32,9 +36,11 @@ class OrderModel extends OrderEntity {
           .toList();
 
       return OrderModel(
+          dtSaida: order['DTSAIDA'],
           dtCanhato: order['DTCANHOTO'],
           cliente: order['CLIENTE'],
           codCli: order['CODCLI'],
+          numCar: order['NUMCAR'],
           identificacao: identificacao);
     }).toList();
   }

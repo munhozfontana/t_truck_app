@@ -14,40 +14,42 @@ class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
       body: Stack(
         children: [
           AppBackground(),
-          DefaultForm(child: [
-            Spacer(flex: 34),
-            Container(
-              width: 175.5446014404297,
-              height: 147.3734588623047,
-              child: ColorFiltered(
-                colorFilter:
-                    ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstIn),
-                child: Image.asset(
-                  'images/box.gif',
-                  height: 125.0,
-                  width: 125.0,
+          DefaultForm(children: [
+            Spacer(flex: 28),
+            Center(
+              child: Container(
+                width: 175.5446014404297,
+                height: 147.3734588623047,
+                child: ColorFiltered(
+                  colorFilter:
+                      ColorFilter.mode(Color(0xFFd0cdcd), BlendMode.dstIn),
+                  child: Image.asset(
+                    'images/box.gif',
+                    height: 125.0,
+                    width: 125.0,
+                  ),
                 ),
               ),
             ),
-            Spacer(flex: 22),
+            Spacer(flex: 32),
             Obx(() => ClienteDropdownButton(
                   onChange: print,
                   items: controller.reasonDevolution,
                   isLoading: controller.isLoading,
                 )),
-            Spacer(flex: 39),
+            Spacer(flex: 8),
             BtnOccurrence(
                 typeOccurrence: TypeOccurrence.GREEN,
                 label: 'Finalizar entrega',
                 onTap: controller.finishReson),
-            Spacer(flex: 172),
+            Spacer(flex: 14),
             Divider(),
-            Spacer(flex: 45),
+            Spacer(flex: 14),
             BtnVoltar(
               onTap: controller.back,
               label: 'Voltar',
             ),
-            Spacer(flex: 59)
+            Spacer(flex: 14)
           ])
         ],
       ),

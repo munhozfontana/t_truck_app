@@ -27,10 +27,13 @@ void main() {
       (_) async => Right(
         [
           OrderEntity(
-              codCli: 1,
-              dtCanhato: '1',
-              cliente: 'anyCLiente',
-              identificacoes: [])
+            codCli: 1,
+            dtCanhato: '1',
+            cliente: 'anyCLiente',
+            identificacoes: [],
+            dtSaida: '',
+            numCar: '',
+          )
         ],
       ),
     );
