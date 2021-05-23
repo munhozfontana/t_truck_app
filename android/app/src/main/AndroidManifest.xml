@@ -3,7 +3,7 @@
     package="com.example.t_truck_app">
    <application
         tools:replace="android:label"
-        android:label="TTRuck"
+        android:label="t_truck_app"
         android:usesCleartextTraffic="true" 
         android:icon="@mipmap/ic_launcher">
         <activity
