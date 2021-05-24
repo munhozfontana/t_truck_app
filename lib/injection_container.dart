@@ -57,15 +57,21 @@ class MainBiding extends Bindings {
   @override
   void dependencies() {
     Get.put<IHttp>(DioDriver(dio: Dio()));
-    Get.put<ILocalStoreExternal>(SharedPreferencesDriver());
-    Get.put<ILocalStoreExternal>(SharedPreferencesDriver());
-    Get.lazyPut<IJwt>(
-      () => JwtDecoderDriver(),
+    Get.put<ILocalStoreExternal>(
+      SharedPreferencesDriver(),
+      permanent: true,
     );
-    Get.put<ILoggedUser>(LoggedUser(
-      iJwt: Get.find(),
-      iLocalStoreExternal: Get.find(),
-    ));
+    Get.put<IJwt>(
+      JwtDecoderDriver(),
+      permanent: true,
+    );
+    Get.put<ILoggedUser>(
+      LoggedUser(
+        iJwt: Get.find(),
+        iLocalStoreExternal: Get.find(),
+      ),
+      permanent: true,
+    );
     TokenBiding().dependencies();
   }
 }
@@ -99,7 +105,7 @@ class OrderBiding extends Bindings {
         ));
 
     Get.put(
-      OrderController(orderListUseCase: Get.find()),
+      OrderController(orderListUseCase: Get.find(), iLoggedUser: Get.find()),
       permanent: true,
     );
   }
@@ -139,6 +145,7 @@ class OrderPayBiding extends Bindings {
 class LoginBiding extends Bindings {
   @override
   void dependencies() {
+    MainBiding().dependencies();
     Get.lazyPut<ILogin>(() => LoginApi(
           iHttp: Get.find(),
         ));
