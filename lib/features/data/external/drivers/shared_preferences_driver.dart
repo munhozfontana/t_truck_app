@@ -7,7 +7,10 @@ class SharedPreferencesDriver implements ILocalStoreExternal {
   Future<Object?>? take(String key) async {
     try {
       var sharedPreferences = await SharedPreferences.getInstance();
-      return sharedPreferences.get(key);
+      if (sharedPreferences.containsKey(key)) {
+        return sharedPreferences.get(key);
+      }
+      return null;
     } catch (e) {
       throw DriverException();
     }
@@ -29,6 +32,16 @@ class SharedPreferencesDriver implements ILocalStoreExternal {
       if (value is String) {
         await sharedPreferences.setString(key, value);
       }
+    } catch (e) {
+      throw DriverException();
+    }
+  }
+
+  @override
+  Future<bool> remove(String key) async {
+    try {
+      var sharedPreferences = await SharedPreferences.getInstance();
+      return await sharedPreferences.remove(key);
     } catch (e) {
       throw DriverException();
     }

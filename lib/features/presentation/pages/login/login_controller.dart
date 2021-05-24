@@ -53,15 +53,27 @@ class LoginController extends GetxController with BaseController {
   }
 
   @override
-  void onInit() async {
-    changeLoading(Loading.START);
-    if (!(await iLoggedUser.loginExpired)) {
-      changeLoading(Loading.STOP);
-      toOrderPage();
-    }
-    changeLoading(Loading.STOP);
+  void onInit() {
     super.onInit();
   }
 
+  @override
+  void onReady() async {
+    loginIfHasToken();
+    super.onReady();
+  }
+
   void toOrderPage() => Get.to(() => OrderPage(), binding: OrderBiding());
+
+  void loginIfHasToken() {
+    changeLoading(Loading.START);
+    var expired = iLoggedUser.loginExpired();
+    expired.then((value) {
+      if (!value) {
+        changeLoading(Loading.STOP);
+        toOrderPage();
+      }
+      changeLoading(Loading.STOP);
+    });
+  }
 }

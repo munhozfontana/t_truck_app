@@ -15,7 +15,11 @@ class JwtDecoderDriver implements IJwt {
   @override
   bool isExpired(String token) {
     try {
-      return JwtDecoder.isExpired(token);
+      var decodeToken = JwtDecoder.decode(token);
+      if (DateTime.now().millisecondsSinceEpoch >= decodeToken['exp'] * 1000) {
+        return true;
+      }
+      return false;
     } catch (e) {
       throw DriverException(error: 'Error ao recuperar expriração do jwt');
     }

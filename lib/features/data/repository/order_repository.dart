@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
+import 'package:t_truck_app/core/error/driver_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_jwt_external.dart';
@@ -46,13 +47,26 @@ class LoggedUser implements ILoggedUser {
   }
 
   @override
-  Future<bool> get loginExpired async {
-    var token = await iLocalStoreExternal.take('token');
-    return iJwt.isExpired(token as String);
+  Future<bool> loginExpired() async {
+    try {
+      var token = await iLocalStoreExternal.take('token');
+
+      if (token == null) {
+        return true;
+      }
+
+      var expired = iJwt.isExpired(token as String);
+      if (expired) {
+        await iLocalStoreExternal.remove('token');
+      }
+      return expired;
+    } catch (e) {
+      throw DriverException(error: e.toString());
+    }
   }
 }
 
 mixin ILoggedUser {
   Future<String> get login;
-  Future<bool> get loginExpired;
+  Future<bool> loginExpired();
 }
