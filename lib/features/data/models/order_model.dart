@@ -61,7 +61,9 @@ class OrderModel extends OrderEntity {
 
   static PayParam orderToCielo(OrderEntity orderEntity) {
     var cieloCredentials = PaymentUtils.buildCieloCredentials();
+
     var valorTotal = PaymentUtils.valorTotalFromOrder(orderEntity);
+
     return PaymentUtils.buildPayParam(
         cieloCredentials,
         valorTotal,

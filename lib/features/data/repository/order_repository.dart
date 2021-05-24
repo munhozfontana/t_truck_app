@@ -64,9 +64,19 @@ class LoggedUser implements ILoggedUser {
       throw DriverException(error: e.toString());
     }
   }
+
+  @override
+  void logout() {
+    try {
+      iLocalStoreExternal.remove('token');
+    } catch (e) {
+      throw DriverException(error: 'Error ao remover o token');
+    }
+  }
 }
 
 mixin ILoggedUser {
   Future<String> get login;
   Future<bool> loginExpired();
+  void logout();
 }

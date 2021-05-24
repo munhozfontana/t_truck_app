@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
+import 'package:t_truck_app/features/data/repository/order_repository.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
+import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
@@ -9,6 +12,7 @@ import 'package:t_truck_app/injection_container.dart';
 
 class OrderController extends GetxController with BaseController {
   final OrderListUseCase orderListUseCase;
+  final ILoggedUser iLoggedUser;
   RxList<OrderEntity> list = <OrderEntity>[].obs;
   RxList<OrderEntity> filtredList = <OrderEntity>[].obs;
 
@@ -22,7 +26,10 @@ class OrderController extends GetxController with BaseController {
     dtSaida: '',
   ).obs;
 
-  OrderController({required this.orderListUseCase});
+  OrderController({
+    required this.orderListUseCase,
+    required this.iLoggedUser,
+  });
 
   @override
   void onReady() async {
@@ -64,5 +71,14 @@ class OrderController extends GetxController with BaseController {
       () => ProductPage(),
       binding: DeliveryBiding(),
     );
+  }
+
+  void logout() {
+    if (Get.currentRoute.contains('OrderPage')) {
+      iLoggedUser.logout();
+      Get.offAll(() => LoginPage(), binding: LoginBiding());
+    } else {
+      Get.offAll(() => OrderPage(), binding: OrderBiding());
+    }
   }
 }
