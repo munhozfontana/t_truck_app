@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
+import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_receipt_external.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
@@ -16,26 +18,36 @@ class PaymentRepository extends OrderRepository
   final CieloDriver cieloDriver;
   final IReceiptExternal iReceiptExternal;
 
+  @override
+  ILoggedUser iLoggedUser;
+
   PaymentRepository({
     required this.cieloDriver,
     required this.iReceiptExternal,
     required this.iOrderExternal,
+    required this.iLoggedUser,
   }) : super(
           iOrderExternal: iOrderExternal,
+          iLoggedUser: iLoggedUser,
         );
 
   @override
   Future<Either<Failure, void>> pay(OrderEntity orderEntity) async {
-    var resFromCielo = await cieloDriver.payCielo(
-      OrderModel.orderToCielo(orderEntity),
-    );
+    try {
+      var orderToCielo = OrderModel.orderToCielo(orderEntity);
 
-    var listReceiptModel = ReceiptModel.cieloAndOrderToReceiptModel(
-      resFromCielo,
-      orderEntity,
-    );
+      var resFromCielo = await cieloDriver.payCielo(orderToCielo);
 
-    await iReceiptExternal.save(listReceiptModel);
-    return Right(null);
+      var listReceipt = ReceiptModel.cieloAndOrderToReceiptModel(
+        resFromCielo,
+        orderEntity,
+      );
+
+      return Right(await iReceiptExternal.save(listReceipt));
+    } on ApiException catch (e) {
+      return Left(AppFailure(detail: e.error));
+    } catch (e) {
+      return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
+    }
   }
 }

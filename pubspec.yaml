@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   build_runner: ^2.0.1
   cached_network_image: ^3.0.0
+  camera_camera: ^2.0.1
   connectivity_plus: ^1.0.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.1
@@ -45,6 +46,7 @@ dependencies:
   mockito: ^5.0.5
   pedantic: ^1.11.0
   pigeon: ^0.2.1
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:intl/intl.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
 import 'package:t_truck_app/features/data/models/transacao_venda_model.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
@@ -9,7 +12,8 @@ class ReceiptModel extends TransacaoVendaModel {
   int numNota;
   @override
   final int? valor;
-  final String? prest;
+  @override
+  final String prest;
   final String? codCob;
   final String? codCoborig;
   final int? prestTef;
@@ -30,7 +34,7 @@ class ReceiptModel extends TransacaoVendaModel {
     required this.numTransVenda,
     required this.numNota,
     this.valor,
-    this.prest,
+    required this.prest,
     this.codCob,
     this.codCoborig,
     this.prestTef,
@@ -55,36 +59,88 @@ class ReceiptModel extends TransacaoVendaModel {
 
   static List<ReceiptModel> cieloAndOrderToReceiptModel(
       PayResponse payment, OrderEntity orderEntity) {
-    var paymentFields = (payment.payments as List<Map>);
-    // var firstPayment = paymentFields.first;
-
-    return [];
-    // return orderEntity.identificacoes
-    //     .map(
-    //       (e) => ReceiptModel(
-    //         numTransVenda: e.numTransVenda,
-    //         prest: '',
-    //         codCob: firstPayment['secondaryProductName'],
-    //         codCoborig: firstPayment['secondaryProductName'],
-    //         valor: payment.paidAmount,
-    //         prestTef: firstPayment['cieloCode'],
-    //         nsuTef: firstPayment['numberOfQuotas'],
-    //         codAutorizacaoTef: firstPayment['authCode'],
-    //         codAdmCartao: '00125',
-    //         tipoOperacaoTef: firstPayment['v40Code'],
-    //         valorJuros: firstPayment['interestAmount'],
-    //         idTransacao: firstPayment['paymentTransactionId'],
-    //         conector: 'CIELO',
-    //         jsonCielo: jsonEncode(paymentFields),
-    //         codBandeira: firstPayment['brand'],
-    //         dataDesd: '',
-    //         exportado: 'N',
-    //         dataPagamento: DateFormat('dd/MM/yyyy HH:mm:ss')
-    //             .format(DateTime.now())
-    //             .toString(),
-    //         numNota: e.numNota,
-    //       ),
-    //     )
-    //     .toList();
+    var paymentFields = (payment.payments as List<dynamic>);
+    var firstPayment = paymentFields[0];
+    return orderEntity.identificacoes
+        .map(
+          (e) => ReceiptModel(
+            numTransVenda: e.numTransVenda,
+            prest: e.prest,
+            codCob: firstPayment['paymentFields']['primaryProductCode'],
+            codCoborig: firstPayment['paymentFields']['primaryProductName'],
+            valor: payment.paidAmount,
+            prestTef:
+                int.parse(firstPayment['paymentFields']['numberOfQuotas']),
+            nsuTef: '11111',
+            // nsuTef: firstPayment['cieloCode'] ,
+            codAutorizacaoTef: firstPayment['authCode'],
+            codAdmCartao: '00125',
+            tipoOperacaoTef: firstPayment['paymentFields']['v40Code'],
+            valorJuros:
+                int.parse(firstPayment['paymentFields']['interestAmount']),
+            idTransacao: firstPayment['paymentFields']['paymentTransactionId'],
+            conector: 'CIELO',
+            jsonCielo: jsonEncode(paymentFields),
+            codBandeira: 1,
+            dataDesd: '',
+            exportado: 'N',
+            dataPagamento: DateFormat('dd/MM/yyyy HH:mm:ss')
+                .format(DateTime.now())
+                .toString(),
+            numNota: e.numNota,
+          ),
+        )
+        .toList();
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'numtransvenda': numTransVenda,
+      'numnota': numNota,
+      'prest': prest.isEmpty,
+      'codcob': codCob,
+      'codcoborig': codCoborig,
+      'data_pagamento': dataPagamento,
+      'valor': valor,
+      'presttef': prestTef,
+      'nsutef': nsuTef,
+      'codautorizacaotef': codAutorizacaoTef,
+      'codadmcartao': codAdmCartao,
+      'json_cielo': jsonCielo,
+      'tipooperacaotef': tipoOperacaoTef,
+      'valorjuros': valorJuros,
+      'idtransacao': idTransacao,
+      'conector': conector,
+      'codbandeira': codBandeira,
+    };
+  }
+
+  factory ReceiptModel.fromMap(Map<String, dynamic> map) {
+    return ReceiptModel(
+      numTransVenda: map['numtransvenda'],
+      numNota: map['numnota'],
+      valor: map['valor'],
+      prest: map['prest'],
+      codCob: map['codcob'],
+      codCoborig: map['codcoborig'],
+      prestTef: map['presttef'],
+      nsuTef: map['nsutef'],
+      codAutorizacaoTef: map['codautorizacaotef'],
+      codAdmCartao: map['codadmcartao'],
+      tipoOperacaoTef: map['tipooperacaotef'],
+      valorJuros: map['valorjuros'],
+      idTransacao: map['idtransacao'],
+      conector: map['conector'],
+      jsonCielo: map['jsoncielo'],
+      codBandeira: map['codbandeira'],
+      dataDesd: map['data_desd'],
+      exportado: map['exportado'],
+      dataPagamento: map['data_pagamento'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ReceiptModel.fromJson(String source) =>
+      ReceiptModel.fromMap(json.decode(source));
 }

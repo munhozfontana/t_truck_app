@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
+import 'package:t_truck_app/features/presentation/pages/camera/camera_image/camera_image_page.dart';
+import 'package:t_truck_app/features/presentation/pages/camera/camera_proof/camera_proof_page.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution/devolution_finish/devolution_finish.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution_finish/devolution_finish.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
+import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
+import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/features/presentation/styles/global_style.dart';
 import 'package:t_truck_app/injection_container.dart';
 
@@ -38,31 +40,42 @@ void main() async {
       GetPage(
         name: '/',
         page: () => LoginPage(),
+        bindings: [
+          LoginBiding(),
+        ],
       ),
       GetPage(
         name: '/order',
         page: () => OrderPage(),
       ),
       GetPage(
-        name: '/delivery',
-        page: () => DeliveryPage(),
+        name: '/product',
+        page: () => ProductPage(),
       ),
       GetPage(
-        name: '/devolution',
+        name: '/product/devolution',
         page: () => DevolutionPage(),
       ),
       GetPage(
-        name: '/devolution/reason',
-        page: () => DevolutionReasonPage(),
+        name: '/product/devolution/reason',
+        page: () => OccurrenceReasonPage(),
       ),
       GetPage(
-        name: '/devolution/finish',
+        name: '/product/devolution/finish',
         page: () => DevolutionFinish(),
       ),
       GetPage(
         name: '/payment',
         page: () => PaymentPage(),
       ),
+      GetPage(
+        name: 'camera/proof',
+        page: () => CameraProofPage(),
+      ),
+      GetPage(
+        name: 'camera/image',
+        page: () => CameraImagePage(),
+      )
     ],
   ));
 }

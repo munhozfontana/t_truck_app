@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
+import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/injection_container.dart';
 
 class AppBackground extends StatelessWidget {
@@ -64,7 +64,7 @@ class AppBackground extends StatelessWidget {
             height: 50,
             child: GestureDetector(
               onTap: () {
-                Get.off(() => LoginPage(), binding: MainBiding());
+                Get.offAll(() => OrderPage(), binding: OrderBiding());
               },
               child: Container(
                 child: SvgPicture.asset(

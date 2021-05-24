@@ -3,11 +3,9 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
+import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
-import 'package:t_truck_app/injection_container.dart';
 
 class OrderPage extends GetWidget<OrderController> {
   @override
@@ -17,53 +15,49 @@ class OrderPage extends GetWidget<OrderController> {
       body: Stack(
         children: [
           AppBackground(),
-          LayoutForm(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Spacer(
-                      flex: 041,
-                    ),
-                    TextFormField(
-                      onChanged: controller.filterChanged,
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search_rounded),
-                          hintText: 'Pequisar cliente...',
-                          hintStyle: Get.theme.textTheme.headline3),
-                    ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    Opacity(
-                      opacity: 0.5,
-                      child: Obx(() => Text(
-                            '${controller.filtredList.length} clientes encontrados',
-                            style: Get.textTheme.headline6,
-                            textAlign: TextAlign.left,
-                          )),
-                    ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    Flexible(
-                      flex: 751,
-                      child: Obx(() => ListView.separated(
-                            separatorBuilder: (_, __) => SizedBox(height: 16),
-                            itemCount: controller.filtredList.length,
-                            itemBuilder: (context, index) {
-                              return OrderItem(
-                                orderEntity: controller.filtredList[index],
-                              );
-                            },
-                          )),
-                    )
-                  ],
-                );
-              },
-            ),
+          DefaultForm(
+            layoutSize: LayoutSize.BIG_NO_PADDING_BUTTOM,
+            children: [
+              Spacer(
+                flex: 041,
+              ),
+              TextFormField(
+                onChanged: controller.filterChanged,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search_rounded),
+                    hintText: 'Pequisar cliente...',
+                    hintStyle: Get.theme.textTheme.headline3),
+              ),
+              Spacer(
+                flex: 035,
+              ),
+              Opacity(
+                opacity: 0.5,
+                child: Obx(() => Text(
+                      '${controller.filtredList.length} clientes encontrados',
+                      style: Get.textTheme.headline6,
+                      textAlign: TextAlign.left,
+                    )),
+              ),
+              Spacer(
+                flex: 035,
+              ),
+              Flexible(
+                flex: 751,
+                child: Obx(() => RefreshIndicator(
+                      onRefresh: controller.takeOrders,
+                      child: ListView.separated(
+                        separatorBuilder: (_, __) => SizedBox(height: 16),
+                        itemCount: controller.filtredList.length,
+                        itemBuilder: (context, index) {
+                          return OrderItem(
+                              orderEntity: controller.filtredList[index],
+                              controller: controller);
+                        },
+                      ),
+                    )),
+              )
+            ],
           ),
           Obx(
             () => Visibility(
@@ -81,21 +75,19 @@ class OrderPage extends GetWidget<OrderController> {
 
 class OrderItem extends StatelessWidget {
   final OrderEntity orderEntity;
+  final OrderController controller;
 
   const OrderItem({
     Key? key,
     required this.orderEntity,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(
-          () => DeliveryPage(),
-          arguments: orderEntity,
-          binding: DeliveryBiding(),
-        );
+        controller.navigateToProduct(orderEntity);
       },
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

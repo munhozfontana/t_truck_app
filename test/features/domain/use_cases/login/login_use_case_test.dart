@@ -4,22 +4,27 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/params/params.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_local_store_external.dart';
 import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 
+import '../../../data/repository/order_repository_test.mocks.dart';
 import 'login_use_case_test.mocks.dart';
 
 @GenerateMocks([ILoginRepository])
 void main() {
   late LoginUseCase loginUseCase;
   late ILoginRepository mockILoginRepository;
+  late ILocalStoreExternal mockiLocalStoreExternal;
   var params = Params(
       credential: CredentialEntity(login: 'anyLogin', password: 'anyPass'));
 
   setUp(() {
     mockILoginRepository = MockILoginRepository();
+    mockiLocalStoreExternal = MockILocalStoreExternal();
     loginUseCase = LoginUseCase(
+      iLocalStoreExternal: mockiLocalStoreExternal,
       iLoginRepository: mockILoginRepository,
     );
   });

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
+import 'package:t_truck_app/features/data/repository/order_repository.dart';
 import 'package:t_truck_app/features/domain/entites/credential_entity.dart';
 import 'package:t_truck_app/features/domain/use_cases/login/login_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/token/token_use_case.dart';
@@ -13,11 +14,13 @@ import 'package:t_truck_app/injection_container.dart';
 class LoginController extends GetxController with BaseController {
   final LoginUseCase loginUseCase;
   final TokenUseCase tokenUseCase;
+  final ILoggedUser iLoggedUser;
   RxString matricula = ''.obs;
 
   LoginController({
     required this.loginUseCase,
     required this.tokenUseCase,
+    required this.iLoggedUser,
   });
 
   var loginField = TextEditingController().obs;
@@ -44,10 +47,33 @@ class LoginController extends GetxController with BaseController {
                   (l) => AppDialog.error(
                         menssagem: l.props.first.toString(),
                       ),
-                  (r) => {
-                        matricula.value = r['login'].toString(),
-                        Get.to(() => OrderPage(), binding: OrderBiding())
-                      }),
+                  (r) =>
+                      {matricula.value = r['login'].toString(), toOrderPage()}),
             });
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  @override
+  void onReady() async {
+    loginIfHasToken();
+    super.onReady();
+  }
+
+  void toOrderPage() => Get.to(() => OrderPage(), binding: OrderBiding());
+
+  void loginIfHasToken() {
+    changeLoading(Loading.START);
+    var expired = iLoggedUser.loginExpired();
+    expired.then((value) {
+      if (!value) {
+        changeLoading(Loading.STOP);
+        toOrderPage();
+      }
+      changeLoading(Loading.STOP);
+    });
   }
 }

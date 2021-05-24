@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/domain/entites/product_entity.dart';
 import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn_devolution.dart';
-import 'package:t_truck_app/features/presentation/components/custom_checkbox.dart';
-import 'package:t_truck_app/features/presentation/components/layout/layout_form.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/delivery/delivery_page.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution_reason/devolution_reason_page.dart';
+import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
+import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
+import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
+import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
+import 'package:t_truck_app/injection_container.dart';
 
-class DevolutionPage extends StatelessWidget {
+class DevolutionPage extends GetWidget<DevolutionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,98 +19,140 @@ class DevolutionPage extends StatelessWidget {
       body: Stack(
         children: [
           AppBackground(),
-          LayoutForm(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Spacer(
-                      flex: 041,
-                    ),
-                    TextFormField(
-                      onChanged: print,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search_rounded,
-                          color: Color(0xff090e32).withOpacity(0.4),
-                        ),
-                        suffixIcon: Icon(
-                          Icons.photo_camera_outlined,
-                          color: Color(0xff090e32).withOpacity(0.4),
-                        ),
-                        hintStyle: TextStyle(
-                            color: Color(0xff000000).withOpacity(0.4),
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Poppins',
-                            fontStyle: FontStyle.italic,
-                            fontSize: 16.0),
-                        hintText: 'Pesquisar produto...',
+          DefaultForm(
+            layoutSize: LayoutSize.BIG_NO_PADDING_BUTTOM,
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    onChanged: controller.filterChanged,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search_rounded,
+                        color: Color(0xff090e32).withOpacity(0.4),
                       ),
+                      suffixIcon: Icon(
+                        Icons.photo_camera_outlined,
+                        color: Color(0xff090e32).withOpacity(0.4),
+                      ),
+                      hintStyle: TextStyle(
+                          color: Color(0xff000000).withOpacity(0.4),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Poppins',
+                          fontStyle: FontStyle.italic,
+                          fontSize: 16.0),
+                      hintText: 'Pesquisar produto...',
                     ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    GetX<DeliveryController>(
-                      initState: (_) {},
+                  ),
+                  Spacer(
+                    flex: 035,
+                  ),
+                  GetX<DevolutionController>(
+                    builder: (_) {
+                      return Opacity(
+                        opacity: 0.5,
+                        child: Text(
+                          '${_.fieldFilter(_.listProducts, _.fieldFilterValue.value).length} Produtos encontrados',
+                          style: Get.textTheme.headline6,
+                          textAlign: TextAlign.left,
+                        ),
+                      );
+                    },
+                  ),
+                  Spacer(
+                    flex: 035,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * .65,
+                    child: GetX<DevolutionController>(
                       builder: (_) {
-                        return Opacity(
-                          opacity: 0.5,
-                          child: Text(
-                            '${_.productEntityList.length} clientes encontrados',
-                            style: Get.textTheme.headline6,
-                            textAlign: TextAlign.left,
-                          ),
+                        return ListView.separated(
+                          separatorBuilder: (a, b) => SizedBox(height: 14),
+                          itemCount: _
+                                  .fieldFilter(
+                                      _.listProducts, _.fieldFilterValue.value)
+                                  .length +
+                              1,
+                          itemBuilder: (context, index) {
+                            if (index ==
+                                _
+                                    .fieldFilter(_.listProducts,
+                                        _.fieldFilterValue.value)
+                                    .length) {
+                              return renderLastItem();
+                            }
+                            return comumItem(_.fieldFilter(_.listProducts,
+                                _.fieldFilterValue.value)[index]);
+                          },
                         );
                       },
                     ),
-                    Spacer(
-                      flex: 035,
-                    ),
-                    GetX<DeliveryController>(
-                      builder: (_) {
-                        return Container(
-                          height: constraints.maxHeight * .75,
-                          child: ListView.separated(
-                            separatorBuilder: (_, __) => SizedBox(height: 14),
-                            itemCount: _.productEntityList.length + 1,
-                            itemBuilder: (context, index) {
-                              if (index == _.productEntityList.length) {
-                                return renderLastItem();
-                              }
-
-                              return Container(
-                                child: Row(
-                                  children: [
-                                    CustomCheckbox(
-                                      isSelected:
-                                          _.productEntityList[index]!.isCheck!,
-                                      onTap: () {
-                                        _.changeStatus(
-                                            _.productEntityList[index], index);
-                                      },
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(_
-                                          .productEntityList[index]!.descricao),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
+                  )
+                ],
+              );
+            },
           ),
         ],
       ),
+    );
+  }
+
+  LayoutBuilder comumItem(ProductEntity? productEntity) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              flex: 10,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(productEntity!.descricao),
+                ),
+              ),
+            ),
+            Spacer(
+              flex: 1,
+            ),
+            Flexible(
+              flex: 2,
+              child: TextFormField(
+                onChanged: (value) {
+                  controller.updadeListFromValue(value, productEntity);
+                },
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.always,
+                initialValue: productEntity.qtToSend.toString(),
+                maxLength: productEntity.qt.toString().length,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Min 0';
+                  }
+                  if (value.isNotEmpty &&
+                      int.parse(value) >
+                          controller.getByCod(productEntity).qt) {
+                    return 'Max ${controller.getByCod(productEntity).qt}';
+                  }
+                },
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                  counterText: '',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -121,49 +165,29 @@ class DevolutionPage extends StatelessWidget {
           Spacer(
             flex: 035,
           ),
-          GetX<DeliveryController>(
+          GetX<DevolutionController>(
             builder: (_) {
-              if (_.productEntityList
-                  .where((e) => e!.isCheck == false)
-                  .isNotEmpty) {
-                _.updadeStatus(TypeDevolution.YELLOW);
-                return BtnDevolution(
-                  onTap: () {
-                    Get.to(() => DevolutionReasonPage());
-                  },
-                  label: 'Devolução parcial',
-                  typeDevolution: TypeDevolution.YELLOW,
-                );
-              } else {
-                _.updadeStatus(TypeDevolution.RED);
-                return BtnDevolution(
-                  onTap: () {
-                    Get.to(() => DevolutionReasonPage());
-                  },
-                  label: 'Devolução total',
-                  typeDevolution: TypeDevolution.RED,
-                );
-              }
+              return BtnOccurrence(
+                onTap: controller.listProducts
+                        .where((item) => item.qtToSend > 0)
+                        .isNotEmpty
+                    ? controller.nextPage
+                    : null,
+                label: controller.typeDevolution.value == TypeOccurrence.YELLOW
+                    ? 'Devolução parcial'
+                    : 'Devolução total',
+                typeOccurrence: controller.typeDevolution.value,
+              );
             },
           ),
           Spacer(
             flex: 035,
           ),
-          GestureDetector(
-            onTap: () => Get.off(() => DeliveryPage()),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.keyboard_arrow_left_rounded),
-                Text('Voltar',
-                    style: const TextStyle(
-                        color: Color(0xff6c6c6c),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14.0),
-                    textAlign: TextAlign.left)
-              ],
+          BtnVoltar(
+            label: 'Voltar',
+            onTap: () => Get.offAll(
+              ProductPage(),
+              binding: DeliveryBiding(),
             ),
           ),
           Spacer(
