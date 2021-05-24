@@ -96,7 +96,7 @@ class ProductPage extends GetWidget<ProductController> {
                             Expanded(
                               flex: 10,
                               child: ItemTest(
-                                label: 'Qtd. de \nnotas fiscais',
+                                label: 'Qtd. de \nProdutos',
                                 subLabel: controller.qtdProdutos.value,
                               ),
                             ),
