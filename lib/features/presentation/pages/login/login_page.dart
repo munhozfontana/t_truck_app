@@ -55,6 +55,7 @@ class LoginPage extends GetWidget<LoginController> {
                             controller: controller.passwordField.value,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
+                            obscureText: true,
                             decoration: InputDecoration(
                               prefixIcon: Opacity(
                                 opacity: 0.4000000059604645,
