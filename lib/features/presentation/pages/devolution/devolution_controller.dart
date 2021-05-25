@@ -7,65 +7,37 @@ import 'package:t_truck_app/injection_container.dart';
 
 class DevolutionController extends GetxController with BaseController {
   RxList<ProductEntity> listProducts = <ProductEntity>[].obs;
-  List<ProductEntity> orginalList = <ProductEntity>[];
   Rx<TypeOccurrence> typeDevolution = TypeOccurrence.NONE.obs;
 
   RxString fieldFilterValue = ''.obs;
 
   void filterChanged(String value) {
     fieldFilterValue.value = value;
+    fieldFilter(value);
     update();
   }
 
-  List<ProductEntity?> fieldFilter(
-      List<ProductEntity?> list, String itemFilter) {
-    return list.where(
+  void fieldFilter(String itemFilter) {
+    listProducts.value = listProducts.map(
       (element) {
-        return element!.descricao.isCaseInsensitiveContains(itemFilter);
+        var contains = element.descricao.isCaseInsensitiveContains(itemFilter);
+
+        if (contains) {
+          element.transacaoVendaEntity.hidden = false;
+        } else {
+          element.transacaoVendaEntity.hidden = true;
+        }
+
+        return element;
       },
     ).toList();
   }
 
-  @override
-  void onInit() async {
-    orginalList = Get.arguments[0];
-    typeDevolution.value = Get.arguments[1];
-    listProducts.value = orginalList;
-    if (typeDevolution.value == TypeOccurrence.YELLOW) {
-      listProducts.value = listProducts.map((element) {
-        return ProductEntity(
-          codProd: element.codProd,
-          descricao: element.descricao,
-          qt: element.qt,
-          qtToSend: 0,
-          transacaoVendaEntity: element.transacaoVendaEntity,
-        );
-      }).toList();
-    } else {
-      listProducts.value = listProducts.map((element) {
-        return ProductEntity(
-          codProd: element.codProd,
-          descricao: element.descricao,
-          qt: element.qt,
-          qtToSend: element.qt,
-          transacaoVendaEntity: element.transacaoVendaEntity,
-        );
-      }).toList();
-    }
-
-    listProducts.refresh();
-    super.onInit();
-  }
-
-  ProductEntity getByCod(ProductEntity productEntity) {
-    return orginalList
-        .firstWhere((element) => element.codProd == productEntity.codProd);
-  }
-
   void updadeListFromValue(String value, ProductEntity productEntity) {
     if (!GetUtils.isNull(value)) {
-      var existing =
-          listProducts.indexWhere((p) => p.codProd == productEntity.codProd);
+      var existing = listProducts.indexWhere((p) =>
+          p.transacaoVendaEntity.uuid ==
+          productEntity.transacaoVendaEntity.uuid);
 
       if (!existing.isNegative) {
         listProducts[existing] = ProductEntity(
@@ -102,5 +74,35 @@ class DevolutionController extends GetxController with BaseController {
             TypeOccurrence.RED,
           ]);
     }
+  }
+
+  @override
+  void onInit() async {
+    typeDevolution.value = Get.arguments[1];
+    listProducts.value = Get.arguments[0];
+    if (typeDevolution.value == TypeOccurrence.YELLOW) {
+      listProducts.value = listProducts.map((element) {
+        return ProductEntity(
+          codProd: element.codProd,
+          descricao: element.descricao,
+          qt: element.qt,
+          qtToSend: 0,
+          transacaoVendaEntity: element.transacaoVendaEntity,
+        );
+      }).toList();
+    } else {
+      listProducts.value = listProducts.map((element) {
+        return ProductEntity(
+          codProd: element.codProd,
+          descricao: element.descricao,
+          qt: element.qt,
+          qtToSend: element.qt,
+          transacaoVendaEntity: element.transacaoVendaEntity,
+        );
+      }).toList();
+    }
+
+    listProducts.refresh();
+    super.onInit();
   }
 }

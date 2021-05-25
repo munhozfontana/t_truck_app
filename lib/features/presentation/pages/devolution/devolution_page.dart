@@ -53,7 +53,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                       return Opacity(
                         opacity: 0.5,
                         child: Text(
-                          '${_.fieldFilter(_.listProducts, _.fieldFilterValue.value).length} Produtos encontrados',
+                          '${_.listProducts.where((e) => !e.transacaoVendaEntity.hidden).length} Produtos encontrados',
                           style: Get.textTheme.headline6,
                           textAlign: TextAlign.left,
                         ),
@@ -68,22 +68,13 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                     child: GetX<DevolutionController>(
                       builder: (_) {
                         return ListView.separated(
-                          separatorBuilder: (a, b) => SizedBox(height: 14),
-                          itemCount: _
-                                  .fieldFilter(
-                                      _.listProducts, _.fieldFilterValue.value)
-                                  .length +
-                              1,
+                          separatorBuilder: (a, b) => SizedBox(height: 0),
+                          itemCount: _.listProducts.length + 1,
                           itemBuilder: (context, index) {
-                            if (index ==
-                                _
-                                    .fieldFilter(_.listProducts,
-                                        _.fieldFilterValue.value)
-                                    .length) {
+                            if (index == _.listProducts.length) {
                               return renderLastItem();
                             }
-                            return comumItem(_.fieldFilter(_.listProducts,
-                                _.fieldFilterValue.value)[index]);
+                            return comumItem(_.listProducts[index]);
                           },
                         );
                       },
@@ -98,61 +89,67 @@ class DevolutionPage extends GetWidget<DevolutionController> {
     );
   }
 
-  LayoutBuilder comumItem(ProductEntity? productEntity) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              flex: 10,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(productEntity!.descricao),
-                ),
-              ),
-            ),
-            Spacer(
-              flex: 1,
-            ),
-            Flexible(
-              flex: 2,
-              child: TextFormField(
-                onChanged: (value) {
-                  controller.updadeListFromValue(value, productEntity);
-                },
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                initialValue: productEntity.qtToSend.toString(),
-                maxLength: productEntity.qt.toString().length,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Min 0';
-                  }
-                  if (value.isNotEmpty &&
-                      int.parse(value) >
-                          controller.getByCod(productEntity).qt) {
-                    return 'Max ${controller.getByCod(productEntity).qt}';
-                  }
-                },
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                  counterText: '',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(0),
+  Widget comumItem(ProductEntity? productEntity) {
+    return Visibility(
+      visible: !productEntity!.transacaoVendaEntity.hidden,
+      maintainState: true,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Container(
+            margin: EdgeInsets.only(bottom: 14),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  flex: 10,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(productEntity.descricao),
                     ),
                   ),
                 ),
-              ),
+                Spacer(
+                  flex: 1,
+                ),
+                Flexible(
+                  flex: 2,
+                  child: TextFormField(
+                    onChanged: (value) {
+                      controller.updadeListFromValue(value, productEntity);
+                    },
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    autovalidateMode: AutovalidateMode.always,
+                    initialValue: productEntity.qtToSend.toString(),
+                    maxLength: productEntity.qt.toString().length,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Min 0';
+                      }
+                      if (value.isNotEmpty &&
+                          int.parse(value) > productEntity.qt) {
+                        return 'Max ${productEntity.qt}';
+                      }
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      counterText: '',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

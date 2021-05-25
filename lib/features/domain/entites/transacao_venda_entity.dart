@@ -1,4 +1,6 @@
-class TransacaoVendaEntity {
+import 'package:uuid/uuid.dart';
+
+class TransacaoVendaEntity extends ListHelper {
   final int numTransVenda;
   final int numNota;
   final num? valor;
@@ -9,7 +11,7 @@ class TransacaoVendaEntity {
     required this.numNota,
     this.valor,
     required this.prest,
-  });
+  }) : super('');
 
   @override
   bool operator ==(Object other) {
@@ -17,16 +19,23 @@ class TransacaoVendaEntity {
 
     return other is TransacaoVendaEntity &&
         other.numTransVenda == numTransVenda &&
-        other.numNota == numNota &&
-        other.valor == valor &&
-        other.prest == prest;
+        other.numNota == numNota;
   }
 
   @override
   int get hashCode {
-    return numTransVenda.hashCode ^
-        numNota.hashCode ^
-        valor.hashCode ^
-        prest.hashCode;
+    return numTransVenda.hashCode ^ numNota.hashCode;
+  }
+}
+
+class ListHelper {
+  String uuid;
+  bool hidden;
+
+  ListHelper(
+    this.uuid, {
+    this.hidden = false,
+  }) {
+    uuid = Uuid().v4();
   }
 }
