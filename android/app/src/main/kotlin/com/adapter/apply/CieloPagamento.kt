@@ -38,7 +38,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 var paymentCode = PaymentCode.values().find { it.code == arg.paymentCode }
 
                 // SE TESTE LOCAL
-                //orderManager.checkoutOrder(order.id,arg.valorTotal , paymentCode!!.code.toString(),  PaymentCode.CREDITO_AVISTA.code.toString(), 1, makePayment(orderManager, result))
+                // orderManager.checkoutOrder(order.id,arg.valorTotal , paymentCode!!.code.toString(),  PaymentCode.CREDITO_AVISTA.code.toString(), 1, makePayment(orderManager, result))
             
                 // SE PRODUCAO
                 orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
@@ -75,24 +75,26 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
 
             override fun onPayment(@NotNull order: Order) {
                 Log.d("SDKClient", "Um pagamento foi realizado.")
-                makeResponse(order, result ,  orderManager)
+                makeResponse(order, result)
                 orderManager.unbind()
             }
 
             override fun onCancel() {
                 Log.d("SDKClient", "A operação foi cancelada.")
+                result!!.success(CieloChannel.PayResponse())
                 orderManager.unbind()
             }
 
             override fun onError(@NotNull error: PaymentError) {
                 Log.d("SDKClient", "Houve um erro no pagamento.")
+                result!!.success(CieloChannel.PayResponse())
                 orderManager.unbind()
             }
         }
     }
 
 
-    private fun makeResponse(order: Order, result: CieloChannel.Result<CieloChannel.PayResponse>?, orderManager: OrderManager) {
+    private fun makeResponse(order: Order, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
         val res = CieloChannel.PayResponse()
         res.id = order.id
         res.price = order.price
@@ -137,6 +139,5 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             )
         }.toList()
         result!!.success(res)
-        orderManager.unbind()
     }
 }
