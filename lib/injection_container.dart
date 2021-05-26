@@ -10,12 +10,14 @@ import 'package:t_truck_app/features/data/external/adapters/i_occurrence_externa
 import 'package:t_truck_app/features/data/external/adapters/i_order_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_product_external.dart';
 import 'package:t_truck_app/features/data/external/adapters/i_receipt_external.dart';
+import 'package:t_truck_app/features/data/external/adapters/i_tipo_transacao_external.dart';
 import 'package:t_truck_app/features/data/external/apis/devolution_api.dart';
 import 'package:t_truck_app/features/data/external/apis/image_api.dart';
 import 'package:t_truck_app/features/data/external/apis/login_api.dart';
 import 'package:t_truck_app/features/data/external/apis/occurrence_api.dart';
 import 'package:t_truck_app/features/data/external/apis/product_api.dart';
 import 'package:t_truck_app/features/data/external/apis/receipt_api.dart';
+import 'package:t_truck_app/features/data/external/apis/tipo_transacao_api.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/dio_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/jwt_decoder_driver.dart';
@@ -26,12 +28,14 @@ import 'package:t_truck_app/features/data/repository/login_repository.dart';
 import 'package:t_truck_app/features/data/repository/occurrence_repository.dart';
 import 'package:t_truck_app/features/data/repository/payment_repository.dart';
 import 'package:t_truck_app/features/data/repository/product_repository.dart';
+import 'package:t_truck_app/features/data/repository/tipo_transacao_repository.dart';
 import 'package:t_truck_app/features/data/repository/token_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/devolution_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_image_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_occurrence_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_product_repository.dart';
+import 'package:t_truck_app/features/domain/repositories/i_tipo_transacao_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_token_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/devolution/devolution_save_usecase.dart';
 import 'package:t_truck_app/features/domain/use_cases/image/image_save_use_case.dart';
@@ -40,6 +44,7 @@ import 'package:t_truck_app/features/domain/use_cases/occurrence/occurrence_list
 import 'package:t_truck_app/features/domain/use_cases/order/order_list_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/order/order_pay_use_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/product/product_list_use_case.dart';
+import 'package:t_truck_app/features/domain/use_cases/tipo_transacao/tipo_transacao_user_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/token/token_use_case.dart';
 import 'package:t_truck_app/features/presentation/pages/camera/camera_image/camera_image_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
@@ -102,8 +107,10 @@ class OrderBiding extends Bindings {
           iHttp: Get.find(),
         ));
 
-    Get.lazyPut<IOrderRepository>(() =>
-        OrderRepository(iOrderExternal: Get.find(), iLoggedUser: Get.find()));
+    Get.lazyPut<IOrderRepository>(() => OrderRepository(
+          iOrderExternal: Get.find(),
+          iLoggedUser: Get.find(),
+        ));
 
     Get.lazyPut<OrderListUseCase>(() => OrderListUseCase(
           iOrderListRepository: Get.find(),
@@ -116,11 +123,39 @@ class OrderBiding extends Bindings {
   }
 }
 
+class TipoTransacaoBiding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<ITipoTransacaoExternal>(
+      () => TipoTransacaoApi(
+        iHttp: Get.find(),
+      ),
+    );
+
+    Get.lazyPut<ITipoTransacaoRepository>(
+      () => TipoTransacaoRepository(
+        iTipoTransacaoExternal: Get.find(),
+      ),
+    );
+
+    Get.lazyPut(
+      () => TipoTransacaoUseCase(
+        iTipoTransacaoRepository: Get.find(),
+      ),
+    );
+  }
+}
+
 class OrderPayBiding extends Bindings {
   @override
   void dependencies() {
     TokenBiding().dependencies();
-    Get.lazyPut<IReceiptExternal>(() => ReceiptApi(iHttp: Get.find()));
+
+    Get.lazyPut<IReceiptExternal>(
+      () => ReceiptApi(
+        iHttp: Get.find(),
+      ),
+    );
 
     Get.lazyPut<IOrderExternal>(() => OrderApi(
           iHttp: Get.find(),
@@ -143,7 +178,12 @@ class OrderPayBiding extends Bindings {
 
     Get.lazyPut(() => OrderPayUseCase(iOrderPayRepository: Get.find()));
 
-    Get.put(PaymentController(orderPayUseCase: Get.find()));
+    TipoTransacaoBiding().dependencies();
+
+    Get.put(PaymentController(
+      orderPayUseCase: Get.find(),
+      tipoTransacaoUseCase: Get.find(),
+    ));
   }
 }
 
