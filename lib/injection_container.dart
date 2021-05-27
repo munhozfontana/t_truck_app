@@ -47,10 +47,10 @@ import 'package:t_truck_app/features/domain/use_cases/product/product_list_use_c
 import 'package:t_truck_app/features/domain/use_cases/tipo_transacao/tipo_transacao_user_case.dart';
 import 'package:t_truck_app/features/domain/use_cases/token/token_use_case.dart';
 import 'package:t_truck_app/features/presentation/pages/camera/camera_image/camera_image_controller.dart';
+import 'package:t_truck_app/features/presentation/pages/clients/order_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/order/order_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_controller.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_controller.dart';
 
@@ -116,10 +116,8 @@ class OrderBiding extends Bindings {
           iOrderListRepository: Get.find(),
         ));
 
-    Get.put(
-      OrderController(orderListUseCase: Get.find(), iLoggedUser: Get.find()),
-      permanent: true,
-    );
+    Get.put(OrderController(
+        clientsListUseCase: Get.find(), iLoggedUser: Get.find()));
   }
 }
 
@@ -182,7 +180,6 @@ class OrderPayBiding extends Bindings {
 
     Get.put(PaymentController(
       orderPayUseCase: Get.find(),
-      tipoTransacaoUseCase: Get.find(),
     ));
   }
 }
@@ -223,8 +220,11 @@ class DeliveryBiding extends Bindings {
     Get.lazyPut<ProductListUseCase>(
         () => ProductListUseCase(iProductRepository: Get.find()));
 
+    TipoTransacaoBiding().dependencies();
+
     Get.lazyPut(() {
       return ProductController(
+        tipoTransacaoUseCase: Get.find(),
         productListUseCase: Get.find(),
       );
     }, fenix: true);

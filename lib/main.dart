@@ -4,11 +4,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/presentation/pages/camera/camera_image/camera_image_page.dart';
 import 'package:t_truck_app/features/presentation/pages/camera/camera_proof/camera_proof_page.dart';
+import 'package:t_truck_app/features/presentation/pages/clients/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_finish/devolution_finish.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
 import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
-import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/features/presentation/styles/global_style.dart';
@@ -24,6 +24,7 @@ void main() async {
       primaryColor: Color(0xff090f31),
       accentColor: Color(0xff4f5262),
       buttonColor: Color(0xff090f31),
+      disabledColor: Colors.red,
       inputDecorationTheme: GlobalStyle.inputDecoration(),
       textTheme: TextTheme(
         headline1: GlobalStyle.h1,
