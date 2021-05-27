@@ -1,11 +1,7 @@
+import 'package:t_truck_app/core/error/driver_exception.dart';
+
 import 'i_jwt_external.dart';
 import 'i_local_store_external.dart';
-
-mixin ILoggedUser {
-  Future<String> get login;
-
-  Future<bool> loginExpired();
-}
 
 class LoggedUser implements ILoggedUser {
   final IJwt iJwt;
@@ -17,11 +13,42 @@ class LoggedUser implements ILoggedUser {
   });
 
   @override
-  // TODO: implement login
-  Future<String> get login => Future.value('10009321');
+  Future<String> get login async {
+    var token = await iLocalStoreExternal.take('token');
+    return iJwt.jwtDecode(token as String)['login'];
+  }
 
   @override
-  Future<bool> loginExpired() {
-    return Future.value(false);
+  Future<bool> loginExpired() async {
+    try {
+      var token = await iLocalStoreExternal.take('token');
+
+      if (token == null) {
+        return true;
+      }
+
+      var expired = iJwt.isExpired(token as String);
+      if (expired) {
+        await iLocalStoreExternal.remove('token');
+      }
+      return expired;
+    } catch (e) {
+      throw DriverException(error: e.toString());
+    }
   }
+
+  @override
+  void logout() {
+    try {
+      iLocalStoreExternal.remove('token');
+    } catch (e) {
+      throw DriverException(error: 'Error ao remover o token');
+    }
+  }
+}
+
+mixin ILoggedUser {
+  Future<String> get login;
+  Future<bool> loginExpired();
+  void logout();
 }
