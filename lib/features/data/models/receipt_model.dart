@@ -108,7 +108,7 @@ class ReceiptModel extends TransacaoVendaModel {
     return {
       'numtransvenda': numTransVenda,
       'numnota': numNota,
-      'prest': prest.isEmpty,
+      'prest': prest.isEmpty ? 1 : prest,
       'codcob': codCob,
       'codcoborig': codCoborig,
       'data_pagamento': dataPagamento,
