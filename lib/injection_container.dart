@@ -116,8 +116,12 @@ class OrderBiding extends Bindings {
           iOrderListRepository: Get.find(),
         ));
 
-    Get.put(OrderController(
-        clientsListUseCase: Get.find(), iLoggedUser: Get.find()));
+    OccurrenceReasonBiding().dependencies();
+
+    Get.put(
+      OrderController(orderListUseCase: Get.find(), iLoggedUser: Get.find()),
+      permanent: true,
+    );
   }
 }
 
@@ -178,9 +182,7 @@ class OrderPayBiding extends Bindings {
 
     TipoTransacaoBiding().dependencies();
 
-    Get.put(PaymentController(
-      orderPayUseCase: Get.find(),
-    ));
+    Get.put(PaymentController(orderPayUseCase: Get.find()));
   }
 }
 

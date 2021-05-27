@@ -23,7 +23,11 @@ class CameraImageController extends GetxController {
 
     (await imageSaveUseCase(
       Params(
-        orderEntity: orderEntity,
+        orderEntity: orderEntity.copyWith(
+            dtSaida: Get.find<ProductController>()
+                .tipoTransacaoEntity
+                .firstWhere((element) => !GetUtils.isNull(element.dtSaida))
+                .dtSaida),
         imageEntity: ImageEntity(
             canhoto: image,
             codCli: orderEntity.codCli,

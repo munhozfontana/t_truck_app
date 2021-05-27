@@ -34,21 +34,21 @@ class PaymentPage extends GetWidget<PaymentController> {
                   'IS BOLETO ${controller.listTipoTransacao.where((item) => item!.tipoTransacao == TipoTransacao.BOLETO).isNotEmpty}'),
               BtnPrimary(
                 label: 'Cartão de crédito',
-                onPressed: controller.listTipoTransacao
-                        .where((item) =>
-                            item!.tipoTransacao == TipoTransacao.CREDITO)
+                onPressed: controller.tipoTransacaoEntity
+                        .where((element) =>
+                            element.tipoTransacao == TipoTransacao.CREDITO)
                         .isNotEmpty
-                    ? controller.payCredito
+                    ? controller.payCartaoCredito
                     : null,
               ),
               Spacer(flex: 8),
               BtnPrimary(
-                label: 'Boleto bancário',
-                onPressed: controller.listTipoTransacao
-                        .where((item) =>
-                            item!.tipoTransacao == TipoTransacao.BOLETO)
+                label: controller.botaoDinamico.value,
+                onPressed: controller.tipoTransacaoEntity
+                        .where((element) =>
+                            element.tipoTransacao == TipoTransacao.BOLETO)
                         .isNotEmpty
-                    ? controller.payBoleto
+                    ? controller.payDinamico
                     : null,
               ),
               Spacer(flex: 14),
