@@ -38,10 +38,10 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 var paymentCode = PaymentCode.values().find { it.code == arg.paymentCode }
 
                 // SE TESTE LOCAL
-                orderManager.checkoutOrder(order.id,arg.valorTotal , paymentCode!!.code.toString(),  PaymentCode.CREDITO_AVISTA.code.toString(), 1, makePayment(orderManager, result))
+                // orderManager.checkoutOrder(order.id,arg.valorTotal , paymentCode!!.code.toString(),  PaymentCode.CREDITO_AVISTA.code.toString(), 1, makePayment(orderManager, result))
             
                 // SE PRODUCAO
-                // orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
+                orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
                 orderManager.unbind();
 
             }

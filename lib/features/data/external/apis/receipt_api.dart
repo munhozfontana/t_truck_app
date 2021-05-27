@@ -15,12 +15,12 @@ class ReceiptApi implements IReceiptExternal {
   @override
   Future<void> save(List<ReceiptModel> list) async {
     try {
-      // list.forEach((element) async {
-      //   await iHttp.postHttp(
-      //     '${env['URL_BASE']}/payment',
-      //     body: element.toJson(),
-      //   );
-      // });
+      list.forEach((element) async {
+        await iHttp.postHttp(
+          '${env['URL_BASE']}/payment',
+          body: element.toJson(),
+        );
+      });
       await iHttp.postHttp(
         '${env['URL_BASE']}/canhoto',
         body: {'NUMTRANSVENDA': list.map((e) => e.numTransVenda).toList()},
