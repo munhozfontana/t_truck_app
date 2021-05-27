@@ -52,7 +52,8 @@ class DevolutionFinish extends StatelessWidget {
               BtnPrimary(
                 label: 'Voltar para o início',
                 onPressed: () {
-                  Get.offAll(() => ListClientPage(), binding: OrderBiding());
+                  Get.offAll(() => ListClientPage(),
+                      binding: ListClientBiding());
                 },
               ),
               Spacer(flex: 14),

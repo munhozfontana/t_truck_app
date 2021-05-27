@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_controller.dart';
 
 import 'core/adapters/drivers/dio_driver.dart';
 import 'core/adapters/drivers/jwt_decoder_driver.dart';
@@ -43,41 +44,32 @@ class MainBiding extends Bindings {
 class TokenBiding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ITokenRepository>(() => TokenRepository(
-          jwtDriver: Get.find(),
-        ));
-    Get.lazyPut<TokenUseCase>(() => TokenUseCase(
-          tokenRepository: Get.find(),
-        ));
+    Get.put<ITokenRepository>(
+      TokenRepository(jwtDriver: Get.find()),
+      permanent: true,
+    );
+    Get.put<TokenUseCase>(
+      TokenUseCase(tokenRepository: Get.find()),
+      permanent: true,
+    );
   }
 }
 
-class OrderBiding extends Bindings {
+class ListClientBiding extends Bindings {
   @override
   void dependencies() {
-    TokenBiding().dependencies();
-    OccurrenceReasonBiding().dependencies();
+    Get.lazyPut<ListProductsController>(() => ListProductsController());
   }
-}
-
-class TipoTransacaoBiding extends Bindings {
-  @override
-  void dependencies() {}
 }
 
 class OrderPayBiding extends Bindings {
   @override
-  void dependencies() {
-    TokenBiding().dependencies();
-    TipoTransacaoBiding().dependencies();
-  }
+  void dependencies() {}
 }
 
 class DeliveryBiding extends Bindings {
   @override
-  void dependencies() {
-    TipoTransacaoBiding().dependencies();
-  }
+  void dependencies() {}
 }
 
 class DevolutionReasonBiding extends Bindings {

@@ -64,8 +64,8 @@ class LoginController extends GetxController with BaseController {
     super.onReady();
   }
 
-  void toOrderPage() =>
-      Get.to(() => ListProductsPage(), binding: OrderBiding(), arguments: true);
+  void toOrderPage() => Get.to(() => ListProductsPage(),
+      binding: ListClientBiding(), arguments: true);
 
   void loginIfHasToken() {
     changeLoading(Loading.START);

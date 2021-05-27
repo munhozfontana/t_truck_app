@@ -11,7 +11,7 @@ import 'features/clients/devolution/ui/page/devolution_page.dart';
 import 'features/clients/finish/ui/page/devolution_finish.dart';
 import 'features/clients/list_clients/ui/page/list_client_page.dart';
 import 'features/clients/list_products/ui/page/list_products_page.dart';
-import 'features/login/ui/login_biding.dart';
+import 'features/login/login_biding.dart';
 import 'features/login/ui/page/login_page.dart';
 import 'features/payment/ui/page/payment_page.dart';
 import 'injection_container.dart';

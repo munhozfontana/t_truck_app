@@ -26,8 +26,8 @@ class LoginBiding extends Bindings {
       ),
     );
 
-    Get.put(
-      LoginController(
+    Get.lazyPut(
+      () => LoginController(
         iLoggedUser: Get.find(),
         loginUseCase: Get.find(),
         tokenUseCase: Get.find(),

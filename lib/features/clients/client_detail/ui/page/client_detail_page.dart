@@ -127,7 +127,7 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                       BtnVoltar(
                         onTap: () => Get.offAll(
                           () => ListClientPage(),
-                          binding: OrderBiding(),
+                          binding: ListClientBiding(),
                         ),
                         label: 'Voltar para listar cliente',
                       )
