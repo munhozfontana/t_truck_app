@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
 import 'package:t_truck_app/features/data/models/transacao_venda_model.dart';
@@ -61,36 +62,46 @@ class ReceiptModel extends TransacaoVendaModel {
       PayResponse payment, OrderEntity orderEntity) {
     var paymentFields = (payment.payments as List<dynamic>);
     var firstPayment = paymentFields[0];
-    return orderEntity.identificacoes
-        .map(
-          (e) => ReceiptModel(
-            numTransVenda: e.numTransVenda,
-            prest: e.prest,
-            codCob: firstPayment['paymentFields']['primaryProductCode'],
-            codCoborig: firstPayment['paymentFields']['primaryProductName'],
-            valor: payment.paidAmount,
-            prestTef:
-                int.parse(firstPayment['paymentFields']['numberOfQuotas']),
-            //nsuTef: '11111',
-            nsuTef: firstPayment['cieloCode'] ,
-            codAutorizacaoTef: firstPayment['authCode'],
-            codAdmCartao: '00125',
-            tipoOperacaoTef: firstPayment['paymentFields']['v40Code'],
-            valorJuros:
-                int.parse(firstPayment['paymentFields']['interestAmount']),
-            idTransacao: firstPayment['paymentFields']['paymentTransactionId'],
-            conector: 'CIELO',
-            jsonCielo: jsonEncode(paymentFields),
-            codBandeira: 1,
-            dataDesd: '',
-            exportado: 'N',
-            dataPagamento: DateFormat('dd/MM/yyyy HH:mm:ss')
-                .format(DateTime.now())
-                .toString(),
-            numNota: e.numNota,
-          ),
-        )
-        .toList();
+    var list = <ReceiptModel>[];
+    try {
+      orderEntity.identificacoes
+          .map(
+            (e) => ReceiptModel(
+              numTransVenda: e.numTransVenda,
+              prest: '',
+              codCob: firstPayment['paymentFields']['primaryProductCode'],
+              codCoborig: firstPayment['paymentFields']['primaryProductName'],
+              valor: payment.paidAmount,
+              prestTef:
+                  int.parse(firstPayment['paymentFields']['numberOfQuotas']),
+              //nsuTef: '11111',
+              nsuTef: firstPayment['cieloCode'],
+              codAutorizacaoTef: firstPayment['authCode'],
+              codAdmCartao: '00125',
+              tipoOperacaoTef: firstPayment['paymentFields']['v40Code'],
+              valorJuros:
+                  int.parse(firstPayment['paymentFields']['interestAmount']),
+              idTransacao: firstPayment['paymentFields']
+                  ['paymentTransactionId'],
+              conector: 'CIELO',
+              jsonCielo: jsonEncode(paymentFields),
+              codBandeira: 1,
+              dataDesd: '',
+              exportado: 'N',
+              dataPagamento: DateFormat('dd/MM/yyyy HH:mm:ss')
+                  .format(DateTime.now())
+                  .toString(),
+              numNota: e.numNota,
+            ),
+          )
+          .toList();
+    } catch (e) {
+      AlertDialog(
+        title: Text('ERROR'),
+        content: Text(e.toString()),
+      );
+    }
+    return list;
   }
 
   Map<String, dynamic> toMap() {
