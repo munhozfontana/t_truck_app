@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/core/utils/base_controller.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/repositories_impl/order_repository.dart';
-import 'package:t_truck_app/features/clients/list_clients/domain/entites/clients_entity.dart';
-import 'package:t_truck_app/features/login/ui/page/login_page.dart';
-import 'package:t_truck_app/injection_container.dart';
+
+import '../../../../../core/adapters/protocols/i_logged_user.dart';
+import '../../../../../core/params/params.dart';
+import '../../../../../core/utils/base_controller.dart';
+import '../../domain/entites/client_entity.dart';
 
 class ListClientController extends GetxController with BaseController {
   final ClientListUseCase clientsListUseCase;
@@ -30,19 +29,19 @@ class ListClientController extends GetxController with BaseController {
   }
 
   Future takeClients() async {
-    var res = await clientsListUseCase(Params());
-    res.fold(
-        (l) => {
-              changeLoading(Loading.STOP),
-              AppDialog.error(
-                menssagem: l.props.first.toString(),
-              ),
-            },
-        (r) async => {
-              changeLoading(Loading.STOP),
-              list.value = r,
-              filtredList.value = r,
-            });
+    // var res = await clientsListUseCase(Params());
+    // res.fold(
+    //     (l) => {
+    //           changeLoading(Loading.STOP),
+    //           AppDialog.error(
+    //             menssagem: l.props.first.toString(),
+    //           ),
+    //         },
+    //     (r) async => {
+    //           changeLoading(Loading.STOP),
+    //           list.value = r,
+    //           filtredList.value = r,
+    //         });
   }
 
   void filterChanged(String value) {
@@ -56,21 +55,21 @@ class ListClientController extends GetxController with BaseController {
   }
 
   void navigateToProduct(ClientEntity client) {
-    clientEntity.value = client;
-    Get.to(
-      () => ProductPage(),
-      binding: DeliveryBiding(),
-    );
+    // clientEntity.value = client;
+    // Get.to(
+    //   () => ProductPage(),
+    //   binding: DeliveryBiding(),
+    // );
   }
 
   void logout() async {
-    if (Get.currentRoute.contains('ClientPage')) {
-      await iLoggedUser.logout();
-      resetAll();
-      await Get.offAll(() => LoginPage(), binding: LoginBiding());
-    } else {
-      await Get.offAll(() => ClientPage(), binding: ClientBiding());
-    }
+    // if (Get.currentRoute.contains('ClientPage')) {
+    //   await iLoggedUser.logout();
+    //   resetAll();
+    //   await Get.offAll(() => LoginPage(), binding: LoginBiding());
+    // } else {
+    //   await Get.offAll(() => ClientPage(), binding: ClientBiding());
+    // }
   }
 
   void resetAll() {

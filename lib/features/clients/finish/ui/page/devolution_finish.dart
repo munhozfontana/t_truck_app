@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn/btn_primary.dart';
-import 'package:t_truck_app/features/presentation/components/help_component.dart';
-import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
-import 'package:t_truck_app/features/presentation/pages/clients/order_page.dart';
-import 'package:t_truck_app/injection_container.dart';
+
+import '../../../../../core/components/app_background.dart';
+import '../../../../../core/components/btn/btn_primary.dart';
+import '../../../../../core/components/help_component.dart';
+import '../../../../../core/components/layout/default_form.dart';
+import '../../../../../injection_container.dart';
+import '../../../list_clients/ui/page/list_client_page.dart';
 
 class DevolutionFinish extends StatelessWidget {
   final bool isDevolutionTotal;
@@ -51,7 +52,7 @@ class DevolutionFinish extends StatelessWidget {
               BtnPrimary(
                 label: 'Voltar para o início',
                 onPressed: () {
-                  Get.offAll(() => OrderPage(), binding: OrderBiding());
+                  Get.offAll(() => ListClientPage(), binding: OrderBiding());
                 },
               ),
               Spacer(flex: 14),

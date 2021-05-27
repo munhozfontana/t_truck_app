@@ -25,11 +25,11 @@ splash
 login
 list_clients
     client_detail
-    list_products
-    devolution
-    camera
-        take_picture
-        show_picture
+        list_products
+            camera
+                take_picture
+                show_picture
+        devolution
     finish
 payment
         

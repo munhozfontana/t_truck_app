@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_local_store_external.dart';
-import 'package:t_truck_app/core/error/failures.dart';
-import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/core/use_case.dart';
-import 'package:t_truck_app/features/login/domain/repositores/i_login_repository.dart';
+
+import '../../../../core/adapters/protocols/i_local_store_external.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/params/params.dart';
+import '../../../../core/use_case.dart';
+import '../repositores/i_login_repository.dart';
 
 class LoginUseCase implements UseCaseAsync<Type, Params> {
   final ILoginRepository iLoginRepository;

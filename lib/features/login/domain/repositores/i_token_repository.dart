@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/error/failures.dart';
+
+import '../../../../core/error/failures.dart';
 
 abstract class ITokenRepository {
   Either<Failure, Map> jwtDecode(String token);

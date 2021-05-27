@@ -1,11 +1,11 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_enum.dart';
-import 'package:t_truck_app/features/domain/entites/order_entity.dart';
+
+import '../../features/payment/data/external/channels/cielo_channel.dart';
+import '../../features/payment/data/external/channels/cielo_enum.dart';
 
 class PaymentUtils {
   // BUILD UTILS
-  static int valorTotalFromOrder(OrderEntity orderEntity) {
+  static int valorTotalFromOrder(dynamic orderEntity) {
     var listInts = orderEntity.identificacoes
         .map((e) => e.valor)
         .map((e) => (e ?? 0))
@@ -31,7 +31,7 @@ class PaymentUtils {
     return arg;
   }
 
-  static List<Map> takeItems(List<OrderEntity> listOrderEntity) {
+  static List<Map> takeItems(List listOrderEntity) {
     var items = <Map>[];
 
     listOrderEntity.forEach((e) {

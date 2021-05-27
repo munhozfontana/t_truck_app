@@ -2,7 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/injection_container.dart';
+
+import '../../../../../core/components/app_background.dart';
+import '../../../../../core/components/btn/btn_voltar.dart';
+import '../../../../../core/components/btn_occurrence.dart';
+import '../../../../../core/components/layout/default_form.dart';
+import '../../../../../injection_container.dart';
+import '../../domain/entites/product_entity.dart';
+import 'list_products_controller.dart';
 
 class ListProductsPage extends GetWidget<ListProductsController> {
   @override
@@ -46,7 +53,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                       return Opacity(
                         opacity: 0.5,
                         child: Text(
-                          '${_.listProducts.where((e) => !e.transacaoVendaEntity.hidden).length} Produtos encontrados',
+                          '${_.listProducts.where((e) => !e.hidden).length} Produtos encontrados',
                           style: Get.textTheme.headline6,
                           textAlign: TextAlign.left,
                         ),
@@ -84,7 +91,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
 
   Widget comumItem(ProductEntity? productEntity) {
     return Visibility(
-      visible: !productEntity!.transacaoVendaEntity.hidden,
+      visible: !productEntity!.hidden,
       maintainState: true,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -100,7 +107,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                     alignment: Alignment.centerLeft,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Text(productEntity.descricao),
+                      child: Text(productEntity.name!),
                     ),
                   ),
                 ),
@@ -116,15 +123,15 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.always,
-                    initialValue: productEntity.qtToSend.toString(),
-                    maxLength: productEntity.qt.toString().length,
+                    initialValue: productEntity.quantity.toString(),
+                    maxLength: productEntity.maxQuantity.toString().length,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Min 0';
                       }
                       if (value.isNotEmpty &&
-                          int.parse(value) > productEntity.qt) {
-                        return 'Max ${productEntity.qt}';
+                          int.parse(value) > productEntity.maxQuantity!) {
+                        return 'Max ${productEntity.maxQuantity}';
                       }
                     },
                     decoration: InputDecoration(
@@ -159,7 +166,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
             builder: (_) {
               return BtnOccurrence(
                 onTap: controller.listProducts
-                        .where((item) => item.qtToSend > 0)
+                        .where((item) => item.quantity! > 0)
                         .isNotEmpty
                     ? controller.nextPage
                     : null,
@@ -177,7 +184,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
           BtnVoltar(
             label: 'Voltar',
             onTap: () => Get.offAll(
-              ProductPage(),
+              ListProductsPage(),
               binding: DeliveryBiding(),
             ),
           ),

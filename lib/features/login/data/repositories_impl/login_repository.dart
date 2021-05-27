@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_login_external.dart';
-import 'package:t_truck_app/core/error/api_exception.dart';
-import 'package:t_truck_app/core/error/failures.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
 
+import '../../../../core/error/api_exception.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/messages/api_mensages.dart';
 import '../../domain/entites/credential_entity.dart';
 import '../../domain/repositores/i_login_repository.dart';
+import '../external/login_api.dart';
 
 class LoginRepository implements ILoginRepository {
   ILogin iLoginApi;

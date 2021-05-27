@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
-import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
-import 'package:t_truck_app/features/presentation/components/dropdown_default.dart';
-import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
-import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
-import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_controller.dart';
+
+import '../../../../../core/components/app_background.dart';
+import '../../../../../core/components/btn/btn_voltar.dart';
+import '../../../../../core/components/btn_occurrence.dart';
+import '../../../../../core/components/dropdown_default.dart';
+import '../../../../../core/components/layout/default_form.dart';
+import '../../../list_products/ui/page/list_products_page.dart';
+import 'devolution_controller.dart';
 
 class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
   @override
@@ -47,7 +48,7 @@ class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
             Divider(),
             Spacer(flex: 14),
             BtnVoltar(
-              onTap: () => Get.off(() => DevolutionPage()),
+              onTap: () => Get.off(() => ListProductsPage()),
               label: 'Voltar',
             ),
             Spacer(flex: 14)

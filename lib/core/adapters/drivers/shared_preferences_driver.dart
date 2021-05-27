@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_local_store_external.dart';
+
+import '../../error/driver_exception.dart';
+import '../protocols/i_local_store_external.dart';
 
 class SharedPreferencesDriver implements ILocalStoreExternal {
   @override

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/presentation/components/app_background.dart';
-import 'package:t_truck_app/features/presentation/components/btn/btn_voltar.dart';
-import 'package:t_truck_app/features/presentation/components/btn_occurrence.dart';
-import 'package:t_truck_app/features/presentation/components/layout/default_form.dart';
-import 'package:t_truck_app/features/presentation/pages/clientdetail/clientdetail_controller.dart';
-import 'package:t_truck_app/features/presentation/pages/clients/order_page.dart';
-import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
-import 'package:t_truck_app/features/presentation/utils/base_controller.dart';
-import 'package:t_truck_app/injection_container.dart';
+
+import '../../../../../core/components/app_background.dart';
+import '../../../../../core/components/btn/btn_voltar.dart';
+import '../../../../../core/components/btn_occurrence.dart';
+import '../../../../../core/components/layout/default_form.dart';
+import '../../../../../core/utils/base_controller.dart';
+import '../../../../../injection_container.dart';
+import '../../../../payment/ui/page/payment_page.dart';
+import '../../../list_clients/ui/page/list_client_page.dart';
+import 'client_detail_controller.dart';
 
 class ClientDetailPage extends GetWidget<ClientDetailController> {
   @override
@@ -44,9 +45,8 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                         child: Center(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Text(
-                                controller.orderEntity.value!.codCli.toString(),
-                                style: Get.textTheme.headline6),
+                            child:
+                                Text('1_1_1', style: Get.textTheme.headline6),
                           ),
                         ),
                       ),
@@ -67,7 +67,7 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Text(
-                              controller.orderEntity.value!.cliente,
+                              '2_2_2',
                               style: const TextStyle(
                                   color: Color(0xff000000),
                                   fontWeight: FontWeight.w800,
@@ -108,30 +108,25 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                           Get.to(
                             () => PaymentPage(),
                             binding: OrderPayBiding(),
-                            arguments: controller.orderEntity.value,
                           );
                         },
                         label: 'Entrega total',
                         typeOccurrence: TypeOccurrence.GREEN,
                       ),
                       BtnOccurrence(
-                        onTap: () {
-                          controller.toDevolution(TypeOccurrence.YELLOW);
-                        },
+                        onTap: () {},
                         label: 'Devolução parcial',
                         typeOccurrence: TypeOccurrence.YELLOW,
                       ),
                       BtnOccurrence(
-                        onTap: () {
-                          controller.toDevolution(TypeOccurrence.RED);
-                        },
+                        onTap: () {},
                         label: 'Devolução total',
                         typeOccurrence: TypeOccurrence.RED,
                       ),
                       Divider(),
                       BtnVoltar(
                         onTap: () => Get.offAll(
-                          () => OrderPage(),
+                          () => ListClientPage(),
                           binding: OrderBiding(),
                         ),
                         label: 'Voltar para listar cliente',

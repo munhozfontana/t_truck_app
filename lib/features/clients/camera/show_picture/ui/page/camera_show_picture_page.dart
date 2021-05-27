@@ -4,10 +4,18 @@ import 'dart:io';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/injection_container.dart';
 
-class CameraImagePage extends GetWidget<CameraImageController> {
-  const CameraImagePage({
+import '../../../../../../core/components/app_background.dart';
+import '../../../../../../core/components/btn/btn_primary.dart';
+import '../../../../../../core/components/btn/btn_voltar.dart';
+import '../../../../../../core/components/btn_occurrence.dart';
+import '../../../../../../core/components/layout/default_form.dart';
+import '../../../../../../injection_container.dart';
+import '../../../../list_products/ui/page/list_products_page.dart';
+import 'camera_show_picture_controller.dart';
+
+class ShowPicture extends GetWidget<CameraImageController> {
+  const ShowPicture({
     Key? key,
   }) : super(key: key);
 
@@ -42,7 +50,7 @@ class CameraImagePage extends GetWidget<CameraImageController> {
                     () => CameraCamera(
                       onFile: (file) {
                         Get.to(
-                          CameraImagePage(),
+                          ShowPicture(),
                           arguments: file,
                           binding: CameraImageBiding(),
                         );
@@ -65,7 +73,7 @@ class CameraImagePage extends GetWidget<CameraImageController> {
               BtnVoltar(
                   label: 'Voltar',
                   onTap: () => Get.off(
-                        () => ProductPage(),
+                        () => ListProductsPage(),
                       )),
               Spacer(flex: 14),
             ],

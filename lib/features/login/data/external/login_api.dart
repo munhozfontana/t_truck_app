@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_http_external.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_login_external.dart';
 
+import '../../../../core/adapters/protocols/i_http_external.dart';
 import '../../domain/entites/credential_entity.dart';
 import '../models/credential_model.dart';
+
+abstract class ILogin {
+  Future<String> login(CredentialEntity credential);
+}
 
 class LoginApi implements ILogin {
   IHttp iHttp;

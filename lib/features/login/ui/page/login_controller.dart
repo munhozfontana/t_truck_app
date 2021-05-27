@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/core/utils/app_dialog.dart';
-import 'package:t_truck_app/core/utils/base_controller.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/repositories_impl/order_repository.dart';
-import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_page.dart';
-import 'package:t_truck_app/features/login/domain/entites/credential_entity.dart';
-import 'package:t_truck_app/features/login/domain/use_cases/login_use_case.dart';
-import 'package:t_truck_app/features/login/domain/use_cases/token_use_case.dart';
-import 'package:t_truck_app/injection_container.dart';
+
+import '../../../../core/adapters/protocols/i_logged_user.dart';
+import '../../../../core/params/params.dart';
+import '../../../../core/utils/app_dialog.dart';
+import '../../../../core/utils/base_controller.dart';
+import '../../../../injection_container.dart';
+import '../../../clients/list_products/ui/page/list_products_page.dart';
+import '../../domain/entites/credential_entity.dart';
+import '../../domain/use_cases/login_use_case.dart';
+import '../../domain/use_cases/token_use_case.dart';
 
 class LoginController extends GetxController with BaseController {
   final LoginUseCase loginUseCase;
@@ -59,7 +60,7 @@ class LoginController extends GetxController with BaseController {
 
   @override
   void onReady() async {
-    loginIfHasToken();
+    // loginIfHasToken();
     super.onReady();
   }
 

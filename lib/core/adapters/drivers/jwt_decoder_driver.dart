@@ -1,6 +1,7 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_jwt_external.dart';
+
+import '../../error/driver_exception.dart';
+import '../protocols/i_jwt_external.dart';
 
 class JwtDecoderDriver implements IJwt {
   @override

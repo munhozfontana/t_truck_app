@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-import 'package:t_truck_app/core/components/app_background.dart';
-import 'package:t_truck_app/core/components/layout/default_form.dart';
-import 'package:t_truck_app/core/utils/base_controller.dart';
-import 'package:t_truck_app/features/clients/list_clients/domain/entites/clients_entity.dart';
-import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_controller.dart';
+
+import '../../../../../core/components/app_background.dart';
+import '../../../../../core/components/layout/default_form.dart';
+import '../../../../../core/utils/base_controller.dart';
+import '../../domain/entites/client_entity.dart';
+import 'list_client_controller.dart';
 
 class ListClientPage extends GetWidget<ListClientController> {
   @override

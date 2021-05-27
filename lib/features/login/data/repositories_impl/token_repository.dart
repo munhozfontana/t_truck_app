@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_jwt_external.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/core/error/failures.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/login/domain/repositores/i_token_repository.dart';
+
+import '../../../../core/adapters/protocols/i_jwt_external.dart';
+import '../../../../core/error/driver_exception.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/messages/api_mensages.dart';
+import '../../domain/repositores/i_token_repository.dart';
 
 class TokenRepository implements ITokenRepository {
   final IJwt jwtDriver;

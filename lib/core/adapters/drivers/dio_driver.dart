@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/data/external/adapters/i_http_external.dart';
+
+import '../../error/driver_exception.dart';
+import '../../messages/api_mensages.dart';
+import '../protocols/i_http_external.dart';
 
 class DioDriver implements IHttp {
   final Dio dio;

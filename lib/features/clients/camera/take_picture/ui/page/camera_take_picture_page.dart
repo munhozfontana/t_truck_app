@@ -1,11 +1,12 @@
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/components/app_background.dart';
-import 'package:t_truck_app/core/components/btn/btn_primary.dart';
-import 'package:t_truck_app/core/components/layout/default_form.dart';
-import 'package:t_truck_app/features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
-import 'package:t_truck_app/injection_container.dart';
+
+import '../../../../../../core/components/app_background.dart';
+import '../../../../../../core/components/btn/btn_primary.dart';
+import '../../../../../../core/components/layout/default_form.dart';
+import '../../../../../../injection_container.dart';
+import '../../../show_picture/ui/page/camera_show_picture_page.dart';
 
 class TakePicturePage extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class TakePicturePage extends StatelessWidget {
                     () => CameraCamera(
                       onFile: (file) {
                         Get.to(
-                          CameraImagePage(),
+                          ShowPicture(),
                           arguments: file,
                           binding: CameraImageBiding(),
                         );

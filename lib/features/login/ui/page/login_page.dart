@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/components/app_background.dart';
-import 'package:t_truck_app/core/components/custom_checkbox.dart';
-import 'package:t_truck_app/core/components/help_component.dart';
-import 'package:t_truck_app/core/utils/base_controller.dart';
-import 'package:t_truck_app/features/login/ui/page/login_controller.dart';
+
+import '../../../../core/components/app_background.dart';
+import '../../../../core/components/custom_checkbox.dart';
+import '../../../../core/components/help_component.dart';
+import '../../../../core/utils/base_controller.dart';
+import 'login_controller.dart';
 
 class LoginPage extends GetWidget<LoginController> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
