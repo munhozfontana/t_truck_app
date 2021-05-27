@@ -44,6 +44,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   map: ^0.3.0
   mockito: ^5.0.5
+  package_info: ^2.0.2
   pedantic: ^1.11.0
   pigeon: ^0.2.1
   shared_preferences: ^2.0.5
