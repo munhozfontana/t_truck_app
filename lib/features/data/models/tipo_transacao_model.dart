@@ -8,6 +8,7 @@ class TipoTransacaoModel extends TipoTransacaoEntity {
     required TipoTransacao tipoTransacao,
     required TransacaoVendaEntity transacaoVendaEntity,
     required String dtSaida,
+    required int numCar,
     required num valorBoleto,
     required num valorBonificado,
     required num valorCartao,
@@ -20,6 +21,7 @@ class TipoTransacaoModel extends TipoTransacaoEntity {
           valorBonificado: valorBonificado,
           valorCartao: valorCartao,
           valorCarteira: valorCarteira,
+          numCar: numCar,
         );
 
   factory TipoTransacaoModel.fromMap(Map<String, dynamic> map) {
@@ -39,6 +41,7 @@ class TipoTransacaoModel extends TipoTransacaoEntity {
 
     return TipoTransacaoModel(
       dtSaida: map['DTSAIDA'],
+      numCar: map['NUMCAR'],
       valorCartao: map['VALORCARTAO'],
       valorBoleto: map['VALORBOLETO'],
       valorBonificado: map['VALORBONIFICADO'],

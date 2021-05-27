@@ -21,13 +21,15 @@ class CameraImageController extends GetxController {
 
     orderEntity.identificacoes;
 
+    var firstWhere = Get.find<ProductController>()
+        .tipoTransacaoEntity
+        .firstWhere((element) => !GetUtils.isNull(element.dtSaida));
     (await imageSaveUseCase(
       Params(
         orderEntity: orderEntity.copyWith(
-            dtSaida: Get.find<ProductController>()
-                .tipoTransacaoEntity
-                .firstWhere((element) => !GetUtils.isNull(element.dtSaida))
-                .dtSaida),
+          numCar: firstWhere.numCar,
+          dtSaida: firstWhere.dtSaida,
+        ),
         imageEntity: ImageEntity(
             canhoto: image,
             codCli: orderEntity.codCli,

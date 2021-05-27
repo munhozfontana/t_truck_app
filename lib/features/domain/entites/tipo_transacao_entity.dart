@@ -10,6 +10,7 @@ class TipoTransacaoEntity {
   num valorBonificado;
   num valorCartao;
   num valorCarteira;
+  int numCar;
 
   TipoTransacaoEntity({
     required this.transacaoVendaEntity,
@@ -19,5 +20,6 @@ class TipoTransacaoEntity {
     required this.valorBonificado,
     required this.valorCartao,
     required this.valorCarteira,
+    required this.numCar,
   });
 }
