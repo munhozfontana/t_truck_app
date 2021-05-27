@@ -76,19 +76,16 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             override fun onPayment(@NotNull order: Order) {
                 Log.d("SDKClient", "Um pagamento foi realizado.")
                 makeResponse(order, result)
-                orderManager.unbind()
             }
 
             override fun onCancel() {
                 Log.d("SDKClient", "A operação foi cancelada.")
                 result!!.success(CieloChannel.PayResponse())
-                orderManager.unbind()
             }
 
             override fun onError(@NotNull error: PaymentError) {
                 Log.d("SDKClient", "Houve um erro no pagamento.")
                 result!!.success(CieloChannel.PayResponse())
-                orderManager.unbind()
             }
         }
     }
