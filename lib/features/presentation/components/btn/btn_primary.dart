@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class BtnPrimary extends StatelessWidget {
   final String label;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final bool outline;
 
   const BtnPrimary({
@@ -26,15 +26,15 @@ class BtnPrimary extends StatelessWidget {
             onPressed: onPressed,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                outline ? Colors.white : Get.theme.buttonColor,
+                outline
+                    ? Colors.white
+                    : (!GetUtils.isNull(onPressed)
+                        ? Get.theme.buttonColor
+                        : Get.theme.buttonColor.withOpacity(0.5)),
               ),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  side: BorderSide(
-                      color: outline
-                          ? Get.theme.primaryColor
-                          : Colors.transparent),
                 ),
               ),
             ),

@@ -7,9 +7,20 @@ class TipoTransacaoModel extends TipoTransacaoEntity {
   TipoTransacaoModel({
     required TipoTransacao tipoTransacao,
     required TransacaoVendaEntity transacaoVendaEntity,
+    required String dtSaida,
+    required num valorBoleto,
+    required num valorBonificado,
+    required num valorCartao,
+    required num valorCarteira,
   }) : super(
-            tipoTransacao: tipoTransacao,
-            transacaoVendaEntity: transacaoVendaEntity);
+          tipoTransacao: tipoTransacao,
+          transacaoVendaEntity: transacaoVendaEntity,
+          dtSaida: dtSaida,
+          valorBoleto: valorBoleto,
+          valorBonificado: valorBonificado,
+          valorCartao: valorCartao,
+          valorCarteira: valorCarteira,
+        );
 
   factory TipoTransacaoModel.fromMap(Map<String, dynamic> map) {
     var tipoTransacao = TipoTransacao.NONE;
@@ -27,7 +38,15 @@ class TipoTransacaoModel extends TipoTransacaoEntity {
     }
 
     return TipoTransacaoModel(
+      dtSaida: map['DTSAIDA'],
+      valorCartao: map['VALORCARTAO'],
+      valorBoleto: map['VALORBOLETO'],
+      valorBonificado: map['VALORBONIFICADO'],
+      valorCarteira: map['VALORCARTEIRA'],
       transacaoVendaEntity: TransacaoVendaEntity(
+        valor: tipoTransacao == TipoTransacao.BOLETO
+            ? map['VALORBOLETO']
+            : map['VALORCARTAO'],
         numTransVenda: map['NUMTRANSVENDA'],
         numNota: 0,
         prest: '',

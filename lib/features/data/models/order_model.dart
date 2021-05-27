@@ -24,24 +24,22 @@ class OrderModel extends OrderEntity {
   static List<OrderModel> orderByIdentificacao(String value) {
     List list = jsonDecode(value);
     return list.map((order) {
-      var identificacao = list
-          .where(
-            (element) => element['CODCLI'] == order['CODCLI'],
-          )
-          .map((e) => TransacaoVendaModel(
-              numTransVenda: e['NUMTRANSVENDA'],
-              numNota: e['NUMTRANSVENDA'],
-              valor: e['VLTOTAL'],
-              prest: e['PREST']))
-          .toList();
-
       return OrderModel(
-          dtSaida: order['DTSAIDA'],
-          dtCanhato: order['DTCANHOTO'],
-          cliente: order['CLIENTE'],
-          codCli: order['CODCLI'],
-          numCar: order['NUMCAR'],
-          identificacao: identificacao);
+        dtSaida: '',
+        dtCanhato: '',
+        cliente: order['CLIENTE'],
+        codCli: order['CODCLI'],
+        numCar: 0,
+        identificacao: List.generate(
+          order['QTDE'],
+          (index) => TransacaoVendaModel(
+            numTransVenda: 0,
+            numNota: 0,
+            prest: '',
+            valor: 0,
+          ),
+        ),
+      );
     }).toList();
   }
 

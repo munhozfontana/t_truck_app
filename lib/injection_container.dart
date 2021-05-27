@@ -116,6 +116,8 @@ class OrderBiding extends Bindings {
           iOrderListRepository: Get.find(),
         ));
 
+    OccurrenceReasonBiding().dependencies();
+
     Get.put(
       OrderController(orderListUseCase: Get.find(), iLoggedUser: Get.find()),
       permanent: true,
@@ -180,10 +182,7 @@ class OrderPayBiding extends Bindings {
 
     TipoTransacaoBiding().dependencies();
 
-    Get.put(PaymentController(
-      orderPayUseCase: Get.find(),
-      tipoTransacaoUseCase: Get.find(),
-    ));
+    Get.put(PaymentController(orderPayUseCase: Get.find()));
   }
 }
 
@@ -223,8 +222,11 @@ class DeliveryBiding extends Bindings {
     Get.lazyPut<ProductListUseCase>(
         () => ProductListUseCase(iProductRepository: Get.find()));
 
+    TipoTransacaoBiding().dependencies();
+
     Get.lazyPut(() {
       return ProductController(
+        tipoTransacaoUseCase: Get.find(),
         productListUseCase: Get.find(),
       );
     }, fenix: true);

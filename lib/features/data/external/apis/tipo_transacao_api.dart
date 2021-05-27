@@ -17,11 +17,8 @@ class TipoTransacaoApi implements ITipoTransacaoExternal {
   Future<List<TipoTransacaoEntity>> getByOrder(OrderEntity orderEntity) async {
     try {
       var res = await iHttp.postHttp(
-        '${env['URL_BASE']}/reasons',
-        body: {
-          'CODCLI': orderEntity.codCli,
-          'NUMCAR': orderEntity.numCar,
-        },
+        '${env['URL_BASE']}/paymentType',
+        body: {'CODCLIE': orderEntity.codCli},
       );
 
       return TipoTransacaoModel.fromJsonList(res.body!);
