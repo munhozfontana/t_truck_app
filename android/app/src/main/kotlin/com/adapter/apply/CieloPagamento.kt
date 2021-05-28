@@ -32,7 +32,6 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             override fun onServiceBoundError(throwable: Throwable) {
                 Log.d("SDKClient #### ", "ERROR INTERNO")
                 returnToFlutter(result)
-                unbindCielo(orderManager)
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
@@ -50,11 +49,11 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             override fun onServiceUnbound() {
                 Log.d("SDKClient", "#### onServiceUnbound ####")
                 returnToFlutter(result)
-                unbindCielo(orderManager)
             }
         }
-
         orderManager.bind(ctx as Activity, serviceBindListener)
+        unbindCielo(orderManager)
+        
     }
 
 
@@ -68,9 +67,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
 
             override fun onPayment(@NotNull order: Order) {
                 Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
-                ordersResponse.plus(Pair("order" , order))
-                returnToFlutter(result)
-                unbindCielo(orderManager)
+                ordersResponse.plus(Pair("order" , order))               
             }
 
             override fun onCancel() {
