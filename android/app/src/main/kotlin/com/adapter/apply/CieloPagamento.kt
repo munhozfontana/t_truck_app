@@ -41,7 +41,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                         order!!.addItem(arg.sku, arg.description, arg.unit_price, arg.quantity.toInt(), arg.unit_of_measure)
                         orderManager.placeOrder(order)
                         orderManager.checkoutOrder(order.id, makePayment(result, orderManager))
-                    } catch (e) {
+                    } catch (e: Exception) {
                         returnToFlutter(result, e.stackTrace.toString())
                     }
                 }
@@ -52,10 +52,10 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 }
             }
             orderManager.bind(ctx as Activity, serviceBindListener)
-        } catch (e) {
+        } catch (e: Exception) {
             returnToFlutter(result, e.stackTrace.toString())
         }
-         
+
     }
 
 
@@ -73,7 +73,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
                 order.close()
                 ordersResponse.plus(Pair("order" , order))   
-                } catch (e) {
+                } catch (e: Exception) {
                     returnToFlutter(result, e.stackTrace.toString())
                 }
                 
