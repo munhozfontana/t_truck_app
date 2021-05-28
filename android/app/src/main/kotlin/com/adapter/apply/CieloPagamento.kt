@@ -31,7 +31,6 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
 
             override fun onServiceBoundError(throwable: Throwable) {
                 Log.d("SDKClient #### ",throwable.message.toString())
-                returnToFlutter(result, orderManager)
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
@@ -43,11 +42,11 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 // orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager))
                 // SE PRODUCAO
                 orderManager.checkoutOrder(order.id, makePayment(result, orderManager))
+                unbindCielo(orderManager)
             }
 
             override fun onServiceUnbound() {
                 Log.d("SDKClient", "#### onServiceUnbound ####")
-                returnToFlutter(result, orderManager)
             }
         }
 
@@ -79,16 +78,18 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
         }
     }
 
-    private fun returnToFlutter(result: CieloChannel.Result<CieloChannel.PayResponse>?, orderManager: OrderManager) {
-        var response = CieloChannel.PayResponse();
-        response.orders = ordersResponse
 
+    private fun unbindCielo(orderManager: OrderManager) {
         Log.d("SDKClient", "#### UNBIND ####")
         orderManager.unbind();
+    }
 
 
-        // Log.d("SDKClient", "#### VOLTANDO PARA O FLUTTER ####")
-        // result!!.success(CieloChannel.PayResponse())
+    private fun returnToFlutter(result: CieloChannel.Result<CieloChannel.PayResponse>?) {
+        var response = CieloChannel.PayResponse();
+        response.orders = ordersResponse
+        Log.d("SDKClient", "#### VOLTANDO PARA O FLUTTER ####")
+        result!!.success(CieloChannel.PayResponse())
     }
 
  
