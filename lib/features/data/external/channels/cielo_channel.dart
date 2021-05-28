@@ -9,17 +9,20 @@ import 'package:flutter/services.dart';
 
 class PayResponse {
   Map<Object?, Object?>? orders;
+  String? error;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['orders'] = orders;
+    pigeonMap['error'] = error;
     return pigeonMap;
   }
 
   static PayResponse decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return PayResponse()
-      ..orders = pigeonMap['orders'] as Map<Object?, Object?>?;
+      ..orders = pigeonMap['orders'] as Map<Object?, Object?>?
+      ..error = pigeonMap['error'] as String?;
   }
 }
 

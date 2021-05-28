@@ -29,6 +29,7 @@ class PayParam {
 
 class PayResponse {
   Map<String, dynamic>? orders;
+  String? error;
 }
 
 class CieloCredentials {

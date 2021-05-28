@@ -20,15 +20,22 @@ public class CieloChannel {
     public Map<Object, Object> getOrders() { return orders; }
     public void setOrders(Map<Object, Object> setterArg) { this.orders = setterArg; }
 
+    private String error;
+    public String getError() { return error; }
+    public void setError(String setterArg) { this.error = setterArg; }
+
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("orders", orders);
+      toMapResult.put("error", error);
       return toMapResult;
     }
     static PayResponse fromMap(Map<String, Object> map) {
       PayResponse fromMapResult = new PayResponse();
       Object orders = map.get("orders");
       fromMapResult.orders = (Map<Object, Object>)orders;
+      Object error = map.get("error");
+      fromMapResult.error = (String)error;
       return fromMapResult;
     }
   }

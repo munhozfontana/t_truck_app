@@ -25,32 +25,37 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
     override fun pay(arg: CieloChannel.PayParam?, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
         val orderManager = OrderManager(Credentials(arg?.cieloCredentials!!.clientID, arg.cieloCredentials.accessToken), ctx)
 
+        try {
+            val serviceBindListener: ServiceBindListener = object : ServiceBindListener {
 
-        val serviceBindListener: ServiceBindListener = object : ServiceBindListener {
-
-            override fun onServiceBoundError(throwable: Throwable) {
-                Log.d("SDKClient #### ", "ERROR INTERNO")
-                returnToFlutter(result)
+                override fun onServiceBoundError(throwable: Throwable) {
+                    Log.d("SDKClient #### ", "ERROR INTERNO")
+                    returnToFlutter(result)
+                }
+    
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun onServiceBound() {
+                    try {
+                        Log.d("SDKClient", "#### onServiceBound ####")
+                        val order = orderManager.createDraftOrder(arg.reference)
+                        order!!.addItem(arg.sku, arg.description, arg.unit_price, arg.quantity.toInt(), arg.unit_of_measure)
+                        orderManager.placeOrder(order)
+                        orderManager.checkoutOrder(order.id, makePayment(result, orderManager))
+                    } catch (e) {
+                        returnToFlutter(result, e.stackTrace.toString())
+                    }
+                }
+    
+                override fun onServiceUnbound() {
+                    Log.d("SDKClient", "#### onServiceUnbound ####")
+                    returnToFlutter(result)
+                }
             }
-
-            @RequiresApi(Build.VERSION_CODES.N)
-            override fun onServiceBound() {
-                Log.d("SDKClient", "#### onServiceBound ####")
-                val order = orderManager.createDraftOrder(arg.reference)
-                order!!.addItem(arg.sku, arg.description, arg.unit_price, arg.quantity.toInt(), arg.unit_of_measure)
-                orderManager.placeOrder(order)
-                // orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager))
-                // SE PRODUCAO
-                orderManager.checkoutOrder(order.id, makePayment(result, orderManager))
-            }
-
-            override fun onServiceUnbound() {
-                Log.d("SDKClient", "#### onServiceUnbound ####")
-                returnToFlutter(result)
-            }
+            orderManager.bind(ctx as Activity, serviceBindListener)
+        } catch (e) {
+            returnToFlutter(result, e.stackTrace.toString())
         }
-        orderManager.bind(ctx as Activity, serviceBindListener)
-           
+         
     }
 
 
@@ -63,9 +68,15 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             }
 
             override fun onPayment(@NotNull order: Order) {
-                Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
+
+                try {
+               Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
                 order.close()
-                ordersResponse.plus(Pair("order" , order))               
+                ordersResponse.plus(Pair("order" , order))   
+                } catch (e) {
+                    returnToFlutter(result, e.stackTrace.toString())
+                }
+                
             }
 
             override fun onCancel() {
@@ -86,10 +97,11 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
     }
 
 
-    private fun returnToFlutter(result: CieloChannel.Result<CieloChannel.PayResponse>?) {
+    private fun returnToFlutter(result: CieloChannel.Result<CieloChannel.PayResponse>?,  error: String = "Sem Erro") {
         var response = CieloChannel.PayResponse();
         response.orders = ordersResponse
         Log.d("SDKClient", "#### VOLTANDO PARA O FLUTTER ####")
+        response.error = error
         result!!.success(response)
     }
 
