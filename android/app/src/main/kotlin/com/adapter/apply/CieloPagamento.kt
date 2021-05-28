@@ -42,7 +42,6 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 // orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager))
                 // SE PRODUCAO
                 orderManager.checkoutOrder(order.id, makePayment(result, orderManager))
-
             }
 
             override fun onServiceUnbound() {
@@ -51,9 +50,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             }
         }
         orderManager.bind(ctx as Activity, serviceBindListener)
-        unbindCielo(orderManager)
-        returnToFlutter(result)
-        
+           
     }
 
 
