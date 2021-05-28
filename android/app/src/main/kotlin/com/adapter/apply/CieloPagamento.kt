@@ -23,7 +23,6 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
     val ordersResponse = emptyMap<Any, Any>()
 
     override fun pay(arg: CieloChannel.PayParam?, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
-        
         val orderManager = OrderManager(Credentials(arg?.cieloCredentials!!.clientID, arg.cieloCredentials.accessToken), ctx)
 
 
@@ -53,6 +52,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
         }
         orderManager.bind(ctx as Activity, serviceBindListener)
         unbindCielo(orderManager)
+        returnToFlutter(result)
         
     }
 
