@@ -13,7 +13,7 @@ class CieloDriver {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("ERROR"),
-          content: new Text(pay.error ?? "sem nada"),
+          content: new Text(pay.error == null ? "sem nada" : pay.error),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(

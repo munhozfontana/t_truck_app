@@ -6,7 +6,6 @@ import 'package:t_truck_app/features/domain/entites/transacao_venda_entity.dart'
 import 'package:t_truck_app/features/domain/use_cases/order/order_pay_use_case.dart';
 import 'package:t_truck_app/features/presentation/pages/camera/camera_proof/camera_proof_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_controller.dart';
-import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 
 class PaymentController extends GetxController {
   OrderPayUseCase orderPayUseCase;
@@ -58,9 +57,9 @@ class PaymentController extends GetxController {
                     .toList()))))
         .fold((l) {
       // Get.offAll(() => OrderPage(), binding: OrderBiding());
-      AppDialog.error(menssagem: l.props.first.toString());
+      // AppDialog.error(menssagem: l.props.first.toString());
     }, (r) {
-      AppDialog.show(menssagem: 'Pagamento relizado com sucesso');
+      // AppDialog.show(menssagem: 'Pagamento relizado com sucesso');
       // Get.to(() => CameraProofPage());
     });
   }
