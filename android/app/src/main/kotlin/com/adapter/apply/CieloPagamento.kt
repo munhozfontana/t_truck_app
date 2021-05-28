@@ -28,7 +28,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
         val serviceBindListener: ServiceBindListener = object : ServiceBindListener {
 
             override fun onServiceBoundError(throwable: Throwable) {
-                //There was an error while trying to connect to the OrderManager server
+                Log.d("SDKClient",throwable.message.toString())
             }
             @RequiresApi(Build.VERSION_CODES.N)
             override fun onServiceBound() {
@@ -40,14 +40,20 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 // SE TESTE LOCAL
                 // orderManager.checkoutOrder(order.id,arg.valorTotal , paymentCode!!.code.toString(),  PaymentCode.CREDITO_AVISTA.code.toString(), 1, makePayment(orderManager, result))
             
+                Log.d("####################### #####################", order.id)
+                Log.d("Parametros CIELO id: ", order.id)
+                Log.d("Parametros CIELO valorTotal: ", arg.valorTotal.toString())
+                Log.d("Parametros CIELO items size: ", order.items.size.toString())
+                Log.d("####################### ", order.id)
                 // SE PRODUCAO
-                orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
+                orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager, result))
                 orderManager.unbind();
+                
 
             }
 
             override fun onServiceUnbound() {
-                // The service was unlinked
+                Log.d("SDKClient", "#### onServiceUnbound ####")
             }
         }
 
@@ -74,24 +80,26 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             }
 
             override fun onPayment(@NotNull order: Order) {
-                Log.d("SDKClient", "Um pagamento foi realizado.")
-                makeResponse(order, result)
+                Log.d("SDKClient", "Um pagamento foi realizado. #############")
+                Log.d("SDKClient",  order.status.toString())
+               
+                makeResponse(orderManager,order, result)
             }
 
             override fun onCancel() {
                 Log.d("SDKClient", "A operação foi cancelada.")
-                result!!.success(CieloChannel.PayResponse())
+                // result!!.success(CieloChannel.PayResponse())
             }
 
             override fun onError(@NotNull error: PaymentError) {
                 Log.d("SDKClient", "Houve um erro no pagamento.")
-                result!!.success(CieloChannel.PayResponse())
+                // result!!.success(CieloChannel.PayResponse())
             }
         }
     }
 
 
-    private fun makeResponse(order: Order, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
+    private fun makeResponse(orderManager: OrderManager,order: Order, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
         val res = CieloChannel.PayResponse()
         res.id = order.id
         res.price = order.price
@@ -135,6 +143,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                     "accessKey" to it.accessKey
             )
         }.toList()
-        result!!.success(res)
+        // result!!.success(res)
+        // order.close();
     }
 }
