@@ -23,7 +23,71 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
     val ordersResponse = emptyMap<Any, Any>()
 
 
-    override fun paySync(arg: CieloChannel.PayParam?): CieloChannel.PayResponse {
+    override fun paySync2(arg: CieloChannel.PayParam?, result: CieloChannel.Result<Void>?) {
+        val orderManager = OrderManager(Credentials(arg?.cieloCredentials!!.clientID, arg.cieloCredentials.accessToken), ctx)
+
+        try {
+            val serviceBindListener: ServiceBindListener = object : ServiceBindListener {
+
+                override fun onServiceBoundError(throwable: Throwable) {
+                    Log.d("SDKClient #### ", "ERROR INTERNO")
+                    result?.success(null)
+                }
+
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun onServiceBound() {
+                    try {
+                        Log.d("SDKClient", "#### onServiceBound ####")
+                        val order = orderManager.createDraftOrder(arg.reference)
+                        order!!.addItem(arg.sku, arg.description, arg.unit_price, arg.quantity.toInt(), arg.unit_of_measure)
+                        orderManager.placeOrder(order)
+
+
+                        var orderListener =  object : PaymentListener {
+
+                            override fun onStart() {
+                                Log.d("SDKClient", "#### Start PaymentListener ####")
+                            }
+
+                        override fun onPayment(@NotNull order: Order) {
+
+                            try {
+                                Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
+                                order.close()
+                                ordersResponse.plus(Pair("order" , order))
+                            } catch (e: Exception) {
+                            }
+
+                        }
+
+                        override fun onCancel() {
+                            Log.d("SDKClient", "#### A operação foi cancelada. ####")
+
+                        }
+
+                        override fun onError(@NotNull error: PaymentError) {
+                            Log.d("SDKClient", "#### Houve um erro no pagamento. ####")
+                        }
+                        }
+
+                        orderManager.checkoutOrder(order.id,   orderListener)
+
+                    } catch (e: Exception) {
+                    }
+                }
+
+                override fun onServiceUnbound() {
+                    Log.d("SDKClient", "#### onServiceUnbound ####")
+                }
+            }
+            orderManager.bind(ctx as Activity, serviceBindListener)
+        } catch (e: Exception) {
+        }
+
+    }
+
+
+    override fun paySync(arg: CieloChannel.PayParam?) {
         val orderManager = OrderManager(Credentials(arg?.cieloCredentials!!.clientID, arg.cieloCredentials.accessToken), ctx)
 
         try {
@@ -70,6 +134,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                         }
 
                         orderManager.checkoutOrder(order.id, orderListener)
+                      
                     } catch (e: Exception) {
                     }
                 }
@@ -82,7 +147,6 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
         } catch (e: Exception) {
         }
 
-        return CieloChannel.PayResponse()
     }
 
     override fun pay(arg: CieloChannel.PayParam?, result: CieloChannel.Result<CieloChannel.PayResponse>?) {

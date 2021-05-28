@@ -5,7 +5,10 @@ abstract class CieloRun {
   @async
   PayResponse pay(PayParam param);
 
-  PayResponse paySync(PayParam param);
+  @async
+  void paySync2(PayParam param);
+
+  void paySync(PayParam param);
 }
 
 class PayParam {

@@ -134,7 +134,8 @@ public class CieloChannel {
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface CieloRun {
     void pay(PayParam arg, Result<PayResponse> result);
-    PayResponse paySync(PayParam arg);
+    void paySync2(PayParam arg, Result<Void> result);
+    void paySync(PayParam arg);
 
     /** Sets up an instance of `CieloRun` to handle messages through the `binaryMessenger`. */
     static void setup(BinaryMessenger binaryMessenger, CieloRun api) {
@@ -160,6 +161,26 @@ public class CieloChannel {
       }
       {
         BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.CieloRun.paySync2", new StandardMessageCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              @SuppressWarnings("ConstantConditions")
+              PayParam input = PayParam.fromMap((Map<String, Object>)message);
+              api.paySync2(input, result -> { wrapped.put("result", null); reply.reply(wrapped); });
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+              reply.reply(wrapped);
+            }
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
             new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.CieloRun.paySync", new StandardMessageCodec());
         if (api != null) {
           channel.setMessageHandler((message, reply) -> {
@@ -167,8 +188,8 @@ public class CieloChannel {
             try {
               @SuppressWarnings("ConstantConditions")
               PayParam input = PayParam.fromMap((Map<String, Object>)message);
-              PayResponse output = api.paySync(input);
-              wrapped.put("result", output.toMap());
+              api.paySync(input);
+              wrapped.put("result", null);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
