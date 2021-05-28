@@ -47,7 +47,6 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 Log.d("####################### ", order.id)
                 // SE PRODUCAO
                 orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
-                orderManager.unbind();
                 
 
             }
@@ -143,7 +142,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                     "accessKey" to it.accessKey
             )
         }.toList()
-        // result!!.success(res)
         // order.close();
+        result!!.success(res)
     }
 }
