@@ -83,8 +83,8 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
         var response = CieloChannel.PayResponse();
         response.orders = ordersResponse
 
-        // Log.d("SDKClient", "#### UNBIND ####")
-        // orderManager.unbind();
+        Log.d("SDKClient", "#### UNBIND ####")
+        orderManager.unbind();
 
 
         // Log.d("SDKClient", "#### VOLTANDO PARA O FLUTTER ####")
