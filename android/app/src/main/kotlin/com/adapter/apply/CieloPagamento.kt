@@ -23,14 +23,16 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
     val ordersResponse = emptyMap<Any, Any>()
 
     override fun pay(arg: CieloChannel.PayParam?, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
-      
+        
         val orderManager = OrderManager(Credentials(arg?.cieloCredentials!!.clientID, arg.cieloCredentials.accessToken), ctx)
 
 
         val serviceBindListener: ServiceBindListener = object : ServiceBindListener {
 
             override fun onServiceBoundError(throwable: Throwable) {
-                Log.d("SDKClient #### ",throwable.message.toString())
+                Log.d("SDKClient #### ", "ERROR INTERNO")
+                unbindCielo(orderManager)
+                returnToFlutter(result)
             }
 
             @RequiresApi(Build.VERSION_CODES.N)
@@ -42,11 +44,13 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 // orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager))
                 // SE PRODUCAO
                 orderManager.checkoutOrder(order.id, makePayment(result, orderManager))
-                unbindCielo(orderManager)
+
             }
 
             override fun onServiceUnbound() {
                 Log.d("SDKClient", "#### onServiceUnbound ####")
+                unbindCielo(orderManager)
+                returnToFlutter(result)
             }
         }
 
