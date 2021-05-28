@@ -6,13 +6,13 @@ import 'package:t_truck_app/features/presentation/pages/camera/camera_image/came
 import 'package:t_truck_app/features/presentation/pages/camera/camera_proof/camera_proof_page.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_finish/devolution_finish.dart';
 import 'package:t_truck_app/features/presentation/pages/devolution/devolution_page.dart';
-import 'package:t_truck_app/features/presentation/pages/login/login_page.dart';
 import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurrence_reason_page.dart';
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
 import 'package:t_truck_app/features/presentation/styles/global_style.dart';
 import 'package:t_truck_app/injection_container.dart';
+import 'package:t_truck_app/test_cielo.dart';
 
 void main() async {
   await dont_env.load(fileName: '.env');
@@ -39,7 +39,7 @@ void main() async {
     getPages: [
       GetPage(
         name: '/',
-        page: () => LoginPage(),
+        page: () => TestCielo(),
         bindings: [
           LoginBiding(),
         ],
