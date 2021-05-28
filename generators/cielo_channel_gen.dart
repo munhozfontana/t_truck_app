@@ -78,6 +78,7 @@ class PayResponse {
   late int updatedAt;
   int? releaseDate;
   int? type;
+  late String? error;
 }
 
 // -------------

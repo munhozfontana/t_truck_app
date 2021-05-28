@@ -72,6 +72,10 @@ public class CieloChannel {
     public Long getType() { return type; }
     public void setType(Long setterArg) { this.type = setterArg; }
 
+    private String error;
+    public String getError() { return error; }
+    public void setError(String setterArg) { this.error = setterArg; }
+
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("id", id);
@@ -88,6 +92,7 @@ public class CieloChannel {
       toMapResult.put("updatedAt", updatedAt);
       toMapResult.put("releaseDate", releaseDate);
       toMapResult.put("type", type);
+      toMapResult.put("error", error);
       return toMapResult;
     }
     static PayResponse fromMap(Map<String, Object> map) {
@@ -120,6 +125,8 @@ public class CieloChannel {
       fromMapResult.releaseDate = (releaseDate == null) ? null : ((releaseDate instanceof Integer) ? (Integer)releaseDate : (Long)releaseDate);
       Object type = map.get("type");
       fromMapResult.type = (type == null) ? null : ((type instanceof Integer) ? (Integer)type : (Long)type);
+      Object error = map.get("error");
+      fromMapResult.error = (String)error;
       return fromMapResult;
     }
   }

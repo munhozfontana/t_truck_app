@@ -22,6 +22,7 @@ class PayResponse {
   int? updatedAt;
   int? releaseDate;
   int? type;
+  String? error;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
@@ -39,6 +40,7 @@ class PayResponse {
     pigeonMap['updatedAt'] = updatedAt;
     pigeonMap['releaseDate'] = releaseDate;
     pigeonMap['type'] = type;
+    pigeonMap['error'] = error;
     return pigeonMap;
   }
 
@@ -58,7 +60,8 @@ class PayResponse {
       ..createdAt = pigeonMap['createdAt'] as int?
       ..updatedAt = pigeonMap['updatedAt'] as int?
       ..releaseDate = pigeonMap['releaseDate'] as int?
-      ..type = pigeonMap['type'] as int?;
+      ..type = pigeonMap['type'] as int?
+      ..error = pigeonMap['error'] as String?;
   }
 }
 

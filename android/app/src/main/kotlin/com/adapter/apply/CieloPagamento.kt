@@ -38,15 +38,15 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                 var paymentCode = PaymentCode.values().find { it.code == arg.paymentCode }
 
                 // SE TESTE LOCAL
-                // orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager, result))
-
+                
                 Log.d("#######################", order.id)
                 Log.d("Parametros CIELO id: ", order.id)
                 Log.d("Parametros CIELO valorTotal: ", arg.valorTotal.toString())
                 Log.d("Parametros CIELO items size: ", order.items.size.toString())
                 Log.d("####################### ", order.id)
                 // SE PRODUCAO
-                orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
+                orderManager.checkoutOrder(order.id, arg.valorTotal, makePayment(orderManager, result))
+                // orderManager.checkoutOrder(order.id, makePayment(orderManager, result))
                 
 
             }
@@ -81,68 +81,80 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
             override fun onPayment(@NotNull order: Order) {
                 Log.d("SDKClient", "Um pagamento foi realizado. #############")
                 Log.d("SDKClient",  order.status.toString())
-               
+                orderManager.unbind();
                 makeResponse(orderManager,order, result)
             }
 
             override fun onCancel() {
                 Log.d("SDKClient", "A operação foi cancelada.")
-                // result!!.success(CieloChannel.PayResponse())
+                orderManager.unbind();
+                result!!.success(CieloChannel.PayResponse())
             }
 
             override fun onError(@NotNull error: PaymentError) {
                 Log.d("SDKClient", "Houve um erro no pagamento.")
-                // result!!.success(CieloChannel.PayResponse())
+                orderManager.unbind();
+                result!!.success(CieloChannel.PayResponse())
             }
         }
     }
 
 
     private fun makeResponse(orderManager: OrderManager,order: Order, result: CieloChannel.Result<CieloChannel.PayResponse>?) {
-        val res = CieloChannel.PayResponse()
-        res.id = order.id
-        res.price = order.price
-        res.paidAmount = order.paidAmount
-        res.pendingAmount = order.pendingAmount
-        res.reference = order.reference
-        res.number = order.number
-        res.notes = order.notes
-        res.createdAt = order.createdAt.time
-        res.updatedAt = order.updatedAt.time
-        res.releaseDate = order.releaseDate?.time
-        res.status = order.status.ordinal.toLong()
-        res.type = order.type?.ordinal?.toLong()
-        res.items = order.items.map {
-            mapOf(
-                    "sku" to it.sku,
-                    "name" to it.name,
-                    "unitPrice" to it.unitPrice,
-                    "quantity" to it.quantity,
-                    "unitOfMeasure" to it.unitOfMeasure
-            )
-        }.toList()
-        res.payments = order.payments.map {
-            mapOf(
-                    "externalId" to it.externalId,
-                    "description" to it.description,
-                    "cieloCode" to it.cieloCode,
-                    "authCode" to it.authCode,
-                    "brand" to it.brand,
-                    "mask" to it.mask,
-                    "terminal" to it.terminal,
-                    "amount" to it.amount,
-                    "primaryCode" to it.primaryCode,
-                    "secondaryCode" to it.secondaryCode,
-                    "applicationName" to it.applicationName,
-                    "requestDate" to it.requestDate,
-                    "merchantCode" to it.merchantCode,
-                    "discountedAmount" to it.discountedAmount,
-                    "installments" to it.installments,
-                    "paymentFields" to it.paymentFields,
-                    "accessKey" to it.accessKey
-            )
-        }.toList()
-        // order.close();
-        result!!.success(res)
+        try {
+
+            Log.d("SDKClient", " ----------------- GERANDO ERRROR ----------------- ")
+            val res = CieloChannel.PayResponse()
+            res.id = order.id
+            res.price = order.price
+            res.paidAmount = order.paidAmount
+            res.pendingAmount = order.pendingAmount
+            res.reference = order.reference
+            res.number = order.number
+            res.notes = order.notes
+            res.createdAt = order.createdAt.time
+            res.updatedAt = order.updatedAt.time
+            res.releaseDate = order.releaseDate?.time
+            res.status = order.status.ordinal.toLong()
+            res.type = order.type?.ordinal?.toLong()
+            res.items = order.items.map {
+                mapOf(
+                        "sku" to it.sku,
+                        "name" to it.name,
+                        "unitPrice" to it.unitPrice,
+                        "quantity" to it.quantity,
+                        "unitOfMeasure" to it.unitOfMeasure
+                )
+            }.toList()
+            res.payments = order.payments.map {
+                mapOf(
+                        "externalId" to it.externalId,
+                        "description" to it.description,
+                        "cieloCode" to it.cieloCode,
+                        "authCode" to it.authCode,
+                        "brand" to it.brand,
+                        "mask" to it.mask,
+                        "terminal" to it.terminal,
+                        "amount" to it.amount,
+                        "primaryCode" to it.primaryCode,
+                        "secondaryCode" to it.secondaryCode,
+                        "applicationName" to it.applicationName,
+                        "requestDate" to it.requestDate,
+                        "merchantCode" to it.merchantCode,
+                        "discountedAmount" to it.discountedAmount,
+                        "installments" to it.installments,
+                        "paymentFields" to it.paymentFields,
+                        "accessKey" to it.accessKey
+                )
+            }.toList()
+            result!!.success(res)
+        } catch (e: Exception ) {
+            Log.d("SDKClient", " ----------------- ERROR FINAL ----------------- ")
+
+            val res = CieloChannel.PayResponse()
+            res.error = e.message
+            result!!.success(res);
+        }
+       
     }
 }
