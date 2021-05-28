@@ -54,7 +54,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
                             try {
                                 Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
                                 order.close()
-                                ordersResponse.plus(Pair("order" , order))
+                                ordersResponse.plus(Pair("order" , order.id))
                             } catch (e: Exception) {
                             }
 
