@@ -64,6 +64,7 @@ class CieloPagamento(private val ctx: Context) : CieloChannel.CieloRun {
 
             override fun onPayment(@NotNull order: Order) {
                 Log.d("SDKClient", "#### Um pagamento foi realizado. ####")
+                order.close()
                 ordersResponse.plus(Pair("order" , order))               
             }
 
