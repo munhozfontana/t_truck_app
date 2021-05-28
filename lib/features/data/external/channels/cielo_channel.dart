@@ -8,83 +8,39 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 import 'package:flutter/services.dart';
 
 class PayResponse {
-  String? id;
-  int? price;
-  int? paidAmount;
-  int? pendingAmount;
-  String? reference;
-  String? number;
-  String? notes;
-  int? status;
-  List<Object?>? items;
-  List<Object?>? payments;
-  int? createdAt;
-  int? updatedAt;
-  int? releaseDate;
-  int? type;
-  String? error;
+  Map<Object?, Object?>? orders;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
-    pigeonMap['id'] = id;
-    pigeonMap['price'] = price;
-    pigeonMap['paidAmount'] = paidAmount;
-    pigeonMap['pendingAmount'] = pendingAmount;
-    pigeonMap['reference'] = reference;
-    pigeonMap['number'] = number;
-    pigeonMap['notes'] = notes;
-    pigeonMap['status'] = status;
-    pigeonMap['items'] = items;
-    pigeonMap['payments'] = payments;
-    pigeonMap['createdAt'] = createdAt;
-    pigeonMap['updatedAt'] = updatedAt;
-    pigeonMap['releaseDate'] = releaseDate;
-    pigeonMap['type'] = type;
-    pigeonMap['error'] = error;
+    pigeonMap['orders'] = orders;
     return pigeonMap;
   }
 
   static PayResponse decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return PayResponse()
-      ..id = pigeonMap['id'] as String?
-      ..price = pigeonMap['price'] as int?
-      ..paidAmount = pigeonMap['paidAmount'] as int?
-      ..pendingAmount = pigeonMap['pendingAmount'] as int?
-      ..reference = pigeonMap['reference'] as String?
-      ..number = pigeonMap['number'] as String?
-      ..notes = pigeonMap['notes'] as String?
-      ..status = pigeonMap['status'] as int?
-      ..items = pigeonMap['items'] as List<Object?>?
-      ..payments = pigeonMap['payments'] as List<Object?>?
-      ..createdAt = pigeonMap['createdAt'] as int?
-      ..updatedAt = pigeonMap['updatedAt'] as int?
-      ..releaseDate = pigeonMap['releaseDate'] as int?
-      ..type = pigeonMap['type'] as int?
-      ..error = pigeonMap['error'] as String?;
+      ..orders = pigeonMap['orders'] as Map<Object?, Object?>?;
   }
 }
 
 class PayParam {
   CieloCredentials? cieloCredentials;
-  int? valorTotal;
   String? reference;
-  List<Object?>? items;
-  String? ec;
-  int? installments;
-  String? email;
-  int? paymentCode;
+  String? sku;
+  String? description;
+  String? unit_of_measure;
+  int? unit_price;
+  int? quantity;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['cieloCredentials'] = cieloCredentials == null ? null : cieloCredentials!.encode();
-    pigeonMap['valorTotal'] = valorTotal;
     pigeonMap['reference'] = reference;
-    pigeonMap['items'] = items;
-    pigeonMap['ec'] = ec;
-    pigeonMap['installments'] = installments;
-    pigeonMap['email'] = email;
-    pigeonMap['paymentCode'] = paymentCode;
+    pigeonMap['sku'] = sku;
+    pigeonMap['description'] = description;
+    pigeonMap['unit_of_measure'] = unit_of_measure;
+    pigeonMap['unit_price'] = unit_price;
+    pigeonMap['quantity'] = quantity;
     return pigeonMap;
   }
 
@@ -94,13 +50,12 @@ class PayParam {
       ..cieloCredentials = pigeonMap['cieloCredentials'] != null
           ? CieloCredentials.decode(pigeonMap['cieloCredentials']!)
           : null
-      ..valorTotal = pigeonMap['valorTotal'] as int?
       ..reference = pigeonMap['reference'] as String?
-      ..items = pigeonMap['items'] as List<Object?>?
-      ..ec = pigeonMap['ec'] as String?
-      ..installments = pigeonMap['installments'] as int?
-      ..email = pigeonMap['email'] as String?
-      ..paymentCode = pigeonMap['paymentCode'] as int?;
+      ..sku = pigeonMap['sku'] as String?
+      ..description = pigeonMap['description'] as String?
+      ..unit_of_measure = pigeonMap['unit_of_measure'] as String?
+      ..unit_price = pigeonMap['unit_price'] as int?
+      ..quantity = pigeonMap['quantity'] as int?;
   }
 }
 

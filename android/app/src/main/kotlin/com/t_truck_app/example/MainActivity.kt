@@ -10,6 +10,7 @@ class MainActivity: FlutterActivity() {
 
         override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        
         CieloChannel.CieloRun.setup(flutterEngine.dartExecutor.binaryMessenger, CieloPagamento(this));
     }
     

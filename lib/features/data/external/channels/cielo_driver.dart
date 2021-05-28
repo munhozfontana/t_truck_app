@@ -1,22 +1,41 @@
-import 'package:get/get.dart';
-import 'package:t_truck_app/core/error/driver_exception.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
-import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 
 class CieloDriver {
   Future<PayResponse> payCielo(PayParam payParam) async {
-    try {
-      var pay = await CieloRun().pay(payParam);
+    var pay = await CieloRun().pay(payParam);
 
-      AppDialog.error(titulo: 'ERROR APP', menssagem: pay.error);
+    print(pay);
 
-      if (GetUtils.isNull(pay.id)) {
-        throw DriverException();
-      }
+    // showDialog(
+    //   context: Get.context!,
+    //   builder76: (BuildContext context) {
+    //     // return object of type Dialog
+    //     return AlertDialog(
+    //       title: new Text("ERROR"),
+    //       content: new Text(pay.error == null ? "SEM ERROR" : pay.error!),
+    //       actions: <Widget>[
+    //         // usually buttons at the bottom of the dialog
+    //         new FlatButton(
+    //           child: new Text("Close"),
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
 
-      return pay;
-    } catch (e) {
-      throw DriverException();
-    }
+    // if (GetUtils.isNull(pay.id)) {
+    //   throw DriverException();
+    // }
+
+    return pay;
+
+    // try {
+
+    // } catch (e) {
+    //   throw DriverException();
+    // }
   }
 }

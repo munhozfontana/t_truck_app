@@ -16,117 +16,19 @@ public class CieloChannel {
 
   /** Generated class from Pigeon that represents data sent in messages. */
   public static class PayResponse {
-    private String id;
-    public String getId() { return id; }
-    public void setId(String setterArg) { this.id = setterArg; }
-
-    private Long price;
-    public Long getPrice() { return price; }
-    public void setPrice(Long setterArg) { this.price = setterArg; }
-
-    private Long paidAmount;
-    public Long getPaidAmount() { return paidAmount; }
-    public void setPaidAmount(Long setterArg) { this.paidAmount = setterArg; }
-
-    private Long pendingAmount;
-    public Long getPendingAmount() { return pendingAmount; }
-    public void setPendingAmount(Long setterArg) { this.pendingAmount = setterArg; }
-
-    private String reference;
-    public String getReference() { return reference; }
-    public void setReference(String setterArg) { this.reference = setterArg; }
-
-    private String number;
-    public String getNumber() { return number; }
-    public void setNumber(String setterArg) { this.number = setterArg; }
-
-    private String notes;
-    public String getNotes() { return notes; }
-    public void setNotes(String setterArg) { this.notes = setterArg; }
-
-    private Long status;
-    public Long getStatus() { return status; }
-    public void setStatus(Long setterArg) { this.status = setterArg; }
-
-    private List<Object> items;
-    public List<Object> getItems() { return items; }
-    public void setItems(List<Object> setterArg) { this.items = setterArg; }
-
-    private List<Object> payments;
-    public List<Object> getPayments() { return payments; }
-    public void setPayments(List<Object> setterArg) { this.payments = setterArg; }
-
-    private Long createdAt;
-    public Long getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Long setterArg) { this.createdAt = setterArg; }
-
-    private Long updatedAt;
-    public Long getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Long setterArg) { this.updatedAt = setterArg; }
-
-    private Long releaseDate;
-    public Long getReleaseDate() { return releaseDate; }
-    public void setReleaseDate(Long setterArg) { this.releaseDate = setterArg; }
-
-    private Long type;
-    public Long getType() { return type; }
-    public void setType(Long setterArg) { this.type = setterArg; }
-
-    private String error;
-    public String getError() { return error; }
-    public void setError(String setterArg) { this.error = setterArg; }
+    private Map<Object, Object> orders;
+    public Map<Object, Object> getOrders() { return orders; }
+    public void setOrders(Map<Object, Object> setterArg) { this.orders = setterArg; }
 
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
-      toMapResult.put("id", id);
-      toMapResult.put("price", price);
-      toMapResult.put("paidAmount", paidAmount);
-      toMapResult.put("pendingAmount", pendingAmount);
-      toMapResult.put("reference", reference);
-      toMapResult.put("number", number);
-      toMapResult.put("notes", notes);
-      toMapResult.put("status", status);
-      toMapResult.put("items", items);
-      toMapResult.put("payments", payments);
-      toMapResult.put("createdAt", createdAt);
-      toMapResult.put("updatedAt", updatedAt);
-      toMapResult.put("releaseDate", releaseDate);
-      toMapResult.put("type", type);
-      toMapResult.put("error", error);
+      toMapResult.put("orders", orders);
       return toMapResult;
     }
     static PayResponse fromMap(Map<String, Object> map) {
       PayResponse fromMapResult = new PayResponse();
-      Object id = map.get("id");
-      fromMapResult.id = (String)id;
-      Object price = map.get("price");
-      fromMapResult.price = (price == null) ? null : ((price instanceof Integer) ? (Integer)price : (Long)price);
-      Object paidAmount = map.get("paidAmount");
-      fromMapResult.paidAmount = (paidAmount == null) ? null : ((paidAmount instanceof Integer) ? (Integer)paidAmount : (Long)paidAmount);
-      Object pendingAmount = map.get("pendingAmount");
-      fromMapResult.pendingAmount = (pendingAmount == null) ? null : ((pendingAmount instanceof Integer) ? (Integer)pendingAmount : (Long)pendingAmount);
-      Object reference = map.get("reference");
-      fromMapResult.reference = (String)reference;
-      Object number = map.get("number");
-      fromMapResult.number = (String)number;
-      Object notes = map.get("notes");
-      fromMapResult.notes = (String)notes;
-      Object status = map.get("status");
-      fromMapResult.status = (status == null) ? null : ((status instanceof Integer) ? (Integer)status : (Long)status);
-      Object items = map.get("items");
-      fromMapResult.items = (List<Object>)items;
-      Object payments = map.get("payments");
-      fromMapResult.payments = (List<Object>)payments;
-      Object createdAt = map.get("createdAt");
-      fromMapResult.createdAt = (createdAt == null) ? null : ((createdAt instanceof Integer) ? (Integer)createdAt : (Long)createdAt);
-      Object updatedAt = map.get("updatedAt");
-      fromMapResult.updatedAt = (updatedAt == null) ? null : ((updatedAt instanceof Integer) ? (Integer)updatedAt : (Long)updatedAt);
-      Object releaseDate = map.get("releaseDate");
-      fromMapResult.releaseDate = (releaseDate == null) ? null : ((releaseDate instanceof Integer) ? (Integer)releaseDate : (Long)releaseDate);
-      Object type = map.get("type");
-      fromMapResult.type = (type == null) ? null : ((type instanceof Integer) ? (Integer)type : (Long)type);
-      Object error = map.get("error");
-      fromMapResult.error = (String)error;
+      Object orders = map.get("orders");
+      fromMapResult.orders = (Map<Object, Object>)orders;
       return fromMapResult;
     }
   }
@@ -137,64 +39,57 @@ public class CieloChannel {
     public CieloCredentials getCieloCredentials() { return cieloCredentials; }
     public void setCieloCredentials(CieloCredentials setterArg) { this.cieloCredentials = setterArg; }
 
-    private Long valorTotal;
-    public Long getValorTotal() { return valorTotal; }
-    public void setValorTotal(Long setterArg) { this.valorTotal = setterArg; }
-
     private String reference;
     public String getReference() { return reference; }
     public void setReference(String setterArg) { this.reference = setterArg; }
 
-    private List<Object> items;
-    public List<Object> getItems() { return items; }
-    public void setItems(List<Object> setterArg) { this.items = setterArg; }
+    private String sku;
+    public String getSku() { return sku; }
+    public void setSku(String setterArg) { this.sku = setterArg; }
 
-    private String ec;
-    public String getEc() { return ec; }
-    public void setEc(String setterArg) { this.ec = setterArg; }
+    private String description;
+    public String getDescription() { return description; }
+    public void setDescription(String setterArg) { this.description = setterArg; }
 
-    private Long installments;
-    public Long getInstallments() { return installments; }
-    public void setInstallments(Long setterArg) { this.installments = setterArg; }
+    private String unit_of_measure;
+    public String getUnit_of_measure() { return unit_of_measure; }
+    public void setUnit_of_measure(String setterArg) { this.unit_of_measure = setterArg; }
 
-    private String email;
-    public String getEmail() { return email; }
-    public void setEmail(String setterArg) { this.email = setterArg; }
+    private Long unit_price;
+    public Long getUnit_price() { return unit_price; }
+    public void setUnit_price(Long setterArg) { this.unit_price = setterArg; }
 
-    private Long paymentCode;
-    public Long getPaymentCode() { return paymentCode; }
-    public void setPaymentCode(Long setterArg) { this.paymentCode = setterArg; }
+    private Long quantity;
+    public Long getQuantity() { return quantity; }
+    public void setQuantity(Long setterArg) { this.quantity = setterArg; }
 
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("cieloCredentials", cieloCredentials.toMap());
-      toMapResult.put("valorTotal", valorTotal);
       toMapResult.put("reference", reference);
-      toMapResult.put("items", items);
-      toMapResult.put("ec", ec);
-      toMapResult.put("installments", installments);
-      toMapResult.put("email", email);
-      toMapResult.put("paymentCode", paymentCode);
+      toMapResult.put("sku", sku);
+      toMapResult.put("description", description);
+      toMapResult.put("unit_of_measure", unit_of_measure);
+      toMapResult.put("unit_price", unit_price);
+      toMapResult.put("quantity", quantity);
       return toMapResult;
     }
     static PayParam fromMap(Map<String, Object> map) {
       PayParam fromMapResult = new PayParam();
       Object cieloCredentials = map.get("cieloCredentials");
       fromMapResult.cieloCredentials = CieloCredentials.fromMap((Map)cieloCredentials);
-      Object valorTotal = map.get("valorTotal");
-      fromMapResult.valorTotal = (valorTotal == null) ? null : ((valorTotal instanceof Integer) ? (Integer)valorTotal : (Long)valorTotal);
       Object reference = map.get("reference");
       fromMapResult.reference = (String)reference;
-      Object items = map.get("items");
-      fromMapResult.items = (List<Object>)items;
-      Object ec = map.get("ec");
-      fromMapResult.ec = (String)ec;
-      Object installments = map.get("installments");
-      fromMapResult.installments = (installments == null) ? null : ((installments instanceof Integer) ? (Integer)installments : (Long)installments);
-      Object email = map.get("email");
-      fromMapResult.email = (String)email;
-      Object paymentCode = map.get("paymentCode");
-      fromMapResult.paymentCode = (paymentCode == null) ? null : ((paymentCode instanceof Integer) ? (Integer)paymentCode : (Long)paymentCode);
+      Object sku = map.get("sku");
+      fromMapResult.sku = (String)sku;
+      Object description = map.get("description");
+      fromMapResult.description = (String)description;
+      Object unit_of_measure = map.get("unit_of_measure");
+      fromMapResult.unit_of_measure = (String)unit_of_measure;
+      Object unit_price = map.get("unit_price");
+      fromMapResult.unit_price = (unit_price == null) ? null : ((unit_price instanceof Integer) ? (Integer)unit_price : (Long)unit_price);
+      Object quantity = map.get("quantity");
+      fromMapResult.quantity = (quantity == null) ? null : ((quantity instanceof Integer) ? (Integer)quantity : (Long)quantity);
       return fromMapResult;
     }
   }
