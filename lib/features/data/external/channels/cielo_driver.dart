@@ -11,7 +11,7 @@ class CieloDriver {
       context: Get.context!,
       builder: (BuildContext context) {
         // return object of type Dialog
-        AlertDialog(
+        return AlertDialog(
           title: new Text("ERROR"),
           content: new Text(pay.error!),
           actions: <Widget>[
