@@ -81,7 +81,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 };
 
                 orderManager.placeOrder(order);
-                orderManager.checkoutOrder(order.getId(), paymentListener);
+                orderManager.checkoutOrder(order.getId(), 3, paymentListener);
                
             }
 
