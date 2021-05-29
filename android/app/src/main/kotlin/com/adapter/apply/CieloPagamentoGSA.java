@@ -56,7 +56,9 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
 
                     @Override
                     public void onPayment(@NotNull Order order) {
+                        new DebugLog().remoteLog("Um pagamento foi realizado.");
                         Log.d("SDKClient", "Um pagamento foi realizado.");
+
                     }
 
                     @Override public void onCancel() {
@@ -69,7 +71,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 };
 
                 orderManager.placeOrder(order);
-                orderManager.checkoutOrder(order.getId(), paymentListener);
+                orderManager.checkoutOrder(order.getId(), 1, paymentListener);
                 orderManager.unbind();
             }
 

@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
@@ -9,7 +11,7 @@ class TestCielo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           var credentials = CieloCredentials()
             ..accessToken = 'asdasd'
             ..clientID = 'asdasdasd';
@@ -22,7 +24,7 @@ class TestCielo extends StatelessWidget {
             ..unit_of_measure = 'EACH'
             ..quantity = 1
             ..unit_price = 1;
-          CieloDriver().payCielo(arg);
+          await CieloDriver().payCielo(arg);
         },
       ),
     );
