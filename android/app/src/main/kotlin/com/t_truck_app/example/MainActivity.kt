@@ -16,7 +16,7 @@ class MainActivity: FlutterActivity() {
 
             super.configureFlutterEngine(flutterEngine)
             CieloChannel.CieloRun.setup(flutterEngine.dartExecutor.binaryMessenger, CieloPagamentoGSA(this));
-        } catch (e: Exception){
+        } catch (e: Throwable){
             e.message?.let { DebugLog().remoteLog(it) }
         }
 
