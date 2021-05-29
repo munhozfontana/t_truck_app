@@ -35,7 +35,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
         ServiceBindListener serviceBindListener = new ServiceBindListener() {
 
             @Override public void onServiceBoundError(Throwable throwable) {
-                //Ocorreu um erro ao tentar se conectar com o serviço OrderManager
+                orderManager.unbind();
             }
 
             @Override
@@ -75,12 +75,12 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
 
                 orderManager.placeOrder(order);
                 orderManager.checkoutOrder(order.getId(), 1, paymentListener);
-                orderManager.unbind();
+               
             }
 
             @Override
             public void onServiceUnbound() {
-                // O serviço foi desvinculado
+                orderManager.unbind();
             }
         };
 
