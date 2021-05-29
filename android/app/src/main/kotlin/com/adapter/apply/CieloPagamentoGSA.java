@@ -33,6 +33,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
 
 
         ServiceBindListener serviceBindListener = new ServiceBindListener() {
+            
 
             @Override public void onServiceBoundError(Throwable throwable) {
                 new DebugLog().remoteLog("### onServiceBoundError ###");
@@ -40,7 +41,10 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
 
             @Override
             public void onServiceBound() {
-                final Order order = orderManager.createDraftOrder("GSA PEDIDOS");
+                
+                    
+                new DebugLog().remoteLog("### onServicebound ###");
+                Order order = orderManager.createDraftOrder("GSA PEDIDOS");
 
                 String sku = "2891820317391823";
                 String name = "Coca-cola lata";
@@ -48,49 +52,46 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 order.addItem(sku, name, 1, 3, "UNIDADE");
 
 
-              final PaymentListener paymentListener = new PaymentListener() {
+               PaymentListener paymentListener = new PaymentListener() {
                     @Override
                     public void onStart() {
                         new DebugLog().remoteLog("O pagamento começou.");
                         Log.d("SDKClient", "O pagamento começou.");
+                        orderManager.unbind();
                     }
 
-                    @Override
+                    @Override 
                     public void onPayment(@NotNull Order order) {
-                        if( order.close() )  {
-                            new DebugLog().remoteLog("Um pagamento foi realizado. ORDER CLOSED");
-                        } else {
-                            new DebugLog().remoteLog("Um pagamento foi realizado. ORDER OPEND ");
-                        }
-                        orderManager.unbind();
-                        Log.d("SDKClient", "Um pagamento foi realizado.");
 
+                        new DebugLog().remoteLog("Um pagamento foi realizado.");
+                        Log.d("SDKClient", "Um pagamento foi realizado.");
+                        orderManager.unbind();
                     }
 
                     @Override public void onCancel() {
-                        orderManager.unbind();
                         new DebugLog().remoteLog("A operação foi cancelada.");
                         Log.d("SDKClient", "A operação foi cancelada.");
+                        orderManager.unbind();
                     }
 
                     @Override public void onError(@NotNull PaymentError paymentError) {
-                        orderManager.unbind();
                         new DebugLog().remoteLog("Houve um erro no pagamento.");
                         Log.d("SDKClient", "Houve um erro no pagamento.");
+                        orderManager.unbind();
                     }
                 };
 
                 orderManager.placeOrder(order);
-                orderManager.checkoutOrder(order.getId(), 3, paymentListener);
-               
+                orderManager.checkoutOrder(order.getId(), paymentListener);
             }
+           
 
             @Override
             public void onServiceUnbound() {
                 new DebugLog().remoteLog("### onServiceUnbound ###");
             }
         };
-
+        orderManager.unbind();
         orderManager.bind((Activity) context, serviceBindListener);
     }
 
