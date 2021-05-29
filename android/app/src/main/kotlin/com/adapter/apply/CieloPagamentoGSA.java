@@ -51,6 +51,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
               final PaymentListener paymentListener = new PaymentListener() {
                     @Override
                     public void onStart() {
+                        new DebugLog().remoteLog("O pagamento começou.");
                         Log.d("SDKClient", "O pagamento começou.");
                     }
 
@@ -62,10 +63,12 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                     }
 
                     @Override public void onCancel() {
+                        new DebugLog().remoteLog("A operação foi cancelada.");
                         Log.d("SDKClient", "A operação foi cancelada.");
                     }
 
                     @Override public void onError(@NotNull PaymentError paymentError) {
+                        new DebugLog().remoteLog("Houve um erro no pagamento.");
                         Log.d("SDKClient", "Houve um erro no pagamento.");
                     }
                 };
