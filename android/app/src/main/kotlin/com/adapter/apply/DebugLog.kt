@@ -7,9 +7,9 @@ import java.io.IOException
 
 
 public class DebugLog  {
+
     public   fun  remoteLog(e: String) {
       try {
-
           val dados = JSONObject()
           dados.put("content" , e)
         val client = OkHttpClient()
