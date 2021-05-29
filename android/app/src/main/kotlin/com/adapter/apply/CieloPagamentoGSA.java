@@ -35,7 +35,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
         ServiceBindListener serviceBindListener = new ServiceBindListener() {
 
             @Override public void onServiceBoundError(Throwable throwable) {
-                orderManager.unbind();
+                new DebugLog().remoteLog("### onServiceBoundError ###");
             }
 
             @Override
@@ -57,30 +57,37 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
 
                     @Override
                     public void onPayment(@NotNull Order order) {
-                        new DebugLog().remoteLog("Um pagamento foi realizado.");
+                        if( order.close() )  {
+                            new DebugLog().remoteLog("Um pagamento foi realizado. ORDER CLOSED");
+                        } else {
+                            new DebugLog().remoteLog("Um pagamento foi realizado. ORDER OPEND ");
+                        }
+                        orderManager.unbind();
                         Log.d("SDKClient", "Um pagamento foi realizado.");
 
                     }
 
                     @Override public void onCancel() {
+                        orderManager.unbind();
                         new DebugLog().remoteLog("A operação foi cancelada.");
                         Log.d("SDKClient", "A operação foi cancelada.");
                     }
 
                     @Override public void onError(@NotNull PaymentError paymentError) {
+                        orderManager.unbind();
                         new DebugLog().remoteLog("Houve um erro no pagamento.");
                         Log.d("SDKClient", "Houve um erro no pagamento.");
                     }
                 };
 
                 orderManager.placeOrder(order);
-                orderManager.checkoutOrder(order.getId(), paymentListener);
+                orderManager.checkoutOrder(order.getId(),1, paymentListener);
                
             }
 
             @Override
             public void onServiceUnbound() {
-                orderManager.unbind();
+                new DebugLog().remoteLog("### onServiceUnbound ###");
             }
         };
 
