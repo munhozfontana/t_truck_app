@@ -64,14 +64,14 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                     @Override 
                     public void onPayment(@NotNull  final Order order) {
 
-                        final Payment payment: order.getPayments();
-
                         new Thread(new Runnable() {
 
                             @Override
                             public void run() {
-                                new DebugLog().remoteLog("O pagamento começou.".concat(payment.toString()));
+                                new DebugLog().remoteLog("Um pagamento foi realizado.".concat(order.toString()));
                                 Log.d("SDKClient", "Um pagamento foi realizado.");
+
+                                order.close();
 
                             }
                         }).start();
@@ -79,13 +79,13 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                     }
 
                     @Override public void onCancel() {
-
+                        new DebugLog().remoteLog("Erro no pagamento");
                         Log.d("SDKClient", "A operação foi cancelada.");
 
                     }
 
                     @Override public void onError(@NotNull PaymentError paymentError) {
-
+                       new DebugLog().remoteLog("Erro no pagamento");
                         Log.d("SDKClient", "Houve um erro no pagamento.");
 
                     }
