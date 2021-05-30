@@ -16,9 +16,9 @@ public class CieloChannel {
 
   /** Generated class from Pigeon that represents data sent in messages. */
   public static class PayResponse {
-    private Map<Object, Object> orders;
-    public Map<Object, Object> getOrders() { return orders; }
-    public void setOrders(Map<Object, Object> setterArg) { this.orders = setterArg; }
+    private String id;
+    public String getId() { return id; }
+    public void setId(String setterArg) { this.id = setterArg; }
 
     private String error;
     public String getError() { return error; }
@@ -26,14 +26,14 @@ public class CieloChannel {
 
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
-      toMapResult.put("orders", orders);
+      toMapResult.put("id", id);
       toMapResult.put("error", error);
       return toMapResult;
     }
     static PayResponse fromMap(Map<String, Object> map) {
       PayResponse fromMapResult = new PayResponse();
-      Object orders = map.get("orders");
-      fromMapResult.orders = (Map<Object, Object>)orders;
+      Object id = map.get("id");
+      fromMapResult.id = (String)id;
       Object error = map.get("error");
       fromMapResult.error = (String)error;
       return fromMapResult;

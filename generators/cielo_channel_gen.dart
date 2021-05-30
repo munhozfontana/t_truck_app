@@ -33,7 +33,7 @@ class PayParam {
 }
 
 class PayResponse {
-  Map<String, dynamic>? orders;
+  String? id;
   String? error;
 }
 

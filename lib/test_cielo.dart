@@ -2,8 +2,10 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:t_truck_app/core/utils/payment_utils.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
+import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 
 class TestCielo extends StatelessWidget {
   @override
@@ -11,10 +13,8 @@ class TestCielo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var credentials = CieloCredentials()
-            ..accessToken = 'asdasd'
-            ..clientID = 'asdasdasd';
+        onPressed: () {
+          var credentials = PaymentUtils.buildCieloCredentials();
 
           var arg = PayParam()
             ..reference = 'GSA'
@@ -24,7 +24,9 @@ class TestCielo extends StatelessWidget {
             ..unit_of_measure = 'EACH'
             ..quantity = 1
             ..unit_price = 1;
-          await CieloDriver().payCielo(arg);
+          CieloDriver().payCielo(arg).then((value) =>
+              AppDialog.show(titulo: 'Android', menssagem: value.id));
+          ;
         },
       ),
     );

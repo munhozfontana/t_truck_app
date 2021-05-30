@@ -14,7 +14,8 @@ public class DebugLog  {
           dados.put("content" , e)
         val client = OkHttpClient()
         val request: Request = Request.Builder()
-        .url("http://192.168.0.14:4000/api/debug")
+        // .url("http://192.168.0.14:4000/api/debug")
+        .url("http://10.0.0.102:4000/api/debug")
                 .post(RequestBody.create(
                         MediaType.parse("application/json; charset=utf-8"),
                         dados.toString()))

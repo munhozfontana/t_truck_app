@@ -8,12 +8,12 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 import 'package:flutter/services.dart';
 
 class PayResponse {
-  Map<Object?, Object?>? orders;
+  String? id;
   String? error;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
-    pigeonMap['orders'] = orders;
+    pigeonMap['id'] = id;
     pigeonMap['error'] = error;
     return pigeonMap;
   }
@@ -21,7 +21,7 @@ class PayResponse {
   static PayResponse decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return PayResponse()
-      ..orders = pigeonMap['orders'] as Map<Object?, Object?>?
+      ..id = pigeonMap['id'] as String?
       ..error = pigeonMap['error'] as String?;
   }
 }

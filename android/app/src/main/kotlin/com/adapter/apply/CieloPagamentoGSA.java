@@ -17,6 +17,9 @@ import com.adapter.CieloChannel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
     private  Context context;
 
@@ -29,7 +32,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
     public void pay(CieloChannel.PayParam arg, CieloChannel.Result<CieloChannel.PayResponse> result) {
 
         //Credenciais
-        Credentials credentials = new Credentials("8L24NGKvA1ZqIITT10GcV6Iln2vi5qaNuvyoVUwDMaqUfr8tq2", "tYVLDVObE71O49xiGfOoSz2fEwS61uTKUR3wvn0B8KSlMHcFpl");
+        Credentials credentials = new Credentials(arg.getCieloCredentials().getClientID(), arg.getCieloCredentials().getAccessToken());
         OrderManager orderManager = new OrderManager(credentials, context);
 
 
@@ -45,13 +48,9 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 
                     
                 new DebugLog().remoteLog("### onServicebound ###");
-               final Order order = orderManager.createDraftOrder("GSA PEDIDOS");
+               final Order order = orderManager.createDraftOrder(arg.getReference());
 
-                String sku = "2891820317391823";
-                String name = "Coca-cola lata";
-
-                order.addItem(sku, name, 1, 3, "UNIDADE");
-
+               order.addItem(arg.getSku(), arg.getDescription(), arg.getUnit_price(), arg.getQuantity().intValue(), arg.getUnit_of_measure());
 
              final  PaymentListener paymentListener = new PaymentListener() {
                     @Override
@@ -65,16 +64,23 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                     public void onPayment(@NotNull  final Order order) {
 
                         new Thread(new Runnable() {
-
                             @Override
                             public void run() {
                                 new DebugLog().remoteLog("Um pagamento foi realizado.".concat(order.toString()));
                                 Log.d("SDKClient", "Um pagamento foi realizado.");
-
                                 order.close();
-
                             }
                         }).start();
+
+
+                        try {
+                            CieloChannel.PayResponse buildSucess =  new CieloChannel.PayResponse();
+                            new DebugLog().remoteLog("Enviando.... ");
+                            buildSucess.setId(order.getId());
+                            result.success(buildSucess);
+                        } catch ( Exception e) {
+                            new DebugLog().remoteLog("Error ao montar a resposta: ".concat(e.getMessage()));
+                        }
 
                     }
 
@@ -92,7 +98,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 };
 
                 orderManager.placeOrder(order);
-                orderManager.checkoutOrder(order.getId(), paymentListener);
+                orderManager.checkoutOrder(order.getId(), 5, paymentListener);
                 orderManager.unbind();
             }
 
