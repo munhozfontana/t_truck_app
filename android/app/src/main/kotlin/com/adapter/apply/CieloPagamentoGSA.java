@@ -4,6 +4,7 @@ package com.adapter.apply;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
 import cielo.sdk.order.*;
+import cielo.sdk.order.payment.Payment;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
@@ -44,7 +45,7 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 
                     
                 new DebugLog().remoteLog("### onServicebound ###");
-                Order order = orderManager.createDraftOrder("GSA PEDIDOS");
+               final Order order = orderManager.createDraftOrder("GSA PEDIDOS");
 
                 String sku = "2891820317391823";
                 String name = "Coca-cola lata";
@@ -52,46 +53,58 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                 order.addItem(sku, name, 1, 3, "UNIDADE");
 
 
-               PaymentListener paymentListener = new PaymentListener() {
+             final  PaymentListener paymentListener = new PaymentListener() {
                     @Override
                     public void onStart() {
                         new DebugLog().remoteLog("O pagamento começou.");
                         Log.d("SDKClient", "O pagamento começou.");
-                        orderManager.unbind();
+
                     }
 
                     @Override 
-                    public void onPayment(@NotNull Order order) {
+                    public void onPayment(@NotNull  final Order order) {
 
-                        new DebugLog().remoteLog("Um pagamento foi realizado.");
-                        Log.d("SDKClient", "Um pagamento foi realizado.");
-                        orderManager.unbind();
+                        final Payment payment: order.getPayments();
+
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                new DebugLog().remoteLog("O pagamento começou.".concat(payment.toString()));
+                                Log.d("SDKClient", "Um pagamento foi realizado.");
+
+                            }
+                        }).start();
+
                     }
 
                     @Override public void onCancel() {
-                        new DebugLog().remoteLog("A operação foi cancelada.");
+
                         Log.d("SDKClient", "A operação foi cancelada.");
-                        orderManager.unbind();
+
                     }
 
                     @Override public void onError(@NotNull PaymentError paymentError) {
-                        new DebugLog().remoteLog("Houve um erro no pagamento.");
+
                         Log.d("SDKClient", "Houve um erro no pagamento.");
-                        orderManager.unbind();
+
                     }
                 };
 
                 orderManager.placeOrder(order);
                 orderManager.checkoutOrder(order.getId(), paymentListener);
+                orderManager.unbind();
             }
-           
+
 
             @Override
             public void onServiceUnbound() {
-                new DebugLog().remoteLog("### onServiceUnbound ###");
+                // O serviço foi desvinculado
+                //Toast.makeText(getApplicationContext(), "onServiceUnbound O serviço foi desvinculado", Toast.LENGTH_LONG).show();
             }
         };
-        orderManager.unbind();
+
+
         orderManager.bind((Activity) context, serviceBindListener);
     }
 
