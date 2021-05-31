@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_primary.dart';
 import '../../../../../core/components/help_component.dart';
 import '../../../../../core/components/layout/default_form.dart';
-import '../../../../../injection_container.dart';
 import '../../../list_clients/ui/page/list_client_page.dart';
 
 class DevolutionFinish extends StatelessWidget {

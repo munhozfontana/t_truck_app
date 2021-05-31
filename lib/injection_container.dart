@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_controller.dart';
 
 import 'core/adapters/drivers/dio_driver.dart';
 import 'core/adapters/drivers/jwt_decoder_driver.dart';
@@ -52,13 +51,6 @@ class TokenBiding extends Bindings {
       TokenUseCase(tokenRepository: Get.find()),
       permanent: true,
     );
-  }
-}
-
-class ListClientBiding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut<ListProductsController>(() => ListProductsController());
   }
 }
 

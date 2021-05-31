@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
 
 import '../../../../core/adapters/protocols/i_logged_user.dart';
 import '../../../../core/params/params.dart';
 import '../../../../core/utils/app_dialog.dart';
 import '../../../../core/utils/base_controller.dart';
-import '../../../../injection_container.dart';
-import '../../../clients/list_products/ui/page/list_products_page.dart';
 import '../../domain/entites/credential_entity.dart';
 import '../../domain/use_cases/login_use_case.dart';
 import '../../domain/use_cases/token_use_case.dart';
@@ -64,8 +64,8 @@ class LoginController extends GetxController with BaseController {
     super.onReady();
   }
 
-  void toOrderPage() => Get.to(() => ListProductsPage(),
-      binding: ListClientBiding(), arguments: true);
+  void toOrderPage() =>
+      Get.to(() => ListClientPage(), binding: ListClientBiding());
 
   void loginIfHasToken() {
     changeLoading(Loading.START);

@@ -71,7 +71,7 @@ class LoginPage extends GetWidget<LoginController> {
                             },
                           ),
                           Spacer(flex: 39),
-                          lenbrarAcesso(),
+                          LembrarAcesso(),
                           Spacer(flex: 78),
                           btnEntrar(constraints),
                           Spacer(flex: 39),
@@ -102,27 +102,6 @@ class LoginPage extends GetWidget<LoginController> {
           ],
         ),
       ),
-    );
-  }
-
-  Row lenbrarAcesso() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: CustomCheckbox(
-            isSelected: false,
-            onTap: () {},
-          ),
-        ),
-        Text(
-          'Lembrar acesso',
-          style: Get.textTheme.headline3,
-          textAlign: TextAlign.left,
-        ),
-      ],
     );
   }
 
@@ -209,6 +188,34 @@ class LoginPage extends GetWidget<LoginController> {
         ),
         child: conteudoDorFormulario,
       ),
+    );
+  }
+}
+
+class LembrarAcesso extends StatelessWidget {
+  const LembrarAcesso({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: CustomCheckbox(
+            isSelected: false,
+            onTap: () {},
+          ),
+        ),
+        Text(
+          'Lembrar acesso',
+          style: Get.textTheme.headline3,
+          textAlign: TextAlign.left,
+        ),
+      ],
     );
   }
 }

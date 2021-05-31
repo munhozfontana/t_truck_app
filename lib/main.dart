@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/login/ui/login_biding.dart';
+import 'package:t_truck_app/features/login/login_biding.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';

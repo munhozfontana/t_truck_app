@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/domain/use_cases/clients_list_use_case.dart';
 
 import '../../../../../core/adapters/protocols/i_logged_user.dart';
-import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/base_controller.dart';
 import '../../domain/entites/client_entity.dart';
 
@@ -77,8 +77,4 @@ class ListClientController extends GetxController with BaseController {
     filtredList.clear();
     filterInput = ''.obs;
   }
-}
-
-mixin ClientListUseCase {
-  void call(Params param);
 }

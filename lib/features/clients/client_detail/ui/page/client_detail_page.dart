@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
