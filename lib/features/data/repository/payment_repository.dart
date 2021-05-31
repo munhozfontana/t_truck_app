@@ -9,7 +9,6 @@ import 'package:t_truck_app/features/data/models/order_model.dart';
 import 'package:t_truck_app/features/data/repository/order_repository.dart';
 import 'package:t_truck_app/features/domain/entites/order_entity.dart';
 import 'package:t_truck_app/features/domain/repositories/i_order_repository.dart';
-import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 
 class PaymentRepository extends OrderRepository
     implements IOrderPaymentRepository {
@@ -38,11 +37,9 @@ class PaymentRepository extends OrderRepository
 
       var resFromCielo = await cieloDriver.payCielo(orderToCielo);
 
-      AppDialog.show(
-          menssagem:
-              '${resFromCielo.paidAmount.toString()} - ${(resFromCielo.payments![0] as Map)['cieloCode']}');
-
-      return Left(AppFailure(detail: 'Erro ao recuperar dados da cielo'));
+      return Left(AppFailure(
+          detail:
+              '${resFromCielo.paidAmount.toString()} - ${(resFromCielo.payments![0] as Map)['cieloCode']}'));
       // var listReceipt = ReceiptModel.cieloAndOrderToReceiptModel(
       //   resFromCielo,
       //   orderEntity,
