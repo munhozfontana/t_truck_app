@@ -55,7 +55,9 @@ class PaymentController extends GetxController {
                         numTransVenda:
                             element.transacaoVendaEntity.numTransVenda,
                         numNota: 0,
-                        valor: element.transacaoVendaEntity.valor,
+                        valor: element.transacaoVendaEntity.valor == 0
+                            ? tipoTransacaoEntity.first.valorBoleto
+                            : element.transacaoVendaEntity.valor,
                         prest: ''))
                     .toList()))))
         .fold((l) {
