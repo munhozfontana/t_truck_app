@@ -95,16 +95,14 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                     @Override 
                     public void onPayment(@NotNull  final Order order) {
 
-                        Utils.dialog(context,"Um pagamento foi realizado.".concat(order.toString()));
                         new Thread(() -> {
-                            Log.d("SDKClient", "Um pagamento foi realizado.");
                             order.close();
                         }).start();
 
                         try {
                             CieloChannel.PayResponse buildSucess =  new CieloChannel.PayResponse();
                              Utils.dialog(context,"Enviando.... ");
-                            result.success(buildOrder(order, buildSucess));
+                            result.success(buildSucess);
                         } catch ( Exception e) {
                              Utils.dialog(context,"Error ao montar a resposta: ".concat(e.getMessage()));
                         }
