@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 
@@ -86,7 +88,7 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
 
         try {
           orderManager.placeOrder(order);
-          orderManager.checkoutOrder(order.getId(), paymentListener);
+          orderManager.checkoutOrder(order.getId(), 5, paymentListener);
           orderManager.unbind();
 
         } catch (Exception e) {
@@ -114,7 +116,23 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     if(order.getPayments().size() != 0) {
       for (Payment payment : order.getPayments()) {
         HashMap hashMap = new HashMap();
+
+        hashMap.put("externalId",  payment.getExternalId()  == null ? "" :  payment.getCieloCode() );
+        hashMap.put("description", payment.getDescription() == null ? "" :  payment.getDescription());
         hashMap.put("cieloCode" , payment.getCieloCode() == null ? "" :  payment.getCieloCode());
+        hashMap.put("brand", payment.getBrand()== null ? "" :  payment.getBrand());
+        hashMap.put("mask", payment.getMask() == null ? "" :  payment.getMask());
+        hashMap.put("terminal", payment.getTerminal() == null ? "" :  payment.getTerminal());
+        hashMap.put("amount", payment.getAmount() );
+        hashMap.put("primaryCode", payment.getPrimaryCode()  == null ? "" :  payment.getPrimaryCode());
+        hashMap.put("secondaryCode", payment.getSecondaryCode()  == null ? "" :  payment.getSecondaryCode());
+        hashMap.put("applicationName", payment.getApplicationName()  == null ? "" :  payment.getApplicationName());
+        hashMap.put("requestDate", payment.getRequestDate()  == null ? "" :  payment.getRequestDate());
+        hashMap.put("merchantCode", payment.getMerchantCode()  == null ? "" :  payment.getMerchantCode());
+        hashMap.put("discountedAmount", payment.getDiscountedAmount() );
+        hashMap.put("installments", payment.getInstallments() );
+        hashMap.put("paymentFields", payment.getPaymentFields()  == null ? "" :  payment.getPaymentFields());
+        hashMap.put("accessKey", payment.getAccessKey()  == null ? "" :  payment.getAccessKey());
         paymentFields.add(hashMap);
       }
     }
