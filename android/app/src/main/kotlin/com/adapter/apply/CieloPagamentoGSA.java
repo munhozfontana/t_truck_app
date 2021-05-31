@@ -111,13 +111,13 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     List<Object> paymentFields = new ArrayList<>();
     buildSucess.setPaidAmount(order.getPaidAmount());
 
-
-
-    HashMap hashMap = new HashMap();
-      if(order.getPayments().size() != 0) {
-          hashMap.put("cieloCode" , order.getPayments().get(0).getCieloCode() == null ? "" :  order.getPayments().get(0).getCieloCode());
-          paymentFields.add(hashMap);
+    if(order.getPayments().size() != 0) {
+      for (Payment payment : order.getPayments()) {
+        HashMap hashMap = new HashMap();
+        hashMap.put("cieloCode" , payment.getCieloCode() == null ? "" :  payment.getCieloCode());
+        paymentFields.add(hashMap);
       }
+    }
 
 
 
