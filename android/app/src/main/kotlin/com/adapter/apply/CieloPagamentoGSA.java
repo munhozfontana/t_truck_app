@@ -18,6 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 63be372d4240d4fd3f97219c659c609c8dc26cc7
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 
@@ -86,7 +90,7 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
 
         try {
           orderManager.placeOrder(order);
-          orderManager.checkoutOrder(order.getId(), paymentListener);
+          orderManager.checkoutOrder(order.getId(), 5, paymentListener);
           orderManager.unbind();
         } catch (Exception e) {
           Utils.dialog(context, e.getMessage());
