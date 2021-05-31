@@ -63,11 +63,11 @@ class PaymentController extends GetxController {
                         prest: ''))
                     .toList()))))
         .fold((l) {
-      AppDialog.error(menssagem: l.props.first.toString());
       Get.offAll(() => OrderPage(), binding: OrderBiding());
+      AppDialog.error(menssagem: l.props.first.toString());
     }, (r) {
-      AppDialog.show(menssagem: 'Pagamento relizado com sucesso');
       Get.to(() => CameraProofPage());
+      AppDialog.show(menssagem: 'Pagamento relizado com sucesso');
     });
   }
 
