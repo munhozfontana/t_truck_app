@@ -21,7 +21,6 @@ import com.adapter.CieloChannel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,30 +46,38 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
             
 
             @Override public void onServiceBoundError(Throwable throwable) {
+                new DebugLog().remoteLog("### onServiceBoundError ###");
             }
 
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onServiceBound() {
 
+                new DebugLog().remoteLog("### onServicebound ###");
                final Order order = orderManager.createDraftOrder(arg.getReference());
 
-                arg.getItems()
-                        .stream()
-                        .map(item -> ((HashMap) item))
-                        .forEach(itemMap ->
-                          order.addItem(
-                                (String) itemMap.get("sku"),
-                                (String) itemMap.get("name"),
-                                (int) itemMap.get("unitPrice"),
-                                (int) itemMap.get("quantity"),
-                                (String) itemMap.get("unitOfMeasure"))
-                        );
+
+               try {
+                   arg.getItems()
+                           .stream()
+                           .map(item -> ((HashMap) item))
+                           .forEach(itemMap ->
+                                   order.addItem(
+                                           (String) itemMap.get("sku"),
+                                           (String) itemMap.get("name"),
+                                           (int) itemMap.get("unitPrice"),
+                                           (int) itemMap.get("quantity"),
+                                           (String) itemMap.get("unitOfMeasure"))
+                           );
+               }   catch ( Exception e) { 
+                new DebugLog().remoteLog("### INTERANDO LISTA  ### : ".concat(e.getMessage()) );
+               }
 
 
              final  PaymentListener paymentListener = new PaymentListener() {
                     @Override
                     public void onStart() {
+                        new DebugLog().remoteLog("O pagamento começou.");
                         Log.d("SDKClient", "O pagamento começou.");
 
                     }
@@ -79,37 +86,43 @@ public class  CieloPagamentoGSA implements CieloChannel.CieloRun {
                     public void onPayment(@NotNull  final Order order) {
 
                         new Thread(() -> {
+                            new DebugLog().remoteLog("Um pagamento foi realizado.".concat(order.toString()));
                             Log.d("SDKClient", "Um pagamento foi realizado.");
                             order.close();
                         }).start();
 
                         try {
                             CieloChannel.PayResponse buildSucess =  new CieloChannel.PayResponse();
+                            new DebugLog().remoteLog("Enviando.... ");
                             result.success(buildOrder(order, buildSucess));
                         } catch ( Exception e) {
+                            new DebugLog().remoteLog("Error ao montar a resposta: ".concat(e.getMessage()));
                         }
 
                     }
 
                     @Override public void onCancel() {
+                        new DebugLog().remoteLog("Erro no pagamento");
                         Log.d("SDKClient", "A operação foi cancelada.");
 
                     }
 
                     @Override public void onError(@NotNull PaymentError paymentError) {
+                       new DebugLog().remoteLog("Erro no pagamento");
                         Log.d("SDKClient", "Houve um erro no pagamento.");
 
                     }
                 };
 
                 orderManager.placeOrder(order);
-                orderManager.checkoutOrder(order.getId(), paymentListener);
+                orderManager.checkoutOrder(order.getId(), 1, paymentListener);
                 orderManager.unbind();
             }
 
 
             @Override
             public void onServiceUnbound() {
+                new DebugLog().remoteLog("#### onServiceUnbound  ###");
                 Log.d("SDKClient", "#### onServiceUnbound  ###");
             }
         };
