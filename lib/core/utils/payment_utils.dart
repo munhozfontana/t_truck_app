@@ -24,11 +24,7 @@ class PaymentUtils {
     var arg = PayParam()
       ..reference = 'GSA'
       ..cieloCredentials = cieloCredentials
-      ..sku = 'c2f5fb9a-5542-406e-8b79-17892329cda8'
-      ..description = 'produto fake'
-      ..unit_of_measure = 'EACH'
-      ..quantity = 1
-      ..unit_price = 1;
+      ..items = items;
 
     return arg;
   }

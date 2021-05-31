@@ -17,15 +17,10 @@ class ReceiptApi implements IReceiptExternal {
     try {
       list.forEach((element) async {
         await iHttp.postHttp(
-          '${env['URL_BASE']}/payment',
+          '${env['URL_BASE']}/paymentCielo',
           body: element.toJson(),
         );
       });
-      await iHttp.postHttp(
-        '${env['URL_BASE']}/canhoto',
-        body: {'NUMTRANSVENDA': list.map((e) => e.numTransVenda).toList()},
-      );
-
       return Future.value(null);
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);

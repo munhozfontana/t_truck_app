@@ -4,37 +4,23 @@ import 'package:pigeon/pigeon.dart';
 abstract class CieloRun {
   @async
   PayResponse pay(PayParam param);
-
-  @async
-  void paySync2(PayParam param);
-
-  void paySync(PayParam param);
 }
 
 class PayParam {
   final CieloCredentials cieloCredentials;
   final String reference;
-
-  final String sku;
-  final String description;
-  final String unit_of_measure;
-  final int unit_price;
-  final int quantity;
+  final List<Map<String, Object>> items;
 
   PayParam({
     required this.cieloCredentials,
     required this.reference,
-    required this.sku,
-    required this.description,
-    required this.unit_of_measure,
-    required this.unit_price,
-    required this.quantity,
+    required this.items,
   });
 }
 
 class PayResponse {
-  String? id;
-  String? error;
+  late int paidAmount;
+  late List<Map> payments;
 }
 
 class CieloCredentials {

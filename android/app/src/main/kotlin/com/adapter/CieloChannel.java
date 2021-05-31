@@ -16,26 +16,26 @@ public class CieloChannel {
 
   /** Generated class from Pigeon that represents data sent in messages. */
   public static class PayResponse {
-    private String id;
-    public String getId() { return id; }
-    public void setId(String setterArg) { this.id = setterArg; }
+    private Long paidAmount;
+    public Long getPaidAmount() { return paidAmount; }
+    public void setPaidAmount(Long setterArg) { this.paidAmount = setterArg; }
 
-    private String error;
-    public String getError() { return error; }
-    public void setError(String setterArg) { this.error = setterArg; }
+    private List<Object> payments;
+    public List<Object> getPayments() { return payments; }
+    public void setPayments(List<Object> setterArg) { this.payments = setterArg; }
 
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
-      toMapResult.put("id", id);
-      toMapResult.put("error", error);
+      toMapResult.put("paidAmount", paidAmount);
+      toMapResult.put("payments", payments);
       return toMapResult;
     }
     static PayResponse fromMap(Map<String, Object> map) {
       PayResponse fromMapResult = new PayResponse();
-      Object id = map.get("id");
-      fromMapResult.id = (String)id;
-      Object error = map.get("error");
-      fromMapResult.error = (String)error;
+      Object paidAmount = map.get("paidAmount");
+      fromMapResult.paidAmount = (paidAmount == null) ? null : ((paidAmount instanceof Integer) ? (Integer)paidAmount : (Long)paidAmount);
+      Object payments = map.get("payments");
+      fromMapResult.payments = (List<Object>)payments;
       return fromMapResult;
     }
   }
@@ -50,35 +50,15 @@ public class CieloChannel {
     public String getReference() { return reference; }
     public void setReference(String setterArg) { this.reference = setterArg; }
 
-    private String sku;
-    public String getSku() { return sku; }
-    public void setSku(String setterArg) { this.sku = setterArg; }
-
-    private String description;
-    public String getDescription() { return description; }
-    public void setDescription(String setterArg) { this.description = setterArg; }
-
-    private String unit_of_measure;
-    public String getUnit_of_measure() { return unit_of_measure; }
-    public void setUnit_of_measure(String setterArg) { this.unit_of_measure = setterArg; }
-
-    private Long unit_price;
-    public Long getUnit_price() { return unit_price; }
-    public void setUnit_price(Long setterArg) { this.unit_price = setterArg; }
-
-    private Long quantity;
-    public Long getQuantity() { return quantity; }
-    public void setQuantity(Long setterArg) { this.quantity = setterArg; }
+    private List<Object> items;
+    public List<Object> getItems() { return items; }
+    public void setItems(List<Object> setterArg) { this.items = setterArg; }
 
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("cieloCredentials", cieloCredentials.toMap());
       toMapResult.put("reference", reference);
-      toMapResult.put("sku", sku);
-      toMapResult.put("description", description);
-      toMapResult.put("unit_of_measure", unit_of_measure);
-      toMapResult.put("unit_price", unit_price);
-      toMapResult.put("quantity", quantity);
+      toMapResult.put("items", items);
       return toMapResult;
     }
     static PayParam fromMap(Map<String, Object> map) {
@@ -87,16 +67,8 @@ public class CieloChannel {
       fromMapResult.cieloCredentials = CieloCredentials.fromMap((Map)cieloCredentials);
       Object reference = map.get("reference");
       fromMapResult.reference = (String)reference;
-      Object sku = map.get("sku");
-      fromMapResult.sku = (String)sku;
-      Object description = map.get("description");
-      fromMapResult.description = (String)description;
-      Object unit_of_measure = map.get("unit_of_measure");
-      fromMapResult.unit_of_measure = (String)unit_of_measure;
-      Object unit_price = map.get("unit_price");
-      fromMapResult.unit_price = (unit_price == null) ? null : ((unit_price instanceof Integer) ? (Integer)unit_price : (Long)unit_price);
-      Object quantity = map.get("quantity");
-      fromMapResult.quantity = (quantity == null) ? null : ((quantity instanceof Integer) ? (Integer)quantity : (Long)quantity);
+      Object items = map.get("items");
+      fromMapResult.items = (List<Object>)items;
       return fromMapResult;
     }
   }
@@ -134,8 +106,6 @@ public class CieloChannel {
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface CieloRun {
     void pay(PayParam arg, Result<PayResponse> result);
-    void paySync2(PayParam arg, Result<Void> result);
-    void paySync(PayParam arg);
 
     /** Sets up an instance of `CieloRun` to handle messages through the `binaryMessenger`. */
     static void setup(BinaryMessenger binaryMessenger, CieloRun api) {
@@ -154,47 +124,6 @@ public class CieloChannel {
               wrapped.put("error", wrapError(exception));
               reply.reply(wrapped);
             }
-          });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.CieloRun.paySync2", new StandardMessageCodec());
-        if (api != null) {
-          channel.setMessageHandler((message, reply) -> {
-            Map<String, Object> wrapped = new HashMap<>();
-            try {
-              @SuppressWarnings("ConstantConditions")
-              PayParam input = PayParam.fromMap((Map<String, Object>)message);
-              api.paySync2(input, result -> { wrapped.put("result", null); reply.reply(wrapped); });
-            }
-            catch (Error | RuntimeException exception) {
-              wrapped.put("error", wrapError(exception));
-              reply.reply(wrapped);
-            }
-          });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.CieloRun.paySync", new StandardMessageCodec());
-        if (api != null) {
-          channel.setMessageHandler((message, reply) -> {
-            Map<String, Object> wrapped = new HashMap<>();
-            try {
-              @SuppressWarnings("ConstantConditions")
-              PayParam input = PayParam.fromMap((Map<String, Object>)message);
-              api.paySync(input);
-              wrapped.put("result", null);
-            }
-            catch (Error | RuntimeException exception) {
-              wrapped.put("error", wrapError(exception));
-            }
-            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);

@@ -8,42 +8,34 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 import 'package:flutter/services.dart';
 
 class PayResponse {
-  String? id;
-  String? error;
+  int? paidAmount;
+  List<Object?>? payments;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
-    pigeonMap['id'] = id;
-    pigeonMap['error'] = error;
+    pigeonMap['paidAmount'] = paidAmount;
+    pigeonMap['payments'] = payments;
     return pigeonMap;
   }
 
   static PayResponse decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return PayResponse()
-      ..id = pigeonMap['id'] as String?
-      ..error = pigeonMap['error'] as String?;
+      ..paidAmount = pigeonMap['paidAmount'] as int?
+      ..payments = pigeonMap['payments'] as List<Object?>?;
   }
 }
 
 class PayParam {
   CieloCredentials? cieloCredentials;
   String? reference;
-  String? sku;
-  String? description;
-  String? unit_of_measure;
-  int? unit_price;
-  int? quantity;
+  List<Object?>? items;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['cieloCredentials'] = cieloCredentials == null ? null : cieloCredentials!.encode();
     pigeonMap['reference'] = reference;
-    pigeonMap['sku'] = sku;
-    pigeonMap['description'] = description;
-    pigeonMap['unit_of_measure'] = unit_of_measure;
-    pigeonMap['unit_price'] = unit_price;
-    pigeonMap['quantity'] = quantity;
+    pigeonMap['items'] = items;
     return pigeonMap;
   }
 
@@ -54,11 +46,7 @@ class PayParam {
           ? CieloCredentials.decode(pigeonMap['cieloCredentials']!)
           : null
       ..reference = pigeonMap['reference'] as String?
-      ..sku = pigeonMap['sku'] as String?
-      ..description = pigeonMap['description'] as String?
-      ..unit_of_measure = pigeonMap['unit_of_measure'] as String?
-      ..unit_price = pigeonMap['unit_price'] as int?
-      ..quantity = pigeonMap['quantity'] as int?;
+      ..items = pigeonMap['items'] as List<Object?>?;
   }
 }
 
@@ -110,54 +98,6 @@ class CieloRun {
       );
     } else {
       return PayResponse.decode(replyMap['result']!);
-    }
-  }
-
-  Future<void> paySync2(PayParam arg) async {
-    final Object encoded = arg.encode();
-    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.CieloRun.paySync2', const StandardMessageCodec(), binaryMessenger: _binaryMessenger);
-    final Map<Object?, Object?>? replyMap =
-        await channel.send(encoded) as Map<Object?, Object?>?;
-    if (replyMap == null) {
-      throw PlatformException(
-        code: 'channel-error',
-        message: 'Unable to establish connection on channel.',
-        details: null,
-      );
-    } else if (replyMap['error'] != null) {
-      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
-      throw PlatformException(
-        code: (error['code'] as String?)!,
-        message: error['message'] as String?,
-        details: error['details'],
-      );
-    } else {
-      // noop
-    }
-  }
-
-  Future<void> paySync(PayParam arg) async {
-    final Object encoded = arg.encode();
-    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.CieloRun.paySync', const StandardMessageCodec(), binaryMessenger: _binaryMessenger);
-    final Map<Object?, Object?>? replyMap =
-        await channel.send(encoded) as Map<Object?, Object?>?;
-    if (replyMap == null) {
-      throw PlatformException(
-        code: 'channel-error',
-        message: 'Unable to establish connection on channel.',
-        details: null,
-      );
-    } else if (replyMap['error'] != null) {
-      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
-      throw PlatformException(
-        code: (error['code'] as String?)!,
-        message: error['message'] as String?,
-        details: error['details'],
-      );
-    } else {
-      // noop
     }
   }
 }

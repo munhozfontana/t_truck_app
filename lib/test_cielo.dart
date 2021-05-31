@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:t_truck_app/core/utils/payment_utils.dart';
 import 'package:t_truck_app/features/data/external/channels/cielo_channel.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
-import 'package:t_truck_app/features/presentation/styles/app_dialog.dart';
 
 class TestCielo extends StatelessWidget {
   @override
@@ -19,13 +17,31 @@ class TestCielo extends StatelessWidget {
           var arg = PayParam()
             ..reference = 'GSA'
             ..cieloCredentials = credentials
-            ..sku = 'c2f5fb9a-5542-406e-8b79-17892329cda8'
-            ..description = 'produto fake'
-            ..unit_of_measure = 'EACH'
-            ..quantity = 1
-            ..unit_price = 1;
-          CieloDriver().payCielo(arg).then((value) =>
-              AppDialog.show(titulo: 'Android', menssagem: value.id));
+            ..items = [
+              {
+                'sku': 'c2f5fb9a-5542-406e-8b79-17892329cda8',
+                'name': 'produto fake 1',
+                'unitPrice': 1,
+                'quantity': 1,
+                'unitOfMeasure': 'EACH',
+              },
+              {
+                'sku': 'c2f5fb9a-5542-406e-8b79-17892329cda2',
+                'name': 'produto fake 2',
+                'unitPrice': 1,
+                'quantity': 1,
+                'unitOfMeasure': 'EACH',
+              },
+              {
+                'sku': 'c2f5fb9a-5542-406e-8b79-17892329cda4',
+                'name': 'produto fake 3',
+                'unitPrice': 1,
+                'quantity': 1,
+                'unitOfMeasure': 'EACH',
+              },
+            ];
+          // CieloDriver().payCielo(arg).then((value) =>
+          //     AppDialog.show(titulo: 'Android', menssagem: value.id));
           ;
         },
       ),
