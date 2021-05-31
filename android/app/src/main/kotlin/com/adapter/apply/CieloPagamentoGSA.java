@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 
@@ -34,7 +35,6 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     CieloChannel.PayParam arg,
     CieloChannel.Result<CieloChannel.PayResponse> result
   ) {
-
     Credentials credentials = new Credentials(
       arg.getCieloCredentials().getClientID(),
       arg.getCieloCredentials().getAccessToken()
@@ -74,7 +74,7 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
           @Override
           public void onPayment(@NotNull final Order order) {
             new Thread(() -> order.close()).start();
-            result.success(buildOrder(order,  new CieloChannel.PayResponse()));
+            result.success(buildOrder(order, new CieloChannel.PayResponse()));
           }
 
           @Override
@@ -88,7 +88,6 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
           orderManager.placeOrder(order);
           orderManager.checkoutOrder(order.getId(), paymentListener);
           orderManager.unbind();
-
         } catch (Exception e) {
           Utils.dialog(context, e.getMessage());
         }
@@ -103,7 +102,6 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     orderManager.bind((Activity) context, serviceBindListener);
   }
 
-
   private CieloChannel.PayResponse buildOrder(
     Order order,
     CieloChannel.PayResponse buildSucess
@@ -111,36 +109,67 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     List<Object> paymentFields = new ArrayList<>();
     buildSucess.setPaidAmount(order.getPaidAmount());
 
-    if(order.getPayments().size() != 0) {
+    if (order.getPayments().size() != 0) {
       for (Payment payment : order.getPayments()) {
         HashMap hashMap = new HashMap();
-        hashMap.put("cieloCode" , payment.getCieloCode() == null ? "" :  payment.getCieloCode());
+
+        hashMap.put(
+          "externalId",
+          payment.getExternalId() == null ? "" : payment.getExternalId()
+        );
+        hashMap.put(
+          "description",
+          payment.getDescription() == null ? "" : payment.getDescription()
+        );
+        hashMap.put(
+          "cieloCode",
+          payment.getCieloCode() == null ? "" : payment.getCieloCode()
+        );
+        hashMap.put(
+          "brand",
+          payment.getBrand() == null ? "" : payment.getBrand()
+        );
+        hashMap.put("mask", payment.getMask() == null ? "" : payment.getMask());
+        hashMap.put(
+          "terminal",
+          payment.getTerminal() == null ? "" : payment.getTerminal()
+        );
+        hashMap.put("amount", payment.getAmount());
+        hashMap.put(
+          "primaryCode",
+          payment.getPrimaryCode() == null ? "" : payment.getPrimaryCode()
+        );
+        hashMap.put(
+          "secondaryCode",
+          payment.getSecondaryCode() == null ? "" : payment.getSecondaryCode()
+        );
+        hashMap.put(
+          "applicationName",
+          payment.getApplicationName() == null
+            ? ""
+            : payment.getApplicationName()
+        );
+        hashMap.put(
+          "requestDate",
+          payment.getRequestDate() == null ? "" : payment.getRequestDate()
+        );
+        hashMap.put(
+          "merchantCode",
+          payment.getMerchantCode() == null ? "" : payment.getMerchantCode()
+        );
+        hashMap.put("discountedAmount", payment.getDiscountedAmount());
+        hashMap.put("installments", payment.getInstallments());
+        hashMap.put(
+          "paymentFields",
+          payment.getPaymentFields() == null ? "" : payment.getPaymentFields()
+        );
+        hashMap.put(
+          "accessKey",
+          payment.getAccessKey() == null ? "" : payment.getAccessKey()
+        );
         paymentFields.add(hashMap);
       }
     }
-
-
-
-
-   /*   HashMap paymentItem = new HashMap();
-      paymentItem.put("externalId", item.getExternalId());
-      paymentItem.put("description", item.getDescription());
-      paymentItem.put("cieloCode", item.getCieloCode());
-      paymentItem.put("authCode", item.getAuthCode());
-      paymentItem.put("brand", item.getBrand());
-      paymentItem.put("mask", item.getMask());
-      paymentItem.put("terminal", item.getTerminal());
-      paymentItem.put("amount", item.getAmount());
-      paymentItem.put("primaryCode", item.getPrimaryCode());
-      paymentItem.put("secondaryCode", item.getSecondaryCode());
-      paymentItem.put("applicationName", item.getApplicationName());
-      paymentItem.put("requestDate", item.getRequestDate());
-      paymentItem.put("merchantCode", item.getMerchantCode());
-      paymentItem.put("discountedAmount", item.getDiscountedAmount());
-      paymentItem.put("installments", item.getInstallments());
-      paymentItem.put("paymentFields", item.getPaymentFields());
-      paymentItem.put("accessKey", item.getAccessKey());
-      paymentFields.add(paymentItem);*/
 
     buildSucess.setPayments(paymentFields);
     return buildSucess;
