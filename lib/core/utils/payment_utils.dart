@@ -35,11 +35,11 @@ class PaymentUtils {
     listOrderEntity.forEach((e) {
       var itemsConverted = e.identificacoes.map((item) {
         return {
-          'sku': item.numNota.toString(),
+          'sku': item.numTransVenda.toString(),
           'name': e.cliente,
           'unitPrice': convensaoCielo(item.valor!).toInt(),
           'quantity': 1,
-          'unitOfMeasure': item.numTransVenda.toString(),
+          'unitOfMeasure': 'EACH',
         };
       });
 
