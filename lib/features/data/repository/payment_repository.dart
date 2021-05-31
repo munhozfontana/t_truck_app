@@ -39,7 +39,7 @@ class PaymentRepository extends OrderRepository
 
       return Left(AppFailure(
           detail:
-              '${resFromCielo.paidAmount.toString()} - ${(resFromCielo.payments![0] as Map)['cieloCode']}'));
+              '${resFromCielo.paidAmount.toString()} - ${(resFromCielo.payments!.map((e) => (e as Map)['cieloCode']).toString())}'));
       // var listReceipt = ReceiptModel.cieloAndOrderToReceiptModel(
       //   resFromCielo,
       //   orderEntity,
