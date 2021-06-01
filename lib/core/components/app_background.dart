@@ -19,17 +19,9 @@ class AppBackground extends StatelessWidget {
       builder: (context, constraints) {
         return Stack(
           children: [
-            /// PILHA DE CONTEUDOS
-            /// background [backgroundGray()] -> desenho[backgroundDraw()] -> detalhes[details(constraints)]
-
-            /// COR DE FUNDO
             backgroundGray(),
-
-            /// LOGO COM OS QUADRADOS
             backgroundDraw(),
-
-            /// DETALHAMENTO DA DELA, LOGOMARCA, ICONE E DESCRIÇÃO DO APP
-            details(constraints)
+            details(constraints),
           ],
         );
       },
