@@ -60,7 +60,7 @@ class LoginController extends GetxController with BaseController {
 
   @override
   void onReady() async {
-    // loginIfHasToken();
+    loginIfHasToken();
     super.onReady();
   }
 

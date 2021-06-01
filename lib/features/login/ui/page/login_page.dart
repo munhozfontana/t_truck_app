@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/login/ui/components/esqueci_codigo.dart';
+import 'package:t_truck_app/features/login/ui/components/lembrar_acesso.dart';
 
 import '../../../../core/components/app_background.dart';
-import '../../../../core/components/custom_checkbox.dart';
 import '../../../../core/components/help_component.dart';
 import '../../../../core/utils/base_controller.dart';
 import 'login_controller.dart';
@@ -75,7 +76,9 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 78),
                           btnEntrar(constraints),
                           Spacer(flex: 39),
-                          esqueciMeuCodigo(constraints),
+                          EsqueciCodigo(
+                            constraints: constraints,
+                          ),
                           Spacer(flex: 69),
                           Divider(
                             height: 1,
@@ -150,18 +153,6 @@ class LoginPage extends GetWidget<LoginController> {
     );
   }
 
-  Container esqueciMeuCodigo(BoxConstraints constraints) {
-    return Container(
-      height: 21,
-      width: constraints.maxWidth,
-      child: Text(
-        'Esqueci meu código',
-        style: Get.textTheme.headline4,
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
   Widget alinhaFormParaBaixo(
       {required Widget? conteudoDorFormulario, required constraints}) {
     return Container(
@@ -188,34 +179,6 @@ class LoginPage extends GetWidget<LoginController> {
         ),
         child: conteudoDorFormulario,
       ),
-    );
-  }
-}
-
-class LembrarAcesso extends StatelessWidget {
-  const LembrarAcesso({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: CustomCheckbox(
-            isSelected: false,
-            onTap: () {},
-          ),
-        ),
-        Text(
-          'Lembrar acesso',
-          style: Get.textTheme.headline3,
-          textAlign: TextAlign.left,
-        ),
-      ],
     );
   }
 }

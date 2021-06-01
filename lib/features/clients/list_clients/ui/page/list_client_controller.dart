@@ -1,5 +1,11 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/params/params.dart';
+import 'package:t_truck_app/core/utils/app_dialog.dart';
 import 'package:t_truck_app/features/clients/list_clients/domain/use_cases/clients_list_use_case.dart';
+import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
+import 'package:t_truck_app/features/login/login_biding.dart';
+import 'package:t_truck_app/features/login/ui/page/login_page.dart';
 
 import '../../../../../core/adapters/protocols/i_logged_user.dart';
 import '../../../../../core/utils/base_controller.dart';
@@ -29,19 +35,19 @@ class ListClientController extends GetxController with BaseController {
   }
 
   Future takeClients() async {
-    // var res = await clientsListUseCase(Params());
-    // res.fold(
-    //     (l) => {
-    //           changeLoading(Loading.STOP),
-    //           AppDialog.error(
-    //             menssagem: l.props.first.toString(),
-    //           ),
-    //         },
-    //     (r) async => {
-    //           changeLoading(Loading.STOP),
-    //           list.value = r,
-    //           filtredList.value = r,
-    //         });
+    var res = await clientsListUseCase(Params());
+    res.fold(
+        (l) => {
+              changeLoading(Loading.STOP),
+              AppDialog.error(
+                menssagem: l.props.first.toString(),
+              ),
+            },
+        (r) async => {
+              changeLoading(Loading.STOP),
+              list.value = r,
+              filtredList.value = r,
+            });
   }
 
   void filterChanged(String value) {
@@ -63,13 +69,13 @@ class ListClientController extends GetxController with BaseController {
   }
 
   void logout() async {
-    // if (Get.currentRoute.contains('ClientPage')) {
-    //   await iLoggedUser.logout();
-    //   resetAll();
-    //   await Get.offAll(() => LoginPage(), binding: LoginBiding());
-    // } else {
-    //   await Get.offAll(() => ClientPage(), binding: ClientBiding());
-    // }
+    if (Get.currentRoute.contains('ClientPage')) {
+      await iLoggedUser.logout();
+      resetAll();
+      await Get.offAll(() => LoginPage(), binding: LoginBiding());
+    } else {
+      await Get.offAll(() => ListClientPage(), binding: ListClientBiding());
+    }
   }
 
   void resetAll() {
