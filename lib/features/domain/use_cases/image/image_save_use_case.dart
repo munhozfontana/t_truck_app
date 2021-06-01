@@ -37,7 +37,6 @@ class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
 
     var imageEntity = params.imageEntity!.copyWith(
       numcanhoto: numcanhotoConcatenado,
-      //TODO : Ver se vai user estabelecimento
     );
 
     return Right(await iImageListRepository.save(imageEntity));

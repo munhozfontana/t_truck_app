@@ -86,7 +86,7 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
 
         try {
           orderManager.placeOrder(order);
-          orderManager.checkoutOrder(order.getId(), 5, paymentListener);
+          orderManager.checkoutOrder(order.getId(), paymentListener);
           orderManager.unbind();
         } catch (Exception e) {
           Utils.dialog(context, e.getMessage());
