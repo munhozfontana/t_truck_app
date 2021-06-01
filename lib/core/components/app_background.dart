@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_controller.dart';
 
 class AppBackground extends StatelessWidget {
   final bool initialScreen;
@@ -53,10 +54,7 @@ class AppBackground extends StatelessWidget {
           child: Container(
             height: 50,
             child: GestureDetector(
-              onTap: () => {
-                // Get.find<OrderController>().logout()
-                print('back')
-              },
+              onTap: () => Get.find<ListClientController>().logout(),
               child: Container(
                 child: SvgPicture.asset(
                   'images/logo.svg',
