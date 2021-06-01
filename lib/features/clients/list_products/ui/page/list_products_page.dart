@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/client_detail/client_detail_bading.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/components/layout/default_form.dart';
-import '../../../../../injection_container.dart';
 import '../../domain/entites/product_entity.dart';
 import 'list_products_controller.dart';
 
@@ -185,7 +185,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
             label: 'Voltar',
             onTap: () => Get.offAll(
               ListProductsPage(),
-              binding: DeliveryBiding(),
+              binding: ClientDetailBiding(),
             ),
           ),
           Spacer(

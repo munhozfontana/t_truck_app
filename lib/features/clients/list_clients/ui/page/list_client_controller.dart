@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/core/utils/app_dialog.dart';
+import 'package:t_truck_app/features/clients/client_detail/client_detail_bading.dart';
+import 'package:t_truck_app/features/clients/client_detail/ui/page/client_detail_page.dart';
 import 'package:t_truck_app/features/clients/list_clients/domain/use_cases/clients_list_use_case.dart';
 import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
 import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
@@ -61,16 +63,16 @@ class ListClientController extends GetxController with BaseController {
   }
 
   void navigateToProduct(ClientEntity client) {
-    // clientEntity.value = client;
-    // Get.to(
-    //   () => ProductPage(),
-    //   binding: DeliveryBiding(),
-    // );
+    clientEntity.value = client;
+    Get.to(
+      () => ClientDetailPage(),
+      binding: ClientDetailBiding(),
+    );
   }
 
   void logout() async {
     if (Get.currentRoute.contains('ClientPage')) {
-      await iLoggedUser.logout();
+      iLoggedUser.logout();
       resetAll();
       await Get.offAll(() => LoginPage(), binding: LoginBiding());
     } else {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
+import 'package:t_truck_app/features/payment/payment_biding.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/components/layout/default_form.dart';
 import '../../../../../core/utils/base_controller.dart';
-import '../../../../../injection_container.dart';
 import '../../../../payment/ui/page/payment_page.dart';
 import '../../../list_clients/ui/page/list_client_page.dart';
 import 'client_detail_controller.dart';
@@ -108,7 +108,7 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                         onTap: () {
                           Get.to(
                             () => PaymentPage(),
-                            binding: OrderPayBiding(),
+                            binding: PaymentBiding(),
                           );
                         },
                         label: 'Entrega total',

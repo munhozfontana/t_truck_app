@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/login/data/repositories_impl/token_repository.dart';
+import 'package:t_truck_app/features/login/domain/repositores/i_token_repository.dart';
+import 'package:t_truck_app/features/login/domain/use_cases/token_use_case.dart';
 
-import '../../injection_container.dart';
 import 'data/external/login_api.dart';
 import 'data/repositories_impl/login_repository.dart';
 import 'domain/repositores/i_login_repository.dart';
@@ -32,6 +34,20 @@ class LoginBiding extends Bindings {
         loginUseCase: Get.find(),
         tokenUseCase: Get.find(),
       ),
+    );
+  }
+}
+
+class TokenBiding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put<ITokenRepository>(
+      TokenRepository(jwtDriver: Get.find()),
+      permanent: true,
+    );
+    Get.put<TokenUseCase>(
+      TokenUseCase(tokenRepository: Get.find()),
+      permanent: true,
     );
   }
 }
