@@ -26,7 +26,7 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
-                    onChanged: controller.filterChanged,
+                    onChanged: controller.filterNumTransvendaChanged,
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.search_rounded,
@@ -42,11 +42,30 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                           fontFamily: 'Poppins',
                           fontStyle: FontStyle.italic,
                           fontSize: 16.0),
-                      hintText: 'Pesquisar produto...',
+                      hintText: 'Número Trans Venda...',
                     ),
                   ),
                   Spacer(
-                    flex: 035,
+                    flex: 6,
+                  ),
+                  TextFormField(
+                    onChanged: controller.filterNameChanged,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search_rounded,
+                        color: Color(0xff090e32).withOpacity(0.4),
+                      ),
+                      hintStyle: TextStyle(
+                          color: Color(0xff000000).withOpacity(0.4),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Poppins',
+                          fontStyle: FontStyle.italic,
+                          fontSize: 16.0),
+                      hintText: 'Nome do produto...',
+                    ),
+                  ),
+                  Spacer(
+                    flex: 6,
                   ),
                   GetX<DevolutionController>(
                     builder: (_) {
@@ -61,10 +80,10 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                     },
                   ),
                   Spacer(
-                    flex: 035,
+                    flex: 6,
                   ),
                   Container(
-                    height: constraints.maxHeight * .65,
+                    height: constraints.maxHeight * .60,
                     child: GetX<DevolutionController>(
                       builder: (_) {
                         return ListView.separated(
@@ -107,7 +126,8 @@ class DevolutionPage extends GetWidget<DevolutionController> {
                     alignment: Alignment.centerLeft,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Text(productEntity.descricao),
+                      child: Text(
+                          '${productEntity.transacaoVendaEntity.numTransVenda} - ${productEntity.descricao}'),
                     ),
                   ),
                 ),

@@ -9,20 +9,34 @@ class DevolutionController extends GetxController with BaseController {
   RxList<ProductEntity> listProducts = <ProductEntity>[].obs;
   Rx<TypeOccurrence> typeDevolution = TypeOccurrence.NONE.obs;
 
-  RxString fieldFilterValue = ''.obs;
+  RxString numTransVendaFeild = ''.obs;
+  RxString nameFeild = ''.obs;
 
-  void filterChanged(String value) {
-    fieldFilterValue.value = value;
-    fieldFilter(value);
-    update();
+  void filterNumTransvendaChanged(String value) {
+    numTransVendaFeild.value = value;
+    numTransVendaFeild.refresh();
+    filterComposer();
   }
 
-  void fieldFilter(String itemFilter) {
+  void filterNameChanged(String value) {
+    nameFeild.value = value;
+    nameFeild.refresh();
+    filterComposer();
+  }
+
+  void filterComposer() {
     listProducts.value = listProducts.map(
       (element) {
-        var contains = element.descricao.isCaseInsensitiveContains(itemFilter);
+        var transacaoFinded =
+            element.transacaoVendaEntity.numTransVenda.toString() ==
+                numTransVendaFeild.value;
 
-        if (contains) {
+        var nameFinded =
+            element.descricao.isCaseInsensitiveContains(nameFeild.value);
+
+        if (transacaoFinded && nameFeild.isEmpty) {
+          element.transacaoVendaEntity.hidden = false;
+        } else if (nameFeild.isNotEmpty && nameFinded) {
           element.transacaoVendaEntity.hidden = false;
         } else {
           element.transacaoVendaEntity.hidden = true;
@@ -31,6 +45,7 @@ class DevolutionController extends GetxController with BaseController {
         return element;
       },
     ).toList();
+    update();
   }
 
   void updadeListFromValue(String value, ProductEntity productEntity) {
@@ -102,6 +117,7 @@ class DevolutionController extends GetxController with BaseController {
       }).toList();
     }
 
+    filterComposer();
     listProducts.refresh();
     super.onInit();
   }
