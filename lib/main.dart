@@ -18,7 +18,7 @@ void main() async {
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(GetMaterialApp(
-    title: 'Flutter Demo',
+    title: 'GSA',
     theme: ThemeData(
       brightness: Brightness.light,
       primaryColor: Color(0xff090f31),
