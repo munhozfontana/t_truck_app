@@ -11,6 +11,7 @@ import 'package:t_truck_app/features/presentation/pages/occurrence_reason/occurr
 import 'package:t_truck_app/features/presentation/pages/order/order_page.dart';
 import 'package:t_truck_app/features/presentation/pages/payment/payment_page.dart';
 import 'package:t_truck_app/features/presentation/pages/product/product_page.dart';
+import 'package:t_truck_app/features/presentation/pages/splash/splash.dart';
 import 'package:t_truck_app/features/presentation/styles/global_style.dart';
 import 'package:t_truck_app/injection_container.dart';
 
@@ -18,7 +19,7 @@ void main() async {
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(GetMaterialApp(
-    title: 'Flutter Demo',
+    title: 'GSA',
     theme: ThemeData(
       brightness: Brightness.light,
       primaryColor: Color(0xff090f31),
@@ -39,7 +40,18 @@ void main() async {
     getPages: [
       GetPage(
         name: '/',
-        page: () => LoginPage(),
+        page: () {
+          return FutureBuilder(
+            future: Future.delayed(Duration(seconds: 3)),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return MaterialApp(home: Splash());
+              } else {
+                return LoginPage();
+              }
+            },
+          );
+        },
         bindings: [
           LoginBiding(),
         ],
