@@ -12,6 +12,8 @@ import cielo.sdk.order.payment.Payment;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 import com.adapter.CieloChannel;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -74,6 +76,7 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
           @Override
           public void onPayment(@NotNull final Order order) {
             new Thread(() -> order.close()).start();
+            new  DebugLog().remoteLog(new GsonBuilder().create().toJson(order));
             result.success(buildOrder(order, new CieloChannel.PayResponse()));
           }
 
