@@ -7,25 +7,6 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 
 import 'package:flutter/services.dart';
 
-class PayResponse {
-  int? paidAmount;
-  List<Object?>? payments;
-
-  Object encode() {
-    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
-    pigeonMap['paidAmount'] = paidAmount;
-    pigeonMap['payments'] = payments;
-    return pigeonMap;
-  }
-
-  static PayResponse decode(Object message) {
-    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
-    return PayResponse()
-      ..paidAmount = pigeonMap['paidAmount'] as int?
-      ..payments = pigeonMap['payments'] as List<Object?>?;
-  }
-}
-
 class PayParam {
   CieloCredentials? cieloCredentials;
   String? reference;
@@ -69,6 +50,25 @@ class CieloCredentials {
   }
 }
 
+class PayResponse {
+  int? paidAmount;
+  List<Object?>? payments;
+
+  Object encode() {
+    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['paidAmount'] = paidAmount;
+    pigeonMap['payments'] = payments;
+    return pigeonMap;
+  }
+
+  static PayResponse decode(Object message) {
+    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
+    return PayResponse()
+      ..paidAmount = pigeonMap['paidAmount'] as int?
+      ..payments = pigeonMap['payments'] as List<Object?>?;
+  }
+}
+
 class CieloRun {
   /// Constructor for [CieloRun].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -77,12 +77,35 @@ class CieloRun {
 
   final BinaryMessenger? _binaryMessenger;
 
-  Future<PayResponse> pay(PayParam arg) async {
+  Future<void> pay(PayParam arg) async {
     final Object encoded = arg.encode();
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.CieloRun.pay', const StandardMessageCodec(), binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
         await channel.send(encoded) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+        details: null,
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      // noop
+    }
+  }
+
+  Future<PayResponse> responsePayments() async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.CieloRun.responsePayments', const StandardMessageCodec(), binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(null) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',

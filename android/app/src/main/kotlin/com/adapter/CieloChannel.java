@@ -15,32 +15,6 @@ import java.util.HashMap;
 public class CieloChannel {
 
   /** Generated class from Pigeon that represents data sent in messages. */
-  public static class PayResponse {
-    private Long paidAmount;
-    public Long getPaidAmount() { return paidAmount; }
-    public void setPaidAmount(Long setterArg) { this.paidAmount = setterArg; }
-
-    private List<Object> payments;
-    public List<Object> getPayments() { return payments; }
-    public void setPayments(List<Object> setterArg) { this.payments = setterArg; }
-
-    Map<String, Object> toMap() {
-      Map<String, Object> toMapResult = new HashMap<>();
-      toMapResult.put("paidAmount", paidAmount);
-      toMapResult.put("payments", payments);
-      return toMapResult;
-    }
-    static PayResponse fromMap(Map<String, Object> map) {
-      PayResponse fromMapResult = new PayResponse();
-      Object paidAmount = map.get("paidAmount");
-      fromMapResult.paidAmount = (paidAmount == null) ? null : ((paidAmount instanceof Integer) ? (Integer)paidAmount : (Long)paidAmount);
-      Object payments = map.get("payments");
-      fromMapResult.payments = (List<Object>)payments;
-      return fromMapResult;
-    }
-  }
-
-  /** Generated class from Pigeon that represents data sent in messages. */
   public static class PayParam {
     private CieloCredentials cieloCredentials;
     public CieloCredentials getCieloCredentials() { return cieloCredentials; }
@@ -99,13 +73,40 @@ public class CieloChannel {
     }
   }
 
+  /** Generated class from Pigeon that represents data sent in messages. */
+  public static class PayResponse {
+    private Long paidAmount;
+    public Long getPaidAmount() { return paidAmount; }
+    public void setPaidAmount(Long setterArg) { this.paidAmount = setterArg; }
+
+    private List<Object> payments;
+    public List<Object> getPayments() { return payments; }
+    public void setPayments(List<Object> setterArg) { this.payments = setterArg; }
+
+    Map<String, Object> toMap() {
+      Map<String, Object> toMapResult = new HashMap<>();
+      toMapResult.put("paidAmount", paidAmount);
+      toMapResult.put("payments", payments);
+      return toMapResult;
+    }
+    static PayResponse fromMap(Map<String, Object> map) {
+      PayResponse fromMapResult = new PayResponse();
+      Object paidAmount = map.get("paidAmount");
+      fromMapResult.paidAmount = (paidAmount == null) ? null : ((paidAmount instanceof Integer) ? (Integer)paidAmount : (Long)paidAmount);
+      Object payments = map.get("payments");
+      fromMapResult.payments = (List<Object>)payments;
+      return fromMapResult;
+    }
+  }
+
   public interface Result<T> {
     void success(T result);
   }
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter.*/
   public interface CieloRun {
-    void pay(PayParam arg, Result<PayResponse> result);
+    void pay(PayParam arg);
+    void responsePayments(Result<PayResponse> result);
 
     /** Sets up an instance of `CieloRun` to handle messages through the `binaryMessenger`. */
     static void setup(BinaryMessenger binaryMessenger, CieloRun api) {
@@ -118,7 +119,26 @@ public class CieloChannel {
             try {
               @SuppressWarnings("ConstantConditions")
               PayParam input = PayParam.fromMap((Map<String, Object>)message);
-              api.pay(input, result -> { wrapped.put("result", result.toMap()); reply.reply(wrapped); });
+              api.pay(input);
+              wrapped.put("result", null);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+            }
+            reply.reply(wrapped);
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.CieloRun.responsePayments", new StandardMessageCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              api.responsePayments(result -> { wrapped.put("result", result.toMap()); reply.reply(wrapped); });
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));

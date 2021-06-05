@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:t_truck_app/features/domain/repositories/i_recipt_repository.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/params/params.dart';
@@ -11,9 +12,11 @@ import '../../repositories/i_image_repository.dart';
 
 class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
   IImageRepository iImageListRepository;
+  IReciptRepository iReciptRepository;
 
   ImageSaveUseCase({
     required this.iImageListRepository,
+    required this.iReciptRepository,
   });
 
   @override
@@ -39,6 +42,7 @@ class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
       numcanhoto: numcanhotoConcatenado,
     );
 
+    await iReciptRepository.save(params.orderEntity!);
     return Right(await iImageListRepository.save(imageEntity));
   }
 }

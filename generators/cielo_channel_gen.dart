@@ -2,8 +2,10 @@ import 'package:pigeon/pigeon.dart';
 
 @HostApi()
 abstract class CieloRun {
+  void pay(PayParam param);
+
   @async
-  PayResponse pay(PayParam param);
+  PayResponse responsePayments();
 }
 
 class PayParam {

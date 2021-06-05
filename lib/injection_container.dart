@@ -18,7 +18,6 @@ import 'package:t_truck_app/features/data/external/apis/occurrence_api.dart';
 import 'package:t_truck_app/features/data/external/apis/product_api.dart';
 import 'package:t_truck_app/features/data/external/apis/receipt_api.dart';
 import 'package:t_truck_app/features/data/external/apis/tipo_transacao_api.dart';
-import 'package:t_truck_app/features/data/external/channels/cielo_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/dio_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/jwt_decoder_driver.dart';
 import 'package:t_truck_app/features/data/external/drivers/shared_preferences_driver.dart';
@@ -28,6 +27,7 @@ import 'package:t_truck_app/features/data/repository/login_repository.dart';
 import 'package:t_truck_app/features/data/repository/occurrence_repository.dart';
 import 'package:t_truck_app/features/data/repository/payment_repository.dart';
 import 'package:t_truck_app/features/data/repository/product_repository.dart';
+import 'package:t_truck_app/features/data/repository/recipt_repository.dart';
 import 'package:t_truck_app/features/data/repository/tipo_transacao_repository.dart';
 import 'package:t_truck_app/features/data/repository/token_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/devolution_repository.dart';
@@ -35,6 +35,7 @@ import 'package:t_truck_app/features/domain/repositories/i_image_repository.dart
 import 'package:t_truck_app/features/domain/repositories/i_login_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_occurrence_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_product_repository.dart';
+import 'package:t_truck_app/features/domain/repositories/i_recipt_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_tipo_transacao_repository.dart';
 import 'package:t_truck_app/features/domain/repositories/i_token_repository.dart';
 import 'package:t_truck_app/features/domain/use_cases/devolution/devolution_save_usecase.dart';
@@ -163,13 +164,9 @@ class OrderPayBiding extends Bindings {
           iHttp: Get.find(),
         ));
 
-    Get.lazyPut<CieloDriver>(() => CieloDriver());
-
     Get.lazyPut<IOrderPaymentRepository>(
       () => PaymentRepository(
-        cieloDriver: Get.find(),
         iOrderExternal: Get.find(),
-        iReceiptExternal: Get.find(),
         iLoggedUser: Get.find(),
       ),
     );
@@ -284,8 +281,21 @@ class CameraImageBiding extends Bindings {
       ),
     );
 
+    Get.lazyPut<IReceiptExternal>(
+      () => ReceiptApi(
+        iHttp: Get.find(),
+      ),
+    );
+
+    Get.lazyPut<IReciptRepository>(
+      () => ReciptRepository(
+        iReceiptExternal: Get.find(),
+      ),
+    );
+
     Get.lazyPut<ImageSaveUseCase>(
       () => ImageSaveUseCase(
+        iReciptRepository: Get.find(),
         iImageListRepository: Get.find(),
       ),
     );

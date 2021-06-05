@@ -9,7 +9,6 @@ import 'package:t_truck_app/injection_container.dart';
 
 class CameraProofPage extends StatelessWidget {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
