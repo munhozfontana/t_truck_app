@@ -6,7 +6,7 @@ import '../../../../core/adapters/protocols/i_http_external.dart';
 import '../../domain/entites/credential_entity.dart';
 import '../models/credential_model.dart';
 
-abstract class ILogin {
+mixin ILogin {
   Future<String> login(CredentialEntity credential);
 }
 

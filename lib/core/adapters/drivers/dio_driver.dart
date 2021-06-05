@@ -19,7 +19,7 @@ class DioDriver implements IHttp {
     try {
       return mackObj(
           await dio.delete(url!, options: Options(headers: headers)));
-    } catch (e) {
+    } on Exception catch (e) {
       throw DriverException(error: ApiMensages.GENERIC_ERROR);
     }
   }

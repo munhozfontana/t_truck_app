@@ -5,7 +5,11 @@ import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_co
 class ListClientBiding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ClientListUseCase());
+    Get.lazyPut(
+      () => ClientListUseCase(
+        iClientsRepository: Get.find(),
+      ),
+    );
 
     Get.put<ListClientController>(ListClientController(
       iLoggedUser: Get.find(),
