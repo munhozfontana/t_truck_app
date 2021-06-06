@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/pages/splash/splash.dart';
 import 'package:t_truck_app/features/login/login_biding.dart';
+import 'package:t_truck_app/features/splash/ui/splash.dart';
 import 'package:t_truck_app/injection_container.dart';
 
 import 'core/utils/global_style.dart';
