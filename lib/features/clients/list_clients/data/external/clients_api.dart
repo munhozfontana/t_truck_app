@@ -21,14 +21,16 @@ class ClientsApi implements IClientAdapter {
 
   @override
   Future<List<ClientModel>> getAll() async {
+    var usuarioLogado = await iLoggedUser.login;
+
     try {
       var res = await iHttp.getHttp(
-        '${env['URL_BASE']}/order/${iLoggedUser.login}',
+        '${env['URL_BASE']}/order/$usuarioLogado',
       );
       List list = json.decode(res.body!);
       return list
           .map(
-            (e) => ClientModel.fromJson(e),
+            (e) => ClientModel.fromMap(e),
           )
           .toList();
     } catch (e) {

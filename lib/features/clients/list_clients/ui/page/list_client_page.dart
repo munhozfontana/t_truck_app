@@ -35,7 +35,7 @@ class ListClientPage extends GetWidget<ListClientController> {
               Opacity(
                 opacity: 0.5,
                 child: Obx(() => Text(
-                      '${controller.filtredList.length} clientes encontrados',
+                      '${controller.list.length} clientes encontrados',
                       style: Get.textTheme.headline6,
                       textAlign: TextAlign.left,
                     )),
@@ -49,10 +49,10 @@ class ListClientPage extends GetWidget<ListClientController> {
                       onRefresh: controller.takeClients,
                       child: ListView.separated(
                         separatorBuilder: (_, __) => SizedBox(height: 16),
-                        itemCount: controller.filtredList.length,
+                        itemCount: controller.list.length,
                         itemBuilder: (context, index) {
                           return ClientItem(
-                              clientEntity: controller.filtredList[index],
+                              clientEntity: controller.list[index],
                               controller: controller);
                         },
                       ),
@@ -86,19 +86,22 @@ class ClientItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        controller.navigateToProduct(clientEntity);
-      },
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Stack(
-            children: [
-              background(constraints),
-              content(constraints, clientEntity),
-            ],
-          );
+    return Visibility(
+      visible: clientEntity.show,
+      child: InkWell(
+        onTap: () {
+          controller.navigateToProduct(clientEntity);
         },
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Stack(
+              children: [
+                background(constraints),
+                content(constraints, clientEntity),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

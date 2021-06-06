@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_controller.dart';
+import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
+import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
+import 'package:t_truck_app/features/login/login_biding.dart';
+import 'package:t_truck_app/features/login/ui/page/login_page.dart';
 
 class AppBackground extends StatelessWidget {
   final bool initialScreen;
@@ -43,6 +47,15 @@ class AppBackground extends StatelessWidget {
     );
   }
 
+  void logout() async {
+    if (Get.currentRoute.contains('ClientPage')) {
+      Get.find<ILoggedUser>().logout();
+      await Get.offAll(() => LoginPage(), binding: LoginBiding());
+    } else {
+      await Get.off(() => ListClientPage(), binding: ListClientBiding());
+    }
+  }
+
   Widget isNotInitial() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +67,7 @@ class AppBackground extends StatelessWidget {
           child: Container(
             height: 50,
             child: GestureDetector(
-              onTap: () => Get.find<ListClientController>().logout(),
+              onTap: () => logout(),
               child: Container(
                 child: SvgPicture.asset(
                   'images/logo.svg',
