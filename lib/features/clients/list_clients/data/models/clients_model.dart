@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/clients/client_detail/domain/entites/invoice_entity.dart';
 import 'package:t_truck_app/features/clients/list_clients/domain/entites/client_entity.dart';
 import 'package:uuid/uuid.dart';
 
 class ClientModel extends ClientEntity {
   final int? codCli;
-  final String? cliente;
-  final int? qtde;
+  final String cliente;
 
   ClientModel({
-    this.codCli,
-    this.cliente,
-    this.qtde,
+    required int this.codCli,
+    required this.cliente,
+    required int qtde,
   }) : super(
             id: Uuid().v4(),
             name: cliente,
-            invoices: List.generate(qtde!, (index) => InvoiceEntity()));
+            produtos: [],
+            qtde: qtde,
+            clientId: codCli);
 
   Map<String, dynamic> toMap() {
     return {

@@ -3,7 +3,7 @@ import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/clients/list_clients/data/external/clients_api.dart';
-import 'package:t_truck_app/features/clients/list_clients/domain/entites/client_entity.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/clients_model.dart';
 import 'package:t_truck_app/features/clients/list_clients/domain/repositores/i_clients_repository.dart';
 
 class ClientsRepository implements IClientsRepository {
@@ -14,7 +14,7 @@ class ClientsRepository implements IClientsRepository {
   });
 
   @override
-  Future<Either<Failure, List<ClientEntity>>> getAll() async {
+  Future<Either<Failure, List<ClientModel>>> getAll() async {
     try {
       return Right(await iClientAdapter.getAll());
     } on ApiException catch (e) {

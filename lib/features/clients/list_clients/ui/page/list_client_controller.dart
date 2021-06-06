@@ -12,10 +12,7 @@ class ListClientController extends GetxController with BaseController {
   final ClientListUseCase clientsListUseCase;
 
   RxList<ClientEntity> list = <ClientEntity>[].obs;
-
   RxString filterInput = ''.obs;
-
-  Rx<ClientEntity?> clientEntity = ClientEntity().obs;
 
   ListClientController({
     required this.clientsListUseCase,
@@ -50,24 +47,18 @@ class ListClientController extends GetxController with BaseController {
         }
 
         return element.copyWith(
-          show: element.name!.isCaseInsensitiveContains(value),
+          show: element.name.isCaseInsensitiveContains(value),
         );
       },
     ).toList();
     list.refresh();
   }
 
-  List<ClientEntity> filterList(List<ClientEntity> list, String itemFilter) {
-    return list
-        .where((element) => element.name!.isCaseInsensitiveContains(itemFilter))
-        .toList();
-  }
-
   void navigateToProduct(ClientEntity client) {
-    clientEntity.value = client;
     Get.to(
       () => ClientDetailPage(),
       binding: ClientDetailBiding(),
+      arguments: client,
     );
   }
 }

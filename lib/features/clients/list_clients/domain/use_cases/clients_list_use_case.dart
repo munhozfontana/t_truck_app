@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/clients_model.dart';
 import 'package:t_truck_app/features/clients/list_clients/domain/repositores/i_clients_repository.dart';
 
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/use_case.dart';
-import '../entites/client_entity.dart';
 
 class ClientListUseCase implements UseCaseAsync<Type, Params> {
   final IClientsRepository iClientsRepository;
@@ -16,7 +16,7 @@ class ClientListUseCase implements UseCaseAsync<Type, Params> {
   });
 
   @override
-  Future<Either<Failure, List<ClientEntity>>> call(Params params) async {
+  Future<Either<Failure, List<ClientModel>>> call(Params params) async {
     return await iClientsRepository.getAll();
   }
 }

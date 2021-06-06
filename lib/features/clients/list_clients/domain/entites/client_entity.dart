@@ -1,32 +1,36 @@
-import '../../../client_detail/domain/entites/invoice_entity.dart';
+import 'package:t_truck_app/features/clients/list_products/domain/entites/product_entity.dart';
 
 class ClientEntity {
   final String id;
-  final String? clientId;
-  final String? name;
-  final List<InvoiceEntity>? invoices;
+  final int clientId;
+  final String name;
+  final List<ProductEntity> produtos;
+  final int qtde;
   final bool show;
 
   ClientEntity({
-    this.id = '',
-    this.clientId,
-    this.name,
-    this.invoices,
+    required this.id,
+    required this.clientId,
+    required this.name,
+    required this.produtos,
+    required this.qtde,
     this.show = true,
   });
 
   ClientEntity copyWith({
     String? id,
-    String? clientId,
+    int? clientId,
     String? name,
-    List<InvoiceEntity>? invoices,
+    List<ProductEntity>? produtos,
+    int? qtde,
     bool? show,
   }) {
     return ClientEntity(
       id: id ?? this.id,
       clientId: clientId ?? this.clientId,
       name: name ?? this.name,
-      invoices: invoices ?? this.invoices,
+      produtos: produtos ?? this.produtos,
+      qtde: qtde ?? this.qtde,
       show: show ?? this.show,
     );
   }

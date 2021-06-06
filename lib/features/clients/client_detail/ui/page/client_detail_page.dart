@@ -46,8 +46,10 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                         child: Center(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child:
-                                Text('1_1_1', style: Get.textTheme.headline6),
+                            child: Text(
+                                controller.clientEntity.value!.clientId
+                                    .toString(),
+                                style: Get.textTheme.headline6),
                           ),
                         ),
                       ),
@@ -68,7 +70,7 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Text(
-                              '2_2_2',
+                              controller.clientEntity.value!.cliente,
                               style: const TextStyle(
                                   color: Color(0xff000000),
                                   fontWeight: FontWeight.w800,
@@ -90,7 +92,8 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                               flex: 10,
                               child: ItemTest(
                                 label: 'Qtd. de \nnotas fiscais',
-                                subLabel: controller.qtdNotas.value,
+                                subLabel: controller.clientEntity.value!.qtde
+                                    .toString(),
                               ),
                             ),
                             Spacer(),
@@ -98,7 +101,9 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                               flex: 10,
                               child: ItemTest(
                                 label: 'Qtd. de \nProdutos',
-                                subLabel: controller.qtdProdutos.value,
+                                subLabel: controller
+                                    .clientEntity.value!.produtos.length
+                                    .toString(),
                               ),
                             ),
                           ],

@@ -130,7 +130,7 @@ class ClientItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            clientEntity.name!,
+            clientEntity.name,
             style: const TextStyle(
               color: Color(0xff090f31),
               fontWeight: FontWeight.w500,
@@ -167,7 +167,7 @@ class ClientItem extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          clientEntity.invoices!.length.toString(),
+                          clientEntity.qtde.toString(),
                           style: const TextStyle(
                               color: Color(0xff000000),
                               fontWeight: FontWeight.w500,
