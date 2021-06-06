@@ -30,13 +30,12 @@ class PaymentPage extends GetWidget<PaymentController> {
               Spacer(flex: 33),
               BtnPrimary(
                 label: 'Cartão de crédito',
-                onPressed: controller.payCartaoCredito,
-                // onPressed: controller.tipoTransacaoEntity
-                //         .where((element) =>
-                //             element.tipoTransacao == TipoTransacao.CREDITO)
-                //         .isNotEmpty
-                //     ? controller.payCartaoCredito
-                //     : null,
+                onPressed: controller.tipoTransacaoEntity
+                        .where((element) =>
+                            element.tipoTransacao == TipoTransacao.CREDITO)
+                        .isNotEmpty
+                    ? controller.payCartaoCredito
+                    : null,
               ),
               Spacer(flex: 8),
               BtnPrimary(
