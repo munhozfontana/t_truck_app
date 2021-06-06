@@ -62,12 +62,6 @@ import 'features/domain/repositories/i_order_repository.dart';
 class MainBiding extends Bindings {
   @override
   void dependencies() {
-    Get.put<IHttp>(DioDriver(
-      dio: Dio(BaseOptions(
-          connectTimeout: 15 * 1000, // 60 seconds
-          receiveTimeout: 15 * 1000 // 60 seconds
-          )),
-    ));
     Get.put<ILocalStoreExternal>(
       SharedPreferencesDriver(),
       permanent: true,
@@ -83,6 +77,13 @@ class MainBiding extends Bindings {
       ),
       permanent: true,
     );
+    Get.put<IHttp>(DioDriver(
+      dio: Dio(BaseOptions(
+          connectTimeout: 15 * 1000, // 60 seconds
+          receiveTimeout: 15 * 1000 // 60 seconds
+          )),
+      iLoggedUser: Get.find(),
+    ));
     TokenBiding().dependencies();
   }
 }
