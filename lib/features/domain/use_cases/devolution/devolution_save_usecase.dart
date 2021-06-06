@@ -41,6 +41,8 @@ class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
         )
         .toList();
 
+    list.removeWhere((element) => element.productEntity.qtToSend == 0);
+
     return iDevolutionSaveRepository.save(list);
   }
 }
