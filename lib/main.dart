@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/pages/splash/splash.dart';
 import 'package:t_truck_app/features/login/login_biding.dart';
+import 'package:t_truck_app/injection_container.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -20,7 +22,7 @@ void main() async {
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(GetMaterialApp(
-    title: 'Flutter Demo',
+    title: 'GSA',
     theme: ThemeData(
       brightness: Brightness.light,
       primaryColor: Color(0xff090f31),
@@ -42,7 +44,18 @@ void main() async {
     getPages: [
       GetPage(
         name: '/',
-        page: () => LoginPage(),
+        page: () {
+          return FutureBuilder(
+            future: Future.delayed(Duration(seconds: 3)),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return MaterialApp(home: Splash());
+              } else {
+                return LoginPage();
+              }
+            },
+          );
+        },
         bindings: [
           LoginBiding(),
         ],

@@ -1,7 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../features/payment/data/external/channels/cielo_channel.dart';
-import '../../features/payment/data/external/channels/cielo_enum.dart';
 
 class PaymentUtils {
   // BUILD UTILS
@@ -25,9 +24,8 @@ class PaymentUtils {
     var arg = PayParam()
       ..reference = 'GSA'
       ..cieloCredentials = cieloCredentials
-      ..valorTotal = valorTotal
-      ..paymentCode = Payment.CREDITO_PARCELADO_ADM.code
       ..items = items;
+
     return arg;
   }
 
@@ -37,11 +35,11 @@ class PaymentUtils {
     listOrderEntity.forEach((e) {
       var itemsConverted = e.identificacoes.map((item) {
         return {
-          'sku': item.numNota.toString(),
+          'sku': item.numTransVenda.toString(),
           'name': e.cliente,
           'unitPrice': convensaoCielo(item.valor!).toInt(),
           'quantity': 1,
-          'unitOfMeasure': item.numTransVenda.toString(),
+          'unitOfMeasure': 'EACH',
         };
       });
 

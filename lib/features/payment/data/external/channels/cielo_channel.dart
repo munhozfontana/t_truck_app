@@ -7,81 +7,16 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 
 import 'package:flutter/services.dart';
 
-class PayResponse {
-  String? id;
-  int? price;
-  int? paidAmount;
-  int? pendingAmount;
-  String? reference;
-  String? number;
-  String? notes;
-  int? status;
-  List<Object?>? items;
-  List<Object?>? payments;
-  int? createdAt;
-  int? updatedAt;
-  int? releaseDate;
-  int? type;
-
-  Object encode() {
-    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
-    pigeonMap['id'] = id;
-    pigeonMap['price'] = price;
-    pigeonMap['paidAmount'] = paidAmount;
-    pigeonMap['pendingAmount'] = pendingAmount;
-    pigeonMap['reference'] = reference;
-    pigeonMap['number'] = number;
-    pigeonMap['notes'] = notes;
-    pigeonMap['status'] = status;
-    pigeonMap['items'] = items;
-    pigeonMap['payments'] = payments;
-    pigeonMap['createdAt'] = createdAt;
-    pigeonMap['updatedAt'] = updatedAt;
-    pigeonMap['releaseDate'] = releaseDate;
-    pigeonMap['type'] = type;
-    return pigeonMap;
-  }
-
-  static PayResponse decode(Object message) {
-    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
-    return PayResponse()
-      ..id = pigeonMap['id'] as String?
-      ..price = pigeonMap['price'] as int?
-      ..paidAmount = pigeonMap['paidAmount'] as int?
-      ..pendingAmount = pigeonMap['pendingAmount'] as int?
-      ..reference = pigeonMap['reference'] as String?
-      ..number = pigeonMap['number'] as String?
-      ..notes = pigeonMap['notes'] as String?
-      ..status = pigeonMap['status'] as int?
-      ..items = pigeonMap['items'] as List<Object?>?
-      ..payments = pigeonMap['payments'] as List<Object?>?
-      ..createdAt = pigeonMap['createdAt'] as int?
-      ..updatedAt = pigeonMap['updatedAt'] as int?
-      ..releaseDate = pigeonMap['releaseDate'] as int?
-      ..type = pigeonMap['type'] as int?;
-  }
-}
-
 class PayParam {
   CieloCredentials? cieloCredentials;
-  int? valorTotal;
   String? reference;
   List<Object?>? items;
-  String? ec;
-  int? installments;
-  String? email;
-  int? paymentCode;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['cieloCredentials'] = cieloCredentials == null ? null : cieloCredentials!.encode();
-    pigeonMap['valorTotal'] = valorTotal;
     pigeonMap['reference'] = reference;
     pigeonMap['items'] = items;
-    pigeonMap['ec'] = ec;
-    pigeonMap['installments'] = installments;
-    pigeonMap['email'] = email;
-    pigeonMap['paymentCode'] = paymentCode;
     return pigeonMap;
   }
 
@@ -91,13 +26,8 @@ class PayParam {
       ..cieloCredentials = pigeonMap['cieloCredentials'] != null
           ? CieloCredentials.decode(pigeonMap['cieloCredentials']!)
           : null
-      ..valorTotal = pigeonMap['valorTotal'] as int?
       ..reference = pigeonMap['reference'] as String?
-      ..items = pigeonMap['items'] as List<Object?>?
-      ..ec = pigeonMap['ec'] as String?
-      ..installments = pigeonMap['installments'] as int?
-      ..email = pigeonMap['email'] as String?
-      ..paymentCode = pigeonMap['paymentCode'] as int?;
+      ..items = pigeonMap['items'] as List<Object?>?;
   }
 }
 
@@ -120,6 +50,25 @@ class CieloCredentials {
   }
 }
 
+class PayResponse {
+  int? paidAmount;
+  List<Object?>? payments;
+
+  Object encode() {
+    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['paidAmount'] = paidAmount;
+    pigeonMap['payments'] = payments;
+    return pigeonMap;
+  }
+
+  static PayResponse decode(Object message) {
+    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
+    return PayResponse()
+      ..paidAmount = pigeonMap['paidAmount'] as int?
+      ..payments = pigeonMap['payments'] as List<Object?>?;
+  }
+}
+
 class CieloRun {
   /// Constructor for [CieloRun].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -128,12 +77,35 @@ class CieloRun {
 
   final BinaryMessenger? _binaryMessenger;
 
-  Future<PayResponse> pay(PayParam arg) async {
+  Future<void> pay(PayParam arg) async {
     final Object encoded = arg.encode();
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.CieloRun.pay', const StandardMessageCodec(), binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
         await channel.send(encoded) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+        details: null,
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      // noop
+    }
+  }
+
+  Future<PayResponse> responsePayments() async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.CieloRun.responsePayments', const StandardMessageCodec(), binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(null) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',

@@ -37,6 +37,7 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 78),
                           TextFormField(
                             controller: controller.loginField.value,
+                            keyboardType: TextInputType.number,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
@@ -55,6 +56,7 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 39),
                           TextFormField(
                             controller: controller.passwordField.value,
+                            keyboardType: TextInputType.number,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             obscureText: true,

@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.6+6
+version: 1.0.115+115
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  android_intent: ^2.0.2
   build_runner: ^2.0.1
   cached_network_image: ^3.0.0
   camera_camera: ^2.0.1
@@ -31,6 +32,7 @@ dependencies:
   dartz: ^0.10.0-nullsafety.1
   dio: ^4.0.0
   equatable: ^2.0.0
+  external_app_launcher: ^0.0.1
   flutter_dotenv: ^4.0.0-nullsafety.0
   flutter_svg: ^0.22.0
   geocoding: ^2.0.0
@@ -39,15 +41,17 @@ dependencies:
   get_it: ^6.1.1
   google_maps_flutter: ^2.0.3
   image: ^3.0.2
-  intl: ^0.17.0
+  intl: ^0.17.0 
   json_serializable: ^4.1.1
   jwt_decoder: ^2.0.1
   map: ^0.3.0
   mockito: ^5.0.5
+  package_info: ^2.0.2
   pedantic: ^1.11.0
   pigeon: ^0.2.1
   shared_preferences: ^2.0.5
   uuid: ^3.0.4
+  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:
   flutter_test:
@@ -90,3 +94,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  android: true
+  image_path: "assets/launcher/icon_app.png"

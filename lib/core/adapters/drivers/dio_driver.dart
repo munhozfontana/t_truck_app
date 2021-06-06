@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
 
 import '../protocols/i_http_external.dart';
 
 class DioDriver implements IHttp {
   final Dio dio;
+  final ILoggedUser iLoggedUser;
 
   DioDriver({
     required this.dio,
+    required this.iLoggedUser,
   });
 
   @override
@@ -34,6 +37,11 @@ class DioDriver implements IHttp {
   Future<HttpResponse> putHttp(String? url,
       {Map<String, String>? headers, body}) async {
     return mackObj(await dio.put(url!, options: Options(headers: headers)));
+  }
+
+  Map<String, String> buildToken() {
+    iLoggedUser
+    return {'x-access-token': iLoggedUser.t};
   }
 
   HttpResponse mackObj(Response response) {

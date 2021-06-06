@@ -10,7 +10,6 @@ import '../../../show_picture/ui/page/camera_show_picture_page.dart';
 
 class TakePicturePage extends StatelessWidget {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
