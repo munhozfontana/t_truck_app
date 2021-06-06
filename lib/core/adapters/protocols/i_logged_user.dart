@@ -45,10 +45,20 @@ class LoggedUser implements ILoggedUser {
       throw DriverException(error: 'Error ao remover o token');
     }
   }
+
+  @override
+  Future<String> get token async {
+    try {
+      return (await iLocalStoreExternal.take('token') as String);
+    } catch (e) {
+      throw DriverException(error: 'Error ao recuperar o token');
+    }
+  }
 }
 
 mixin ILoggedUser {
   Future<String> get login;
+  Future<String> get token;
   Future<bool> loginExpired();
   void logout();
 }
