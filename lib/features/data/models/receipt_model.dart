@@ -59,11 +59,14 @@ class ReceiptModel extends TransacaoVendaModel {
 
   static List<ReceiptModel>? cieloAndOrderToReceiptModel(
       PayResponse payment, OrderEntity orderEntity) {
+    var listReceiptModel = <ReceiptModel>[];
+
     var paymentFields = (payment.payments as List<dynamic>);
-    var firstPayment = paymentFields[0];
-    return orderEntity.identificacoes
-        .map(
-          (e) => ReceiptModel(
+
+    paymentFields.forEach((firstPayment) {
+      var listIdentificacoesWithNsu = orderEntity.identificacoes.map(
+        (e) {
+          return ReceiptModel(
             numTransVenda: e.numTransVenda,
             prest: '',
             codCob: firstPayment['paymentFields']['primaryProductName'],
@@ -88,9 +91,14 @@ class ReceiptModel extends TransacaoVendaModel {
                 .format(DateTime.now())
                 .toString(),
             numNota: e.numNota,
-          ),
-        )
-        .toList();
+          );
+        },
+      ).toList();
+
+      listReceiptModel.addAll(listIdentificacoesWithNsu);
+    });
+
+    return listReceiptModel;
   }
 
   Map<String, dynamic> toMap() {
