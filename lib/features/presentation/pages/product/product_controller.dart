@@ -41,16 +41,18 @@ class ProductController extends GetxController with BaseController {
       tipoTransacaoEntity.value = r;
     });
 
+    orderEntity.value = orderEntity.value!.copyWith(
+        identificacoes: tipoTransacaoEntity
+            .map((element) => TransacaoVendaEntity(
+                numTransVenda: element.transacaoVendaEntity.numTransVenda,
+                numNota: 0,
+                prest: ''))
+            .toList());
+
+    orderEntity.refresh();
+
     var params = Params(
-      listIdentificacao: orderEntity.value!
-          .copyWith(
-              identificacoes: tipoTransacaoEntity
-                  .map((element) => TransacaoVendaEntity(
-                      numTransVenda: element.transacaoVendaEntity.numTransVenda,
-                      numNota: 0,
-                      prest: ''))
-                  .toList())
-          .identificacoes,
+      listIdentificacao: orderEntity.value!.identificacoes,
     );
 
     (await productListUseCase(params)).fold(
