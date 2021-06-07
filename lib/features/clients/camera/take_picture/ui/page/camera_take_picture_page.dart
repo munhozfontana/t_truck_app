@@ -1,12 +1,12 @@
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/camera/show_picture_biding.dart';
 
 import '../../../../../../core/components/app_background.dart';
 import '../../../../../../core/components/btn/btn_primary.dart';
 import '../../../../../../core/components/layout/default_form.dart';
 import '../../../show_picture/ui/page/camera_show_picture_page.dart';
+import '../../../show_picture_biding.dart';
 
 class TakePicturePage extends StatelessWidget {
   @override

@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/login/data/repositories_impl/token_repository.dart';
-import 'package:t_truck_app/features/login/domain/repositores/i_token_repository.dart';
-import 'package:t_truck_app/features/login/domain/use_cases/token_use_case.dart';
 
 import 'data/external/login_api.dart';
 import 'data/repositories_impl/login_repository.dart';
+import 'data/repositories_impl/token_repository.dart';
 import 'domain/repositores/i_login_repository.dart';
+import 'domain/repositores/i_token_repository.dart';
 import 'domain/use_cases/login_use_case.dart';
+import 'domain/use_cases/token_use_case.dart';
 import 'ui/page/login_controller.dart';
 
 class LoginBiding extends Bindings {

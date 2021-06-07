@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/login/login_biding.dart';
-import 'package:t_truck_app/features/splash/ui/splash.dart';
-import 'package:t_truck_app/injection_container.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -14,8 +11,10 @@ import 'features/clients/devolution/ui/page/devolution_page.dart';
 import 'features/clients/finish/ui/page/devolution_finish.dart';
 import 'features/clients/list_clients/ui/page/list_client_page.dart';
 import 'features/clients/list_products/ui/page/list_products_page.dart';
+import 'features/login/login_biding.dart';
 import 'features/login/ui/page/login_page.dart';
 import 'features/payment/ui/page/payment_page.dart';
+import 'features/splash/ui/splash.dart';
 import 'injection_container.dart';
 
 void main() async {

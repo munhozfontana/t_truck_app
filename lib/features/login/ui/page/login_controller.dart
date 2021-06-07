@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
-import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
 
 import '../../../../core/adapters/protocols/i_logged_user.dart';
 import '../../../../core/params/params.dart';
 import '../../../../core/utils/app_dialog.dart';
 import '../../../../core/utils/base_controller.dart';
+import '../../../clients/list_clients/list_clients_biding.dart';
+import '../../../clients/list_clients/ui/page/list_client_page.dart';
 import '../../domain/entites/credential_entity.dart';
 import '../../domain/use_cases/login_use_case.dart';
 import '../../domain/use_cases/token_use_case.dart';

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
-import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
-import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
-import 'package:t_truck_app/features/login/login_biding.dart';
-import 'package:t_truck_app/features/login/ui/page/login_page.dart';
+
+import '../../features/clients/list_clients/list_clients_biding.dart';
+import '../../features/clients/list_clients/ui/page/list_client_page.dart';
+import '../../features/login/login_biding.dart';
+import '../../features/login/ui/page/login_page.dart';
+import '../adapters/protocols/i_logged_user.dart';
 
 class AppBackground extends StatelessWidget {
   final bool initialScreen;

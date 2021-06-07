@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/camera/show_picture_biding.dart';
 
 import '../../../../../../core/components/app_background.dart';
 import '../../../../../../core/components/btn/btn_primary.dart';
@@ -12,6 +11,7 @@ import '../../../../../../core/components/btn/btn_voltar.dart';
 import '../../../../../../core/components/btn_occurrence.dart';
 import '../../../../../../core/components/layout/default_form.dart';
 import '../../../../list_products/ui/page/list_products_page.dart';
+import '../../../show_picture_biding.dart';
 import 'camera_show_picture_controller.dart';
 
 class ShowPicture extends GetWidget<CameraImageController> {

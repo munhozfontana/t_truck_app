@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
 import '../../../../../core/utils/base_controller.dart';
+import '../../../list_clients/data/models/client_model.dart';
 
 class ClientDetailController extends GetxController with BaseController {
   Rx<ClientModel?> clientEntity = ClientModel(

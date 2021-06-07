@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/route_manager.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
-import 'package:t_truck_app/features/login/login_biding.dart';
-import 'package:t_truck_app/features/login/ui/page/login_page.dart';
 
+import '../../../features/login/login_biding.dart';
+import '../../../features/login/ui/page/login_page.dart';
 import '../protocols/i_http_external.dart';
+import '../protocols/i_logged_user.dart';
 
 class DioDriver implements IHttp {
   final Dio dio;

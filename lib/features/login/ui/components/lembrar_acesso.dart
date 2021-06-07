@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/components/custom_checkbox.dart';
+
+import '../../../../core/components/custom_checkbox.dart';
 
 class LembrarAcesso extends StatelessWidget {
   const LembrarAcesso({

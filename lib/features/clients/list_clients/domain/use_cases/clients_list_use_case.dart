@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
-import 'package:t_truck_app/features/clients/list_clients/domain/repositores/i_clients_repository.dart';
 
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/use_case.dart';
+import '../../data/models/client_model.dart';
+import '../repositores/i_clients_repository.dart';
 
 class ClientListUseCase implements UseCaseAsync<Type, Params> {
   final IClientsRepository iClientsRepository;

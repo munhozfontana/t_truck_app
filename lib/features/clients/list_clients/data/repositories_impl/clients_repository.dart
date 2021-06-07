@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/error/api_exception.dart';
-import 'package:t_truck_app/core/error/failures.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/external/clients_api.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
-import 'package:t_truck_app/features/clients/list_clients/domain/repositores/i_clients_repository.dart';
+
+import '../../../../../core/error/api_exception.dart';
+import '../../../../../core/error/failures.dart';
+import '../../../../../core/messages/api_mensages.dart';
+import '../../domain/repositores/i_clients_repository.dart';
+import '../external/clients_api.dart';
+import '../models/client_model.dart';
 
 class ClientsRepository implements IClientsRepository {
   IClientAdapter iClientAdapter;

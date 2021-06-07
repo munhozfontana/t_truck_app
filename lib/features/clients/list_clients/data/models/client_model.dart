@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/clients/list_clients/domain/entites/client_entity.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../domain/entites/client_entity.dart';
 
 class ClientModel extends ClientEntity {
   final int? codCli;

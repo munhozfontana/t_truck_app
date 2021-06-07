@@ -1,5 +1,4 @@
-import 'package:t_truck_app/core/error/driver_exception.dart';
-
+import '../../error/driver_exception.dart';
 import 'i_jwt_external.dart';
 import 'i_local_store_external.dart';
 

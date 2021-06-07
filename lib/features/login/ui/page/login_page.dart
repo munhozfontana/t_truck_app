@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/login/ui/components/esqueci_codigo.dart';
-import 'package:t_truck_app/features/login/ui/components/lembrar_acesso.dart';
 
 import '../../../../core/components/app_background.dart';
 import '../../../../core/components/help_component.dart';
 import '../../../../core/utils/base_controller.dart';
+import '../components/esqueci_codigo.dart';
+import '../components/lembrar_acesso.dart';
 import 'login_controller.dart';
 
 class LoginPage extends GetWidget<LoginController> {

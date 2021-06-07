@@ -3,7 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:t_truck_app/core/components/app_background.dart';
+
+import '../../../core/components/app_background.dart';
 
 class Splash extends StatelessWidget {
   @override
