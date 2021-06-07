@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:t_truck_app/core/adapters/protocols/i_http_external.dart';
 import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/clients_model.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
 mixin IClientAdapter {
   Future<List<ClientModel>> getAll();

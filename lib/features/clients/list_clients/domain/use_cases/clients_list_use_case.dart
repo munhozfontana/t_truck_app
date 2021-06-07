@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/clients_model.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 import 'package:t_truck_app/features/clients/list_clients/domain/repositores/i_clients_repository.dart';
 
 import '../../../../../core/error/failures.dart';

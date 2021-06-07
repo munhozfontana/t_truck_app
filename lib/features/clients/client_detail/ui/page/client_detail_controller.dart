@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/clients_model.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
 import '../../../../../core/utils/base_controller.dart';
 
