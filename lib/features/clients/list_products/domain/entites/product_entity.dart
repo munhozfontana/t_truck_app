@@ -1,9 +1,16 @@
 class ProductEntity {
-  String? id;
-  String? name;
-  int? maxQuantity;
-  int? quantity;
+  final String? id;
+  final String? name;
+  final int? maxQuantity;
+  final int? quantity;
+
   bool hidden = false;
+  ProductEntity({
+    this.id,
+    this.name,
+    this.maxQuantity,
+    this.quantity,
+  });
 
   @override
   bool operator ==(Object other) {

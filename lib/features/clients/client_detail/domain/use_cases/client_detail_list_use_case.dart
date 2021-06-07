@@ -15,6 +15,6 @@ class ProductListUseCase implements UseCaseAsync<Type, Params> {
 
   @override
   Future<Either<Failure, List<ProductEntity>>> call(Params params) async {
-    return Right([]);
+    return iProductRepository.getId(166641);
   }
 }

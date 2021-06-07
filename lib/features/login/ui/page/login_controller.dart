@@ -16,7 +16,6 @@ class LoginController extends GetxController with BaseController {
   final LoginUseCase loginUseCase;
   final TokenUseCase tokenUseCase;
   final ILoggedUser iLoggedUser;
-  RxString matricula = ''.obs;
 
   LoginController({
     required this.loginUseCase,
@@ -48,20 +47,14 @@ class LoginController extends GetxController with BaseController {
                   (l) => AppDialog.error(
                         menssagem: l.props.first.toString(),
                       ),
-                  (r) =>
-                      {matricula.value = r['login'].toString(), toOrderPage()}),
+                  (r) => toOrderPage()),
             });
   }
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() async {
+  void onInit() async {
     loginIfHasToken();
-    super.onReady();
+    super.onInit();
   }
 
   void toOrderPage() =>

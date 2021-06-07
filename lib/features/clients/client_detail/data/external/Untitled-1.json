@@ -1,0 +1,73 @@
+{
+  "NUMTRANSVENDA": 32765123,
+  "NUMCAR": 2034809,
+  "DTSAIDA": "2021-06-02T00:00:00.000Z",
+  "ISBOLETO": true,
+  "ISCARTAO": false,
+  "VALORCARTAO": 0,
+  "VALORBOLETO": 1730.53,
+  "VALORBONIFICADO": 0,
+  "VALORCARTEIRA": 0.03,
+  "PRODUTOPS": [
+    {
+      "CODPROD": 333,
+      "DESCRICAO": "FOSFORO GUARANY 10 CAIXINHAS",
+      "QT": 60
+    },
+    {
+      "CODPROD": 5534,
+      "DESCRICAO": "CHA LEAO 10UN CAPIM CIDREIRA",
+      "QT": 30
+    },
+    {
+      "CODPROD": 5537,
+      "DESCRICAO": "CHA LEAO 10UN CAMOMILA",
+      "QT": 30
+    },
+    {
+      "CODPROD": 9712,
+      "DESCRICAO": "AGUA SANITARIA BRILHANTE  1L",
+      "QT": 24
+    },
+    {
+      "CODPROD": 12593,
+      "DESCRICAO": "GELATINA ROYAL 24G S/SABOR",
+      "QT": 48
+    },
+    {
+      "CODPROD": 12805,
+      "DESCRICAO": "SODA CAUSTICA ESCAMAS LIPON (POTE) 01KG",
+      "QT": 24
+    },
+    {
+      "CODPROD": 90529,
+      "DESCRICAO": "RACAO BOMGUY FILHOTE 2KG",
+      "QT": 6
+    },
+    {
+      "CODPROD": 92176,
+      "DESCRICAO": "AMEIXA OLE CALDA 150G",
+      "QT": 12
+    },
+    {
+      "CODPROD": 309600,
+      "DESCRICAO": "ENERGETICO VULCANO 02L",
+      "QT": 12
+    },
+    {
+      "CODPROD": 345800,
+      "DESCRICAO": "ENERGETICO EXTRA POWER 2L",
+      "QT": 6
+    },
+    {
+      "CODPROD": 348717,
+      "DESCRICAO": "COPO DESCART COPOBRAS TRAN PP 180MLX100U",
+      "QT": 25
+    },
+    {
+      "CODPROD": 360273,
+      "DESCRICAO": "BOMBOM CAIXA GAROTO 250G",
+      "QT": 60
+    }
+  ]
+}
