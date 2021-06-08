@@ -25,15 +25,25 @@ class ClientsApi implements IClientAdapter {
     var usuarioLogado = await iLoggedUser.login;
 
     try {
-      var res = await iHttp.getHttp(
+      var resOrder = await iHttp.getHttp(
         '${env['URL_BASE']}/order/$usuarioLogado',
       );
-      List list = json.decode(res.body!);
-      return list
+
+      List listOrders = json.decode(resOrder.body!);
+
+      var resProduct = await iHttp.postHttp(
+        '${env['URL_BASE']}/product',
+        body: {'NUMTRANSVENDA': listOrders},
+      );
+
+      List listProducts = json.decode(resProduct.body!);
+
+      listOrders
           .map(
-            (e) => ClientModel.fromMap(e),
+            (e) => ClientModel.fromMap(e)..produtos,
           )
           .toList();
+      return [];
     } catch (e) {
       throw ApiException(error: 'Erro ao obter lista de clientes');
     }
