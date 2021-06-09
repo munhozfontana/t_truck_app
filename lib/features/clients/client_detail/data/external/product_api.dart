@@ -20,12 +20,12 @@ class ProductApi implements IProduct {
 
   @override
   Future<List<ProductEntity>> getId(int codCli) async {
-    var resPayments = await getPaymentType(codCli);
+    var resPayments = await _getPaymentType(codCli);
     var listProductsModel = await _getProducts(resPayments);
     return listProductsModel;
   }
 
-  Future<List<PaymentTypeGSA>> getPaymentType(int codCli) async {
+  Future<List<PaymentTypeGSA>> _getPaymentType(int codCli) async {
     var resPaymentType = await iHttp.postHttp(
       '${env['URL_BASE']}/paymentType',
       body: {'CODCLIE': codCli},
