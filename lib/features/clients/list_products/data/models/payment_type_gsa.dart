@@ -6,10 +6,10 @@ class PaymentTypeGSA {
   String? dtSaida;
   bool? isBoleto;
   bool? isCartao;
-  int? valorCartao;
-  double? valorBoleto;
-  int? valorBonificado;
-  double? valorCarteira;
+  num? valorCartao;
+  num? valorBoleto;
+  num? valorBonificado;
+  num? valorCarteira;
   PaymentTypeGSA({
     this.numTransVenda,
     this.numCar,
