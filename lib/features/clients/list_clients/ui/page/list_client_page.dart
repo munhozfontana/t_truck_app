@@ -48,7 +48,7 @@ class ListClientPage extends GetWidget<ListClientController> {
                 child: Obx(() => RefreshIndicator(
                       onRefresh: controller.takeClients,
                       child: ListView.separated(
-                        separatorBuilder: (_, __) => SizedBox(height: 16),
+                        separatorBuilder: (_, __) => SizedBox(height: 0),
                         itemCount: controller.list.length,
                         itemBuilder: (context, index) {
                           return ClientItem(
@@ -88,20 +88,22 @@ class ClientItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: clientEntity.show,
-      replacement: Container(),
-      child: InkWell(
-        onTap: () {
-          controller.navigateToProduct(clientEntity);
-        },
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return Stack(
-              children: [
-                background(constraints),
-                content(constraints, clientEntity),
-              ],
-            );
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: InkWell(
+          onTap: () {
+            controller.navigateToProduct(clientEntity);
           },
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Stack(
+                children: [
+                  background(constraints),
+                  content(constraints, clientEntity),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
