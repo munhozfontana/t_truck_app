@@ -4,7 +4,7 @@ import '../../domain/entites/product_entity.dart';
 import 'payment_type_gsa.dart';
 
 class ProductModel extends ProductEntity {
-  final PaymentTypeGSA? paymentTypeGsa;
+  PaymentTypeGSA? paymentTypeGsa;
   final int cODPROD;
   final String dESCRICAO;
   final int qT;

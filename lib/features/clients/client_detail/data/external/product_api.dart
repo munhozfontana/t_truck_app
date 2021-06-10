@@ -47,11 +47,13 @@ class ProductApi implements IProduct {
 
     var body = resProduct.body!;
     List list = json.decode(body);
-    var listProductsModel = list
-        .map(
-          (e) => ProductModel.fromMap(e),
-        )
-        .toList();
+    var listProductsModel = list.map(
+      (e) {
+        return ProductModel.fromMap(e)
+          ..paymentTypeGsa = resPayments.firstWhere(
+              (element) => element.numTransVenda == e['NUMTRANSVENDA']);
+      },
+    ).toList();
     return listProductsModel;
   }
 }

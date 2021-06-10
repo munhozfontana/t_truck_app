@@ -47,7 +47,7 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Text(
-                                controller.clientEntity.value!.clientId
+                                controller.clientEntity.value!.codCli
                                     .toString(),
                                 style: Get.textTheme.headline6),
                           ),
