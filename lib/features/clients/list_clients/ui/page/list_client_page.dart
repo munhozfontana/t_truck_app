@@ -35,7 +35,7 @@ class ListClientPage extends GetWidget<ListClientController> {
               Opacity(
                 opacity: 0.5,
                 child: Obx(() => Text(
-                      '${controller.list.length} clientes encontrados',
+                      '${controller.list.where((element) => element.show).length} clientes encontrados',
                       style: Get.textTheme.headline6,
                       textAlign: TextAlign.left,
                     )),
@@ -88,6 +88,7 @@ class ClientItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: clientEntity.show,
+      replacement: Container(),
       child: InkWell(
         onTap: () {
           controller.navigateToProduct(clientEntity);

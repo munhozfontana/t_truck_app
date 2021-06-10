@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
 import '../../../../../core/error/failures.dart';
-import '../../../list_products/domain/entites/product_entity.dart';
 
 abstract class IProductRepository {
-  Future<Either<Failure, List<ProductEntity>>> getId(int codCli);
+  Future<Either<Failure, List<ProductModel>>> getId(int codCli);
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
 import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/app_dialog.dart';
@@ -11,7 +12,7 @@ import '../../domain/use_cases/clients_list_use_case.dart';
 class ListClientController extends GetxController with BaseController {
   final ClientListUseCase clientsListUseCase;
 
-  RxList<ClientEntity> list = <ClientEntity>[].obs;
+  RxList<ClientModel> list = <ClientModel>[].obs;
   RxString filterInput = ''.obs;
 
   ListClientController({

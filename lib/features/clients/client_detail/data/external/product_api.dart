@@ -5,10 +5,9 @@ import 'package:t_truck_app/features/clients/list_products/data/models/product_m
 
 import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
-import '../../../list_products/domain/entites/product_entity.dart';
 
 mixin IProduct {
-  Future<List<ProductEntity>> getId(int codCli);
+  Future<List<ProductModel>> getId(int codCli);
 }
 
 class ProductApi implements IProduct {
@@ -19,7 +18,7 @@ class ProductApi implements IProduct {
   });
 
   @override
-  Future<List<ProductEntity>> getId(int codCli) async {
+  Future<List<ProductModel>> getId(int codCli) async {
     var resPayments = await _getPaymentType(codCli);
     var listProductsModel = await _getProducts(resPayments);
     return listProductsModel;

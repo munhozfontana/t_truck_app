@@ -1,26 +1,26 @@
 import 'dart:convert';
 
-import 'package:uuid/uuid.dart';
-
 import '../../domain/entites/product_entity.dart';
 import 'payment_type_gsa.dart';
 
 class ProductModel extends ProductEntity {
-  PaymentTypeGSA? paymentTypeGsa;
+  final PaymentTypeGSA? paymentTypeGsa;
+  final int cODPROD;
+  final String dESCRICAO;
+  final int qT;
+  final int nUMTRANSVENDA;
 
-  int cODPROD;
-  String dESCRICAO;
-  int qT;
-  int nUMTRANSVENDA;
+  @override
+  final int quantity;
 
   ProductModel({
     this.paymentTypeGsa,
-    required this.cODPROD,
-    required this.dESCRICAO,
-    required this.qT,
-    required this.nUMTRANSVENDA,
+    this.cODPROD = 0,
+    this.dESCRICAO = 'Não encontrado',
+    this.qT = 0,
+    this.nUMTRANSVENDA = 0,
+    this.quantity = 0,
   }) : super(
-          id: Uuid().v4(),
           name: dESCRICAO,
           maxQuantity: qT,
           quantity: 0,
@@ -48,4 +48,22 @@ class ProductModel extends ProductEntity {
 
   factory ProductModel.fromJson(String source) =>
       ProductModel.fromMap(json.decode(source));
+
+  ProductModel copyWith({
+    PaymentTypeGSA? paymentTypeGsa,
+    int? cODPROD,
+    String? dESCRICAO,
+    int? qT,
+    int? nUMTRANSVENDA,
+    int? quantity,
+  }) {
+    return ProductModel(
+      paymentTypeGsa: paymentTypeGsa ?? this.paymentTypeGsa,
+      cODPROD: cODPROD ?? this.cODPROD,
+      dESCRICAO: dESCRICAO ?? this.dESCRICAO,
+      qT: qT ?? this.qT,
+      nUMTRANSVENDA: nUMTRANSVENDA ?? this.nUMTRANSVENDA,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }

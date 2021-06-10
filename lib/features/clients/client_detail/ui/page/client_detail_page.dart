@@ -70,7 +70,7 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Text(
-                              controller.clientEntity.value!.cliente,
+                              controller.clientEntity.value!.name,
                               style: const TextStyle(
                                   color: Color(0xff000000),
                                   fontWeight: FontWeight.w800,
@@ -120,12 +120,16 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                         typeOccurrence: TypeOccurrence.GREEN,
                       ),
                       BtnOccurrence(
-                        onTap: () {},
+                        onTap: () => controller.toListProducts(
+                          TypeOccurrence.YELLOW,
+                        ),
                         label: 'Devolução parcial',
                         typeOccurrence: TypeOccurrence.YELLOW,
                       ),
                       BtnOccurrence(
-                        onTap: () {},
+                        onTap: () => controller.toListProducts(
+                          TypeOccurrence.RED,
+                        ),
                         label: 'Devolução total',
                         typeOccurrence: TypeOccurrence.RED,
                       ),
