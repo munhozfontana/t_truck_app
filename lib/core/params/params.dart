@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:t_truck_app/features/clients/list_clients/domain/entites/client_entity.dart';
 
 import '../../features/login/domain/entites/credential_entity.dart';
 
@@ -8,6 +9,7 @@ class Params extends Equatable {
   final String? codmot;
   final String? motivoDevolucao;
   final int? codCli;
+  final ClientEntity? clientEntity;
 
   Params({
     this.credential,
@@ -15,6 +17,7 @@ class Params extends Equatable {
     this.codmot,
     this.motivoDevolucao,
     this.codCli,
+    this.clientEntity,
   });
 
   @override
@@ -24,5 +27,6 @@ class Params extends Equatable {
         codmot!,
         motivoDevolucao!,
         codCli!,
+        clientEntity!,
       ];
 }

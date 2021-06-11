@@ -114,6 +114,10 @@ class ClientDetailPage extends GetWidget<ClientDetailController> {
                           Get.to(
                             () => PaymentPage(),
                             binding: PaymentBiding(),
+                            arguments: [
+                              TypeOccurrence.GREEN,
+                              controller.clientEntity.value
+                            ],
                           );
                         },
                         label: 'Entrega total',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/components/btn/btn_primary.dart';
 
 import '../../../../core/components/app_background.dart';
 import '../../../../core/components/btn/btn_voltar.dart';
@@ -27,25 +28,19 @@ class PaymentPage extends GetWidget<PaymentController> {
                     )),
               ),
               Spacer(flex: 33),
-              // BtnPrimary(
-              // label: 'Cartão de crédito',
-              // onPressed: controller.tipoTransacaoEntity
-              // .where((element) =>
-              // element.tipoTransacao == TipoTransacao.CREDITO)
-              // .isNotEmpty
-              // ? controller.payCartaoCredito
-              // : null,
-              // ),
+              BtnPrimary(
+                label: 'Cartão de crédito',
+                onPressed: controller.typePayment.value.isCreditCard
+                    ? controller.payCredito
+                    : null,
+              ),
               Spacer(flex: 8),
-              // BtnPrimary(
-              //   label: controller.botaoDinamico.value,
-              //   onPressed: controller.tipoTransacaoEntity
-              //           .where((element) =>
-              //               element.tipoTransacao == TipoTransacao.BOLETO)
-              //           .isNotEmpty
-              //       ? controller.payDinamico
-              //       : null,
-              // ),
+              BtnPrimary(
+                label: 'Carteira',
+                onPressed: controller.typePayment.value.isWallet
+                    ? controller.payBoleto
+                    : null,
+              ),
               Spacer(flex: 14),
               Divider(),
               Spacer(flex: 14),
