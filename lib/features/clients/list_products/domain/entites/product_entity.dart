@@ -3,13 +3,13 @@ class ProductEntity {
   final String name;
   final int maxQuantity;
   final int quantity;
-  bool hidden;
+  bool show;
 
   ProductEntity({
     this.id = '',
     this.name = '',
     this.maxQuantity = 0,
     this.quantity = 0,
-    this.hidden = false,
+    this.show = false,
   });
 }

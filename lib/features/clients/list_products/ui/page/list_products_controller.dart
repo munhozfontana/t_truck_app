@@ -26,24 +26,27 @@ class ListProductsController extends GetxController with BaseController {
   }
 
   void filterComposer() {
-    (clientModel.value.produtos).map((element) {
+    clientModel.value.copyWith(
+        produtos: clientModel.value.produtos.map((element) {
       var transacaoFinded =
           element.nUMTRANSVENDA.toString() == numTransVendaFeild.value;
 
       var nameFinded = element.name.isCaseInsensitiveContains(nameFeild.value);
 
+      print(nameFinded);
+
       if (transacaoFinded && nameFeild.isEmpty) {
-        element.hidden = false;
+        element.show = true;
       } else if (nameFeild.isNotEmpty && nameFinded) {
-        element.hidden = false;
+        element.show = true;
       } else {
-        element.hidden = true;
+        element.show = false;
       }
 
       return element;
-    }).toList();
+    }).toList());
 
-    update();
+    clientModel.refresh();
   }
 
   void updadeListFromValue(String value, ProductModel productEntity) {
@@ -92,59 +95,22 @@ class ListProductsController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    typeDevolution.value = Get.arguments[1];
-    clientModel.value = Get.arguments[0];
+    typeDevolution.value = Get.arguments[0];
+    clientModel.value = Get.arguments[1];
     if (typeDevolution.value == TypeOccurrence.YELLOW) {
-      // listProducts.value = listProducts.map((element) {
-      //   return ProductEntity(
-      //     codProd: element.codProd,
-      //     descricao: element.descricao,
-      //     qt: element.qt,
-      //     qtToSend: 0,
-      //     transacaoVendaEntity: element.transacaoVendaEntity,
-      //   );
-      // }).toList();
+      clientModel.value = clientModel.value.copyWith(
+          produtos: clientModel.value.produtos.map((element) {
+        return element.copyWith(quantity: 0);
+      }).toList());
     } else {
-      // listProducts.value = listProducts.map((element) {
-      //   return ProductEntity(
-      //     codProd: element.codProd,
-      //     descricao: element.descricao,
-      //     qt: element.qt,
-      //     qtToSend: element.qt,
-      //     transacaoVendaEntity: element.transacaoVendaEntity,
-      //   );
-      // }).toList();
+      clientModel.value = clientModel.value.copyWith(
+          produtos: clientModel.value.produtos.map((element) {
+        return element.copyWith(quantity: element.maxQuantity);
+      }).toList());
     }
 
     filterComposer();
     clientModel.refresh();
     super.onInit();
-  }
-}
-
-class Tste1 {
-  final String? atributo;
-
-  Tste1(this.atributo);
-}
-
-class Tste2 extends Tste1 {
-  @override
-  final String? atributo;
-  final String? atributo2;
-
-  Tste2({
-    this.atributo,
-    this.atributo2,
-  }) : super('');
-
-  Tste2 copyWith({
-    String? atributo,
-    String? atributo2,
-  }) {
-    return Tste2(
-      atributo: atributo ?? this.atributo,
-      atributo2: atributo2 ?? this.atributo2,
-    );
   }
 }

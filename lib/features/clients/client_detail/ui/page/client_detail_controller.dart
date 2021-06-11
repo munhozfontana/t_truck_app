@@ -38,7 +38,7 @@ class ClientDetailController extends GetxController with BaseController {
     Get.to(
       () => ListProductsPage(),
       binding: LitProductsBiding(),
-      arguments: [typeOccurrence, clientEntity],
+      arguments: [typeOccurrence, clientEntity.value],
     );
   }
 }

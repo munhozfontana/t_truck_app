@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/components/app_background.dart';
+import 'package:t_truck_app/core/components/btn/btn_voltar.dart';
+import 'package:t_truck_app/core/components/btn_occurrence.dart';
 import 'package:t_truck_app/core/components/layout/default_form.dart';
 import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_controller.dart';
@@ -66,7 +68,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                       return Opacity(
                         opacity: 0.5,
                         child: Text(
-                          '${_.clientModel.value.produtos.where((e) => !e.hidden).length} Produtos encontrados',
+                          '${_.clientModel.value.produtos.where((e) => e.show).length} Produtos encontrados',
                           style: Get.textTheme.headline6,
                           textAlign: TextAlign.left,
                         ),
@@ -76,24 +78,24 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                   Spacer(
                     flex: 6,
                   ),
-                  // Container(
-                  //   height: constraints.maxHeight * .60,
-                  //   child: GetX<ListProductsController>(
-                  //     builder: (_) {
-                  //       return ListView.separated(
-                  //         separatorBuilder: (a, b) => SizedBox(height: 0),
-                  //         itemCount: _.clientEntity.value.produtos.length + 1,
-                  //         itemBuilder: (context, index) {
-                  //           if (index == _.clientEntity.value.produtos.length) {
-                  //             return renderLastItem();
-                  //           }
-                  //           return comumItem(
-                  //               _.clientEntity.value.produtos[index]);
-                  //         },
-                  //       );
-                  //     },
-                  //   ),
-                  // )
+                  Container(
+                    height: constraints.maxHeight * .60,
+                    child: GetX<ListProductsController>(
+                      builder: (_) {
+                        return ListView.separated(
+                          separatorBuilder: (a, b) => SizedBox(height: 0),
+                          itemCount: _.clientModel.value.produtos.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == _.clientModel.value.produtos.length) {
+                              return renderLastItem();
+                            }
+                            return comumItem(
+                                _.clientModel.value.produtos[index]);
+                          },
+                        );
+                      },
+                    ),
+                  )
                 ],
               );
             },
@@ -105,7 +107,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
 
   Widget comumItem(ProductModel? productEntity) {
     return Visibility(
-      visible: !productEntity!.hidden,
+      visible: productEntity!.show,
       maintainState: true,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -138,17 +140,17 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.always,
-                    // initialValue: productEntity.qtToSend.toString(),
-                    // maxLength: productEntity.qt.toString().length,
-                    // validator: (value) {
-                    //   if (value!.isEmpty) {
-                    //     return 'Min 0';
-                    //   }
-                    //   if (value.isNotEmpty &&
-                    //       int.parse(value) > productEntity.qt) {
-                    //     return 'Max ${productEntity.qt}';
-                    //   }
-                    // },
+                    initialValue: productEntity.quantity.toString(),
+                    maxLength: productEntity.maxQuantity.toString().length,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Min 0';
+                      }
+                      if (value.isNotEmpty &&
+                          int.parse(value) > productEntity.maxQuantity) {
+                        return 'Max ${productEntity.maxQuantity}';
+                      }
+                    },
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(vertical: 15),
                       counterText: '',
@@ -168,42 +170,42 @@ class ListProductsPage extends GetWidget<ListProductsController> {
     );
   }
 
-  // Container renderLastItem() {
-  //   return Container(
-  //     height: 200,
-  //     child: Column(
-  //       children: [
-  //         Divider(),
-  //         Spacer(
-  //           flex: 035,
-  //         ),
-  //         GetX<ListProductsController>(
-  //           builder: (_) {
-  //             return BtnOccurrence(
-  //               onTap: controller.listProducts
-  //                       .where((item) => item.qtToSend > 0)
-  //                       .isNotEmpty
-  //                   ? controller.nextPage
-  //                   : null,
-  //               label: controller.typeDevolution.value == TypeOccurrence.YELLOW
-  //                   ? 'Devolução parcial'
-  //                   : 'Devolução total',
-  //               typeOccurrence: controller.typeDevolution.value,
-  //             );
-  //           },
-  //         ),
-  //         Spacer(
-  //           flex: 035,
-  //         ),
-  //         BtnVoltar(
-  //           label: 'Voltar',
-  //           onTap: () => Get.back(),
-  //         ),
-  //         Spacer(
-  //           flex: 035,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Container renderLastItem() {
+    return Container(
+      height: 200,
+      child: Column(
+        children: [
+          Divider(),
+          Spacer(
+            flex: 035,
+          ),
+          GetX<ListProductsController>(
+            builder: (_) {
+              return BtnOccurrence(
+                onTap: controller.clientModel.value.produtos
+                        .where((item) => item.quantity > 0)
+                        .isNotEmpty
+                    ? controller.nextPage
+                    : null,
+                label: controller.typeDevolution.value == TypeOccurrence.YELLOW
+                    ? 'Devolução parcial'
+                    : 'Devolução total',
+                typeOccurrence: controller.typeDevolution.value,
+              );
+            },
+          ),
+          Spacer(
+            flex: 035,
+          ),
+          BtnVoltar(
+            label: 'Voltar',
+            onTap: () => Get.back(),
+          ),
+          Spacer(
+            flex: 035,
+          ),
+        ],
+      ),
+    );
+  }
 }
