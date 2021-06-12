@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/client_detail/ui/page/client_detail_page.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
@@ -200,7 +201,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
           ),
           BtnVoltar(
             label: 'Voltar',
-            onTap: () => Get.back(),
+            onTap: () => Get.off(() => ClientDetailPage()),
           ),
           Spacer(
             flex: 035,
