@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
@@ -7,7 +8,7 @@ import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
 
 mixin IProduct {
-  Future<List<ProductModel>> getId(int codCli);
+  Future<Tuple2<List<ProductModel>, List<PaymentTypeGSA>>> getId(int codCli);
 }
 
 class ProductApi implements IProduct {
@@ -18,10 +19,14 @@ class ProductApi implements IProduct {
   });
 
   @override
-  Future<List<ProductModel>> getId(int codCli) async {
+  Future<Tuple2<List<ProductModel>, List<PaymentTypeGSA>>> getId(
+      int codCli) async {
     var resPayments = await _getPaymentType(codCli);
     var listProductsModel = await _getProducts(resPayments);
-    return listProductsModel;
+    return Tuple2(
+      listProductsModel,
+      resPayments,
+    );
   }
 
   Future<List<PaymentTypeGSA>> _getPaymentType(int codCli) async {
@@ -49,9 +54,9 @@ class ProductApi implements IProduct {
     List list = json.decode(body);
     var listProductsModel = list.map(
       (e) {
-        return ProductModel.fromMap(e)
-          ..paymentTypeGsa = resPayments.firstWhere(
-              (element) => element.numTransVenda == e['NUMTRANSVENDA']);
+        return ProductModel.fromMap(e);
+        // ..paymentTypeGsa = resPayments.firstWhere(
+        //     (element) => element.numTransVenda == e['NUMTRANSVENDA']);
       },
     ).toList();
     return listProductsModel;

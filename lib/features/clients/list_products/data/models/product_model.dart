@@ -20,8 +20,6 @@ class ProductModel extends ProductEntity {
   final int cODPROD;
   final int nUMTRANSVENDA;
 
-  PaymentTypeGSA? paymentTypeGsa;
-
   ProductModel({
     required this.id,
     this.name = 'Não encontrado',
@@ -30,7 +28,6 @@ class ProductModel extends ProductEntity {
     this.show = true,
     this.cODPROD = 0,
     this.nUMTRANSVENDA = 0,
-    this.paymentTypeGsa,
   }) : super(
           name: name,
           maxQuantity: maxQuantity,
@@ -68,7 +65,6 @@ class ProductModel extends ProductEntity {
       show: hidden ?? show,
       cODPROD: cODPROD ?? this.cODPROD,
       nUMTRANSVENDA: nUMTRANSVENDA ?? this.nUMTRANSVENDA,
-      paymentTypeGsa: paymentTypeGsa ?? this.paymentTypeGsa,
     );
   }
 }

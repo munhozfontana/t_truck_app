@@ -8,7 +8,26 @@ import '../../../../core/components/btn/btn_voltar.dart';
 import '../../../../core/components/layout/default_form.dart';
 import 'payment_controller.dart';
 
-class PaymentPage extends GetWidget<PaymentController> {
+class PaymentPage extends StatefulWidget {
+  @override
+  _PaymentPageState createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
+  var controller = Get.find<PaymentController>();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +55,15 @@ class PaymentPage extends GetWidget<PaymentController> {
               ),
               Spacer(flex: 8),
               BtnPrimary(
-                label: 'Carteira',
-                onPressed: controller.typePayment.value.isWallet
+                label: 'Boleto',
+                onPressed: controller.typePayment.value.isBoleto
                     ? controller.payBoleto
                     : null,
               ),
+              if (controller.typePayment.value.isWallet)
+                ...secondaryPayment(label: 'Carteira'),
+              if (controller.typePayment.value.isBonus)
+                ...secondaryPayment(label: 'Bonificação'),
               Spacer(flex: 14),
               Divider(),
               Spacer(flex: 14),
@@ -51,5 +74,15 @@ class PaymentPage extends GetWidget<PaymentController> {
         ],
       ),
     );
+  }
+
+  List<Widget> secondaryPayment({required label}) {
+    return [
+      Spacer(flex: 8),
+      BtnPrimary(
+        label: label,
+        onPressed: controller.payBoleto,
+      )
+    ];
   }
 }

@@ -24,11 +24,12 @@ class ClientDetailController extends GetxController with BaseController {
     (await productListUseCase(Params(codCli: clientModelParam.codCli))).fold(
       (l) => null,
       (r) => clientEntity = ClientModel(
-        name: clientModelParam.name,
-        qtde: clientModelParam.qtde,
-        codCli: clientModelParam.codCli,
-        produtos: r,
-      ).obs,
+              name: clientModelParam.name,
+              qtde: clientModelParam.qtde,
+              codCli: clientModelParam.codCli,
+              produtos: r.value1,
+              paymentTypeGsa: r.value2)
+          .obs,
     );
     changeLoading(Loading.STOP);
     super.onInit();

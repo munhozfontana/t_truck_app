@@ -53,14 +53,15 @@ class ListProductsController extends GetxController with BaseController {
     if (!GetUtils.isNull(value)) {
       var listProducts = clientModel.value.produtos.map((p) {
         if (p.id == productEntity.id) {
-          return productEntity.copyWith(
+          return p.copyWith(
               quantity: GetUtils.isBlank(value)! ? 0 : int.tryParse(value)!);
         } else {
-          return productEntity;
+          return p;
         }
       }).toList();
 
-      clientModel.value.copyWith(produtos: listProducts);
+      clientModel.value = clientModel.value.copyWith(produtos: listProducts);
+      clientModel.refresh();
 
       updateTypeDevolution();
     }

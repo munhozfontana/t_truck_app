@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/core/messages/api_mensages.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/payment_type_gsa.dart';
 import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
 import '../../../../../core/error/api_exception.dart';
 import '../../../../../core/error/failures.dart';
-import '../../../../../core/messages/api_mensages.dart';
 import '../../domain/repositories/i_product_repository.dart';
 import '../external/product_api.dart';
 
@@ -15,7 +16,8 @@ class ProductRepository implements IProductRepository {
   });
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getId(codCli) async {
+  Future<Either<Failure, Tuple2<List<ProductModel>, List<PaymentTypeGSA>>>>
+      getId(codCli) async {
     try {
       return Right(await iProduct.getId(codCli));
     } on ApiException catch (e) {

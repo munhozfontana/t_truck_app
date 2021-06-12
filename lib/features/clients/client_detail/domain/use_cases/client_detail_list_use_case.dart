@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/payment_type_gsa.dart';
 import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
 import '../../../../../core/error/failures.dart';
@@ -14,7 +15,8 @@ class ProductListUseCase implements UseCaseAsync<Type, Params> {
   });
 
   @override
-  Future<Either<Failure, List<ProductModel>>> call(Params params) async {
+  Future<Either<Failure, Tuple2<List<ProductModel>, List<PaymentTypeGSA>>>>
+      call(Params params) async {
     return iProductRepository.getId(params.codCli!);
   }
 }

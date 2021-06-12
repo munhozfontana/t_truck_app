@@ -1,16 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
 import '../../features/payment/data/external/channels/cielo_channel.dart';
 
 class PaymentUtils {
   // BUILD UTILS
-  static int valorTotalFromOrder(dynamic orderEntity) {
-    var listInts = orderEntity.identificacoes
-        .map((e) => e.valor)
-        .map((e) => (e ?? 0))
-        .map((e) => convensaoCielo(e));
-    return listInts.reduce((itemValue, item) => itemValue + item).toInt();
-  }
 
   static CieloCredentials buildCieloCredentials() {
     var cieloCredentials = CieloCredentials()
@@ -20,7 +14,7 @@ class PaymentUtils {
   }
 
   static PayParam buildPayParam(
-      CieloCredentials cieloCredentials, int valorTotal, List<Map> items) {
+      CieloCredentials cieloCredentials, List<Map> items) {
     var arg = PayParam()
       ..reference = 'GSA'
       ..cieloCredentials = cieloCredentials
@@ -29,21 +23,19 @@ class PaymentUtils {
     return arg;
   }
 
-  static List<Map> takeItems(List listOrderEntity) {
+  static List<Map> takeItems(ClientModel clientModel) {
     var items = <Map>[];
 
-    listOrderEntity.forEach((e) {
-      var itemsConverted = e.identificacoes.map((item) {
-        return {
-          'sku': item.numTransVenda.toString(),
-          'name': e.cliente,
-          'unitPrice': convensaoCielo(item.valor!).toInt(),
-          'quantity': 1,
-          'unitOfMeasure': 'EACH',
-        };
-      });
-
-      items.addAll(itemsConverted);
+    clientModel.paymentTypeGsa!
+        // .where((element) => element.valorCartao! > 0)
+        .map((item) {
+      return {
+        'sku': item.numTransVenda.toString(),
+        'name': clientModel.name,
+        'unitPrice': convensaoCielo(item.valorCartao!).toInt(),
+        'quantity': 1,
+        'unitOfMeasure': 'EACH',
+      };
     });
     return items;
   }
