@@ -26,8 +26,8 @@ import org.json.JSONArray;
 public class CieloPagamentoGSA implements CieloChannel.CieloRun {
 
   private Context context;
-  List<Object> paymentFields;
-  long paidAmount;
+  List<Object> paymentFields = new ArrayList<>();
+  long paidAmount = 0L;
   OrderManager orderManager;
 
   public CieloPagamentoGSA(Context context) {
@@ -152,7 +152,8 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
 
         try {
           orderManager.placeOrder(order);
-          orderManager.checkoutOrder(order.getId(),5, paymentListener);
+          orderManager.checkoutOrder(order.getId(), 5, paymentListener);
+          // orderManager.checkoutOrder(order.getId(), paymentListener);
           orderManager.unbind();
         } catch (Exception e) {
           Utils.dialog(context, e.getMessage());
@@ -175,6 +176,8 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     res.setPayments(paymentFields);
     res.setPaidAmount(paidAmount);
     result.success(res);
+    paidAmount = 0;
+    paymentFields = new ArrayList<>();
     orderManager.unbind();
     Log.d("SDKClient", "#### responsePayments  ###");
   }
