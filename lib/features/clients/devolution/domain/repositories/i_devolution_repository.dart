@@ -5,4 +5,5 @@ import '../../../../../core/error/failures.dart';
 
 mixin IDevolutionRepository {
   Future<Either<Failure, List<DropdownModel>>> list();
+  Future<Either<Failure, void>> save();
 }

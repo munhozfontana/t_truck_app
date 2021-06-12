@@ -24,4 +24,10 @@ class DevolutionRepository implements IDevolutionRepository {
       return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> save() {
+    // TODO: implement save
+    throw UnimplementedError();
+  }
 }
