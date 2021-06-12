@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_page.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/components/dropdown_default.dart';
 import '../../../../../core/components/layout/default_form.dart';
+import '../../../list_products/ui/page/list_products_page.dart';
 import 'devolution_controller.dart';
 
-class OccurrenceReasonPage extends GetView<OccurrenceReasonController> {
+class DevolutionPage extends GetView<DevolutionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

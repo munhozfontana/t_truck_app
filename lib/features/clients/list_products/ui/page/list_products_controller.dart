@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/devolution/ui/page/devolution_page.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/utils/base_controller.dart';
+import '../../../devolution/devolution_biding.dart';
+import '../../../devolution/ui/page/devolution_page.dart';
+import '../../../list_clients/data/models/client_model.dart';
+import '../../data/models/product_model.dart';
 
 class ListProductsController extends GetxController with BaseController {
   Rx<ClientModel> clientModel = ClientModel().obs;
@@ -79,18 +80,22 @@ class ListProductsController extends GetxController with BaseController {
 
   void nextPage() {
     if (typeDevolution.value == TypeOccurrence.YELLOW) {
-      Get.to(() => OccurrenceReasonPage(),
-          // binding: OccurrenceReasonBiding(),
-          arguments: [
-            TypeOccurrence.YELLOW,
-            clientModel,
-          ]);
+      Get.to(
+        () => DevolutionPage(),
+        binding: DevolutionBiding(),
+        arguments: [
+          TypeOccurrence.YELLOW,
+          clientModel,
+        ],
+      );
     } else {
-      Get.to(() => OccurrenceReasonPage(),
-          // binding: OccurrenceReasonBiding(),
-          arguments: [
-            TypeOccurrence.RED,
-          ]);
+      Get.to(
+        () => DevolutionPage(),
+        binding: DevolutionBiding(),
+        arguments: [
+          TypeOccurrence.RED,
+        ],
+      );
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
+import '../../features/clients/list_clients/data/models/client_model.dart';
 import '../../features/payment/data/external/channels/cielo_channel.dart';
 
 class PaymentUtils {

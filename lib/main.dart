@@ -73,7 +73,7 @@ void main() async {
       ),
       GetPage(
         name: '/list_clients/client_detail/devolution',
-        page: () => OccurrenceReasonPage(),
+        page: () => DevolutionPage(),
       ),
       GetPage(
         name: '/list_clients/devolution/finish',

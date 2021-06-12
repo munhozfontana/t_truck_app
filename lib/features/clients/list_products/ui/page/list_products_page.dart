@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/components/app_background.dart';
-import 'package:t_truck_app/core/components/btn/btn_voltar.dart';
-import 'package:t_truck_app/core/components/btn_occurrence.dart';
-import 'package:t_truck_app/core/components/layout/default_form.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
-import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_controller.dart';
+
+import '../../../../../core/components/app_background.dart';
+import '../../../../../core/components/btn/btn_voltar.dart';
+import '../../../../../core/components/btn_occurrence.dart';
+import '../../../../../core/components/layout/default_form.dart';
+import '../../data/models/product_model.dart';
+import 'list_products_controller.dart';
 
 class ListProductsPage extends GetWidget<ListProductsController> {
   @override

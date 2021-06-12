@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/error/failures.dart';
-import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/core/use_case.dart';
-import 'package:t_truck_app/features/payment/domain/entites/type_payment.dart';
+
+import '../../../../core/error/failures.dart';
+import '../../../../core/params/params.dart';
+import '../../../../core/use_case.dart';
+import '../entites/type_payment.dart';
 
 class IdentifyTypePaymentCase implements UseCase<Type, Params> {
   @override

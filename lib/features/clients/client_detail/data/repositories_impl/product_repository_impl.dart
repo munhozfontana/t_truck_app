@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/payment_type_gsa.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
 import '../../../../../core/error/api_exception.dart';
 import '../../../../../core/error/failures.dart';
+import '../../../../../core/messages/api_mensages.dart';
+import '../../../list_products/data/models/payment_type_gsa.dart';
+import '../../../list_products/data/models/product_model.dart';
 import '../../domain/repositories/i_product_repository.dart';
 import '../external/product_api.dart';
 

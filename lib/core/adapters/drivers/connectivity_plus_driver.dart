@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import '../protocols/i_connectivity_external.dart';
+
 import '../../error/driver_exception.dart';
+import '../protocols/i_connectivity_external.dart';
 
 class ConnectivityPlusDirver implements IConnectivity {
   Connectivity connectivity;

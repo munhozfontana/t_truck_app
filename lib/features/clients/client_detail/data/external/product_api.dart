@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 
 import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
+import '../../../list_products/data/models/product_model.dart';
 
 mixin IProduct {
   Future<Tuple2<List<ProductModel>, List<PaymentTypeGSA>>> getId(int codCli);

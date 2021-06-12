@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
 import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/app_dialog.dart';
 import '../../../../../core/utils/base_controller.dart';
 import '../../../client_detail/client_detail_bading.dart';
 import '../../../client_detail/ui/page/client_detail_page.dart';
+import '../../data/models/client_model.dart';
 import '../../domain/entites/client_entity.dart';
 import '../../domain/use_cases/clients_list_use_case.dart';
 

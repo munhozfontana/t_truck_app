@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 
+import '../../features/clients/list_clients/data/models/client_model.dart';
 import '../../features/login/domain/entites/credential_entity.dart';
 
 class Params extends Equatable {
