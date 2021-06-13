@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/features/clients/devolution/data/models/devolution_model.dart';
 
 import '../../../../../core/components/dropdown_default.dart';
 import '../../../../../core/error/api_exception.dart';
@@ -26,8 +27,14 @@ class DevolutionRepository implements IDevolutionRepository {
   }
 
   @override
-  Future<Either<Failure, void>> save() {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<Either<Failure, void>> save(
+      List<DevolutionModel> listDevolution) async {
+    try {
+      return Right(await iOccurrenceExternal.save(listDevolution));
+    } on ApiException catch (e) {
+      return Left(RequestFailure(detail: e.error));
+    } catch (e) {
+      return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
+    }
   }
 }

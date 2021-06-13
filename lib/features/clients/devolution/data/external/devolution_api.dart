@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:t_truck_app/core/messages/api_mensages.dart';
+import 'package:t_truck_app/features/clients/devolution/data/models/devolution_model.dart';
 
 import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../../../core/components/dropdown_default.dart';
@@ -8,6 +10,7 @@ import '../../../../../core/error/api_exception.dart';
 
 mixin IDevolutionExternal {
   Future<List<DropdownModel>> list();
+  Future<void> save(List<DevolutionModel> listDevolution);
 }
 
 class DevolutionApi implements IDevolutionExternal {
@@ -34,6 +37,19 @@ class DevolutionApi implements IDevolutionExternal {
           .toList();
     } catch (e) {
       throw ApiException();
+    }
+  }
+
+  @override
+  Future<void> save(List<DevolutionModel> listDevolution) async {
+    try {
+      listDevolution.forEach((element) async {
+        // await iHttp.postHttp('${env['URL_BASE']}/devolution',
+        //     body: element.toJson());
+        await Future.delayed(Duration(seconds: 2));
+      });
+    } catch (e) {
+      throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 }
