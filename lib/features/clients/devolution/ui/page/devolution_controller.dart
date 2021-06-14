@@ -30,7 +30,7 @@ class DevolutionController extends GetxController with BaseController {
     changeLoading(Loading.START);
     (await devolutionListUseCase(Params())).fold(
       (l) => {
-        AppDialog.error(menssagem: 'error'),
+        AppDialog.error(menssagem: l.props.first.toString()),
       },
       (r) => {
         reasonDevolution.value = r,

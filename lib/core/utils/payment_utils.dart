@@ -26,9 +26,7 @@ class PaymentUtils {
   static List<Map> takeItems(ClientModel clientModel) {
     var items = <Map>[];
 
-    clientModel.paymentTypeGsa!
-        // .where((element) => element.valorCartao! > 0)
-        .map((item) {
+    clientModel.paymentTypeGsa!.map((item) {
       return {
         'sku': item.numTransVenda.toString(),
         'name': clientModel.name,
