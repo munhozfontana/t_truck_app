@@ -16,9 +16,8 @@ class ProductModel extends ProductEntity {
   final int quantity;
   @override
   bool show;
-
-  final int cODPROD;
-  final int nUMTRANSVENDA;
+  final int codProd;
+  final int numTransVenda;
 
   ProductModel({
     required this.id,
@@ -26,8 +25,8 @@ class ProductModel extends ProductEntity {
     this.maxQuantity = 0,
     this.quantity = 0,
     this.show = true,
-    this.cODPROD = 0,
-    this.nUMTRANSVENDA = 0,
+    this.codProd = 0,
+    this.numTransVenda = 0,
   }) : super(
           name: name,
           maxQuantity: maxQuantity,
@@ -36,10 +35,10 @@ class ProductModel extends ProductEntity {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      cODPROD: map['CODPROD'],
+      codProd: map['CODPROD'],
       name: map['DESCRICAO'],
       maxQuantity: map['QT'],
-      nUMTRANSVENDA: map['NUMTRANSVENDA'],
+      numTransVenda: map['NUMTRANSVENDA'],
       id: Uuid().v4(),
     );
   }
@@ -63,8 +62,8 @@ class ProductModel extends ProductEntity {
       maxQuantity: maxQuantity ?? this.maxQuantity,
       quantity: quantity ?? this.quantity,
       show: hidden ?? show,
-      cODPROD: cODPROD ?? this.cODPROD,
-      nUMTRANSVENDA: nUMTRANSVENDA ?? this.nUMTRANSVENDA,
+      codProd: cODPROD ?? this.codProd,
+      numTransVenda: nUMTRANSVENDA ?? this.numTransVenda,
     );
   }
 }

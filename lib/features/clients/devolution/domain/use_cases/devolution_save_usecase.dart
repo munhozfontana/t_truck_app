@@ -25,13 +25,13 @@ class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
     var list = params.clinetModel!.produtos
         .where((element) => element.quantity != 0)
         .map((e) => DevolutionModel(
-              codprod: e.cODPROD,
+              codprod: e.codProd,
               qt: e.quantity.toString(),
               data: DateFormat('dd/MM/yyyy HH:mm:ss')
                   .format(DateTime.now())
                   .toString(),
               codcli: params.clinetModel!.codCli,
-              numtransvenda: e.nUMTRANSVENDA,
+              numtransvenda: e.numTransVenda,
               codmot: codMot,
               situacao: params.typeOccurrence == TypeOccurrence.YELLOW
                   ? 'DEVP'

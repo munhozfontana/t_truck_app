@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/clients/list_clients/domain/entites/receipt_model.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
 
 import '../../../../../core/utils/payment_utils.dart';
 import '../../../../payment/data/external/channels/cielo_channel.dart';
@@ -21,7 +21,7 @@ class ClientModel extends ClientEntity {
   final bool show;
   @override
   final List<ProductModel> produtos;
-  final List<ReceipModel> receipts;
+  final List<ProductReceiptModel> receipts;
 
   final int codCli;
 
@@ -67,7 +67,7 @@ class ClientModel extends ClientEntity {
     int? qtde,
     bool? show,
     List<ProductModel>? produtos,
-    List<ReceipModel>? receipts,
+    List<ProductReceiptModel>? receipts,
     int? codCli,
     List<PaymentTypeGSA>? paymentTypeGsa,
   }) {

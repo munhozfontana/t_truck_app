@@ -3,7 +3,7 @@ import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
-import 'package:t_truck_app/features/clients/list_clients/domain/entites/receipt_model.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
 import 'package:t_truck_app/features/payment/data/external/channels/cielo_channel.dart';
 import 'package:t_truck_app/features/payment/domain/repositories/payment_repository.dart';
 
@@ -24,10 +24,11 @@ class PaymentRepository implements IPaymentRepository {
   }
 
   @override
-  Future<Either<Failure, List<ReceipModel>>> getPayments() async {
+  Future<Either<Failure, List<ProductReceiptModel>>> getPayments() async {
     try {
-      return Right(
-          ReceipModel.fromListCielo(await CieloRun().responsePayments()));
+      return Right(ProductReceiptModel.fromListCielo(
+        await CieloRun().responsePayments(),
+      ));
     } on ApiException catch (e) {
       return Left(AppFailure(detail: e.error));
     } catch (e) {
@@ -36,13 +37,13 @@ class PaymentRepository implements IPaymentRepository {
   }
 
   @override
-  Future<Either<Failure, ReceipModel>> savePayments(
-      List<ReceipModel> listCLientModel) {
+  Future<Either<Failure, ProductReceiptModel>> savePayments(
+      List<ProductReceiptModel> listCLientModel) {
     // TODO: implement savePayments
     throw UnimplementedError();
   }
 }
 
 mixin IReceiptExternal {
-  Future<void> save(List<ReceipModel> object);
+  Future<void> save(List<ProductReceiptModel> object);
 }

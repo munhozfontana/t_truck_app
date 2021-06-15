@@ -126,7 +126,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(
-                          '${productEntity.nUMTRANSVENDA} - ${productEntity.name}'),
+                          '${productEntity.numTransVenda} - ${productEntity.name}'),
                     ),
                   ),
                 ),

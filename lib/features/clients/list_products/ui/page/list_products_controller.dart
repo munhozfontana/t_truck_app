@@ -30,7 +30,7 @@ class ListProductsController extends GetxController with BaseController {
     clientModel.value.copyWith(
         produtos: clientModel.value.produtos.map((element) {
       var transacaoFinded =
-          element.nUMTRANSVENDA.toString() == numTransVendaFeild.value;
+          element.numTransVenda.toString() == numTransVendaFeild.value;
 
       var nameFinded = element.name.isCaseInsensitiveContains(nameFeild.value);
 

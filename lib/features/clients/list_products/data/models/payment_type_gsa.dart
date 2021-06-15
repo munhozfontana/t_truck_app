@@ -10,6 +10,7 @@ class PaymentTypeGSA {
   num? valorBoleto;
   num? valorBonificado;
   num? valorCarteira;
+
   PaymentTypeGSA({
     this.numTransVenda,
     this.numCar,
