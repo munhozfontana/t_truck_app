@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/payment/domain/use_cases/save_payment_use_case.dart';
 
 import '../../../../core/params/params.dart';
 import '../../../../core/utils/base_controller.dart';
@@ -11,12 +12,14 @@ import '../../domain/use_cases/open_payment_use_case.dart';
 class PaymentController extends GetxController with BaseController {
   final IdentifyTypePaymentCase identifyTypePaymentCase;
   final OpenPaymentUseCase openPaymentUseCase;
+  final SavePaymentUseCase savePaymentUseCase;
   Rx<ClientModel?> clientModel = ClientModel().obs;
   Rx<TypePayment> typePayment = TypePayment().obs;
 
   PaymentController({
     required this.identifyTypePaymentCase,
     required this.openPaymentUseCase,
+    required this.savePaymentUseCase,
   });
 
   @override
@@ -32,8 +35,12 @@ class PaymentController extends GetxController with BaseController {
     super.onInit();
   }
 
-  void payCredito() async {
+  void openPayment() async {
     await openPaymentUseCase(Params(clinetModel: clientModel.value));
+  }
+
+  void savePayment() {
+    Get.to(() => TakePicturePage());
   }
 
   void payBoleto() {

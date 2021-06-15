@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:t_truck_app/features/clients/list_clients/domain/entites/receipt_model.dart';
+
 import '../../../../../core/utils/payment_utils.dart';
 import '../../../../payment/data/external/channels/cielo_channel.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
@@ -19,6 +21,7 @@ class ClientModel extends ClientEntity {
   final bool show;
   @override
   final List<ProductModel> produtos;
+  final List<ReceipModel> receipts;
 
   final int codCli;
 
@@ -31,6 +34,7 @@ class ClientModel extends ClientEntity {
     this.qtde = 0,
     this.show = true,
     this.produtos = const [],
+    this.receipts = const [],
     this.codCli = 0,
     this.paymentTypeGsa,
   });
@@ -44,28 +48,6 @@ class ClientModel extends ClientEntity {
     );
   }
 
-  ClientModel copyWith({
-    String? id,
-    int? clientId,
-    String? name,
-    int? qtde,
-    bool? show,
-    List<ProductModel>? produtos,
-    int? codCli,
-    List<PaymentTypeGSA>? paymentTypeGsa,
-  }) {
-    return ClientModel(
-      id: id ?? this.id,
-      clientId: clientId ?? this.clientId,
-      name: name ?? this.name,
-      qtde: qtde ?? this.qtde,
-      show: show ?? this.show,
-      produtos: produtos ?? this.produtos,
-      codCli: codCli ?? this.codCli,
-      paymentTypeGsa: paymentTypeGsa ?? this.paymentTypeGsa,
-    );
-  }
-
   factory ClientModel.fromJson(String source) =>
       ClientModel.fromMap(json.decode(source));
 
@@ -76,5 +58,29 @@ class ClientModel extends ClientEntity {
         PaymentUtils.takeItems(
           clientEntity!,
         ));
+  }
+
+  ClientModel copyWith({
+    String? id,
+    int? clientId,
+    String? name,
+    int? qtde,
+    bool? show,
+    List<ProductModel>? produtos,
+    List<ReceipModel>? receipts,
+    int? codCli,
+    List<PaymentTypeGSA>? paymentTypeGsa,
+  }) {
+    return ClientModel(
+      id: id ?? this.id,
+      clientId: clientId ?? this.clientId,
+      name: name ?? this.name,
+      qtde: qtde ?? this.qtde,
+      show: show ?? this.show,
+      produtos: produtos ?? this.produtos,
+      receipts: receipts ?? this.receipts,
+      codCli: codCli ?? this.codCli,
+      paymentTypeGsa: paymentTypeGsa ?? this.paymentTypeGsa,
+    );
   }
 }

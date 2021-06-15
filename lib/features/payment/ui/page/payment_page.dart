@@ -29,6 +29,14 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      controller.savePayment();
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -50,7 +58,7 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
               BtnPrimary(
                 label: 'Cartão de crédito',
                 onPressed: controller.typePayment.value.isCreditCard
-                    ? controller.payCredito
+                    ? controller.openPayment
                     : null,
               ),
               Spacer(flex: 8),
