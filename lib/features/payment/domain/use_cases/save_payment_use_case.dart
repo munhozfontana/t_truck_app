@@ -22,7 +22,11 @@ class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
       (l) => null,
       (r) {
         if (r.isEmpty) {
-          iPaymentRepository.savePayments(r);
+          iPaymentRepository.savePayments(
+            params.clinetModel!.copyWith(
+              receipts: r,
+            ),
+          );
         } else {
           return Left(AppFailure(detail: 'Nenhum pagamento foi realizado'));
         }

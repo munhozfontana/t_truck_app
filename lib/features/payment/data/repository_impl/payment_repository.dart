@@ -37,8 +37,7 @@ class PaymentRepository implements IPaymentRepository {
   }
 
   @override
-  Future<Either<Failure, ProductReceiptModel>> savePayments(
-      List<ProductReceiptModel> listCLientModel) {
+  Future<Either<Failure, void>> savePayments(ClientModel clientModel) {
     // TODO: implement savePayments
     throw UnimplementedError();
   }

@@ -6,6 +6,5 @@ import 'package:t_truck_app/features/clients/list_products/data/models/product_r
 mixin IPaymentRepository {
   Future<Either<Failure, void>> openPayments(ClientModel? clientEntity);
   Future<Either<Failure, List<ProductReceiptModel>>> getPayments();
-  Future<Either<Failure, ProductReceiptModel>> savePayments(
-      List<ProductReceiptModel> listCLientModel);
+  Future<Either<Failure, void>> savePayments(ClientModel clientModel);
 }
