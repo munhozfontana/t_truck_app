@@ -22,6 +22,7 @@ class PaymentController extends GetxController with BaseController {
   @override
   void onInit() {
     changeLoading(Loading.START);
+    typePayment.value = Get.arguments[0];
     clientModel.value = Get.arguments[1];
     identifyTypePaymentCase(Params(clinetModel: clientModel.value)).fold(
       (l) => null,
