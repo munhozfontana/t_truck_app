@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/clients/devolution/data/models/devolution_model.dart';
 
 import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../../../core/components/dropdown_default.dart';
 import '../../../../../core/error/api_exception.dart';
+import '../../../../../core/messages/api_mensages.dart';
+import '../models/devolution_model.dart';
 
 mixin IDevolutionExternal {
   Future<List<DropdownModel>> list();

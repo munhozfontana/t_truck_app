@@ -1,8 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_http_external.dart';
-import 'package:t_truck_app/core/error/api_exception.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
+
+import '../../../../core/adapters/protocols/i_http_external.dart';
+import '../../../../core/error/api_exception.dart';
+import '../../../../core/messages/api_mensages.dart';
+import '../../../clients/list_products/data/models/product_receipt_model.dart';
 
 mixin IReceiptExternal {
   Future<void> save(List<ProductReceiptModel> list);

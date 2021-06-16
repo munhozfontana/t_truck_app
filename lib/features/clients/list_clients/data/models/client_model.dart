@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
-
 import '../../../../../core/utils/payment_utils.dart';
 import '../../../../payment/data/external/channels/cielo_channel.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
 import '../../../list_products/data/models/product_model.dart';
+import '../../../list_products/data/models/product_receipt_model.dart';
 import '../../domain/entites/client_entity.dart';
 
 class ClientModel extends ClientEntity {

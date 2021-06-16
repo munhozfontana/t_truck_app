@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
-import 'package:t_truck_app/features/payment/domain/repositories/payment_repository.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/params/params.dart';
 import '../../../../core/use_case.dart';
+import '../../../clients/list_clients/data/models/client_model.dart';
+import '../../../clients/list_products/data/models/product_receipt_model.dart';
+import '../repositories/payment_repository.dart';
 
 class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
   IPaymentRepository iPaymentRepository;

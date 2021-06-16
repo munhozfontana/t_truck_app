@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
-import 'package:t_truck_app/features/payment/data/external/channels/cielo_channel.dart';
+
+import '../../../../payment/data/external/channels/cielo_channel.dart';
+import 'product_model.dart';
 
 class ProductReceiptModel extends ProductModel {
   @override

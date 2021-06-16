@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:t_truck_app/features/clients/devolution/domain/entites/devolution_entity.dart';
+import '../../domain/entites/devolution_entity.dart';
 
 class DevolutionModel extends DevolutionEntity {
   DevolutionModel({

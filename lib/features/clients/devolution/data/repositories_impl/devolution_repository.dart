@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/features/clients/devolution/data/models/devolution_model.dart';
 
 import '../../../../../core/components/dropdown_default.dart';
 import '../../../../../core/error/api_exception.dart';
@@ -7,6 +6,7 @@ import '../../../../../core/error/failures.dart';
 import '../../../../../core/messages/api_mensages.dart';
 import '../../domain/repositories/i_devolution_repository.dart';
 import '../external/devolution_api.dart';
+import '../models/devolution_model.dart';
 
 class DevolutionRepository implements IDevolutionRepository {
   IDevolutionExternal iOccurrenceExternal;

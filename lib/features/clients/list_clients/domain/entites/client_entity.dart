@@ -1,5 +1,6 @@
-import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../list_products/data/models/product_model.dart';
 
 class ClientEntity {
   String id;

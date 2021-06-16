@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:t_truck_app/features/payment/domain/repositories/payment_repository.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/params/params.dart';
 import '../../../../core/use_case.dart';
+import '../repositories/payment_repository.dart';
 
 class OpenPaymentUseCase implements UseCaseAsync<Type, Params> {
   IPaymentRepository iPaymentRepository;

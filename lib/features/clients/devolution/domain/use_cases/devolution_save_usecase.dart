@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:intl/intl.dart';
-import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
-import 'package:t_truck_app/core/components/btn_occurrence.dart';
-import 'package:t_truck_app/features/clients/devolution/data/models/devolution_model.dart';
-import 'package:t_truck_app/features/clients/devolution/domain/repositories/i_devolution_repository.dart';
 
+import '../../../../../core/adapters/protocols/i_logged_user.dart';
+import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/use_case.dart';
+import '../../data/models/devolution_model.dart';
+import '../repositories/i_devolution_repository.dart';
 
 class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
   IDevolutionRepository iDevolutionSaveRepository;

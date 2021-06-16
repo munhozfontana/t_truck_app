@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:t_truck_app/core/components/btn_occurrence.dart';
-import 'package:t_truck_app/core/components/dropdown_default.dart';
 
 import '../../features/clients/list_clients/data/models/client_model.dart';
 import '../../features/login/domain/entites/credential_entity.dart';
+import '../components/btn_occurrence.dart';
+import '../components/dropdown_default.dart';
 
 class Params extends Equatable {
   final CredentialEntity? credential;

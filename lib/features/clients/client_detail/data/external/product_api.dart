@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:t_truck_app/core/error/api_exception.dart';
-import 'package:t_truck_app/core/messages/api_mensages.dart';
 
 import '../../../../../core/adapters/protocols/i_http_external.dart';
+import '../../../../../core/error/api_exception.dart';
+import '../../../../../core/messages/api_mensages.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
 import '../../../list_products/data/models/product_model.dart';
 

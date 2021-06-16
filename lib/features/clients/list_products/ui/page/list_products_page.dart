@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/features/clients/client_detail/ui/page/client_detail_page.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/components/layout/default_form.dart';
+import '../../../client_detail/ui/page/client_detail_page.dart';
 import '../../data/models/product_model.dart';
 import 'list_products_controller.dart';
 
