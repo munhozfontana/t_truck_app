@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:t_truck_app/core/components/btn_occurrence.dart';
+import 'package:t_truck_app/core/components/dropdown_default.dart';
 
 import '../../features/clients/list_clients/data/models/client_model.dart';
 import '../../features/login/domain/entites/credential_entity.dart';
@@ -10,8 +11,9 @@ class Params extends Equatable {
   final String? codmot;
   final String? motivoDevolucao;
   final int? codCli;
-  final ClientModel? clinetModel;
+  final ClientModel? clientModel;
   final TypeOccurrence? typeOccurrence;
+  final DropdownModel? selected;
 
   Params({
     this.credential,
@@ -19,8 +21,9 @@ class Params extends Equatable {
     this.codmot,
     this.motivoDevolucao,
     this.codCli,
-    this.clinetModel,
+    this.clientModel,
     this.typeOccurrence,
+    this.selected,
   });
 
   @override
@@ -30,7 +33,7 @@ class Params extends Equatable {
         codmot!,
         motivoDevolucao!,
         codCli!,
-        clinetModel!,
+        clientModel!,
         typeOccurrence!,
       ];
 }

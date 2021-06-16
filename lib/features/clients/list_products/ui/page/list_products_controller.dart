@@ -83,7 +83,7 @@ class ListProductsController extends GetxController with BaseController {
         binding: DevolutionBiding(),
         arguments: [
           TypeOccurrence.YELLOW,
-          clientModel,
+          clientModel.value,
         ],
       );
     } else {
@@ -92,6 +92,7 @@ class ListProductsController extends GetxController with BaseController {
         binding: DevolutionBiding(),
         arguments: [
           TypeOccurrence.RED,
+          clientModel.value,
         ],
       );
     }

@@ -40,7 +40,15 @@ class ProductReceiptModel extends ProductModel {
     this.codBandeira = 1,
     this.exportado = 'N',
     required this.dataPagamento,
-  }) : super(id: '');
+  }) : super(
+          id: '',
+          maxQuantity: 0,
+          name: '',
+          quantity: 0,
+          show: false,
+          codProd: 0,
+          numTransVenda: 0,
+        );
 
   static List<ProductReceiptModel> fromListCielo(PayResponse payResponse) {
     return (payResponse.payments as List<dynamic>).map((paymentField) {
@@ -69,7 +77,7 @@ class ProductReceiptModel extends ProductModel {
       'prest': prest,
       'codcob': codCob,
       'codcoborig': codCoborig,
-      'data_pagamento': dataPagamento,
+      'dataPagamento': dataPagamento,
       'valor': valor,
       'presttef': prestTef,
       'nsutef': nsuTef,
@@ -84,29 +92,9 @@ class ProductReceiptModel extends ProductModel {
     };
   }
 
-  factory ProductReceiptModel.fromMap(Map<String, dynamic> map) {
-    return ProductReceiptModel(
-      numTransVenda: map['numTransVenda'],
-      prest: map['prest'],
-      codCob: map['codCob'],
-      codCoborig: map['codCoborig'],
-      prestTef: map['prestTef'],
-      nsuTef: map['nsuTef'],
-      codAutorizacaoTef: map['codAutorizacaoTef'],
-      codAdmCartao: map['codAdmCartao'],
-      tipoOperacaoTef: map['tipoOperacaoTef'],
-      valorJuros: map['valorJuros'],
-      valor: map['valor'],
-      idTransacao: map['idTransacao'],
-      conector: map['conector'],
-      codBandeira: map['codBandeira'],
-      exportado: map['exportado'],
-      dataPagamento: map['dataPagamento'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
 
-  factory ProductReceiptModel.fromJson(String source) =>
-      ProductReceiptModel.fromMap(json.decode(source));
+  static List<String> listToJson(List<ProductReceiptModel> list) {
+    return list.map((e) => e.toJson()).toList();
+  }
 }

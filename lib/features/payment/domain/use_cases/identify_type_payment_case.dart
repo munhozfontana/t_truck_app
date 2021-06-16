@@ -8,7 +8,7 @@ import '../entites/type_payment.dart';
 class IdentifyTypePaymentCase implements UseCase<Type, Params> {
   @override
   Either<Failure, TypePayment> call(Params params) {
-    var paymentType = params.clinetModel!.paymentTypeGsa;
+    var paymentType = params.clientModel!.paymentTypeGsa;
     var typePayment = TypePayment(
         isBonus: paymentType!
             .where(

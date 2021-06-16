@@ -16,6 +16,6 @@ class OpenPaymentUseCase implements UseCaseAsync<Type, Params> {
 
   @override
   Future<Either<Failure, void>> call(Params params) async {
-    return iPaymentRepository.openPayments(params.clinetModel!);
+    return iPaymentRepository.openPayments(params.clientModel!);
   }
 }

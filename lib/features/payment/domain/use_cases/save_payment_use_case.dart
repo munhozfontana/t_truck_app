@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
 import 'package:t_truck_app/features/payment/domain/repositories/payment_repository.dart';
 
 import '../../../../core/error/failures.dart';
@@ -16,23 +18,23 @@ class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
 
   @override
   Future<Either<Failure, void>> call(Params params) async {
-    var openEither = await iPaymentRepository.getPayments();
-
-    openEither.fold(
-      (l) => null,
-      (r) {
-        if (r.isEmpty) {
-          iPaymentRepository.savePayments(
-            params.clinetModel!.copyWith(
-              receipts: r,
-            ),
-          );
-        } else {
-          return Left(AppFailure(detail: 'Nenhum pagamento foi realizado'));
-        }
-      },
+    return (await iPaymentRepository.getPayments()).fold(
+      (l) => Left(AppFailure(detail: 'Erro ao recuperar os pagamentos')),
+      (r) => _doPayment(r, params.clientModel!),
     );
+  }
 
-    return Future.value();
+  Either<Failure, void> _doPayment(
+      List<ProductReceiptModel> list, ClientModel clientModel) {
+    if (list.isEmpty) {
+      iPaymentRepository.savePayments(
+        clientModel.copyWith(
+          receipts: list,
+        ),
+      );
+      return Right(Future.value());
+    } else {
+      return Left(AppFailure(detail: 'Nenhum pagamento foi realizado'));
+    }
   }
 }

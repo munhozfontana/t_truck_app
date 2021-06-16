@@ -17,8 +17,6 @@ class DevolutionListUseCase implements UseCaseAsync<Type, Params> {
 
   @override
   Future<Either<Failure, List<DropdownModel>>> call(Params params) async {
-    var request = await iDevolutionRepository.list();
-
-    return request;
+    return await iDevolutionRepository.list();
   }
 }

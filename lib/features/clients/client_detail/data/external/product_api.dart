@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:t_truck_app/core/error/api_exception.dart';
+import 'package:t_truck_app/core/messages/api_mensages.dart';
 
 import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../list_products/data/models/payment_type_gsa.dart';
@@ -21,12 +23,16 @@ class ProductApi implements IProduct {
   @override
   Future<Tuple2<List<ProductModel>, List<PaymentTypeGSA>>> getId(
       int codCli) async {
-    var resPayments = await _getPaymentType(codCli);
-    var listProductsModel = await _getProducts(resPayments);
-    return Tuple2(
-      listProductsModel,
-      resPayments,
-    );
+    try {
+      var resPayments = await _getPaymentType(codCli);
+      var listProductsModel = await _getProducts(resPayments);
+      return Tuple2(
+        listProductsModel,
+        resPayments,
+      );
+    } catch (e) {
+      throw ApiException(error: ApiMensages.GENERIC_ERROR);
+    }
   }
 
   Future<List<PaymentTypeGSA>> _getPaymentType(int codCli) async {
@@ -55,8 +61,6 @@ class ProductApi implements IProduct {
     var listProductsModel = list.map(
       (e) {
         return ProductModel.fromMap(e);
-        // ..paymentTypeGsa = resPayments.firstWhere(
-        //     (element) => element.numTransVenda == e['NUMTRANSVENDA']);
       },
     ).toList();
     return listProductsModel;

@@ -1,19 +1,20 @@
-import '../../../list_products/domain/entites/product_entity.dart';
+import 'package:t_truck_app/features/clients/list_products/data/models/product_model.dart';
+import 'package:uuid/uuid.dart';
 
 class ClientEntity {
-  final String id;
-  final int clientId;
+  String id;
   final String name;
   final int qtde;
   final bool show;
-  final List<ProductEntity> produtos;
+  final List<ProductModel> produtos;
 
   ClientEntity({
     this.id = '',
-    this.clientId = 0,
     this.name = 'Não encontrado',
     this.produtos = const [],
     this.qtde = 0,
     this.show = true,
-  });
+  }) {
+    id = Uuid().v4();
+  }
 }

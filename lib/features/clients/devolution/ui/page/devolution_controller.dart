@@ -14,11 +14,9 @@ class DevolutionController extends GetxController with BaseController {
   final DevolutionListUseCase devolutionListUseCase;
 
   RxList<DropdownModel> reasonDevolution = <DropdownModel>[].obs;
-  Rx<DropdownModel> selected = DropdownModel(id: 0, label: '').obs;
+  Rx<DropdownModel> selected = DropdownModel().obs;
   Rx<TypeOccurrence> typeDevolution = TypeOccurrence.NONE.obs;
   Rx<ClientModel> clientModel = ClientModel().obs;
-
-  var changeDropdown;
 
   DevolutionController({
     required this.devolutionSaveUseCase,
@@ -28,6 +26,13 @@ class DevolutionController extends GetxController with BaseController {
   @override
   void onInit() async {
     changeLoading(Loading.START);
+    await loadDevolutionList();
+    takeParameters();
+    changeLoading(Loading.STOP);
+    super.onInit();
+  }
+
+  Future<void> loadDevolutionList() async {
     (await devolutionListUseCase(Params())).fold(
       (l) => {
         AppDialog.error(menssagem: l.props.first.toString()),
@@ -36,13 +41,25 @@ class DevolutionController extends GetxController with BaseController {
         reasonDevolution.value = r,
       },
     );
-
-    clientModel.value = Get.arguments[0];
-    typeDevolution.value = Get.arguments[1];
-
-    changeLoading(Loading.STOP);
-    super.onInit();
   }
 
-  void finishReson() async {}
+  void takeParameters() {
+    typeDevolution.value = Get.arguments[0];
+    clientModel.value = Get.arguments[1];
+  }
+
+  void finishReson() async {
+    (await devolutionSaveUseCase(Params(
+      selected: selected.value,
+      clientModel: clientModel.value,
+    )))
+        .fold(
+      (l) => AppDialog.error(menssagem: l.props.first.toString()),
+      (r) => null,
+    );
+  }
+
+  void changeDropdown(DropdownModel dropdownModel) {
+    selected.value = dropdownModel;
+  }
 }

@@ -1,11 +1,11 @@
 class DevolutionEntity {
-  int codprod;
-  String qt;
-  String data;
-  int codcli;
-  int numtransvenda;
-  String codmot;
-  String situacao;
+  final int codprod;
+  final String qt;
+  final String data;
+  final int codcli;
+  final int numtransvenda;
+  final String codmot;
+  final String situacao;
 
   DevolutionEntity({
     required this.codprod,

@@ -22,8 +22,11 @@ class ClientListUseCase implements UseCaseAsync<Type, Params> {
 
     request.fold(
       (l) => null,
-      (r) => AppDialog.show(
-          titulo: 'Atenção', menssagem: 'Você não possui pedidos'),
+      (r) => {
+        if (r.isEmpty)
+          AppDialog.show(
+              titulo: 'Atenção', menssagem: 'Você não possui pedidos')
+      },
     );
 
     return request;

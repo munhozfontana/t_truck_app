@@ -5,6 +5,7 @@ import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 import 'package:t_truck_app/features/clients/list_products/data/models/product_receipt_model.dart';
 import 'package:t_truck_app/features/payment/data/external/channels/cielo_channel.dart';
+import 'package:t_truck_app/features/payment/data/external/receipt_api.dart';
 import 'package:t_truck_app/features/payment/domain/repositories/payment_repository.dart';
 
 class PaymentRepository implements IPaymentRepository {
@@ -37,12 +38,13 @@ class PaymentRepository implements IPaymentRepository {
   }
 
   @override
-  Future<Either<Failure, void>> savePayments(ClientModel clientModel) {
-    // TODO: implement savePayments
-    throw UnimplementedError();
+  Future<Either<Failure, void>> savePayments(ClientModel clientModel) async {
+    try {
+      return Right(iReceiptExternal.save(clientModel.receipts));
+    } on ApiException catch (e) {
+      return Left(AppFailure(detail: e.error));
+    } catch (e) {
+      return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
+    }
   }
-}
-
-mixin IReceiptExternal {
-  Future<void> save(List<ProductReceiptModel> object);
 }

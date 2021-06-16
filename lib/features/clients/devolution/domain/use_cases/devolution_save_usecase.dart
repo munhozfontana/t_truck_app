@@ -22,21 +22,27 @@ class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
   Future<Either<Failure, void>> call(Params params) async {
     var codMot = await iLoggedUser.login;
 
-    var list = params.clinetModel!.produtos
+    if (params.selected?.id == null) {
+      return Left(AppFailure(detail: 'É necessário selecionar uma ocorrência'));
+    }
+
+    var list = params.clientModel!.produtos
         .where((element) => element.quantity != 0)
-        .map((e) => DevolutionModel(
-              codprod: e.codProd,
-              qt: e.quantity.toString(),
-              data: DateFormat('dd/MM/yyyy HH:mm:ss')
-                  .format(DateTime.now())
-                  .toString(),
-              codcli: params.clinetModel!.codCli,
-              numtransvenda: e.numTransVenda,
-              codmot: codMot,
-              situacao: params.typeOccurrence == TypeOccurrence.YELLOW
-                  ? 'DEVP'
-                  : 'DEVT',
-            ))
+        .map(
+          (e) => DevolutionModel(
+            codprod: e.codProd,
+            qt: e.quantity.toString(),
+            data: DateFormat('dd/MM/yyyy HH:mm:ss')
+                .format(DateTime.now())
+                .toString(),
+            codcli: params.clientModel!.codCli,
+            numtransvenda: e.numTransVenda,
+            codmot: codMot,
+            situacao: params.typeOccurrence == TypeOccurrence.YELLOW
+                ? 'DEVP'
+                : 'DEVT',
+          ),
+        )
         .toList();
 
     return iDevolutionSaveRepository.save(list);

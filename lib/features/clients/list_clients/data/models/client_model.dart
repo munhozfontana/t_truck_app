@@ -9,18 +9,6 @@ import '../../../list_products/data/models/product_model.dart';
 import '../../domain/entites/client_entity.dart';
 
 class ClientModel extends ClientEntity {
-  @override
-  final String id;
-  @override
-  final int clientId;
-  @override
-  final String name;
-  @override
-  final int qtde;
-  @override
-  final bool show;
-  @override
-  final List<ProductModel> produtos;
   final List<ProductReceiptModel> receipts;
 
   final int codCli;
@@ -28,20 +16,24 @@ class ClientModel extends ClientEntity {
   List<PaymentTypeGSA>? paymentTypeGsa;
 
   ClientModel({
-    this.id = '',
-    this.clientId = 0,
-    this.name = '',
-    this.qtde = 0,
-    this.show = true,
-    this.produtos = const [],
+    String id = '',
+    String name = '',
+    int qtde = 0,
+    bool show = true,
+    List<ProductModel> produtos = const <ProductModel>[],
     this.receipts = const [],
     this.codCli = 0,
     this.paymentTypeGsa,
-  });
+  }) : super(
+          id: id,
+          name: name,
+          produtos: produtos,
+          qtde: qtde,
+          show: show,
+        );
 
   factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
-      produtos: <ProductModel>[],
       codCli: map['CODCLI'],
       name: map['CLIENTE'],
       qtde: map['QTDE'],
@@ -62,7 +54,6 @@ class ClientModel extends ClientEntity {
 
   ClientModel copyWith({
     String? id,
-    int? clientId,
     String? name,
     int? qtde,
     bool? show,
@@ -73,7 +64,6 @@ class ClientModel extends ClientEntity {
   }) {
     return ClientModel(
       id: id ?? this.id,
-      clientId: clientId ?? this.clientId,
       name: name ?? this.name,
       qtde: qtde ?? this.qtde,
       show: show ?? this.show,

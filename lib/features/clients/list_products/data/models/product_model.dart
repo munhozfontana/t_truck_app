@@ -6,31 +6,23 @@ import '../../domain/entites/product_entity.dart';
 import 'payment_type_gsa.dart';
 
 class ProductModel extends ProductEntity {
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final int maxQuantity;
-  @override
-  final int quantity;
-  @override
-  bool show;
   final int codProd;
   final int numTransVenda;
 
   ProductModel({
-    required this.id,
-    this.name = 'Não encontrado',
-    this.maxQuantity = 0,
-    this.quantity = 0,
-    this.show = true,
+    required String id,
+    required String name,
+    required int maxQuantity,
+    required int quantity,
+    required bool show,
     this.codProd = 0,
     this.numTransVenda = 0,
   }) : super(
+          id: id,
           name: name,
           maxQuantity: maxQuantity,
           quantity: quantity,
+          show: show,
         );
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -40,6 +32,8 @@ class ProductModel extends ProductEntity {
       maxQuantity: map['QT'],
       numTransVenda: map['NUMTRANSVENDA'],
       id: Uuid().v4(),
+      quantity: 0,
+      show: false,
     );
   }
 
@@ -62,8 +56,8 @@ class ProductModel extends ProductEntity {
       maxQuantity: maxQuantity ?? this.maxQuantity,
       quantity: quantity ?? this.quantity,
       show: hidden ?? show,
-      codProd: cODPROD ?? this.codProd,
-      numTransVenda: nUMTRANSVENDA ?? this.numTransVenda,
+      codProd: cODPROD ?? codProd,
+      numTransVenda: nUMTRANSVENDA ?? numTransVenda,
     );
   }
 }

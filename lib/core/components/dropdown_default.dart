@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DropdownModel {
-  num id;
-  String label;
+  num? id;
+  String? label;
 
   DropdownModel({
-    required this.id,
-    required this.label,
+    this.id,
+    this.label,
   });
 }
 
@@ -44,7 +44,7 @@ class ClienteDropdownButton extends StatelessWidget {
       items: items.map<DropdownMenuItem<num>>((DropdownModel cliente) {
         return DropdownMenuItem<num>(
           value: cliente.id,
-          child: Text(cliente.label),
+          child: Text(cliente.label ?? ''),
         );
       }).toList(),
     );
