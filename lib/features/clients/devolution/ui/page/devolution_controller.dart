@@ -5,6 +5,7 @@ import '../../../../../core/components/dropdown_default.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/app_dialog.dart';
 import '../../../../../core/utils/base_controller.dart';
+import '../../../camera/take_picture/ui/page/camera_take_picture_page.dart';
 import '../../../list_clients/data/models/client_model.dart';
 import '../../domain/use_cases/devolution_list_use_case.dart';
 import '../../domain/use_cases/devolution_save_usecase.dart';
@@ -55,7 +56,7 @@ class DevolutionController extends GetxController with BaseController {
     )))
         .fold(
       (l) => AppDialog.error(menssagem: l.props.first.toString()),
-      (r) => null,
+      (r) => Get.to(() => TakePicturePage()),
     );
   }
 

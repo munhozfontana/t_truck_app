@@ -23,7 +23,7 @@ class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
     var codMot = await iLoggedUser.login;
 
     if (params.selected?.id == null) {
-      return Left(AppFailure(detail: 'É necessário selecionar uma ocorrência'));
+      return Left(AppFailure(detail: 'Selecione a ocorrência'));
     }
 
     var list = params.clientModel!.produtos
