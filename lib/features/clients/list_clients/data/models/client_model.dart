@@ -9,9 +9,7 @@ import '../../domain/entites/client_entity.dart';
 
 class ClientModel extends ClientEntity {
   final List<ProductReceiptModel> receipts;
-
   final int codCli;
-
   List<PaymentTypeGSA>? paymentTypeGsa;
 
   ClientModel({

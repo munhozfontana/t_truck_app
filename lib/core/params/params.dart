@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:t_truck_app/features/clients/camera/show_picture/data/models/image_model.dart';
 
 import '../../features/clients/list_clients/data/models/client_model.dart';
 import '../../features/login/domain/entites/credential_entity.dart';
@@ -14,6 +15,7 @@ class Params extends Equatable {
   final ClientModel? clientModel;
   final TypeOccurrence? typeOccurrence;
   final DropdownModel? selected;
+  final ImageModel? imageModel;
 
   Params({
     this.credential,
@@ -24,6 +26,7 @@ class Params extends Equatable {
     this.clientModel,
     this.typeOccurrence,
     this.selected,
+    this.imageModel,
   });
 
   @override
@@ -35,5 +38,7 @@ class Params extends Equatable {
         codCli!,
         clientModel!,
         typeOccurrence!,
+        selected!,
+        imageModel!,
       ];
 }
