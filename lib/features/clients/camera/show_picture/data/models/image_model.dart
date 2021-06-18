@@ -35,12 +35,15 @@ class ImageModel extends ImageEntity {
     String? data,
     int? codCli,
     String? numcanhoto,
+    String? imgCanhotoBase64,
+    String? imgEstabelecimentoBase64,
   }) {
     return ImageModel(
         data: data ?? this.data,
         codCli: codCli ?? this.codCli,
         numcanhoto: numcanhoto ?? this.numcanhoto,
-        imgCanhotoBase64: super.imgCanhotoBase64,
-        imgEstabelecimentoBase64: super.imgEstabelecimentoBase64);
+        imgCanhotoBase64: imgCanhotoBase64 ?? super.imgCanhotoBase64,
+        imgEstabelecimentoBase64:
+            imgEstabelecimentoBase64 ?? super.imgEstabelecimentoBase64);
   }
 }

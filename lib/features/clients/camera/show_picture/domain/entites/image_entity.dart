@@ -19,15 +19,5 @@ class ImageEntity {
     };
   }
 
-  factory ImageEntity.fromMap(Map<String, dynamic> map) {
-    return ImageEntity(
-      imgCanhotoBase64: map['imgCanhotoBase64'],
-      imgEstabelecimentoBase64: map['imgEstabelecimentoBase64'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory ImageEntity.fromJson(String source) =>
-      ImageEntity.fromMap(json.decode(source));
 }

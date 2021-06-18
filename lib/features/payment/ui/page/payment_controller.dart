@@ -10,13 +10,17 @@ import '../../domain/use_cases/identify_type_payment_case.dart';
 import '../../domain/use_cases/open_payment_use_case.dart';
 import '../../domain/use_cases/save_payment_use_case.dart';
 
+enum FromPayment { BONUS, CREDIT_CARD, BOLETO, WALLET, NONE }
+
 class PaymentController extends GetxController with BaseController {
   final IdentifyTypePaymentCase identifyTypePaymentCase;
   final OpenPaymentUseCase openPaymentUseCase;
   final SavePaymentUseCase savePaymentUseCase;
-  Rx<ClientModel?> clientModel = ClientModel().obs;
+
+  Rx<ClientModel> clientModel = ClientModel().obs;
   Rx<TypePayment> typePayment = TypePayment().obs;
   Rx<TypeOccurrence> typeOccurrence = TypeOccurrence.NONE.obs;
+  Rx<FromPayment> fromPayment = FromPayment.NONE.obs;
 
   PaymentController({
     required this.identifyTypePaymentCase,
@@ -37,15 +41,24 @@ class PaymentController extends GetxController with BaseController {
     super.onInit();
   }
 
-  void openPayment() async {
+  void savePayment() async {
+    await (await savePaymentUseCase(Params(
+      clientModel: clientModel.value,
+    )))
+        .fold(
+      (l) => null,
+      (r) => Get.to(() => TakePicturePage()),
+    );
+    ;
+  }
+
+  void openPayment(FromPayment fp) async {
+    fromPayment.value = fp;
     await openPaymentUseCase(Params(clientModel: clientModel.value));
   }
 
-  void savePayment() {
-    Get.to(() => TakePicturePage());
-  }
-
-  void payBoleto() {
+  void takeImage(FromPayment fp) {
+    fromPayment.value = fp;
     Get.to(() => TakePicturePage());
   }
 }

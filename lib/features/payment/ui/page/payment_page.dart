@@ -58,20 +58,22 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
               BtnPrimary(
                 label: 'Cartão de crédito',
                 onPressed: controller.typePayment.value.isCreditCard
-                    ? controller.openPayment
+                    ? () => controller.openPayment(FromPayment.CREDIT_CARD)
                     : null,
               ),
               Spacer(flex: 8),
               BtnPrimary(
                 label: 'Boleto',
                 onPressed: controller.typePayment.value.isBoleto
-                    ? controller.payBoleto
+                    ? () => controller.takeImage(FromPayment.BOLETO)
                     : null,
               ),
               if (controller.typePayment.value.isWallet)
-                ...secondaryPayment(label: 'Carteira'),
+                ...secondaryPayment(
+                    label: 'Carteira', fromPayment: FromPayment.WALLET),
               if (controller.typePayment.value.isBonus)
-                ...secondaryPayment(label: 'Bonificação'),
+                ...secondaryPayment(
+                    label: 'Bonificação', fromPayment: FromPayment.BONUS),
               Spacer(flex: 14),
               Divider(),
               Spacer(flex: 14),
@@ -84,12 +86,13 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
     );
   }
 
-  List<Widget> secondaryPayment({required label}) {
+  List<Widget> secondaryPayment(
+      {required label, required FromPayment fromPayment}) {
     return [
       Spacer(flex: 8),
       BtnPrimary(
         label: label,
-        onPressed: controller.payBoleto,
+        onPressed: () => controller.takeImage(fromPayment),
       )
     ];
   }

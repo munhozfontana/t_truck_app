@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:t_truck_app/features/clients/camera/show_picture/data/models/image_model.dart';
+import 'package:t_truck_app/features/payment/ui/page/payment_controller.dart';
 
 import '../../features/clients/list_clients/data/models/client_model.dart';
 import '../../features/login/domain/entites/credential_entity.dart';
@@ -16,6 +17,7 @@ class Params extends Equatable {
   final TypeOccurrence? typeOccurrence;
   final DropdownModel? selected;
   final ImageModel? imageModel;
+  final FromPayment? fromPayment;
 
   Params({
     this.credential,
@@ -27,6 +29,7 @@ class Params extends Equatable {
     this.typeOccurrence,
     this.selected,
     this.imageModel,
+    this.fromPayment,
   });
 
   @override
@@ -40,5 +43,6 @@ class Params extends Equatable {
         typeOccurrence!,
         selected!,
         imageModel!,
+        fromPayment!,
       ];
 }

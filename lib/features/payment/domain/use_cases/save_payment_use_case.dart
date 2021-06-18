@@ -17,14 +17,14 @@ class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
   });
 
   @override
-  Future<Either<Failure, void>> call(Params params) async {
+  Future<Either<Failure, List<ProductReceiptModel>>> call(Params params) async {
     return (await iPaymentRepository.getPayments()).fold(
       (l) => Left(AppFailure(detail: 'Erro ao recuperar os pagamentos')),
       (r) => _doPayment(r, params.clientModel!),
     );
   }
 
-  Either<Failure, void> _doPayment(
+  Either<Failure, List<ProductReceiptModel>> _doPayment(
       List<ProductReceiptModel> list, ClientModel clientModel) {
     if (list.isEmpty) {
       iPaymentRepository.savePayments(
@@ -32,7 +32,7 @@ class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
           receipts: list,
         ),
       );
-      return Right(Future.value());
+      return Right(list);
     } else {
       return Left(AppFailure(detail: 'Nenhum pagamento foi realizado'));
     }
