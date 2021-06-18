@@ -54,7 +54,15 @@ class PaymentController extends GetxController with BaseController {
 
   void openPayment(FromPayment fp) async {
     fromPayment.value = fp;
+    clientModelToCredit();
     await openPaymentUseCase(Params(clientModel: clientModel.value));
+  }
+
+  void clientModelToCredit() {
+    clientModel.value = clientModel.value.copyWith(
+        paymentTypeGsa: clientModel.value.paymentTypeGsa!
+            .where((e) => e.valorCartao! > 0)
+            .toList());
   }
 
   void takeImage(FromPayment fp) {

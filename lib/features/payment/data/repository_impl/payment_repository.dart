@@ -17,7 +17,8 @@ class PaymentRepository implements IPaymentRepository {
   @override
   Future<Either<Failure, void>> openPayments(ClientModel? clientEntity) async {
     try {
-      return Right(CieloRun().pay(ClientModel.orderToCielo(clientEntity)));
+      var clientEntityCielo = ClientModel.orderToCielo(clientEntity);
+      return Right(CieloRun().pay(clientEntityCielo));
     } on ApiException catch (e) {
       return Left(AppFailure(detail: e.error));
     } catch (e) {

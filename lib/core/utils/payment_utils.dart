@@ -24,9 +24,7 @@ class PaymentUtils {
   }
 
   static List<Map> takeItems(ClientModel clientModel) {
-    var items = <Map>[];
-
-    clientModel.paymentTypeGsa!.map((item) {
+    return clientModel.paymentTypeGsa!.map((item) {
       return {
         'sku': item.numTransVenda.toString(),
         'name': clientModel.name,
@@ -34,8 +32,7 @@ class PaymentUtils {
         'quantity': 1,
         'unitOfMeasure': 'EACH',
       };
-    });
-    return items;
+    }).toList();
   }
 
   static double convensaoCielo(num e) =>

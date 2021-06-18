@@ -26,7 +26,7 @@ class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
 
   Either<Failure, List<ProductReceiptModel>> _doPayment(
       List<ProductReceiptModel> list, ClientModel clientModel) {
-    if (list.isEmpty) {
+    if (list.isNotEmpty) {
       iPaymentRepository.savePayments(
         clientModel.copyWith(
           receipts: list,

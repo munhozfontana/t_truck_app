@@ -30,10 +30,10 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
       controller.savePayment();
     }
-    super.didChangeAppLifecycleState(state);
   }
 
   @override
