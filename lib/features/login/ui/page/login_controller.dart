@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_controller.dart';
 
 import '../../../../core/adapters/protocols/i_logged_user.dart';
 import '../../../../core/params/params.dart';
@@ -26,6 +29,12 @@ class LoginController extends GetxController with BaseController {
   var loginField = TextEditingController().obs;
   var passwordField = TextEditingController().obs;
 
+  @override
+  void onInit() async {
+    loginIfHasToken();
+    super.onInit();
+  }
+
   void auth() async {
     changeLoading(Loading.START);
     var res = await loginUseCase(
@@ -47,14 +56,16 @@ class LoginController extends GetxController with BaseController {
                   (l) => AppDialog.error(
                         menssagem: l.props.first.toString(),
                       ),
-                  (r) => toOrderPage()),
+                  (r) => {tryGet(), toOrderPage()}),
             });
   }
 
-  @override
-  void onInit() async {
-    loginIfHasToken();
-    super.onInit();
+  void tryGet() {
+    try {
+      Get.find<ListClientController>().takeClients();
+    } catch (e) {
+      log('Bind não existente', error: e);
+    }
   }
 
   void toOrderPage() =>
