@@ -19,6 +19,7 @@ class ImageExternal implements IImageExternal {
     try {
       // await iHttp.postHttp('${env['URL_BASE']}/image',
       //     body: imageModel.toJson());
+      return Future.delayed(Duration(seconds: 2));
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }

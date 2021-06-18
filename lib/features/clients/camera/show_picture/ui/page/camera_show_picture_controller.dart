@@ -4,6 +4,7 @@ import 'package:t_truck_app/core/utils/app_dialog.dart';
 import 'package:t_truck_app/features/clients/camera/show_picture/data/models/image_model.dart';
 import 'package:t_truck_app/features/clients/finish/ui/page/devolution_finish.dart';
 import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_controller.dart';
 import 'package:t_truck_app/features/payment/ui/page/payment_controller.dart';
 
 import '../../domain/use_cases/image_save_use_case.dart';
@@ -27,17 +28,19 @@ class CameraImageController extends GetxController {
   }
 
   void saveImage(String image) async {
-    (await imageSaveUseCase(Params(
+    imageSaveUseCase(Params(
       imageModel: ImageModel(
         imgCanhotoBase64: image,
         imgEstabelecimentoBase64: '',
       ),
       clientModel: clientModel.value,
       fromPayment: fromPayment.value,
-    )))
-        .fold(
-      (l) => AppDialog.error(menssagem: l.props.toString()),
-      (r) => Get.to(() => DevolutionFinish()),
-    );
+    )).then((value) => value.fold(
+          (l) => AppDialog.error(menssagem: l.props.toString()),
+          (r) => Get.to(() => DevolutionFinish()),
+        ));
+
+    Get.find<ListClientController>().takeClients();
+    Get.to(() => DevolutionFinish());
   }
 }
