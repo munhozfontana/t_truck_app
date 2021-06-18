@@ -1,5 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import '../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../../core/error/api_exception.dart';
 import '../../../../core/messages/api_mensages.dart';
@@ -19,10 +17,10 @@ class ReceiptApi implements IReceiptExternal {
   @override
   Future<void> save(List<ProductReceiptModel> list) async {
     try {
-      await iHttp.postHttp(
-        '${env['URL_BASE']}/product',
-        body: ProductReceiptModel.listToJson(list),
-      );
+      // await iHttp.postHttp(
+      //   '${env['URL_BASE']}/product',
+      //   body: ProductReceiptModel.listToJson(list),
+      // );
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }

@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
+import 'package:t_truck_app/core/utils/app_dialog.dart';
 import 'package:t_truck_app/features/clients/camera/show_picture/data/models/image_model.dart';
+import 'package:t_truck_app/features/clients/finish/ui/page/devolution_finish.dart';
 import 'package:t_truck_app/features/clients/list_clients/data/models/client_model.dart';
 import 'package:t_truck_app/features/payment/ui/page/payment_controller.dart';
 
@@ -34,8 +36,8 @@ class CameraImageController extends GetxController {
       fromPayment: fromPayment.value,
     )))
         .fold(
-      (l) => null,
-      (r) => null,
+      (l) => AppDialog.error(menssagem: l.props.toString()),
+      (r) => Get.to(() => DevolutionFinish()),
     );
   }
 }

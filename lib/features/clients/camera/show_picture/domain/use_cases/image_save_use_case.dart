@@ -48,8 +48,8 @@ class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
 
     var imageEntity = imageModel!.copyWith(
       numcanhoto: numcanhotoConcatenado,
-      codCli: imageModel.codCli,
-      data: DateTime.now().toIso8601String(),
+      codCli: clientModel.codCli,
+      data: DateFormat('dd/MM/yyyy HH:mm:ss').format(DateTime.now()).toString(),
     );
 
     return await iImageRepository.save(imageEntity);

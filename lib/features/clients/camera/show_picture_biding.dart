@@ -8,7 +8,7 @@ import 'package:t_truck_app/features/clients/camera/show_picture/ui/page/camera_
 class ShowPictureBiding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(
+    Get.lazyPut<IImageExternal>(
       () => ImageExternal(
         iHttp: Get.find(),
       ),
