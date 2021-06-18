@@ -36,6 +36,24 @@ class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
               .where((element) => element.valorCartao! > 0)
               .toList());
     }
+    if (params.fromPayment == FromPayment.BONUS) {
+      clientModel = clientModel!.copyWith(
+          paymentTypeGsa: params.clientModel!.paymentTypeGsa!
+              .where((element) => element.valorBonificado! > 0)
+              .toList());
+    }
+    if (params.fromPayment == FromPayment.BOLETO) {
+      clientModel = clientModel!.copyWith(
+          paymentTypeGsa: params.clientModel!.paymentTypeGsa!
+              .where((element) => element.valorBoleto! > 0)
+              .toList());
+    }
+    if (params.fromPayment == FromPayment.WALLET) {
+      clientModel = clientModel!.copyWith(
+          paymentTypeGsa: params.clientModel!.paymentTypeGsa!
+              .where((element) => element.valorCarteira! > 0)
+              .toList());
+    }
 
     var dataSaida = DateFormat('yy/MM/dd')
         .format(DateTime.parse(clientModel!.paymentTypeGsa!.first.dtSaida!))
@@ -48,6 +66,8 @@ class ImageSaveUseCase implements UseCaseAsync<Type, Params> {
 
     var imageEntity = imageModel!.copyWith(
       numcanhoto: numcanhotoConcatenado,
+      concatNumeroTrasnVenda:
+          clientModel.paymentTypeGsa!.map((e) => e.numTransVenda).join(','),
       codCli: clientModel.codCli,
       data: DateFormat('dd/MM/yyyy HH:mm:ss').format(DateTime.now()).toString(),
     );

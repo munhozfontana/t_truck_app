@@ -23,11 +23,11 @@ class CameraImageController extends GetxController {
   void onInit() {
     var paymentController = Get.find<PaymentController>();
     clientModel = paymentController.clientModel;
-
+    fromPayment = paymentController.fromPayment;
     super.onInit();
   }
 
-  void saveImage(String image) async {
+  void saveImage(String image) {
     imageSaveUseCase(Params(
       imageModel: ImageModel(
         imgCanhotoBase64: image,
