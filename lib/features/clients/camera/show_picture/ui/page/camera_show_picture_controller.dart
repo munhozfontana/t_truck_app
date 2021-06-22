@@ -37,7 +37,7 @@ class CameraImageController extends GetxController {
       fromPayment: fromPayment.value,
     )).then((value) => value.fold(
           (l) => AppDialog.error(menssagem: l.props.toString()),
-          (r) => AppDialog.show(menssagem: 'Imagem salva com sucesso'),
+          (r) => AppDialog.show(menssagem: 'Informações salvas com sucesso'),
         ));
 
     Get.to(() => DevolutionFinish(), binding: DevolutionFinishBiding());

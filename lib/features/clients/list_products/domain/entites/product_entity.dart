@@ -4,7 +4,7 @@ class ProductEntity extends BaseEntity {
   final String name;
   final int maxQuantity;
   final int quantity;
-  final bool show;
+  bool show;
 
   ProductEntity({
     this.name = '',

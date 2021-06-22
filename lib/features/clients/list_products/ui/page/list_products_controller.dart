@@ -35,11 +35,11 @@ class ListProductsController extends GetxController with BaseController {
       var nameFinded = element.name.isCaseInsensitiveContains(nameFeild.value);
 
       if (transacaoFinded && nameFeild.isEmpty) {
-        element.copyWith(show: true);
+        element.show = true;
       } else if (nameFeild.isNotEmpty && nameFinded) {
-        element.copyWith(show: true);
+        element.show = true;
       } else {
-        element.copyWith(show: false);
+        element.show = false;
       }
 
       return element;
