@@ -175,10 +175,10 @@ public class CieloPagamentoGSA implements CieloChannel.CieloRun {
     CieloChannel.PayResponse res = new CieloChannel.PayResponse();
     res.setPayments(paymentFields);
     res.setPaidAmount(paidAmount);
+    orderManager.unbind();
     result.success(res);
     paidAmount = 0;
     paymentFields = new ArrayList<>();
-    orderManager.unbind();
     Log.d("SDKClient", "#### responsePayments  ###");
   }
 }

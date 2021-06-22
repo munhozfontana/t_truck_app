@@ -1,16 +1,12 @@
 import 'dart:convert';
 
-import 'package:uuid/uuid.dart';
-
 import '../../domain/entites/product_entity.dart';
-import 'payment_type_gsa.dart';
 
 class ProductModel extends ProductEntity {
   final int codProd;
   final int numTransVenda;
 
   ProductModel({
-    required String id,
     required String name,
     required int maxQuantity,
     required int quantity,
@@ -18,7 +14,6 @@ class ProductModel extends ProductEntity {
     this.codProd = 0,
     this.numTransVenda = 0,
   }) : super(
-          id: id,
           name: name,
           maxQuantity: maxQuantity,
           quantity: quantity,
@@ -31,7 +26,6 @@ class ProductModel extends ProductEntity {
       name: map['DESCRICAO'],
       maxQuantity: map['QT'],
       numTransVenda: map['NUMTRANSVENDA'],
-      id: Uuid().v4(),
       quantity: 0,
       show: false,
     );
@@ -40,24 +34,22 @@ class ProductModel extends ProductEntity {
   factory ProductModel.fromJson(String source) =>
       ProductModel.fromMap(json.decode(source));
 
+  @override
   ProductModel copyWith({
-    String? id,
+    int? codProd,
+    int? numTransVenda,
     String? name,
     int? maxQuantity,
     int? quantity,
-    bool? hidden,
-    int? cODPROD,
-    int? nUMTRANSVENDA,
-    PaymentTypeGSA? paymentTypeGsa,
+    bool? show,
   }) {
     return ProductModel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      maxQuantity: maxQuantity ?? this.maxQuantity,
-      quantity: quantity ?? this.quantity,
-      show: hidden ?? show,
-      codProd: cODPROD ?? codProd,
-      numTransVenda: nUMTRANSVENDA ?? numTransVenda,
+      codProd: codProd ?? this.codProd,
+      numTransVenda: numTransVenda ?? this.numTransVenda,
+      maxQuantity: maxQuantity ?? super.maxQuantity,
+      name: name ?? super.name,
+      quantity: quantity ?? super.quantity,
+      show: show ?? super.show,
     );
   }
 }

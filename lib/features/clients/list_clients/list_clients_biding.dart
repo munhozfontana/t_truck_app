@@ -25,8 +25,10 @@ class ListClientBiding extends Bindings {
       ),
     );
 
-    Get.put<ListClientController>(ListClientController(
-      clientsListUseCase: Get.find(),
-    ));
+    Get.put<ListClientController>(
+        ListClientController(
+          clientsListUseCase: Get.find(),
+        ),
+        permanent: true);
   }
 }

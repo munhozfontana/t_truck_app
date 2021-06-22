@@ -21,6 +21,7 @@ class ReceiptApi implements IReceiptExternal {
       //   '${env['URL_BASE']}/product',
       //   body: ProductReceiptModel.listToJson(list),
       // );
+      return Future.value();
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }

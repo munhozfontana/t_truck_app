@@ -1,54 +1,54 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
+import 'package:t_truck_app/features/payment/data/external/channels/cielo_channel.dart';
 
-import '../../../../payment/data/external/channels/cielo_channel.dart';
 import 'product_model.dart';
 
 class ProductReceiptModel extends ProductModel {
-  @override
-  final int numTransVenda;
-  final String? prest;
-  final String codCob;
-  final String codCoborig;
-  final int prestTef;
-  final String? nsuTef;
+  final String? codCob;
+  final String? codCoborig;
+  final int? prestTef;
+  final String nsuTef;
   final String? codAutorizacaoTef;
-  final String? codAdmCartao;
-  final String tipoOperacaoTef;
-  final int valorJuros;
+  final String codAdmCartao;
+  final String? tipoOperacaoTef;
+  final int? valorJuros;
   final int valor;
-  final String idTransacao;
-  final String? conector;
-  final int? codBandeira;
-  final String? exportado;
+  final String? idTransacao;
+  final String conector;
+  final int codBandeira;
+  final String exportado;
   final String dataPagamento;
 
   ProductReceiptModel({
-    this.numTransVenda = 0,
-    this.prest = '1',
-    required this.codCob,
-    required this.codCoborig,
-    required this.prestTef,
+    int? codProd,
+    int? numTransVenda,
+    String? name,
+    int? maxQuantity,
+    int? quantity,
+    bool? show,
+    this.codCob,
+    this.codCoborig,
+    this.prestTef,
     this.nsuTef = '11111',
     this.codAutorizacaoTef,
     this.codAdmCartao = '00125',
-    required this.tipoOperacaoTef,
-    required this.valorJuros,
-    required this.valor,
-    required this.idTransacao,
+    this.tipoOperacaoTef,
+    this.valorJuros,
+    this.valor = 0,
+    this.idTransacao,
     this.conector = 'CIELO',
     this.codBandeira = 1,
     this.exportado = 'N',
     required this.dataPagamento,
   }) : super(
-          id: '',
-          maxQuantity: 0,
-          name: '',
-          quantity: 0,
-          show: false,
-          codProd: 0,
-          numTransVenda: 0,
+          codProd: codProd ?? 0,
+          numTransVenda: numTransVenda ?? 0,
+          name: name ?? '',
+          maxQuantity: maxQuantity ?? 0,
+          quantity: quantity ?? 0,
+          show: show ?? true,
         );
 
   static List<ProductReceiptModel> fromListCielo(PayResponse payResponse) {
@@ -75,7 +75,6 @@ class ProductReceiptModel extends ProductModel {
   Map<String, dynamic> toMap() {
     return {
       'numtransvenda': numTransVenda,
-      'prest': prest,
       'codcob': codCob,
       'codcoborig': codCoborig,
       'dataPagamento': dataPagamento,
@@ -97,5 +96,53 @@ class ProductReceiptModel extends ProductModel {
 
   static List<String> listToJson(List<ProductReceiptModel> list) {
     return list.map((e) => e.toJson()).toList();
+  }
+
+  @override
+  ProductReceiptModel copyWith({
+    String? prest,
+    String? codCob,
+    String? codCoborig,
+    int? prestTef,
+    String? nsuTef,
+    String? codAutorizacaoTef,
+    String? codAdmCartao,
+    String? tipoOperacaoTef,
+    int? valorJuros,
+    int? valor,
+    String? idTransacao,
+    String? conector,
+    int? codBandeira,
+    String? exportado,
+    String? dataPagamento,
+    int? codProd,
+    int? numTransVenda,
+    String? name,
+    int? maxQuantity,
+    int? quantity,
+    bool? show,
+  }) {
+    return ProductReceiptModel(
+      codCob: codCob ?? this.codCob,
+      codCoborig: codCoborig ?? this.codCoborig,
+      prestTef: prestTef ?? this.prestTef,
+      nsuTef: nsuTef ?? this.nsuTef,
+      codAutorizacaoTef: codAutorizacaoTef ?? this.codAutorizacaoTef,
+      codAdmCartao: codAdmCartao ?? this.codAdmCartao,
+      tipoOperacaoTef: tipoOperacaoTef ?? this.tipoOperacaoTef,
+      valorJuros: valorJuros ?? this.valorJuros,
+      valor: valor ?? this.valor,
+      idTransacao: idTransacao ?? this.idTransacao,
+      conector: conector ?? this.conector,
+      codBandeira: codBandeira ?? this.codBandeira,
+      exportado: exportado ?? this.exportado,
+      dataPagamento: dataPagamento ?? this.dataPagamento,
+      codProd: codProd ?? super.codProd,
+      maxQuantity: maxQuantity ?? super.maxQuantity,
+      name: name ?? super.name,
+      numTransVenda: numTransVenda ?? super.numTransVenda,
+      quantity: quantity ?? super.quantity,
+      show: show ?? super.show,
+    );
   }
 }

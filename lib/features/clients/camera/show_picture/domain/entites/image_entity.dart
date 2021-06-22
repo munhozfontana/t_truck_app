@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:uuid/uuid.dart';
+import 'package:t_truck_app/core/utils/base_entity.dart';
 
-class ImageEntity {
-  String id = Uuid().v4();
+class ImageEntity extends BaseEntity {
   final String imgCanhotoBase64;
   final String imgEstabelecimentoBase64;
 

@@ -24,12 +24,17 @@ class SavePaymentUseCase implements UseCaseAsync<Type, Params> {
     );
   }
 
-  Either<Failure, List<ProductReceiptModel>> _doPayment(
-      List<ProductReceiptModel> list, ClientModel clientModel) {
+  Future<Either<Failure, List<ProductReceiptModel>>> _doPayment(
+      List<ProductReceiptModel> list, ClientModel clientModel) async {
     if (list.isNotEmpty) {
-      iPaymentRepository.savePayments(
+      var listReceiptsWithTransVenda = <ProductReceiptModel>[];
+      clientModel.paymentTypeGsa!.forEach((element) {
+        listReceiptsWithTransVenda.addAll(
+            list.map((e) => e.copyWith(numTransVenda: element.numTransVenda)));
+      });
+      await iPaymentRepository.savePayments(
         clientModel.copyWith(
-          receipts: list,
+          receipts: listReceiptsWithTransVenda,
         ),
       );
       return Right(list);

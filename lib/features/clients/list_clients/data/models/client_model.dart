@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import '../../../../../core/utils/payment_utils.dart';
 import '../../../../payment/data/external/channels/cielo_channel.dart';
-import '../../../list_products/data/models/payment_type_gsa.dart';
 import '../../../list_products/data/models/product_model.dart';
 import '../../../list_products/data/models/product_receipt_model.dart';
 import '../../domain/entites/client_entity.dart';
+import 'payment_type_gsa.dart';
 
 class ClientModel extends ClientEntity {
   final List<ProductReceiptModel> receipts;
@@ -13,7 +13,6 @@ class ClientModel extends ClientEntity {
   List<PaymentTypeGSA>? paymentTypeGsa;
 
   ClientModel({
-    String id = '',
     String name = '',
     int qtde = 0,
     bool show = true,
@@ -22,7 +21,6 @@ class ClientModel extends ClientEntity {
     this.codCli = 0,
     this.paymentTypeGsa,
   }) : super(
-          id: id,
           name: name,
           produtos: produtos,
           qtde: qtde,
@@ -60,7 +58,6 @@ class ClientModel extends ClientEntity {
     List<PaymentTypeGSA>? paymentTypeGsa,
   }) {
     return ClientModel(
-      id: id ?? this.id,
       name: name ?? this.name,
       qtde: qtde ?? this.qtde,
       show: show ?? this.show,

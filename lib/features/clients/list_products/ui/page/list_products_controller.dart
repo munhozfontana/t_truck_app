@@ -35,11 +35,11 @@ class ListProductsController extends GetxController with BaseController {
       var nameFinded = element.name.isCaseInsensitiveContains(nameFeild.value);
 
       if (transacaoFinded && nameFeild.isEmpty) {
-        element.show = true;
+        element.copyWith(show: true);
       } else if (nameFeild.isNotEmpty && nameFinded) {
-        element.show = true;
+        element.copyWith(show: true);
       } else {
-        element.show = false;
+        element.copyWith(show: false);
       }
 
       return element;
@@ -48,10 +48,10 @@ class ListProductsController extends GetxController with BaseController {
     clientModel.refresh();
   }
 
-  void updadeListFromValue(String value, ProductModel productEntity) {
+  void updadeListFromValue(String value, ProductModel productModel) {
     if (!GetUtils.isNull(value)) {
       var listProducts = clientModel.value.produtos.map((p) {
-        if (p.id == productEntity.id) {
+        if (p.id == productModel.id) {
           return p.copyWith(
               quantity: GetUtils.isBlank(value)! ? 0 : int.tryParse(value)!);
         } else {

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/utils/app_dialog.dart';
 
 import '../../../../core/components/btn_occurrence.dart';
 import '../../../../core/params/params.dart';
@@ -42,11 +43,11 @@ class PaymentController extends GetxController with BaseController {
   }
 
   void savePayment() async {
-    await (await savePaymentUseCase(Params(
+    (await savePaymentUseCase(Params(
       clientModel: clientModel.value,
     )))
         .fold(
-      (l) => null,
+      (l) => {AppDialog.error(menssagem: l.props.first.toString())},
       (r) => Get.to(() => TakePicturePage()),
     );
     ;

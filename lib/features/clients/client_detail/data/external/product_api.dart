@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../../../core/adapters/protocols/i_http_external.dart';
 import '../../../../../core/error/api_exception.dart';
 import '../../../../../core/messages/api_mensages.dart';
-import '../../../list_products/data/models/payment_type_gsa.dart';
+import '../../../list_clients/data/models/payment_type_gsa.dart';
 import '../../../list_products/data/models/product_model.dart';
 
 mixin IProduct {
