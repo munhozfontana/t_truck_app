@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/payment/ui/page/payment_controller.dart';
 
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/components/dropdown_default.dart';
@@ -16,6 +17,8 @@ class DevolutionController extends GetxController with BaseController {
 
   RxList<DropdownModel> reasonDevolution = <DropdownModel>[].obs;
   Rx<DropdownModel> selected = DropdownModel().obs;
+  Rx<FromPayment> fromPayment = FromPayment.NONE.obs;
+
   Rx<TypeOccurrence> typeDevolution = TypeOccurrence.NONE.obs;
   Rx<ClientModel> clientModel = ClientModel().obs;
 
