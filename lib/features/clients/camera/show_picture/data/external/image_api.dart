@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:t_truck_app/core/adapters/protocols/i_http_external.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
@@ -17,9 +18,10 @@ class ImageExternal implements IImageExternal {
   @override
   Future<void> save(ImageModel imageModel) async {
     try {
-      // await iHttp.postHttp('${env['URL_BASE']}/image',
-      //     body: imageModel.toJson());
-      return Future.delayed(Duration(seconds: 10));
+      await iHttp.postHttp(
+        '${env['URL_BASE']}/image',
+        body: imageModel.toJson(),
+      );
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }

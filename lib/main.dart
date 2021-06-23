@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
+import 'package:package_info/package_info.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -20,6 +21,7 @@ import 'injection_container.dart';
 void main() async {
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
+  var packageInfo = await PackageInfo.fromPlatform();
   runApp(GetMaterialApp(
     title: 'GSA',
     theme: ThemeData(
@@ -45,10 +47,13 @@ void main() async {
         name: '/',
         page: () {
           return FutureBuilder(
-            future: Future.delayed(Duration(seconds: 3)),
+            future: Future.delayed(Duration(seconds: 4)),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return MaterialApp(home: Splash());
+                return MaterialApp(
+                    home: Splash(
+                  packageInfo: packageInfo,
+                ));
               } else {
                 return LoginPage();
               }
