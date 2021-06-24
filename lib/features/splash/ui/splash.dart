@@ -8,11 +8,11 @@ import 'package:package_info/package_info.dart';
 import '../../../core/components/app_background.dart';
 
 class Splash extends StatelessWidget {
-  final PackageInfo packageInfo;
+  final PackageInfo? packageInfo;
 
   const Splash({
     Key? key,
-    required this.packageInfo,
+    this.packageInfo,
   }) : super(key: key);
 
   @override
@@ -29,10 +29,15 @@ class Splash extends StatelessWidget {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text('${packageInfo.version} - ${packageInfo.buildNumber}'),
-          ),
+          Visibility(
+              maintainSize: false,
+              maintainState: false,
+              visible: packageInfo != null,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                    '${packageInfo?.version} - ${packageInfo?.buildNumber}'),
+              )),
           Container(
             child: Center(
               child: SvgPicture.asset(

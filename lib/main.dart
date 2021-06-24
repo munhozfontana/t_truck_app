@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
@@ -21,7 +25,12 @@ import 'injection_container.dart';
 void main() async {
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
-  var packageInfo = await PackageInfo.fromPlatform();
+  var packageInfo;
+  if (!Platform.isWindows) {
+    packageInfo = await PackageInfo.fromPlatform();
+  }
+
+  runBackgroundServices();
   runApp(GetMaterialApp(
     title: 'GSA',
     theme: ThemeData(
@@ -98,4 +107,17 @@ void main() async {
       )
     ],
   ));
+}
+
+void runBackgroundServices() {
+  Isolate.spawn(sendGeoLocation, 1000);
+}
+
+void sendGeoLocation(int message) {
+  Timer.periodic(
+    Duration(seconds: 1),
+    (timer) {
+      print('manda Geo Location' + message.toString());
+    },
+  );
 }

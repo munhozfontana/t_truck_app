@@ -1,4 +1,5 @@
 import 'package:geolocator/geolocator.dart' as geo_driver;
+import 'package:t_truck_app/features/geolocation/domain/entities/geolocation_entity.dart';
 
 import '../../error/driver_exception.dart';
 import '../../messages/api_mensages.dart';
@@ -12,10 +13,10 @@ class LocationDriver implements ILocation {
   });
 
   @override
-  Future<LocationResponse> getCurrentPosition() async {
+  Future<GeolocationEntity> getCurrentPosition() async {
     try {
       var res = await geolocatorAdapterHelper.getCurrentPosition();
-      return LocationResponse(
+      return GeolocationEntity(
         latitude: res.latitude,
         longitude: res.longitude,
       );

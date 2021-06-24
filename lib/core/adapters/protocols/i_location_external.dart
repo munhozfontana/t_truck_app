@@ -1,10 +1,5 @@
+import 'package:t_truck_app/features/geolocation/domain/entities/geolocation_entity.dart';
+
 abstract class ILocation {
-  Future<LocationResponse> getCurrentPosition();
-}
-
-class LocationResponse {
-  final double? latitude;
-  final double? longitude;
-
-  LocationResponse({this.latitude, this.longitude});
+  Future<GeolocationEntity> getCurrentPosition();
 }
