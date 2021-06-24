@@ -54,6 +54,7 @@ class DevolutionController extends GetxController with BaseController {
 
   void finishReson() async {
     (await devolutionSaveUseCase(Params(
+      typeOccurrence: typeDevolution.value,
       selected: selected.value,
       clientModel: clientModel.value,
     )))

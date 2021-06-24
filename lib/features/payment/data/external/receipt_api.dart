@@ -21,7 +21,7 @@ class ReceiptApi implements IReceiptExternal {
     try {
       ProductReceiptModel.listToJson(list).forEach((element) async {
         await iHttp.postHttp(
-          '${env['URL_BASE']}/product',
+          '${env['URL_BASE']}/paymentCielo',
           body: element,
         );
       });
