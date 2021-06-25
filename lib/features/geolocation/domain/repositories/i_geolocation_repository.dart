@@ -4,6 +4,7 @@ import 'package:t_truck_app/features/geolocation/domain/entities/geolocation_ent
 
 mixin IGeolocationRepository {
   Future<Either<Failure, GeolocationEntity>> getGeolocation();
+  Future<Either<Failure, bool>> getAutorization();
   Future<Either<Failure, void>> saveGeolocation(
       GeolocationEntity geolocationEntity);
 }

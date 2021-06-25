@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:t_truck_app/core/error/failures.dart';
 import 'package:t_truck_app/core/params/params.dart';
@@ -11,11 +14,28 @@ class SyncGeolocationUseCase implements UseCaseAsync<Type, Params> {
 
   @override
   Future<Either<Failure, void>> call(Params params) async {
-    return (await geolocationRepository.getGeolocation()).fold(
+    var resAutorization = await geolocationRepository.getAutorization();
+    return resAutorization.fold(
       (l) => Left(AppFailure()),
       (r) {
-        return geolocationRepository.saveGeolocation(r);
+        if (r) {
+          return initSyncGeolocation();
+        } else {
+          return Left(AppFailure());
+        }
       },
     );
+  }
+
+  Future<Either<Failure, void>> initSyncGeolocation() async {
+    return Right(Timer.periodic(
+      Duration(seconds: 10),
+      (timer) async => (await geolocationRepository.getGeolocation()).fold(
+        (l) => Left(AppFailure()),
+        (r) {
+          log(r.toString());
+        },
+      ),
+    ));
   }
 }

@@ -2,4 +2,5 @@ import 'package:t_truck_app/features/geolocation/domain/entities/geolocation_ent
 
 abstract class ILocation {
   Future<GeolocationEntity> getCurrentPosition();
+  Future<bool> getAutorization();
 }

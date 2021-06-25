@@ -30,4 +30,15 @@ class GeolocationRepository implements IGeolocationRepository {
     // TODO: implement saveGeolocation
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, bool>> getAutorization() async {
+    try {
+      return Right(await iLocation.getAutorization());
+    } on DriverException catch (e) {
+      return Left(RequestFailure(detail: e.error));
+    } catch (e) {
+      return Left(AppFailure(detail: ApiMensages.GENERIC_ERROR));
+    }
+  }
 }
