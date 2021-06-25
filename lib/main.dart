@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
-import 'package:t_truck_app/features/geolocation/geolocation_biding.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -30,9 +29,6 @@ void main() async {
   if (!Platform.isWindows) {
     packageInfo = await PackageInfo.fromPlatform();
   }
-
-  // await Isolate.spawn(syncGeolocation, null);
-  syncGeolocation(null);
 
   runApp(GetMaterialApp(
     title: 'GSA',
@@ -110,9 +106,4 @@ void main() async {
       )
     ],
   ));
-}
-
-void syncGeolocation(Null message) {
-  // SyncGeolocationUseCase(geolocationRepository: Get.find())(Params());
-  GeolocationBiding().dependencies();
 }

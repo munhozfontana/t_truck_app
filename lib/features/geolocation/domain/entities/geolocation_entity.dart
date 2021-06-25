@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class GeolocationEntity {
   final double? latitude;
   final double? longitude;
@@ -7,4 +9,23 @@ class GeolocationEntity {
   @override
   String toString() =>
       'GeolocationEntity(latitude: $latitude, longitude: $longitude)';
+
+  Map<String, dynamic> toMap() {
+    return {
+      'latitude': latitude,
+      'longitude': longitude,
+    };
+  }
+
+  factory GeolocationEntity.fromMap(Map<String, dynamic> map) {
+    return GeolocationEntity(
+      latitude: map['latitude'],
+      longitude: map['longitude'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory GeolocationEntity.fromJson(String source) =>
+      GeolocationEntity.fromMap(json.decode(source));
 }

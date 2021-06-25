@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:t_truck_app/core/error/failures.dart';
@@ -19,7 +18,7 @@ class SyncGeolocationUseCase implements UseCaseAsync<Type, Params> {
       (l) => Left(AppFailure()),
       (r) {
         if (r) {
-          return initSyncGeolocation();
+          return Right(initSyncGeolocation());
         } else {
           return Left(AppFailure());
         }
@@ -27,14 +26,12 @@ class SyncGeolocationUseCase implements UseCaseAsync<Type, Params> {
     );
   }
 
-  Future<Either<Failure, void>> initSyncGeolocation() async {
+  Future<Right<Failure, Timer>> initSyncGeolocation() async {
     return Right(Timer.periodic(
       Duration(seconds: 10),
       (timer) async => (await geolocationRepository.getGeolocation()).fold(
         (l) => Left(AppFailure()),
-        (r) {
-          log(r.toString());
-        },
+        (r) => geolocationRepository.saveGeolocation(r),
       ),
     ));
   }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/geolocation/geolocation_biding.dart';
 
 import 'core/adapters/drivers/dio_driver.dart';
 import 'core/adapters/drivers/jwt_decoder_driver.dart';
@@ -36,5 +37,6 @@ class MainBiding extends Bindings {
       iLoggedUser: Get.find(),
     ));
     TokenBiding().dependencies();
+    GeolocationBiding().dependencies();
   }
 }
