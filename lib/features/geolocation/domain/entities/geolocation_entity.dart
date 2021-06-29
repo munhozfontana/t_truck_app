@@ -12,8 +12,8 @@ class GeolocationEntity {
 
   Map<String, dynamic> toMap() {
     return {
-      'latitude': latitude,
-      'longitude': longitude,
+      'latitude': latitude!.toStringAsFixed(7),
+      'longitude': longitude!.toStringAsFixed(7),
     };
   }
 

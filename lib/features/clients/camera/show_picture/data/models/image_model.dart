@@ -24,9 +24,9 @@ class ImageModel extends ImageEntity {
   Map<String, dynamic> toMap() {
     return {
       'data': data,
-      'codCli': codCli,
+      'codcli': codCli,
       'numcanhoto': numcanhoto,
-      'numtrasnvenda': concatNumeroTrasnVenda,
+      'numtransvenda': concatNumeroTrasnVenda,
       ...super.toMap()
     };
   }

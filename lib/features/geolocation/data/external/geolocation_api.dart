@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:t_truck_app/core/error/api_exception.dart';
 import 'package:t_truck_app/core/messages/api_mensages.dart';
 import 'package:t_truck_app/features/geolocation/domain/entities/geolocation_entity.dart';
@@ -20,11 +19,10 @@ class GeolocationApi implements IGeolocation {
   @override
   Future<void> save(GeolocationEntity geolocationEntity) async {
     try {
-      log(geolocationEntity.toJson());
-      // await iHttp.postHttp(
-      //   '${env['URL_BASE']}/geolocation',
-      //   body: geolocationEntity.toJson(),
-      // );
+      await iHttp.postHttp(
+        '${env['URL_BASE']}/geolocation',
+        body: geolocationEntity.toJson(),
+      );
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }
