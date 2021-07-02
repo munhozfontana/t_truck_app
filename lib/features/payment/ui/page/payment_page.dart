@@ -57,7 +57,7 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
               ),
               Spacer(flex: 33),
               BtnPrimary(
-                label: 'Cartão de crédito',
+                label: 'Cartão',
                 onPressed: controller.typePayment.value.isCreditCard
                     ? () => controller.openPayment(FromPayment.CREDIT_CARD)
                     : null,
@@ -74,7 +74,7 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
                     label: 'Carteira', fromPayment: FromPayment.WALLET),
               if (controller.typePayment.value.isBonus)
                 ...secondaryPayment(
-                    label: 'Bonificação', fromPayment: FromPayment.BONUS),
+                    label: 'Bonificado', fromPayment: FromPayment.BONUS),
               Spacer(flex: 14),
               Divider(),
               Spacer(flex: 14),
