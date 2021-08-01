@@ -10,6 +10,7 @@ class DevolutionModel extends DevolutionEntity {
     required int codcli,
     required int numtransvenda,
     required String codmot,
+    required String codusur,
     required String situacao,
   }) : super(
           codprod: codprod,
@@ -18,6 +19,7 @@ class DevolutionModel extends DevolutionEntity {
           codcli: codcli,
           numtransvenda: numtransvenda,
           codmot: codmot,
+          codusur: codusur,
           situacao: situacao,
         );
 
@@ -29,6 +31,7 @@ class DevolutionModel extends DevolutionEntity {
       'codcli': codcli,
       'numtransvenda': numtransvenda,
       'codmot': codmot,
+      'codusur':codusur,
       'situacao': situacao,
     };
   }
@@ -41,6 +44,7 @@ class DevolutionModel extends DevolutionEntity {
       codcli: map['codcli'],
       numtransvenda: map['numtransvenda'],
       codmot: map['codmot'],
+      codusur: map['codusur'],
       situacao: map['situacao'],
     );
   }

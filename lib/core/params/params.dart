@@ -11,6 +11,7 @@ class Params extends Equatable {
   final CredentialEntity? credential;
   final String? token;
   final String? codmot;
+  final String? codusur;
   final String? motivoDevolucao;
   final int? codCli;
   final ClientModel? clientModel;
@@ -23,6 +24,7 @@ class Params extends Equatable {
     this.credential,
     this.token,
     this.codmot,
+    this.codusur,
     this.motivoDevolucao,
     this.codCli,
     this.clientModel,
@@ -37,6 +39,7 @@ class Params extends Equatable {
         credential!,
         token!,
         codmot!,
+        codusur!,
         motivoDevolucao!,
         codCli!,
         clientModel!,

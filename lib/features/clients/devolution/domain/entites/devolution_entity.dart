@@ -5,6 +5,7 @@ class DevolutionEntity {
   final int codcli;
   final int numtransvenda;
   final String codmot;
+  final String codusur;
   final String situacao;
 
   DevolutionEntity({
@@ -14,6 +15,7 @@ class DevolutionEntity {
     required this.codcli,
     required this.numtransvenda,
     required this.codmot,
+    required this.codusur,
     required this.situacao,
   });
 }

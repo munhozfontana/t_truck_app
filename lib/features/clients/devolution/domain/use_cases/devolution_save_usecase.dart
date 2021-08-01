@@ -38,6 +38,7 @@ class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
             codcli: params.clientModel!.codCli,
             numtransvenda: e.numTransVenda,
             codmot: codMot,
+            codusur: params.codusur.toString(),
             situacao: params.typeOccurrence == TypeOccurrence.YELLOW
                 ? 'DEVP'
                 : 'DEVT',
