@@ -13,10 +13,11 @@ class ProductListUseCase implements UseCaseAsync<Type, Params> {
   ProductListUseCase({
     required this.iProductRepository,
   });
-
   @override
-  Future<Either<Failure, Tuple2<List<ProductModel>, List<PaymentTypeGSA>>>>
-      call(Params params) async {
+  Future<
+      Either<Failure,
+          Tuple3<List<ProductModel>, List<PaymentTypeGSA>, bool>>> call(
+      Params params) async {
     return iProductRepository.getId(params.codCli!);
   }
 }

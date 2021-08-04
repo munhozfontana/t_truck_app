@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/use_case.dart';
-import '../../../../../core/utils/app_dialog.dart';
+import '../../../../../core/utils/app_utils.dart';
 import '../../data/models/client_model.dart';
 import '../repositores/i_clients_repository.dart';
 
@@ -24,8 +24,7 @@ class ClientListUseCase implements UseCaseAsync<Type, Params> {
       (l) => null,
       (r) => {
         if (r.isEmpty)
-          AppDialog.show(
-              titulo: 'Atenção', menssagem: 'Você não possui pedidos')
+          AppUtils.show(titulo: 'Atenção', menssagem: 'Você não possui pedidos')
       },
     );
 

@@ -28,7 +28,7 @@ class SyncGeolocationUseCase implements UseCaseAsync<Type, Params> {
 
   Future<Right<Failure, Timer>> initSyncGeolocation() async {
     return Right(Timer.periodic(
-      Duration(seconds: 10),
+      Duration(minutes: 15),
       (timer) async => (await geolocationRepository.getGeolocation()).fold(
         (l) => Left(AppFailure()),
         (r) => geolocationRepository.saveGeolocation(r),

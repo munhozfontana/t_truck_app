@@ -4,7 +4,7 @@ import 'package:t_truck_app/features/payment/ui/page/payment_controller.dart';
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/components/dropdown_default.dart';
 import '../../../../../core/params/params.dart';
-import '../../../../../core/utils/app_dialog.dart';
+import '../../../../../core/utils/app_utils.dart';
 import '../../../../../core/utils/base_controller.dart';
 import '../../../camera/take_picture/ui/page/camera_take_picture_page.dart';
 import '../../../list_clients/data/models/client_model.dart';
@@ -39,7 +39,7 @@ class DevolutionController extends GetxController with BaseController {
   Future<void> loadDevolutionList() async {
     (await devolutionListUseCase(Params())).fold(
       (l) => {
-        AppDialog.error(menssagem: l.props.first.toString()),
+        AppUtils.error(menssagem: l.props.first.toString()),
       },
       (r) => {
         reasonDevolution.value = r,
@@ -59,7 +59,7 @@ class DevolutionController extends GetxController with BaseController {
       clientModel: clientModel.value,
     )))
         .fold(
-      (l) => AppDialog.error(menssagem: l.props.first.toString()),
+      (l) => AppUtils.error(menssagem: l.props.first.toString()),
       (r) => Get.to(() => TakePicturePage()),
     );
   }

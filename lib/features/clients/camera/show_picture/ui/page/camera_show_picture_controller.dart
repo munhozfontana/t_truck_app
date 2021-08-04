@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/params/params.dart';
-import 'package:t_truck_app/core/utils/app_dialog.dart';
+import 'package:t_truck_app/core/utils/app_utils.dart';
 import 'package:t_truck_app/features/clients/camera/show_picture/data/models/image_model.dart';
 import 'package:t_truck_app/features/clients/devolution/ui/page/devolution_controller.dart';
 import 'package:t_truck_app/features/clients/finish/devolution_finish_biding.dart';
@@ -44,8 +44,8 @@ class CameraImageController extends GetxController {
       clientModel: clientModel.value,
       fromPayment: fromPayment.value,
     )).then((value) => value.fold(
-          (l) => AppDialog.error(menssagem: l.props.toString()),
-          (r) => AppDialog.show(menssagem: 'Informações salvas com sucesso'),
+          (l) => AppUtils.error(menssagem: l.props.toString()),
+          (r) => AppUtils.show(menssagem: 'Informações salvas com sucesso'),
         ));
 
     Get.to(() => DevolutionFinish(), binding: DevolutionFinishBiding());

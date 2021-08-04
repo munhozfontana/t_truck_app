@@ -16,8 +16,10 @@ class ProductRepository implements IProductRepository {
   });
 
   @override
-  Future<Either<Failure, Tuple2<List<ProductModel>, List<PaymentTypeGSA>>>>
-      getId(codCli) async {
+  Future<
+      Either<Failure,
+          Tuple3<List<ProductModel>, List<PaymentTypeGSA>, bool>>> getId(
+      codCli) async {
     try {
       return Right(await iProduct.getId(codCli));
     } on ApiException catch (e) {

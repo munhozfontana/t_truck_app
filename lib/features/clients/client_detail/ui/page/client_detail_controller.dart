@@ -16,6 +16,7 @@ class ClientDetailController extends GetxController with BaseController {
   });
 
   Rx<ClientModel?> clientEntity = ClientModel().obs;
+  RxBool jump = false.obs;
 
   @override
   void onInit() async {
@@ -23,13 +24,16 @@ class ClientDetailController extends GetxController with BaseController {
     ClientModel clientModelParam = Get.arguments;
     (await productListUseCase(Params(codCli: clientModelParam.codCli))).fold(
       (l) => null,
-      (r) => clientEntity = ClientModel(
-              name: clientModelParam.name,
-              qtde: clientModelParam.qtde,
-              codCli: clientModelParam.codCli,
-              produtos: r.value1,
-              paymentTypeGsa: r.value2)
-          .obs,
+      (r) => {
+        clientEntity = ClientModel(
+                name: clientModelParam.name,
+                qtde: clientModelParam.qtde,
+                codCli: clientModelParam.codCli,
+                produtos: r.value1,
+                paymentTypeGsa: r.value2)
+            .obs,
+        jump.value = r.value3
+      },
     );
     changeLoading(Loading.STOP);
     super.onInit();

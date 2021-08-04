@@ -10,7 +10,8 @@ import '../../../list_clients/data/models/payment_type_gsa.dart';
 import '../../../list_products/data/models/product_model.dart';
 
 mixin IProduct {
-  Future<Tuple2<List<ProductModel>, List<PaymentTypeGSA>>> getId(int codCli);
+  Future<Tuple3<List<ProductModel>, List<PaymentTypeGSA>, bool>> getId(
+      int codCli);
 }
 
 class ProductApi implements IProduct {
@@ -21,32 +22,31 @@ class ProductApi implements IProduct {
   });
 
   @override
-  Future<Tuple2<List<ProductModel>, List<PaymentTypeGSA>>> getId(
+  Future<Tuple3<List<ProductModel>, List<PaymentTypeGSA>, bool>> getId(
       int codCli) async {
     try {
       var resPayments = await _getPaymentType(codCli);
-      var listProductsModel = await _getProducts(resPayments);
-      return Tuple2(
-        listProductsModel,
-        resPayments,
-      );
+      var listProductsModel = await _getProducts(resPayments.value1);
+      return Tuple3(listProductsModel, resPayments.value1, resPayments.value2);
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);
     }
   }
 
-  Future<List<PaymentTypeGSA>> _getPaymentType(int codCli) async {
+  Future<Tuple2<List<PaymentTypeGSA>, bool>> _getPaymentType(int codCli) async {
     var resPaymentType = await iHttp.postHttp(
       '${env['URL_BASE']}/paymentType',
       body: {'CODCLIE': codCli},
     );
 
-    var listProduct = (json.decode(resPaymentType.body!) as List)
+    var decode = json.decode(resPaymentType.body!);
+
+    var listProduct = (decode['tipopagamento'] as List)
         .map(
           (e) => PaymentTypeGSA.fromMap(e),
         )
         .toList();
-    return listProduct;
+    return Tuple2(listProduct, decode['jump']);
   }
 
   Future<List<ProductModel>> _getProducts(

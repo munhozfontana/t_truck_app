@@ -7,7 +7,7 @@ import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_co
 
 import '../../../../core/adapters/protocols/i_logged_user.dart';
 import '../../../../core/params/params.dart';
-import '../../../../core/utils/app_dialog.dart';
+import '../../../../core/utils/app_utils.dart';
 import '../../../../core/utils/base_controller.dart';
 import '../../../clients/list_clients/list_clients_biding.dart';
 import '../../../clients/list_clients/ui/page/list_client_page.dart';
@@ -48,12 +48,12 @@ class LoginController extends GetxController with BaseController {
     changeLoading(Loading.STOP);
 
     res.fold(
-        (l) => AppDialog.error(
+        (l) => AppUtils.error(
               menssagem: l.props.first.toString(),
             ),
         (r) => {
               tokenUseCase(Params(token: r)).fold(
-                  (l) => AppDialog.error(
+                  (l) => AppUtils.error(
                         menssagem: l.props.first.toString(),
                       ),
                   (r) => {tryGet(), toOrderPage()}),

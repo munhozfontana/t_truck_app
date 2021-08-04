@@ -1,5 +1,7 @@
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:t_truck_app/core/utils/app_dialog.dart';
+import 'package:t_truck_app/core/utils/app_utils.dart';
+import 'package:t_truck_app/features/clients/client_detail/ui/page/client_detail_controller.dart';
 
 import '../../../../core/components/btn_occurrence.dart';
 import '../../../../core/params/params.dart';
@@ -31,13 +33,20 @@ class PaymentController extends GetxController with BaseController {
 
   @override
   void onInit() {
-    changeLoading(Loading.START);
-    typeOccurrence.value = Get.arguments[0];
-    clientModel.value = Get.arguments[1];
-    identifyTypePaymentCase(Params(clientModel: clientModel.value)).fold(
-      (l) => null,
-      (r) => typePayment.value = r,
-    );
+    if (Get.find<ClientDetailController>().jump.value) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
+        AppUtils.diaolog(onConfirm: () => Get.to(() => TakePicturePage()));
+      });
+    } else {
+      changeLoading(Loading.START);
+      typeOccurrence.value = Get.arguments[0];
+      clientModel.value = Get.arguments[1];
+
+      identifyTypePaymentCase(Params(clientModel: clientModel.value)).fold(
+        (l) => null,
+        (r) => typePayment.value = r,
+      );
+    }
 
     super.onInit();
   }
@@ -47,7 +56,7 @@ class PaymentController extends GetxController with BaseController {
       clientModel: clientModel.value,
     )))
         .fold(
-      (l) => {AppDialog.error(menssagem: l.props.first.toString())},
+      (l) => {AppUtils.error(menssagem: l.props.first.toString())},
       (r) => Get.to(() => TakePicturePage()),
     );
     ;
