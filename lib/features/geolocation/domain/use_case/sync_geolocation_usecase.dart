@@ -26,9 +26,11 @@ class SyncGeolocationUseCase implements UseCaseAsync<Type, Params> {
     );
   }
 
+  @Deprecated(
+      'Maneira Incorreta de pegar a localizacao, deve ser por meio de servicos background')
   Future<Right<Failure, Timer>> initSyncGeolocation() async {
     return Right(Timer.periodic(
-      Duration(minutes: 15),
+      Duration(minutes: 1),
       (timer) async => (await geolocationRepository.getGeolocation()).fold(
         (l) => Left(AppFailure()),
         (r) => geolocationRepository.saveGeolocation(r),
