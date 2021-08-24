@@ -25,7 +25,7 @@ import 'injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FlutterBackgroundService.initialize(onStart);
+  FlutterBackgroundService.initialize(backgroundGeolocation);
 
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
@@ -113,12 +113,11 @@ void main() async {
   ));
 }
 
-void onStart() {
+void backgroundGeolocation() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Timer.periodic(Duration(seconds: 5), (Timer time) {
+  Timer.periodic(Duration(minutes: 1), (Timer time) {
     try {
-      print('VAI VAI');
       MainBiding().dependencies();
       GeolocationBiding().dependencies();
     } catch (e) {
