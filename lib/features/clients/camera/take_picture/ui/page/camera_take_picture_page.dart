@@ -11,6 +11,7 @@ import '../../../show_picture_biding.dart';
 class TakePicturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Icons.
     return Scaffold(
       body: Stack(
         children: [
