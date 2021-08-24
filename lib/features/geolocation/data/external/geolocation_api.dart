@@ -18,6 +18,7 @@ class GeolocationApi implements IGeolocation {
 
   @override
   Future<void> save(GeolocationEntity geolocationEntity) async {
+    print(geolocationEntity.toString());
     try {
       await iHttp.postHttp(
         '${env['URL_BASE']}/geolocation',
