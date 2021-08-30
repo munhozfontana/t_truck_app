@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/chat/ui/chat_component.dart';
+import 'package:t_truck_app/features/chat/ui/chat_controller.dart';
 
 import '../../features/clients/list_clients/list_clients_biding.dart';
 import '../../features/clients/list_clients/ui/page/list_client_page.dart';
@@ -79,43 +81,48 @@ class AppBackground extends StatelessWidget {
           ),
         ),
         // Rectangle 15
-        Container(
-          width: 107.27838134765625,
-          height: 34.2634391784668,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            border: Border.all(color: const Color(0xff080e31), width: 1),
-            color: const Color(0xfff9f9fa),
-          ),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Row(
-                children: [
-                  Container(
-                    width: constraints.maxWidth * .5,
-                    child: // Ajuda
-                        Text(
-                      'Ajuda',
-                      style: const TextStyle(
-                          color: Color(0xff090f31),
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
-                          fontStyle: FontStyle.normal,
-                          fontSize: 16.0),
-                      textAlign: TextAlign.right,
+        GestureDetector(
+          onTap: () => Get.to(ChatComponent()),
+          child: Container(
+            width: 107.27838134765625,
+            height: 34.2634391784668,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              border: Border.all(color: const Color(0xff080e31), width: 1),
+              color: Get.find<ChatController>().anyNotification.isTrue
+                  ? Colors.red
+                  : Colors.transparent,
+            ),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return Row(
+                  children: [
+                    Container(
+                      width: constraints.maxWidth * .5,
+                      child: // Ajuda
+                          Text(
+                        'Ajuda',
+                        style: const TextStyle(
+                            color: Color(0xff090f31),
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16.0),
+                        textAlign: TextAlign.right,
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: constraints.maxWidth * .5,
-                    child: SvgPicture.asset(
-                      'images/icons/help.svg',
-                      semanticsLabel: 'Background Logo',
-                      color: Color(0xff080e31),
-                    ),
-                  )
-                ],
-              );
-            },
+                    Container(
+                      width: constraints.maxWidth * .5,
+                      child: SvgPicture.asset(
+                        'images/icons/help.svg',
+                        semanticsLabel: 'Background Logo',
+                        color: Color(0xff080e31),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ],

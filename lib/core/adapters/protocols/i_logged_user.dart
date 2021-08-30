@@ -14,7 +14,11 @@ class LoggedUser implements ILoggedUser {
   @override
   Future<String> get login async {
     var token = await iLocalStoreExternal.take('token');
-    return iJwt.jwtDecode(token as String)['login'];
+    try {
+      return iJwt.jwtDecode(token as String)['login'];
+    } catch (e) {
+      return '';
+    }
   }
 
   @override

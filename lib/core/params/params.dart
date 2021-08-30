@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:t_truck_app/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:t_truck_app/features/clients/camera/show_picture/data/models/image_model.dart';
 import 'package:t_truck_app/features/payment/ui/page/payment_controller.dart';
 
@@ -19,6 +20,8 @@ class Params extends Equatable {
   final DropdownModel? selected;
   final ImageModel? imageModel;
   final FromPayment? fromPayment;
+  final ChatMessage? chatMessageEntity;
+  final String? idUser;
 
   Params({
     this.credential,
@@ -32,6 +35,8 @@ class Params extends Equatable {
     this.selected,
     this.imageModel,
     this.fromPayment,
+    this.idUser,
+    this.chatMessageEntity,
   });
 
   @override
@@ -47,5 +52,7 @@ class Params extends Equatable {
         selected!,
         imageModel!,
         fromPayment!,
+        idUser!,
+        chatMessageEntity!,
       ];
 }
