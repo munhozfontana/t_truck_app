@@ -47,6 +47,15 @@ class ChatController extends GetxController {
   void onInit() {
     super.onInit();
     getInitialData();
+    listChatMessage.listen((listChatMessageListen) {
+      if (listChatMessageListen
+          .where((item) => item.notifications > 0)
+          .isNotEmpty) {
+        anyNotification.value = true;
+      } else {
+        anyNotification.value = false;
+      }
+    });
   }
 
   Future<void> getInitialData() async {
@@ -111,13 +120,6 @@ class ChatController extends GetxController {
           listChatMessage.refresh();
           update();
           selectChat.refresh();
-          if (listChatMessage
-              .where((item) => item.notifications > 0)
-              .isNotEmpty) {
-            anyNotification.value = true;
-          } else {
-            anyNotification.value = false;
-          }
           rowDown();
         })
       },
