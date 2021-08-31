@@ -3,12 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:t_truck_app/features/chat/ui/chat_component.dart';
-import 'package:t_truck_app/features/geolocation/geolocation_biding.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -25,9 +23,6 @@ import 'features/splash/ui/splash.dart';
 import 'injection_container.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  FlutterBackgroundService.initialize(backgroundGeolocation);
-
   await dont_env.load(fileName: '.env');
   await SystemChrome.setEnabledSystemUIOverlays([]);
   var packageInfo;
@@ -116,17 +111,4 @@ void main() async {
       )
     ],
   ));
-}
-
-void backgroundGeolocation() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  Timer.periodic(Duration(minutes: 1), (Timer time) {
-    try {
-      MainBiding().dependencies();
-      GeolocationBiding().dependencies();
-    } catch (e) {
-      print(e);
-    }
-  });
 }
