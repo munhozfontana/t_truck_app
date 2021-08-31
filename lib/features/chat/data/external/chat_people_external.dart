@@ -20,8 +20,13 @@ class ChatPeopleExternal implements IChatPeopleExternal {
         'http://truck.stoatacadista.com.br:2302/api/listaAdmin',
       );
 
-      List list = jsonDecode(res.body!);
-      return list.map((element) => ChatPerson.fromJson(element)).toList();
+      List list = json.decode(res.body!) as List;
+      var listProductsModel = list.map(
+        (e) {
+          return ChatPerson.fromMap(e as Map<String, dynamic>);
+        },
+      ).toList();
+      return listProductsModel;
     } catch (e) {
       throw ApiException(error: 'Serviço indiponível');
     }
