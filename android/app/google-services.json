@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "427932885790",
+    "project_id": "t-truck-app",
+    "storage_bucket": "t-truck-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427932885790:android:47e6ddad00db0109981f0f",
+        "android_client_info": {
+          "package_name": "com.dev.gsa.liogsasolues"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427932885790-qlp9fl6r83q2070bor2406c0obbtbfb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dev.gsa.liogsasolues",
+            "certificate_hash": "738403cc1a67159d8c6a48cd6b585f367d1003be"
+          }
+        },
+        {
+          "client_id": "427932885790-d3h7d1nd1c7hojh9bs7pb1r2vqlib4vr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABcPy_BwOg7vwglrUfEUQZtn-g9lbeAIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427932885790-d3h7d1nd1c7hojh9bs7pb1r2vqlib4vr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
