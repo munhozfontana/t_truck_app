@@ -8,8 +8,8 @@ import '../../domain/entites/client_entity.dart';
 import 'payment_type_gsa.dart';
 
 class ClientModel extends ClientEntity {
-  final List<ProductReceiptModel> receipts;
   final int codCli;
+  final List<ProductReceiptModel> receipts;
   List<PaymentTypeGSA>? paymentTypeGsa;
 
   ClientModel({

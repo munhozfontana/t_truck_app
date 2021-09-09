@@ -22,7 +22,6 @@ class AppBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(initialScreen);
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(

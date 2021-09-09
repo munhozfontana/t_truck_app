@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 import '../../../../../core/params/params.dart';
-import '../../../../../core/utils/app_utils.dart';
 import '../../../../../core/utils/base_controller.dart';
 import '../../../client_detail/client_detail_bading.dart';
 import '../../../client_detail/ui/page/client_detail_page.dart';
@@ -31,9 +30,9 @@ class ListClientController extends GetxController with BaseController {
     var res = await clientsListUseCase(Params());
     res.fold(
         (l) => {
-              AppUtils.error(
-                menssagem: l.props.first.toString(),
-              ),
+              // AppUtils.error(
+              //   menssagem: l.props.first.toString(),
+              // ),
             },
         (r) async => {
               list.value = r,

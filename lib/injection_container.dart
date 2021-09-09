@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/interceptors/app_interceptor.dart';
 import 'package:t_truck_app/features/chat/ui/chat_biding.dart';
 import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
 import 'package:t_truck_app/features/geolocation/geolocation_biding.dart';
@@ -31,13 +32,23 @@ class MainBiding extends Bindings {
       ),
       permanent: true,
     );
-    Get.put<IHttp>(DioDriver(
-      dio: Dio(BaseOptions(
-          connectTimeout: 15 * 1000, // 60 seconds
-          receiveTimeout: 15 * 1000 // 60 seconds
-          )),
-      iLoggedUser: Get.find(),
-    ));
+
+    Get.lazyPut(
+      () => AppInterceptor(),
+    );
+
+    Get.lazyPut<IHttp>(
+      () => DioDriver(
+        interceptors: AppInterceptor().allInterceptor(),
+        dio: Dio(BaseOptions(
+          connectTimeout:
+              const Duration(seconds: 5).inMilliseconds, // 60 seconds
+          receiveTimeout:
+              const Duration(seconds: 5).inMilliseconds, // 60 seconds
+        )),
+      ),
+    );
+
     TokenBiding().dependencies();
     GeolocationBiding().dependencies();
     ListClientBiding().dependencies();

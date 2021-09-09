@@ -5,15 +5,17 @@ import '../../domain/entites/product_entity.dart';
 class ProductModel extends ProductEntity {
   final int codProd;
   final int numTransVenda;
+  final int codUsur;
 
-  ProductModel({
-    required String name,
-    required int maxQuantity,
-    required int quantity,
-    required bool show,
-    this.codProd = 0,
-    this.numTransVenda = 0,
-  }) : super(
+  ProductModel(
+      {required String name,
+      required int maxQuantity,
+      required int quantity,
+      required bool show,
+      this.codProd = 0,
+      this.numTransVenda = 0,
+      this.codUsur = 0})
+      : super(
           name: name,
           maxQuantity: maxQuantity,
           quantity: quantity,
@@ -26,6 +28,7 @@ class ProductModel extends ProductEntity {
       name: map['DESCRICAO'],
       maxQuantity: map['QT'],
       numTransVenda: map['NUMTRANSVENDA'],
+      codUsur: map['CODUSUR'],
       quantity: 0,
       show: false,
     );

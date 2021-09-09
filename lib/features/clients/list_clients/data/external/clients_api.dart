@@ -34,6 +34,8 @@ class ClientsApi implements IClientAdapter {
             (e) => ClientModel.fromMap(e),
           )
           .toList();
+    } on ApiException catch (e) {
+      throw ApiException(error: e.toString());
     } catch (e) {
       throw ApiException(error: 'Erro ao obter lista de clientes');
     }

@@ -6,59 +6,54 @@ import 'package:get/route_manager.dart';
 import '../../../features/login/login_biding.dart';
 import '../../../features/login/ui/page/login_page.dart';
 import '../protocols/i_http_external.dart';
-import '../protocols/i_logged_user.dart';
 
 class DioDriver implements IHttp {
   final Dio dio;
-  final ILoggedUser iLoggedUser;
+
+  final Iterable<Interceptor>? interceptors;
 
   DioDriver({
     required this.dio,
-    required this.iLoggedUser,
-  });
-
-  @override
-  Future<HttpResponse> deleteHttp(String? url,
-      {Map<String, String>? headers}) async {
-    return mackObj(
-        await dio.delete(url!, options: await buildOptions(headers)));
-  }
-
-  @override
-  Future<HttpResponse> getHttp(String? url,
-      {Map<String, String>? headers}) async {
-    return mackObj(await dio.get(url!, options: await buildOptions(headers)));
-  }
-
-  @override
-  Future<HttpResponse> postHttp(String? url,
-      {Map<String, String>? headers, body}) async {
-    return mackObj(
-        await dio.post(url!, data: body, options: await buildOptions(headers)));
-  }
-
-  @override
-  Future<HttpResponse> putHttp(String? url,
-      {Map<String, String>? headers, body}) async {
-    return mackObj(await dio.put(url!, options: await buildOptions(headers)));
-  }
-
-  Future<Options> buildOptions(Map<String, String>? headersParam) async {
-    String token;
-
-    try {
-      token = await iLoggedUser.token;
-    } catch (e) {
-      token = '';
+    this.interceptors,
+  }) {
+    if (interceptors != null) {
+      dio.interceptors.addAll(interceptors!);
     }
+  }
 
-    var headers = {'x-access-token': token};
+  @override
+  Future<HttpResponse> deleteHttp(
+    String? url, {
+    Map<String, String>? headers,
+  }) async {
+    return mackObj(await dio.delete(url!, options: Options(headers: headers)));
+  }
 
-    if (headersParam != null) {
-      headers.addAll(headersParam);
-    }
+  @override
+  Future<HttpResponse> getHttp(
+    String? url, {
+    Map<String, String>? headers,
+  }) async {
+    return mackObj(await dio.get(url!, options: Options(headers: headers)));
+  }
 
-    return Options(headers: headers);
+  @override
+  Future<HttpResponse> postHttp(
+    String? url, {
+    Map<String, String>? headers,
+    body,
+  }) async {
+    return mackObj(
+        await dio.post(url!, data: body, options: Options(headers: headers)));
+  }
+
+  @override
+  Future<HttpResponse> putHttp(
+    String? url, {
+    Map<String, String>? headers,
+    body,
+  }) async {
+    return mackObj(await dio.put(url!, options: Options(headers: headers)));
   }
 
   Future<void> logautWhenUnautorized(DioError e) async {
@@ -66,6 +61,11 @@ class DioDriver implements IHttp {
       await Get.offAll(LoginPage(), binding: LoginBiding());
     }
   }
+
+  static Map<String, dynamic> bodyExtract(HttpResponse res) =>
+      jsonDecode(res.body!) as Map<String, dynamic>;
+
+  static List listExtract(HttpResponse res) => jsonDecode(res.body!) as List;
 
   HttpResponse mackObj(Response response) {
     return HttpResponse(
