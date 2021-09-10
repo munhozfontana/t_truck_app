@@ -81,7 +81,10 @@ class AppBackground extends StatelessWidget {
         ),
         // Rectangle 15
         GestureDetector(
-          onTap: () => Get.to(ChatComponent()),
+          onTap: () {
+            Get.find<ChatController>().getInitialData();
+            Get.to(ChatComponent());
+          },
           child: Obx(() => Container(
                 width: 107.27838134765625,
                 height: 34.2634391784668,
