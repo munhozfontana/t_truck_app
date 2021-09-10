@@ -44,8 +44,9 @@ class DevolutionApi implements IDevolutionExternal {
   Future<void> save(List<DevolutionModel> listDevolution) async {
     try {
       listDevolution.forEach((element) async {
-        await iHttp.postHttp('${env['URL_BASE']}/devolution',
-            body: element.toJson());
+        print(element.toJson());
+        // await iHttp.postHttp('${env['URL_BASE']}/devolution',
+        //     body: element.toJson());
       });
     } catch (e) {
       throw ApiException(error: ApiMensages.GENERIC_ERROR);

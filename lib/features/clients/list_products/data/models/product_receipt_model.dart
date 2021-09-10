@@ -121,6 +121,7 @@ class ProductReceiptModel extends ProductModel {
     int? maxQuantity,
     int? quantity,
     bool? show,
+    int? codUsur,
   }) {
     return ProductReceiptModel(
       codCob: codCob ?? this.codCob,

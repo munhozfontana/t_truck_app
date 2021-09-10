@@ -45,6 +45,7 @@ class ProductModel extends ProductEntity {
     int? maxQuantity,
     int? quantity,
     bool? show,
+    int? codUsur,
   }) {
     return ProductModel(
       codProd: codProd ?? this.codProd,
@@ -53,6 +54,7 @@ class ProductModel extends ProductEntity {
       name: name ?? super.name,
       quantity: quantity ?? super.quantity,
       show: show ?? super.show,
+      codUsur: codUsur ?? this.codUsur,
     );
   }
 }
