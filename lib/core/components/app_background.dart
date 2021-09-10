@@ -54,7 +54,7 @@ class AppBackground extends StatelessWidget {
       Get.find<ILoggedUser>().logout();
       await Get.offAll(() => LoginPage(), binding: LoginBiding());
     } else {
-      await Get.off(() => ListClientPage(), binding: ListClientBiding());
+      await Get.offAll(() => ListClientPage(), binding: ListClientBiding());
     }
   }
 

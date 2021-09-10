@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/utils/styles_fonts.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/btn/btn_voltar.dart';
@@ -23,45 +24,65 @@ class ListProductsPage extends GetWidget<ListProductsController> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormField(
-                    onChanged: controller.filterNumTransvendaChanged,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search_rounded,
-                        color: Color(0xff090e32).withOpacity(0.4),
+                  Obx(() {
+                    return Visibility(
+                      visible: !controller.blockField.value,
+                      replacement: Center(
+                        child: Text(
+                          controller
+                              .clientModel.value.produtos.first.numTransVenda
+                              .toString(),
+                          style: StylesTypography.h18wBold,
+                        ),
                       ),
-                      suffixIcon: Icon(
-                        Icons.photo_camera_outlined,
-                        color: Color(0xff090e32).withOpacity(0.4),
+                      child: TextFormField(
+                        readOnly: controller.blockField.value,
+                        onChanged: controller.filterNumTransvendaChanged,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search_rounded,
+                            color: Color(0xff090e32).withOpacity(0.4),
+                          ),
+                          suffixIcon: Icon(
+                            Icons.photo_camera_outlined,
+                            color: Color(0xff090e32).withOpacity(0.4),
+                          ),
+                          hintStyle: TextStyle(
+                              color: Color(0xff000000).withOpacity(0.4),
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Poppins',
+                              fontStyle: FontStyle.italic,
+                              fontSize: 16.0),
+                          hintText: 'Número Trans Venda...',
+                        ),
                       ),
-                      hintStyle: TextStyle(
-                          color: Color(0xff000000).withOpacity(0.4),
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Poppins',
-                          fontStyle: FontStyle.italic,
-                          fontSize: 16.0),
-                      hintText: 'Número Trans Venda...',
-                    ),
-                  ),
+                    );
+                  }),
                   Spacer(
                     flex: 6,
                   ),
-                  TextFormField(
-                    onChanged: controller.filterNameChanged,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search_rounded,
-                        color: Color(0xff090e32).withOpacity(0.4),
+                  Obx(() {
+                    return Visibility(
+                      visible: !controller.blockField.value,
+                      child: TextFormField(
+                        readOnly: controller.blockField.value,
+                        onChanged: controller.filterNameChanged,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search_rounded,
+                            color: Color(0xff090e32).withOpacity(0.4),
+                          ),
+                          hintStyle: TextStyle(
+                              color: Color(0xff000000).withOpacity(0.4),
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Poppins',
+                              fontStyle: FontStyle.italic,
+                              fontSize: 16.0),
+                          hintText: 'Nome do produto...',
+                        ),
                       ),
-                      hintStyle: TextStyle(
-                          color: Color(0xff000000).withOpacity(0.4),
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Poppins',
-                          fontStyle: FontStyle.italic,
-                          fontSize: 16.0),
-                      hintText: 'Nome do produto...',
-                    ),
-                  ),
+                    );
+                  }),
                   Spacer(
                     flex: 6,
                   ),
@@ -80,11 +101,12 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                   Spacer(
                     flex: 6,
                   ),
-                  Container(
-                    height: constraints.maxHeight * .60,
-                    child: GetX<ListProductsController>(
-                      builder: (_) {
-                        return ListView.separated(
+                  GetX<ListProductsController>(
+                    builder: (_) {
+                      return Container(
+                        height: constraints.maxHeight *
+                            (controller.blockField.value ? .75 : .60),
+                        child: ListView.separated(
                           separatorBuilder: (a, b) => SizedBox(height: 0),
                           itemCount: _.clientModel.value.produtos.length + 1,
                           itemBuilder: (context, index) {
@@ -94,9 +116,9 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                             return comumItem(
                                 _.clientModel.value.produtos[index]);
                           },
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   )
                 ],
               );

@@ -14,6 +14,8 @@ class ListProductsController extends GetxController with BaseController {
   RxString numTransVendaFeild = ''.obs;
   RxString nameFeild = ''.obs;
 
+  RxBool blockField = false.obs;
+
   void filterNumTransvendaChanged(String value) {
     numTransVendaFeild.value = value;
     numTransVendaFeild.refresh();
@@ -114,8 +116,23 @@ class ListProductsController extends GetxController with BaseController {
       }).toList());
     }
 
-    filterComposer();
-    clientModel.refresh();
+    if (clientModel.value.produtos.every((element) =>
+        element.numTransVenda ==
+        clientModel.value.produtos.last.numTransVenda)) {
+      clientModel.value.copyWith(
+        produtos: clientModel.value.produtos.map((e) {
+          e.show = true;
+          return e;
+        }).toList(),
+      );
+      blockField.value = true;
+      clientModel.refresh();
+    } else {
+      blockField.value = false;
+      clientModel.refresh();
+      filterComposer();
+    }
+
     super.onInit();
   }
 }
