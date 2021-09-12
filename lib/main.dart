@@ -24,7 +24,7 @@ import 'injection_container.dart';
 
 void main() async {
   await dont_env.load(fileName: '.env');
-  await SystemChrome.setEnabledSystemUIOverlays([]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   var packageInfo;
 
   if (!Platform.isWindows) {
@@ -36,8 +36,6 @@ void main() async {
     theme: ThemeData(
       brightness: Brightness.light,
       primaryColor: Color(0xff090f31),
-      accentColor: Color(0xff4f5262),
-      buttonColor: Color(0xff090f31),
       disabledColor: Colors.red,
       inputDecorationTheme: GlobalStyle.inputDecoration(),
       textTheme: TextTheme(
@@ -48,6 +46,8 @@ void main() async {
         headline5: GlobalStyle.h4_w500,
         headline6: GlobalStyle.h4_w500_tertiary,
       ),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff4f5262)),
     ),
     initialBinding: MainBiding(),
     initialRoute: '/',
