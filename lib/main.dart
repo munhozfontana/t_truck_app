@@ -47,8 +47,14 @@ void main() async {
         headline5: GlobalStyle.h4_w500,
         headline6: GlobalStyle.h4_w500_tertiary,
       ),
-      colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff4f5262)),
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        primary: Color(0xff4f5262),
+        primaryVariant: Color(0xff4f5262),
+        secondary: Color(0xff090f31),
+        secondaryVariant: Color(0xff090f31),
+        onPrimary: Color(0xff4f5262),
+        onSecondary: Color(0xff090f31),
+      ),
     ),
     initialBinding: MainBiding(),
     initialRoute: '/',

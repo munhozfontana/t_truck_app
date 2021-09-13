@@ -29,8 +29,11 @@ class BtnPrimary extends StatelessWidget {
                 outline
                     ? Colors.white
                     : (!GetUtils.isNull(onPressed)
-                        ? Get.theme.buttonColor
-                        : Get.theme.buttonColor.withOpacity(0.5)),
+                        ? Theme.of(context).colorScheme.secondary
+                        : Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(0.5)),
               ),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(

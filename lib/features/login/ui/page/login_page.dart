@@ -76,7 +76,7 @@ class LoginPage extends GetWidget<LoginController> {
                           Spacer(flex: 39),
                           LembrarAcesso(),
                           Spacer(flex: 78),
-                          btnEntrar(constraints),
+                          btnEntrar(constraints, context),
                           Spacer(flex: 39),
                           EsqueciCodigo(
                             constraints: constraints,
@@ -118,7 +118,7 @@ class LoginPage extends GetWidget<LoginController> {
     );
   }
 
-  ConstrainedBox btnEntrar(BoxConstraints constraints) {
+  ConstrainedBox btnEntrar(BoxConstraints constraints, BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints.tightFor(
         width: constraints.maxWidth,
@@ -127,7 +127,7 @@ class LoginPage extends GetWidget<LoginController> {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-            Get.theme.buttonColor,
+            Theme.of(context).colorScheme.secondary,
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
