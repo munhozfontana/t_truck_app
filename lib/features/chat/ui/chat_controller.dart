@@ -179,7 +179,10 @@ class ChatController extends GetxController {
   }
 
   void openTab() => visibleChatTalkComponent.value = true;
-  void openChat() => chat.value = true;
+  void openChat() => {
+        getInitialData(),
+        chat.value = true,
+      };
   void closeChat() => chat.value = false;
 
   final boxDecoration = const BoxDecoration(

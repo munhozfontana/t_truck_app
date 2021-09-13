@@ -84,51 +84,53 @@ class AppBackground extends StatelessWidget {
     );
   }
 
-  GestureDetector chatNotificationCall() {
+  Widget chatNotificationCall() {
     final chatController = Get.find<ChatController>();
 
-    return GestureDetector(
-      onTap: () {
-        return chatController.openChat();
-      },
-      child: Obx(() => Container(
-            width: 107.27838134765625,
-            height: 34.2634391784668,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              border: Border.all(color: const Color(0xff080e31), width: 1),
-              color: chatController.anyNotification.isTrue
-                  ? Colors.red
-                  : Colors.transparent,
-            ),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return Row(
-                  children: [
-                    Container(
-                      width: constraints.maxWidth * .5,
-                      child: // Ajuda
-                          Text(
-                        'Chat',
-                        style: const TextStyle(
-                            color: Color(0xff090f31),
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
-                            fontStyle: FontStyle.normal,
-                            fontSize: 16.0),
-                        textAlign: TextAlign.right,
-                      ),
+    return Obx(() {
+      return GestureDetector(
+        onTap: () {
+          return chatController.openChat();
+        },
+        child: Container(
+          width: 107.27838134765625,
+          height: 34.2634391784668,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            border: Border.all(color: const Color(0xff080e31), width: 1),
+            color: chatController.anyNotification.isTrue
+                ? Colors.red
+                : Colors.transparent,
+          ),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Row(
+                children: [
+                  Container(
+                    width: constraints.maxWidth * .5,
+                    child: // Ajuda
+                        Text(
+                      'Chat',
+                      style: const TextStyle(
+                          color: Color(0xff090f31),
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins',
+                          fontStyle: FontStyle.normal,
+                          fontSize: 16.0),
+                      textAlign: TextAlign.right,
                     ),
-                    Container(
-                      width: constraints.maxWidth * .5,
-                      child: Icon(Icons.chat_outlined),
-                    )
-                  ],
-                );
-              },
-            ),
-          )),
-    );
+                  ),
+                  Container(
+                    width: constraints.maxWidth * .5,
+                    child: Icon(Icons.chat_outlined),
+                  )
+                ],
+              );
+            },
+          ),
+        ),
+      );
+    });
   }
 
   Column isInitial() {
