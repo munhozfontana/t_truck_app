@@ -36,6 +36,11 @@ class ListProductsController extends GetxController with BaseController {
 
       var nameFinded = element.name.isCaseInsensitiveContains(nameFeild.value);
 
+      if (blockField.isFalse && nameFeild.isEmpty) {
+        element.show = true;
+        return element;
+      }
+
       if (transacaoFinded && nameFeild.isEmpty) {
         element.show = true;
       } else if (nameFeild.isNotEmpty && nameFinded) {
@@ -116,21 +121,22 @@ class ListProductsController extends GetxController with BaseController {
       }).toList());
     }
 
-    if (clientModel.value.produtos.every((element) =>
-        element.numTransVenda ==
-        clientModel.value.produtos.last.numTransVenda)) {
+    var someCod = clientModel.value.produtos.every((element) =>
+        element.numTransVenda == clientModel.value.produtos.last.numTransVenda);
+
+    if (someCod) {
+      blockField.value = true;
+      clientModel.refresh();
+      filterComposer();
+    } else {
+      blockField.value = false;
       clientModel.value.copyWith(
         produtos: clientModel.value.produtos.map((e) {
           e.show = true;
           return e;
         }).toList(),
       );
-      blockField.value = true;
       clientModel.refresh();
-    } else {
-      blockField.value = false;
-      clientModel.refresh();
-      filterComposer();
     }
 
     super.onInit();

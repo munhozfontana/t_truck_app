@@ -26,7 +26,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                 children: [
                   Obx(() {
                     return Visibility(
-                      visible: !controller.blockField.value,
+                      visible: controller.blockField.value,
                       replacement: Center(
                         child: Text(
                           controller
@@ -36,7 +36,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                         ),
                       ),
                       child: TextFormField(
-                        readOnly: controller.blockField.value,
+                        readOnly: !controller.blockField.value,
                         onChanged: controller.filterNumTransvendaChanged,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -61,28 +61,25 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                   Spacer(
                     flex: 6,
                   ),
-                  Obx(() {
-                    return Visibility(
-                      visible: !controller.blockField.value,
-                      child: TextFormField(
-                        readOnly: controller.blockField.value,
-                        onChanged: controller.filterNameChanged,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search_rounded,
-                            color: Color(0xff090e32).withOpacity(0.4),
-                          ),
-                          hintStyle: TextStyle(
-                              color: Color(0xff000000).withOpacity(0.4),
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                              fontStyle: FontStyle.italic,
-                              fontSize: 16.0),
-                          hintText: 'Nome do produto...',
+                  Visibility(
+                    visible: true,
+                    child: TextFormField(
+                      onChanged: controller.filterNameChanged,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search_rounded,
+                          color: Color(0xff090e32).withOpacity(0.4),
                         ),
+                        hintStyle: TextStyle(
+                            color: Color(0xff000000).withOpacity(0.4),
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Poppins',
+                            fontStyle: FontStyle.italic,
+                            fontSize: 16.0),
+                        hintText: 'Nome do produto...',
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                   Spacer(
                     flex: 6,
                   ),
@@ -105,7 +102,7 @@ class ListProductsPage extends GetWidget<ListProductsController> {
                     builder: (_) {
                       return Container(
                         height: constraints.maxHeight *
-                            (controller.blockField.value ? .75 : .60),
+                            (!controller.blockField.value ? .70 : .60),
                         child: ListView.separated(
                           separatorBuilder: (a, b) => SizedBox(height: 0),
                           itemCount: _.clientModel.value.produtos.length + 1,
