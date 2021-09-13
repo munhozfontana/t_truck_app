@@ -23,6 +23,7 @@ class ChatController extends GetxController {
   late List<ChatPerson> listChatMessage = <ChatPerson>[];
   RxList<ChatPerson> listChatMessageFiltred = <ChatPerson>[].obs;
   RxBool visibleChatTalkComponent = false.obs;
+  RxBool chat = false.obs;
   RxBool anyNotification = false.obs;
   RxInt login = 0.obs;
   RxString loginMaybeEmpty = ''.obs;
@@ -38,8 +39,7 @@ class ChatController extends GetxController {
   TextEditingController trucksField = TextEditingController();
 
   Rx<ChatPerson> selectChat = ChatPerson(
-    notifications: 0,
-    avatar: Text(''),
+    avatar: const Text(''),
     name: '',
     codPerson: '',
     messages: [],
@@ -171,14 +171,16 @@ class ChatController extends GetxController {
     visibleChatTalkComponent.value = false;
     selectChat = ChatPerson(
       notifications: 0,
-      avatar: Text(""),
-      name: "",
-      codPerson: "",
+      avatar: Text(''),
+      name: '',
+      codPerson: '',
       messages: [],
     ).obs;
   }
 
   void openTab() => visibleChatTalkComponent.value = true;
+  void openChat() => chat.value = true;
+  void closeChat() => chat.value = false;
 
   final boxDecoration = const BoxDecoration(
     color: Colors.white,

@@ -7,6 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as dont_env;
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:t_truck_app/features/chat/ui/chat_component.dart';
+import 'package:t_truck_app/features/chat/ui/chat_controller.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -51,6 +52,19 @@ void main() async {
     ),
     initialBinding: MainBiding(),
     initialRoute: '/',
+    builder: (context, child) {
+      return Stack(
+        children: [
+          child!,
+          Obx(
+            () => Visibility(
+              visible: Get.find<ChatController>().chat.value,
+              child: ChatComponent(),
+            ),
+          ),
+        ],
+      );
+    },
     getPages: [
       GetPage(
         name: '/',

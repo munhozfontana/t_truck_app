@@ -20,7 +20,7 @@ class ChatComponent extends GetWidget<ChatController> {
                   ChatUserComponent(
                     onSelect: controller.onSelect,
                     onClose: () {
-                      Get.back();
+                      controller.closeChat();
                     },
                     width: 300,
                     height: controller.minHeight.value,
