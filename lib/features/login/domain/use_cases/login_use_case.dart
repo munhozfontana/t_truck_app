@@ -33,8 +33,12 @@ class LoginUseCase implements UseCaseAsync<Type, Params> {
 
     var res = iLoginRepository.login(params.credential!);
 
-    var token = (await res).fold((l) => null, (r) => r);
-    await iLocalStoreExternal.save('token', token);
+    await (await res).fold(
+      (l) => null,
+      (r) async {
+        await iLocalStoreExternal.save('token', r);
+      },
+    );
     return res;
   }
 }

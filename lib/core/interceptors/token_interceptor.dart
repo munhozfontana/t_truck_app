@@ -13,6 +13,12 @@ class TokenInterceptor implements IProtocolInterceptor {
   @override
   InterceptorsWrapper call() {
     return InterceptorsWrapper(onRequest: (options, handler) async {
+      if (Get.currentRoute == '/') {
+        return handler.next(options);
+      }
+      if (Get.currentRoute.contains('LoginPage')) {
+        return handler.next(options);
+      }
       try {
         final token = await iLoggedUserl.token;
         if (token.isBlank ?? false || await iLoggedUserl.loginExpired()) {

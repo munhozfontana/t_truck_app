@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/chat/domain/entities/chat_message_entity.dart';
@@ -20,7 +21,7 @@ class ChatController extends GetxController {
 
   // Variables
   Rx<ScrollController> listViewConMessages = ScrollController().obs;
-  late List<ChatPerson> listChatMessage = <ChatPerson>[];
+  RxList<ChatPerson> listChatMessage = <ChatPerson>[].obs;
   RxList<ChatPerson> listChatMessageFiltred = <ChatPerson>[].obs;
   RxBool visibleChatTalkComponent = false.obs;
   RxBool chat = false.obs;
@@ -48,7 +49,8 @@ class ChatController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getInitialData();
+
+    getInitialData().then((_) => onReceiveMessage());
     listChatMessageFiltred.listen((listChatMessageListen) {
       if (listChatMessageListen
           .where((item) => item.notifications > 0)
@@ -65,25 +67,37 @@ class ChatController extends GetxController {
           return item.name.isCaseInsensitiveContainsAny(trucksFieldClean) ||
               item.codPerson.isCaseInsensitiveContainsAny(trucksFieldClean);
         }).toList();
-        listChatMessageFiltred.refresh();
       } else {
         listChatMessageFiltred.value = listChatMessage;
-        listChatMessageFiltred.refresh();
       }
+      listChatMessageFiltred.refresh();
     });
   }
 
   Future<void> getInitialData() async {
     loginMaybeEmpty.value = await iLoggedUser.login;
-    onReceiveMessage();
     if (loginMaybeEmpty.isNotEmpty) {
       login.value = int.parse(loginMaybeEmpty.value);
       (await iListChatPeopleCase(Params(idUser: loginMaybeEmpty.value))).fold(
         (l) => null,
-        (r) => {
-          listChatMessage = r,
-          listChatMessageFiltred.value = r,
-          listChatMessageFiltred.refresh(),
+        (r) {
+          if (listChatMessage.isEmpty) {
+            listChatMessage.addAll(r);
+            listChatMessageFiltred.addAll(r);
+            listChatMessageFiltred.refresh();
+          } else {
+            var newList = r
+                .where((element) => !listChatMessage.any(
+                      (itemChat) => itemChat.codPerson == element.codPerson,
+                    ))
+                .toList();
+
+            if (newList.isNotEmpty) {
+              listChatMessage.addAll(newList);
+              listChatMessageFiltred.addAll(newList);
+              listChatMessageFiltred.refresh();
+            }
+          }
         },
       );
     }
@@ -133,6 +147,8 @@ class ChatController extends GetxController {
             }
             return e;
           }).toList();
+          orderByNotification();
+          listChatMessage.refresh();
           listChatMessageFiltred.refresh();
           update();
           selectChat.refresh();
@@ -142,11 +158,29 @@ class ChatController extends GetxController {
     );
   }
 
+  void orderByNotification() {
+    listChatMessage.sort((a, b) => b.notifications.compareTo(a.notifications));
+    listChatMessageFiltred
+        .sort((a, b) => b.notifications.compareTo(a.notifications));
+  }
+
 // --------------------------
 
   void onSelect(int index) {
-    listChatMessage[index] = listChatMessage[index].copyWith(notifications: 0);
+    listChatMessage.value = listChatMessage.map((element) {
+      if (element.codPerson == listChatMessageFiltred[index].codPerson) {
+        return element.copyWith(notifications: 0);
+      }
+      return element;
+    }).toList();
+
+    listChatMessageFiltred[index] = listChatMessageFiltred[index].copyWith(
+      notifications: 0,
+    );
+
     selectChat.value = listChatMessageFiltred[index];
+
+    listChatMessage.refresh();
     listChatMessageFiltred.refresh();
     update();
     openTab();
@@ -170,7 +204,6 @@ class ChatController extends GetxController {
   void closeTab() {
     visibleChatTalkComponent.value = false;
     selectChat = ChatPerson(
-      notifications: 0,
       avatar: Text(''),
       name: '',
       codPerson: '',
@@ -185,8 +218,20 @@ class ChatController extends GetxController {
       };
   void closeChat() => chat.value = false;
 
+  // Styles
+  final edgeInsets = const EdgeInsets.only(
+    top: 14,
+    left: 16,
+    right: 16,
+    bottom: 14,
+  );
+
   final boxDecoration = const BoxDecoration(
     color: Colors.white,
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(22),
+      topRight: Radius.circular(22),
+    ),
   );
 
   final RxDouble maxHeight = (330 * 1.4).obs;

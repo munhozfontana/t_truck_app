@@ -31,8 +31,15 @@ class LoginController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    loginIfHasToken();
+    await redirectWhenLoginNotExpired();
     super.onInit();
+  }
+
+  Future<void> redirectWhenLoginNotExpired() async {
+    if (!(await iLoggedUser.loginExpired())) {
+      tryGet();
+      await Get.to(() => ListClientPage(), binding: ListClientBiding());
+    }
   }
 
   void auth() async {
@@ -56,20 +63,12 @@ class LoginController extends GetxController with BaseController {
                   (l) => AppUtils.error(
                         menssagem: l.props.first.toString(),
                       ),
-                  (r) => {tryGet(), toOrderPage()}),
+                  (r) => {
+                        tryGet(),
+                        toOrderPage(),
+                      }),
             });
   }
-
-  void tryGet() {
-    try {
-      Get.find<ListClientController>().takeClients();
-    } catch (e) {
-      log('Bind não existente', error: e);
-    }
-  }
-
-  void toOrderPage() =>
-      Get.to(() => ListClientPage(), binding: ListClientBiding());
 
   void loginIfHasToken() {
     changeLoading(Loading.START);
@@ -77,9 +76,21 @@ class LoginController extends GetxController with BaseController {
     expired.then((value) {
       if (!value) {
         changeLoading(Loading.STOP);
+        tryGet();
         toOrderPage();
       }
       changeLoading(Loading.STOP);
     });
+  }
+
+  void toOrderPage() =>
+      Get.to(() => ListClientPage(), binding: ListClientBiding());
+
+  void tryGet() {
+    try {
+      Get.find<ListClientController>().takeClients();
+    } catch (e) {
+      log('Bind não existente', error: e);
+    }
   }
 }
