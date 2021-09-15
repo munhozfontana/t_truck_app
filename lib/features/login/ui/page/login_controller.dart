@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/global_store/global_store_controller.dart';
 import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_controller.dart';
 
 import '../../../../core/adapters/protocols/i_logged_user.dart';
@@ -38,6 +39,7 @@ class LoginController extends GetxController with BaseController {
   Future<void> redirectWhenLoginNotExpired() async {
     if (!(await iLoggedUser.loginExpired())) {
       tryGet();
+      Get.find<GlobalStoreController>().user.value = await iLoggedUser.login;
       await Get.to(() => ListClientPage(), binding: ListClientBiding());
     }
   }
@@ -64,6 +66,8 @@ class LoginController extends GetxController with BaseController {
                         menssagem: l.props.first.toString(),
                       ),
                   (r) => {
+                        Get.find<GlobalStoreController>().user.value =
+                            loginField.value.text.trim(),
                         tryGet(),
                         toOrderPage(),
                       }),

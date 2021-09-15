@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/global_store/global_store_bindings.dart';
 import 'package:t_truck_app/core/interceptors/app_interceptor.dart';
 import 'package:t_truck_app/features/chat/ui/chat_biding.dart';
-import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
 import 'package:t_truck_app/features/geolocation/geolocation_biding.dart';
 
 import 'core/adapters/drivers/dio_driver.dart';
@@ -51,7 +51,8 @@ class MainBiding extends Bindings {
 
     TokenBiding().dependencies();
     GeolocationBiding().dependencies();
-    ListClientBiding().dependencies();
+    // ListClientBiding().dependencies();
+    GlobalStoreBindings().dependencies();
     ChatBiding().dependencies();
   }
 }

@@ -24,6 +24,7 @@ class ChatMessageExternal implements IChatMessageExternal {
 
   @override
   Stream<ChatMessage> onReceiveMessage(String idUser) {
+    socket.clearListeners();
     try {
       socket.on(
         'message-$idUser',

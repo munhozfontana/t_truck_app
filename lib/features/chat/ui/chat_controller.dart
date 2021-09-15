@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:t_truck_app/core/adapters/protocols/i_logged_user.dart';
+import 'package:t_truck_app/core/global_store/global_store_controller.dart';
 import 'package:t_truck_app/core/params/params.dart';
 import 'package:t_truck_app/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:t_truck_app/features/chat/domain/entities/chat_person_entity.dart';
@@ -26,8 +27,8 @@ class ChatController extends GetxController {
   RxBool visibleChatTalkComponent = false.obs;
   RxBool chat = false.obs;
   RxBool anyNotification = false.obs;
-  RxInt login = 0.obs;
-  RxString loginMaybeEmpty = ''.obs;
+
+  StreamSubscription? subScription;
 
   ChatController({
     required this.iSendChatMessageCase,
@@ -50,7 +51,7 @@ class ChatController extends GetxController {
   void onInit() {
     super.onInit();
 
-    getInitialData().then((_) => onReceiveMessage());
+    getInitialData();
     listChatMessageFiltred.listen((listChatMessageListen) {
       if (listChatMessageListen
           .where((item) => item.notifications > 0)
@@ -75,39 +76,37 @@ class ChatController extends GetxController {
   }
 
   Future<void> getInitialData() async {
-    loginMaybeEmpty.value = await iLoggedUser.login;
-    if (loginMaybeEmpty.isNotEmpty) {
-      login.value = int.parse(loginMaybeEmpty.value);
-      (await iListChatPeopleCase(Params(idUser: loginMaybeEmpty.value))).fold(
-        (l) => null,
-        (r) {
-          if (listChatMessage.isEmpty) {
-            listChatMessage.addAll(r);
-            listChatMessageFiltred.addAll(r);
-            listChatMessageFiltred.refresh();
-          } else {
-            var newList = r
-                .where((element) => !listChatMessage.any(
-                      (itemChat) => itemChat.codPerson == element.codPerson,
-                    ))
-                .toList();
+    (await iListChatPeopleCase(
+            Params(idUser: Get.find<GlobalStoreController>().user.value)))
+        .fold(
+      (l) => null,
+      (r) {
+        if (listChatMessage.isEmpty) {
+          listChatMessage.addAll(r);
+          listChatMessageFiltred.addAll(r);
+          listChatMessageFiltred.refresh();
+        } else {
+          var newList = r
+              .where((element) => !listChatMessage.any(
+                    (itemChat) => itemChat.codPerson == element.codPerson,
+                  ))
+              .toList();
 
-            if (newList.isNotEmpty) {
-              listChatMessage.addAll(newList);
-              listChatMessageFiltred.addAll(newList);
-              listChatMessageFiltred.refresh();
-            }
+          if (newList.isNotEmpty) {
+            listChatMessage.addAll(newList);
+            listChatMessageFiltred.addAll(newList);
+            listChatMessageFiltred.refresh();
           }
-        },
-      );
-    }
+        }
+      },
+    );
   }
 
 // --------------------------
   Future<void> onSendMessage() async {
     final chatMessage = ChatMessage(
       content: textSendMessage.text,
-      codFrom: login.value,
+      codFrom: int.parse(Get.find<GlobalStoreController>().user.value),
       codTo: int.parse(selectChat.value.codPerson),
       createAt: DateTime.now(),
     );
@@ -134,10 +133,15 @@ class ChatController extends GetxController {
   }
 
   void onReceiveMessage() {
-    iReceiveChatMessageCase(Params(idUser: loginMaybeEmpty.value)).fold(
+    iReceiveChatMessageCase(
+            Params(idUser: Get.find<GlobalStoreController>().user.value))
+        .fold(
       (l) => null,
-      (r) => {
-        r.listen((data) {
+      (r) async {
+        if (subScription != null) {
+          await subScription!.cancel();
+        }
+        subScription = r.listen((data) {
           listChatMessageFiltred.value = listChatMessage.map((e) {
             if (e.codPerson == data.codFrom.toString()) {
               e.messages.add(data);
@@ -153,7 +157,7 @@ class ChatController extends GetxController {
           update();
           selectChat.refresh();
           rowDown();
-        })
+        });
       },
     );
   }
@@ -188,7 +192,8 @@ class ChatController extends GetxController {
   }
 
   bool isUserTalk(int index) {
-    return selectChat.value.messages[index].codFrom == login.value;
+    return selectChat.value.messages[index].codFrom ==
+        int.parse(Get.find<GlobalStoreController>().user.value);
   }
 
   void rowDown() {

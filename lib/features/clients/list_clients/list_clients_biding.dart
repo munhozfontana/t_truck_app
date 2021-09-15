@@ -29,6 +29,6 @@ class ListClientBiding extends Bindings {
         ListClientController(
           clientsListUseCase: Get.find(),
         ),
-        permanent: true);
+        permanent: false);
   }
 }

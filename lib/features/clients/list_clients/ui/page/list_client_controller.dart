@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/features/chat/ui/chat_controller.dart';
 
 import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/base_controller.dart';
@@ -23,6 +24,10 @@ class ListClientController extends GetxController with BaseController {
     super.onReady();
     changeLoading(Loading.START);
     await takeClients();
+    Get.find<ChatController>()
+      // ignore: unawaited_futures
+      ..getInitialData()
+      ..onReceiveMessage();
     changeLoading(Loading.STOP);
   }
 
