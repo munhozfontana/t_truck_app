@@ -121,10 +121,9 @@ class ListProductsController extends GetxController with BaseController {
       }).toList());
     }
 
-    var someCod = clientModel.value.produtos.every((element) =>
-        element.numTransVenda == clientModel.value.produtos.last.numTransVenda);
+    print(clientModel.value.produtos);
 
-    if (someCod) {
+    if (clientModel.value.qtde > 1) {
       blockField.value = true;
       clientModel.refresh();
       filterComposer();
