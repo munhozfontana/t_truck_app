@@ -6,7 +6,13 @@ import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_pa
 
 class DevolutionFinishController extends GetxController with BaseController {
   void toListClients() {
-    Get.find<ListClientController>().takeClients();
+    try {
+      Get.find<ListClientController>().takeClients();
+    } catch (e) {
+      ListClientBiding().dependencies();
+      Get.find<ListClientController>().takeClients();
+    }
+
     Get.offAll(
       () => ListClientPage(),
       binding: ListClientBiding(),
