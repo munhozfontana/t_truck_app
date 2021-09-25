@@ -10,7 +10,9 @@ class ListClientBiding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<IClientAdapter>(
-      () => ClientsApi(iHttp: Get.find(), iLoggedUser: Get.find()),
+      () => ClientsApi(
+        iHttp: Get.find(),
+      ),
     );
 
     Get.lazyPut<IClientsRepository>(
