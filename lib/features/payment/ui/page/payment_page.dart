@@ -31,8 +31,9 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
+    controller.appLifecycleState.value = state;
     if (state == AppLifecycleState.resumed) {
-      print('resumed');
+      controller.loadAccessCielo.value = false;
       controller.savePayment();
     }
   }
@@ -56,12 +57,15 @@ class _PaymentPageState extends State<PaymentPage> with WidgetsBindingObserver {
                     )),
               ),
               Spacer(flex: 33),
-              BtnPrimary(
-                label: 'Cartão',
-                onPressed: controller.typePayment.value.isCreditCard
-                    ? () => controller.openPayment(FromPayment.CREDIT_CARD)
-                    : null,
-              ),
+              Obx(() => BtnPrimary(
+                    loading:
+                        Get.find<PaymentController>().loadAccessCielo.value,
+                    label: 'Cartão',
+                    onPressed: controller.typePayment.value.isCreditCard &&
+                            controller.loadAccessCielo.isFalse
+                        ? () => controller.openPayment(FromPayment.CREDIT_CARD)
+                        : null,
+                  )),
               Spacer(flex: 8),
               BtnPrimary(
                 label: 'Boleto',

@@ -5,12 +5,14 @@ class BtnPrimary extends StatelessWidget {
   final String label;
   final void Function()? onPressed;
   final bool outline;
+  final bool loading;
 
   const BtnPrimary({
     Key? key,
     required this.label,
     required this.onPressed,
     this.outline = false,
+    this.loading = false,
   }) : super(key: key);
 
   @override
@@ -41,17 +43,21 @@ class BtnPrimary extends StatelessWidget {
                 ),
               ),
             ),
-            child: Text(
-              label,
-              style: TextStyle(
-                letterSpacing: 1,
-                color: outline ? Get.theme.primaryColor : Color(0xffffffff),
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Poppins',
-                fontStyle: FontStyle.normal,
-                fontSize: 23.0,
+            child: Visibility(
+              visible: !loading,
+              replacement: CircularProgressIndicator(),
+              child: Text(
+                label,
+                style: TextStyle(
+                  letterSpacing: 1,
+                  color: outline ? Get.theme.primaryColor : Color(0xffffffff),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Poppins',
+                  fontStyle: FontStyle.normal,
+                  fontSize: 23.0,
+                ),
+                textAlign: TextAlign.left,
               ),
-              textAlign: TextAlign.left,
             ),
           ),
         );

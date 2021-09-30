@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:t_truck_app/core/utils/app_utils.dart';
@@ -24,6 +27,8 @@ class PaymentController extends GetxController with BaseController {
   Rx<TypePayment> typePayment = TypePayment().obs;
   Rx<TypeOccurrence> typeOccurrence = TypeOccurrence.NONE.obs;
   Rx<FromPayment> fromPayment = FromPayment.NONE.obs;
+  Rx<AppLifecycleState> appLifecycleState = AppLifecycleState.resumed.obs;
+  RxBool loadAccessCielo = false.obs;
 
   PaymentController({
     required this.identifyTypePaymentCase,
@@ -59,13 +64,26 @@ class PaymentController extends GetxController with BaseController {
       (l) => {AppUtils.error(menssagem: l.props.first.toString())},
       (r) => Get.to(() => TakePicturePage()),
     );
-    ;
   }
 
   void openPayment(FromPayment fp) async {
+    loadAccessCielo.value = true;
+    loadAccessCielo.refresh();
     fromPayment.value = fp;
     clientModelToCredit();
+
     await openPaymentUseCase(Params(clientModel: clientModel.value));
+
+    Timer(Duration(seconds: 60), () {
+      print(appLifecycleState.value);
+      if (appLifecycleState.value != AppLifecycleState.paused &&
+          loadAccessCielo.isTrue) {
+        loadAccessCielo.value = false;
+        AppUtils.error(
+            menssagem:
+                'Serviço da cielo indisponível no momento. Tente novamente');
+      }
+    });
   }
 
   void clientModelToCredit() {
