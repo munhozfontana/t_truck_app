@@ -17,9 +17,10 @@ class ProductReceiptModel extends ProductModel {
   final int valor;
   final String? idTransacao;
   final String conector;
-  final int codBandeira;
+  final String codBandeira;
   final String exportado;
   final String dataPagamento;
+  final String jsonCielo;
 
   ProductReceiptModel({
     int? codProd,
@@ -39,8 +40,9 @@ class ProductReceiptModel extends ProductModel {
     this.valor = 0,
     this.idTransacao,
     this.conector = 'CIELO',
-    this.codBandeira = 1,
+    this.codBandeira = '',
     this.exportado = 'N',
+    this.jsonCielo = '',
     required this.dataPagamento,
   }) : super(
           codProd: codProd ?? 0,
@@ -68,6 +70,8 @@ class ProductReceiptModel extends ProductModel {
             )
             .toString(),
         valor: payResponse.paidAmount ?? 0,
+        codBandeira: paymentField['brand'],
+        jsonCielo: jsonEncode(paymentField['paymentFields']),
       );
     }).toList();
   }
@@ -89,6 +93,7 @@ class ProductReceiptModel extends ProductModel {
       'conector': conector,
       'codbandeira': codBandeira,
       'exportado': exportado,
+      'json_cielo': jsonCielo,
     };
   }
 
@@ -112,7 +117,7 @@ class ProductReceiptModel extends ProductModel {
     int? valor,
     String? idTransacao,
     String? conector,
-    int? codBandeira,
+    String? codBandeira,
     String? exportado,
     String? dataPagamento,
     int? codProd,
@@ -122,6 +127,7 @@ class ProductReceiptModel extends ProductModel {
     int? quantity,
     bool? show,
     int? codUsur,
+    String? jsonCielo,
   }) {
     return ProductReceiptModel(
       codCob: codCob ?? this.codCob,
@@ -144,6 +150,7 @@ class ProductReceiptModel extends ProductModel {
       numTransVenda: numTransVenda ?? super.numTransVenda,
       quantity: quantity ?? super.quantity,
       show: show ?? super.show,
+      jsonCielo: jsonCielo ?? this.jsonCielo,
     );
   }
 }
