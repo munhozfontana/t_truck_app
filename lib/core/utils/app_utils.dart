@@ -41,4 +41,20 @@ class AppUtils {
       onCancel: onCancel,
     );
   }
+
+  static void diaologCancel({
+    String titulo = 'Alerta',
+    String menssagem = '',
+    VoidCallback? onCancel,
+  }) {
+    Get.defaultDialog(
+      title: titulo,
+      content: Text(
+        menssagem,
+        textAlign: TextAlign.justify,
+      ),
+      textCancel: 'Voltar',
+      onCancel: onCancel,
+    );
+  }
 }

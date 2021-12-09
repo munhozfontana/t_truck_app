@@ -13,8 +13,8 @@ class ClientDetailBiding extends Bindings {
       () => ProductApi(iHttp: Get.find()),
     );
 
-    Get.lazyPut<IProductRepository>(
-        () => ProductRepository(iProduct: Get.find()));
+    Get.lazyPut<IProductRepository>(() =>
+        ProductRepository(iProduct: Get.find(), iConnectivity: Get.find()));
 
     Get.lazyPut<ProductListUseCase>(
         () => ProductListUseCase(iProductRepository: Get.find()));

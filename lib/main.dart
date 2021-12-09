@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:t_truck_app/features/chat/ui/chat_component.dart';
 import 'package:t_truck_app/features/chat/ui/chat_controller.dart';
+import 'package:t_truck_app/features/clients/image_report/ui/page/image_report_page.dart';
+import 'package:t_truck_app/features/clients/image_report_detail/image_report_detail_page.dart';
 
 import 'core/utils/global_style.dart';
 import 'features/clients/camera/show_picture/ui/page/camera_show_picture_page.dart';
@@ -128,6 +130,14 @@ void main() async {
       GetPage(
         name: 'camera/show_picture',
         page: () => ShowPicture(),
+      ),
+      GetPage(
+        name: '/image_report',
+        page: () => ImageReportPage(),
+      ),
+      GetPage(
+        name: '/image_report/detail',
+        page: () => ImageReportDetailPage(),
       )
     ],
   ));

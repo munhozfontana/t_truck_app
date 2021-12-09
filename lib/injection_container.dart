@@ -1,5 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/adapters/drivers/connectivity_plus_driver.dart';
+import 'package:t_truck_app/core/adapters/protocols/i_connectivity_external.dart';
+import 'package:t_truck_app/core/components/app_drawer/app_drawer_bindings.dart';
 import 'package:t_truck_app/core/global_store/global_store_bindings.dart';
 import 'package:t_truck_app/core/interceptors/app_interceptor.dart';
 import 'package:t_truck_app/features/chat/ui/chat_biding.dart';
@@ -33,6 +37,13 @@ class MainBiding extends Bindings {
       permanent: true,
     );
 
+    Get.put<IConnectivity>(
+      ConnectivityPlusDirver(
+        connectivity: Connectivity(),
+      ),
+      permanent: true,
+    );
+
     Get.lazyPut(
       () => AppInterceptor(),
     );
@@ -51,8 +62,8 @@ class MainBiding extends Bindings {
 
     TokenBiding().dependencies();
     GeolocationBiding().dependencies();
-    // ListClientBiding().dependencies();
     GlobalStoreBindings().dependencies();
     ChatBiding().dependencies();
+    AppDrawerBindings().dependencies();
   }
 }

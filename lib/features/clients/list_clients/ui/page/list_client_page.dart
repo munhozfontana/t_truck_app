@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:t_truck_app/core/components/app_drawer/app_drawer.dart';
 
 import '../../../../../core/components/app_background.dart';
 import '../../../../../core/components/layout/default_form.dart';
@@ -13,6 +14,7 @@ class ListClientPage extends GetWidget<ListClientController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      drawer: AppDrawer(),
       body: Stack(
         children: [
           AppBackground(),
@@ -25,9 +27,10 @@ class ListClientPage extends GetWidget<ListClientController> {
               TextFormField(
                 onChanged: controller.filterChanged,
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search_rounded),
-                    hintText: 'Pequisar cliente...',
-                    hintStyle: Get.theme.textTheme.headline3),
+                  prefixIcon: Icon(Icons.search_rounded),
+                  hintText: 'Pequisar cliente...',
+                  hintStyle: Get.theme.textTheme.headline3,
+                ),
               ),
               Spacer(
                 flex: 035,
@@ -35,7 +38,9 @@ class ListClientPage extends GetWidget<ListClientController> {
               Opacity(
                 opacity: 0.5,
                 child: Obx(() => Text(
-                      '${controller.list.where((element) => element.show).length} clientes encontrados',
+                      '${controller.list.where(
+                            (element) => element.show,
+                          ).length} clientes encontrados',
                       style: Get.textTheme.headline6,
                       textAlign: TextAlign.left,
                     )),

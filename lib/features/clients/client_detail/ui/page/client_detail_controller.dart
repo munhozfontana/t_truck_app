@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/error/failures.dart';
+import 'package:t_truck_app/core/messages/api_mensages.dart';
+import 'package:t_truck_app/core/utils/app_utils.dart';
 
 import '../../../../../core/components/btn_occurrence.dart';
 import '../../../../../core/params/params.dart';
@@ -22,8 +25,16 @@ class ClientDetailController extends GetxController with BaseController {
   void onInit() async {
     changeLoading(Loading.START);
     ClientModel clientModelParam = Get.arguments;
+
     (await productListUseCase(Params(codCli: clientModelParam.codCli))).fold(
-      (l) => null,
+      (l) => {
+        if (l is ConectionFailure)
+          {
+            Get.back(),
+            AppUtils.diaologCancel(
+                menssagem: l.detail ?? ApiMensages.GENERIC_ERROR),
+          }
+      },
       (r) => {
         clientEntity = ClientModel(
                 name: clientModelParam.name,

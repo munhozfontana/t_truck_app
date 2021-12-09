@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:t_truck_app/core/components/app_drawer/app_drawer_controller.dart';
 import 'package:t_truck_app/features/chat/ui/chat_controller.dart';
 
 import '../../features/clients/list_clients/list_clients_biding.dart';
@@ -27,14 +28,14 @@ class AppBackground extends StatelessWidget {
           children: [
             backgroundGray(),
             backgroundDraw(),
-            details(constraints),
+            details(constraints, context),
           ],
         );
       },
     );
   }
 
-  Padding details(BoxConstraints constraints) {
+  Padding details(BoxConstraints constraints, BuildContext ctx) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: constraints.maxHeight * .038,
@@ -42,7 +43,7 @@ class AppBackground extends StatelessWidget {
       ),
       child: Visibility(
         visible: initialScreen,
-        replacement: isNotInitial(),
+        replacement: isNotInitial(ctx),
         child: isInitial(),
       ),
     );
@@ -52,12 +53,14 @@ class AppBackground extends StatelessWidget {
     if (Get.currentRoute.contains('ClientPage')) {
       Get.find<ILoggedUser>().logout();
       await Get.offAll(() => LoginPage(), binding: LoginBiding());
+    } else if (Get.currentRoute.contains('ImageReportDetailPage')) {
+      Get.back();
     } else {
       await Get.offAll(() => ListClientPage(), binding: ListClientBiding());
     }
   }
 
-  Widget isNotInitial() {
+  Widget isNotInitial(BuildContext ctx) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,13 +81,15 @@ class AppBackground extends StatelessWidget {
             ),
           ),
         ),
-        // Rectangle 15
-        chatNotificationCall(),
+        Spacer(flex: 5),
+        chatNotificationCall(ctx),
+        Spacer(flex: 1),
+        principalMenu(ctx),
       ],
     );
   }
 
-  Widget chatNotificationCall() {
+  Widget chatNotificationCall(BuildContext ctx) {
     final chatController = Get.find<ChatController>();
 
     return Obx(() {
@@ -93,8 +98,8 @@ class AppBackground extends StatelessWidget {
           return chatController.openChat();
         },
         child: Container(
-          width: 107.27838134765625,
-          height: 34.2634391784668,
+          width: 107,
+          height: 34,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             border: Border.all(color: const Color(0xff080e31), width: 1),
@@ -131,6 +136,33 @@ class AppBackground extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Widget principalMenu(BuildContext ctx) {
+    return GestureDetector(
+      onTap: () => Get.find<AppDrawerController>().openDrawer(ctx),
+      child: Container(
+        height: 34,
+        width: 77,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          border: Border.all(color: const Color(0xff080e31), width: 1),
+          color: Colors.transparent,
+        ),
+        child: Center(
+          child: Text(
+            'Menu',
+            style: const TextStyle(
+                color: Color(0xff090f31),
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Poppins',
+                fontStyle: FontStyle.normal,
+                fontSize: 16.0),
+            textAlign: TextAlign.right,
+          ),
+        ),
+      ),
+    );
   }
 
   Column isInitial() {

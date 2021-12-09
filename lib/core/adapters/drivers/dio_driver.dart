@@ -53,7 +53,11 @@ class DioDriver implements IHttp {
     Map<String, String>? headers,
     body,
   }) async {
-    return mackObj(await dio.put(url!, options: Options(headers: headers)));
+    return mackObj(await dio.put(
+      url!,
+      options: Options(headers: headers),
+      data: body,
+    ));
   }
 
   Future<void> logautWhenUnautorized(DioError e) async {
