@@ -8,7 +8,8 @@ import 'package:t_truck_app/core/components/btn/btn_primary.dart';
 import 'package:t_truck_app/core/components/btn/btn_voltar.dart';
 import 'package:t_truck_app/core/components/btn_occurrence.dart';
 import 'package:t_truck_app/core/components/layout/default_form.dart';
-import 'package:t_truck_app/features/clients/list_products/ui/page/list_products_page.dart';
+import 'package:t_truck_app/features/clients/list_clients/list_clients_biding.dart';
+import 'package:t_truck_app/features/clients/list_clients/ui/page/list_client_page.dart';
 
 import '../../../../../../core/components/app_background.dart';
 import '../../../../../../core/components/btn/btn_primary.dart';
@@ -77,9 +78,12 @@ class CameraShowComponent extends StatelessWidget {
               Spacer(flex: 14),
               BtnVoltar(
                   label: 'Voltar',
-                  onTap: () => Get.off(
-                        () => ListProductsPage(),
-                      )),
+                  onTap: () {
+                    Get.offAll(
+                      () => ListClientPage(),
+                      binding: ListClientBiding(),
+                    );
+                  }),
               Spacer(flex: 14),
             ],
           ),
