@@ -3,6 +3,8 @@ import 'dart:convert';
 import '../../domain/entites/devolution_entity.dart';
 
 class DevolutionModel extends DevolutionEntity {
+  final int? codMotivoDevolucao;
+
   DevolutionModel({
     required int codprod,
     required String qt,
@@ -12,6 +14,7 @@ class DevolutionModel extends DevolutionEntity {
     required String codmot,
     required String codusur,
     required String situacao,
+    this.codMotivoDevolucao,
   }) : super(
           codprod: codprod,
           qt: qt,
@@ -31,8 +34,9 @@ class DevolutionModel extends DevolutionEntity {
       'codcli': codcli,
       'numtransvenda': numtransvenda,
       'codmot': codmot,
-      'codusur':codusur,
+      'codusur': codusur,
       'situacao': situacao,
+      'coddevl': codMotivoDevolucao,
     };
   }
 

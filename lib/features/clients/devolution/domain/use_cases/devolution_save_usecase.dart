@@ -30,19 +30,19 @@ class DevolutionSaveUseCase implements UseCaseAsync<Type, Params> {
         .where((element) => element.quantity != 0)
         .map(
           (e) => DevolutionModel(
-            codprod: e.codProd,
-            qt: e.quantity.toString(),
-            data: DateFormat('dd/MM/yyyy HH:mm:ss')
-                .format(DateTime.now())
-                .toString(),
-            codcli: params.clientModel!.codCli,
-            numtransvenda: e.numTransVenda,
-            codmot: codMot,
-            codusur: params.clientModel!.produtos.first.codUsur.toString(),
-            situacao: params.typeOccurrence == TypeOccurrence.YELLOW
-                ? 'DEVP'
-                : 'DEVT',
-          ),
+              codprod: e.codProd,
+              qt: e.quantity.toString(),
+              data: DateFormat('dd/MM/yyyy HH:mm:ss')
+                  .format(DateTime.now())
+                  .toString(),
+              codcli: params.clientModel!.codCli,
+              numtransvenda: e.numTransVenda,
+              codmot: codMot,
+              codusur: params.clientModel!.produtos.first.codUsur.toString(),
+              situacao: params.typeOccurrence == TypeOccurrence.YELLOW
+                  ? 'DEVP'
+                  : 'DEVT',
+              codMotivoDevolucao: params.selected!.id!.toInt()),
         )
         .toList();
 
